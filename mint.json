@@ -163,6 +163,14 @@
             "apps-and-integrations/attio"
           ]
         },
+         {
+          "group": "Privacy and Compliance",
+          "icon": "lock",
+          "iconType": "solid",
+          "pages": [
+            "privacy-and-compliance/google-calendar-privacy",
+          ]
+        },
         {
           "group": "Developers",
           "icon": "terminal",
