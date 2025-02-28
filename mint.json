@@ -111,6 +111,7 @@
             "event-types/split-name",
             "event-types/sponsor",
             "event-types/timezone-lock",
+            "event-types/allow-rescheduling",
             "event-types/symbolic-issues"
           ]
         },
