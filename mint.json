@@ -110,6 +110,7 @@
             "event-types/single-use",
             "event-types/split-name",
             "event-types/sponsor",
+            "event-types/timezone-lock",
             "event-types/symbolic-issues"
           ]
         },
