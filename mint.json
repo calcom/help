@@ -177,7 +177,7 @@
           "group": "Developers",
           "icon": "terminal",
           "iconType": "solid",
-          "pages": ["apps-and-integrations/oauth", "apps-and-integrations/open-source", "webhooks"]
+          "pages": ["apps-and-integrations/oauth", "apps-and-integrations/open-source", "apps-and-integrations/webhooks"]
         }
       ]
     }
