@@ -120,6 +120,7 @@
           "icon": "magnifying-glass",
           "iconType": "solid",
           "pages": [
+            "availabilities/availability-dashboard-overview",
             "availabilities/date-overrides",
             "availabilities/multiple-schedules",
             "availabilities/multiple-slots"
