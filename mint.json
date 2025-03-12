@@ -121,6 +121,9 @@
           "iconType": "solid",
           "pages": [
             "availabilities/availability-dashboard-overview",
+            "availabilities/edit-availability",
+            "availabilities/team-availability",
+            "availabilities/add-new-availability",
             "availabilities/date-overrides",
             "availabilities/multiple-schedules",
             "availabilities/multiple-slots"
