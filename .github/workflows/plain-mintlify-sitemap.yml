@@ -18,6 +18,6 @@ jobs:
         run: npm install -g @team-plain/cli@latest
 
       - name: Index Documents
-        run: plain index-sitemap https://www.plain.com/docs/plain-ai/knowledge-sources --labelTypeIds lt_01G0EZ1XTM37C643SQTDNXR1
+        run: plain index-sitemap https://cal.com/help/sitemap.xml --labelTypeIds lt_01G0EZ1XTM37C643SQTDNXR1
         env:
           PLAIN_API_KEY: ${{ secrets.PLAIN_API_KEY }}
