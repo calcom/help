@@ -156,8 +156,8 @@
         },
         {
           "group": "Routing",
-          "icon": "play",
-          "iconType": "arrows-repeat",
+          "icon": "arrows-repeat",
+          "iconType": "solid",
           "pages": [
             "routing/routing-overview"
           ]
