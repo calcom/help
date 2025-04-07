@@ -1,0 +1,101 @@
+---
+title: 'Routing Overview'
+---
+# What is Routing in Cal.com?
+
+Routing in Cal.com is a powerful feature that helps individuals, teams, and organizations efficiently distribute meetings to the right event or team members based on predefined rules. Whether you need to balance workload, match leads with the right representatives, or ensure specialized team members handle specific cases, Routing allows you to optimize scheduling with precision and flexibility.
+
+---
+
+## Key Features of Cal.com Routing
+
+### 1. Attribute-Based Routing
+
+One of Cal.com’s standout capabilities is **Attributes**—a feature that allows organizations to tag users with specific attributes and use them in routing logic.
+
+**How It Works:**
+
+- Admins can define attributes such as `Country`, `Language`, `Department`, `Seniority Level`, etc.
+- When a booking request is made, routing logic filters the team members based on relevant attributes.
+- For example, if a client is looking for a representative in the USA, only users with the `country: USA` attribute will be considered.
+
+This reduces unnecessary scheduling conflicts and ensures meetings are routed to the most relevant team members.
+
+---
+
+### 2. Attribute Weights and Virtual Queues
+
+Instead of relying on the host's weight set within an event type, you can use **attribute weights**. This allows a host to have different weights for each assigned attribute value, providing greater flexibility in distribution. Using attribute weights also enables **virtual queues**, which help balance assigned bookings more effectively.
+
+**How It Works:**
+
+- Admins can enable weights on attributes and assign specific weights to team members based on their attributes.
+- If an attribute has weights set, it can be enabled and used on a routing form route.
+
+> **Note:** The event type used in the route must have weights enabled.
+
+#### What Are Virtual Queues?
+
+Virtual queues play an important role in distributing bookings within our **Round Robin** algorithm. Virtual queues are defined by the selected route and the attribute used for weighting on that route.
+
+**Example:**  
+If the `Country` attribute is used for weights and a client requests a representative in the USA, the Round Robin algorithm will only consider bookings that match both the same route and the USA attribute. Without virtual queues, all bookings from the event type would be counted, leading to less precise distribution.
+
+---
+
+### 3. Smart Fallback Routing
+
+Cal.com offers **fallback logic** to prevent scheduling failures when routing doesn’t return results. Instead of defaulting to a full team’s Round Robin, Cal.com allows fallback to a **subset of team members** that could be configured per route.
+
+**Use Case Example:**
+
+- If no team members match the requested attributes criteria, instead of loading the entire team’s calendar, fallback team members are used.
+
+---
+
+### 4. Routing via Salesforce
+
+Cal.com allows you to route prospects based on **Salesforce ownership**. Ownership is found via the prospect’s email.
+
+**How It Works:**
+
+- Routing can be based on ownership of the lead, contact, or an account that the prospect belongs to.
+- When routing to an account:
+  - You can also search against the website or email domains of other contacts under an account that match the prospect’s email domain.
+  - Routing can be based on the account ownership or a custom user lookup field under the account.
+
+---
+
+### 5. Headless Routing
+
+For seamless integrations, Cal.com allows any Routing Form to connect with external client forms. This enables organizations to dynamically forward data via URL parameters and let the Routing Form handle the decision-making process.
+
+**How It Works:**
+
+1. A client fills out a form on their website.
+2. The form’s responses (e.g., industry, country, urgency) are forwarded to a Cal.com Routing Form via URL parameters.
+3. The Routing Form processes the input and directs the user to the most appropriate booking flow.
+
+This method ensures a **frictionless scheduling experience** while keeping routing decisions centralized within Cal.com.
+
+---
+
+## Why Use Cal.com Routing?
+
+- **Precision Matching:** Ensure meetings are scheduled with the most relevant team member based on attributes.
+- **Fail-Safe Logic:** Prevent scheduling dead-ends by configuring fallbacks.
+- **Seamless Integration:** Link external forms with Cal.com’s routing logic via URL parameters.
+- **Scalable & Efficient:** Reduce calendar clutter and improve scheduling efficiency across teams.
+
+---
+
+## Getting Started with Routing
+
+1. **Define Routing Rules:** Set up rules based on attributes like location, role, or language.
+2. **Configure Fallbacks:** Ensure a smooth backup booking process.
+3. **Integrate Routing Forms:** Connect client-side forms with URL parameter support.
+
+---
+
+By leveraging Cal.com Routing, organizations can optimize their scheduling workflows, enhance user experience, and ensure the right person is always available at the right time.
+

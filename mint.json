@@ -155,6 +155,14 @@
           "pages": ["auth-and-provision/scim-okta", "auth-and-provision/oidc-with-okta"]
         },
         {
+          "group": "Routing",
+          "icon": "play",
+          "iconType": "arrows-repeat",
+          "pages": [
+            "routing/routing-overview"
+          ]
+        },
+        {
           "group": "Apps and Integrations",
           "icon": "code-branch",
           "iconType": "solid",
