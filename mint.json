@@ -159,7 +159,8 @@
           "icon": "arrows-repeat",
           "iconType": "solid",
           "pages": [
-            "routing/routing-overview"
+            "routing/routing-overview",
+            "routing/routing-with-attributes"
           ]
         },
         {
