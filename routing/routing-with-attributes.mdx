@@ -10,11 +10,14 @@ This guide walks you through how to set up a Round Robin Team Event that routes 
 ## Setting Up a Round Robin Team Event
 
 1. **Ensure a Team exists**
-   - If not already created, go to your organization and create a Team. For example, a team named `Sales` with the slug `sales`.
+   If not already created, go to your organization and create a Team. For example, a team named `Sales` with the slug `sales`.
+      ![Team](../images/routing/team.webp)
 
-2. **Create a Round Robin Event Type**
+1. **Create a Round Robin Event Type**
    - Create this event under the team you just set up.
+      ![Create Round Robin Event](../images/routing/new-round-robin.webp)
    - **Important**: Enable the setting `Add all team members, including future members`. This ensures team members are selected dynamically based on attributes.
+         ![](../images/routing/all-future-members.webp)
 
 ---
 
@@ -26,9 +29,9 @@ Attributes let you define filters that team members can be matched against.
 2. Create one or more attributes.
    - For matching use cases, **Multi Select** is a great option—especially when team members might belong to multiple attribute values.
    - Example: Create an attribute with the name `Service (Attribute)` to clearly indicate it's used in attribute-based routing.
-
-3. **Assign the attribute** to one or more team members. This step is critical.
-
+   ![](../images/routing/attribute.webp)
+3. **Assign the attribute** to one or more team members. **This step is critical**.
+   ![](../images/routing/assign-member.webp)
 ---
 
 ## Setting Up a Routing Form
