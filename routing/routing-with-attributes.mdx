@@ -38,13 +38,14 @@ Attributes let you define filters that team members can be matched against.
 
 1. Navigate to [Routing Forms](https://app.cal.com/routing)
 2. Create a new Routing Form **under the same team** as your event type.
+   ![](../images/routing/create-routing-form.webp)
 3. Add fields that you want bookers to fill out.
    - It's recommended to include an `Email` field with the identifier `email` to enable integrations with CRMs and contact lookup tools.
    - Refer to [this guide](https://cal.com/help/apps-and-integrations/assign-people#option-2-based-on-emails) for more.
-
 4. Create another field that matches the **options** from the attribute you set up.
    - The **name and identifier don't have to match** the attribute name.
    - Example: A `Service` field with identifier `service`, where the options are identical to those in `Service (Attribute)`.
+   ![](../images/routing/routing-form-fields.webp)
 
 ---
 
@@ -54,11 +55,12 @@ Attributes let you define filters that team members can be matched against.
 2. Click `Add a new Route`
 3. Link the Routing Form field to the corresponding Attribute
    - For example, connect the `Service (Attribute)` to the `Service` field in your Routing Form
+   ![](../images/routing/routing-attributes.webp)
 
 4. Click **Test Preview** on the left
    - Input a value that exists in both the Routing Form field and the Attribute
    - The system should now route the booking to a team member with that value assigned in their attributes
-
+   ![](../images/routing/test-preview.webp)
 ---
 
 ## Sending Leads or Visitors to the Router
@@ -68,6 +70,7 @@ There are two ways to use the Routing setup for collecting bookings:
 ### 1. Using the Cal.com Routing Form Public Page
 
 - You can find the public link for your Routing Form in the UI
+   ![](../images/routing/share-url.webp)
 - The URL will look like:
 
 ```
@@ -75,6 +78,7 @@ app.cal.com/forms/{FORM_ID}
 ```
 
 Share this link with your leads or embed it in your site.
+![](../images/routing/routing-form-id.webp)
 
 ### 2. Using Your Own Form with Headless Router (Embed Mode)
 
