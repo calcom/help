@@ -68,6 +68,14 @@
           ]
         },
         {
+          "group": "Enterprise",
+          "icon": "landmark",
+          "iconType": "solid",
+          "pages": [
+            "enterprise/members-onboarding"
+          ]
+        },
+        {
           "group": "Event Types",
           "icon": "calendar",
           "iconType": "solid",
