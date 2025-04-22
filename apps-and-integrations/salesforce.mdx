@@ -1,0 +1,115 @@
+---
+title: "Salesforce and Cal.com"
+---
+
+With our Salesforce integration you can sync data between Cal.com and your instance of Salesforce. 
+
+## Basic functionality
+- On booking, we create an event record under a lead/contact record
+- On reschedule, we adjust the event record's dates
+- On cancellation, we delete the event record
+
+
+## Event Type Options
+
+#### On booking, add events on and new attendees as
+Choose which record to create Salesforce events under or if the attendee does not exist in Salesforce as the selected record create a new record of the chosen type. We search for records based on the attendee email.
+
+**Options**
+- Contact
+- Lead
+- Contact under an account
+
+#### Do not create new records for guests added to the booking
+If this option is enabled, we will only handle creating events under the main attendee of the event and not additional guests
+
+#### Skip creating contacts if they do not exist in Salesforce
+This option is available when [adding events on contacts](#On-booking-add-events-on-and-new-attendees-as). If the option is enabled, skip creating new contacts if they do not exist in Salesforce already.
+
+#### Create event on contact, if it exists. Else fallback to lead
+This option is available when [adding events on leads](#On-booking-add-events-on-and-new-attendees-as). If this option is enabled, we check if a contact already exists with the attendee's email. If it does, create the event on the contact record. If it does not exist, then we create the event on an existing lead record or create a new lead
+
+#### Create a new contact under an account based on email domain of attendee and existing contacts
+This option is available when [adding events on leads or a contact under an account](#On-booking-add-events-on-and-new-attendees-as). If this option is enabled, we create a new contact under an account if it does not already exist then create an event under that new contact. 
+
+[Determining which account an attendee belongs to](#determining-if-an-attendee-belongs-under-an-account)
+
+#### If the contact does not exist under an account, create new lead from attendee
+This option is available when [adding events on contacts under an account](#On-booking-add-events-on-and-new-attendees-as). If a contact under an account does not exist, then create a new lead record.
+
+#### On booking, write to event object
+When a booking is created, you can write to specific fields on the event record. To write to a field you need the following:
+- The API field name ex. `Custom_Field__c`
+- The value that you want to pass to the field ([Mapping data from Cal.com to Salesforce](#mapping-data-from-calcom-to-Salesforce))
+
+#### On booking, write to a custom field on the attendee record
+This option writes to fields on the type of record that is set [to create events on](#On-booking-add-events-on-and-new-attendees-as). To write to a field you need the following:
+- The API field name ex. `Custom_Field__c`
+- The field type in Salesforce. We current support the following types:
+    - Text (`text`, `textarea` )
+    - Date (`date`, `datetime`)
+    - Phone
+    - Checkbox
+    - Picklist
+    - Custom (ignores field validations)
+- The value that you want to pass to the field ([Mapping data from Cal.com to Salesforce](#mapping-data-from-calcom-to-Salesforce))
+    - For checkbox fields, you can choose whether to pass true or false
+    - For picklist fields, the value passed needs to match the value of a picklist option
+- When to write to the field
+    - When the field is empty
+    - On every booking, overwriting the previous values
+
+#### Change record owner on booking
+If you have an integration account that is creating records in Salesforce, you can pass the integration account name and Cal.com will change the owner of the attendee record to the organizer of the booking.
+
+#### If attendee exists in Salesforce, book directly with the owner
+This option is available for round robin events. When this option is enabled, you can pass `?email` as a URL param in the round robin booking link, Cal.com searches Salesforce for the record owner. If the record owner is a host of the round robin event, then only that owner's availability is presented and the attendee books directly with the owner.
+
+Options to search ownership against
+- Lead
+- Contact
+- Account ([Determining which account an attendee belongs to](#determining-if-an-attendee-belongs-under-an-account)) 
+
+#### If attendee has a free email domain, skip the ownership check and round robin as normal
+If this option is enabled, if the attendee has a free email domain (ex. gmail.com) then ignore any Salesforce ownership checks.
+
+#### On cancelled booking, write to event record instead of deleting event
+When this option is enabled, instead of deleting the event record we write to specific fields. To write to a field you need the following:
+- The API field name ex. `Custom_Field__c`
+- The field type in Salesforce. We current support the following types:
+    - Text (`text`, `textarea` )
+    - Date (`date`, `datetime`)
+    - Phone
+    - Checkbox
+    - Picklist
+    - Custom (ignores field validations)
+- The value that you want to pass to the field ([Mapping data from Cal.com to Salesforce](#mapping-data-from-calcom-to-Salesforce))
+    - For checkbox fields, you can choose whether to pass true or false
+    - For picklist fields, the value passed needs to match the value of a picklist option
+- When to write to the field
+    - When the field is empty
+    - On every booking, overwriting the previous values
+
+#### Send no show attendee data to event object
+When this option is enabled, we set the specific checkbox field to true when an attendee is marked as no-show in Cal.com
+
+
+## Appendix
+
+#### Determining if an attendee belongs under an account
+We determine if an attendee belongs under an account in the following order
+- If there is a contact that matches the attendee's email that belongs to an account
+- If there is an account where the `Website` field matches the email domain of the attendee
+- If there are multiple contacts that share the same email domain of the attendee, determine which account the majority of the contacts belong to
+
+#### Mapping data from Cal.com to Salesforce
+When writing to fields in Salesforce, you can pass data from different sources in Cal.com
+- To pass a static value, input the value in the `Value` field
+- To pass a value from a booking question, wrap the identifier of the booking question in `{}` brackets. For example, if you have a booking question with the identifier `productInterest` you would input `{productInterest}` in the `Value` field
+- To pass a value from a routing form, wrap the identifier of the field of you want to pass in `{}` and add the `form:` prefix. For example, if the field identifier is `productInterest` you would input `{form:productInterest}` in the `Value` field
+- To pass a `utm_parameter`, pass the parameter name as `{utm:parameter}` in the value field. We currently support the following:
+    - `utm_source` as `{utm:source}`
+    - `utm_medium` as `{utm:medium}`
+    - `utm_campaign` as `{utm:campaign}`
+    - `utm_term` as `{utm:term}`
+    - `utm_content` as `{utm:content}`
