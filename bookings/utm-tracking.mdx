@@ -1,0 +1,53 @@
+---
+title: UTM Parameter Tracking
+---
+
+Cal.com allows you to track UTM parameters on your booking pages to better understand where your bookings are coming from. This helps you measure the effectiveness of your marketing campaigns and traffic sources.
+It is a three step process:
+
+1. Add hidden questions to your booking page for all the params that you want to track
+2. Send those params in the booking link
+3. View the UTM parameters in the booking details page.
+
+
+## Add hidden questions to your booking page
+You can follow [booking-questions](/event-types/booking-questions) to know how to add a question to the booking page of an event type.
+
+Create a booking question for each of the UTM params that you want to track.
+
+<Frame>
+<img src="/images/add-utm-medium-question.png" alt="Add utm medium question" />
+</Frame>
+
+Make sure to toggle the question to "Hidden"
+<Frame>
+<img src="/images/toggle-question-hidden.png" alt="Toggle question hidden" />
+</Frame>
+
+Ensure following:
+1. Input type is "Short Text"
+2. Identifier is one of the UTM params that you want to track.
+3. Question is toggled to "Hidden"
+4. Required is set to "No"
+
+## Send those params in the booking link
+
+You need to send those params in the booking link and when someone books through that link, the params for which you have added questions will be captured.
+
+Example:
+
+```
+https://cal.com/rick/get-rick-rolled?utm_source=source&utm_medium=medium&utm_campaign=campaign
+```
+
+
+## View the UTM parameters in the booking details page
+
+You can view the UTM parameters in the booking details page when you are logged in to your cal.com account.
+Note that the booker and the attendees will not see these params. So, it is required to login to your cal.com account to view these params.
+
+<Frame>
+<img src="/images/view-utm-params-booking-details.png" alt="View utm parameters" />
+</Frame>
+
+

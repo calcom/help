@@ -141,7 +141,12 @@
           "group": "Bookings",
           "icon": "calendar-check",
           "iconType": "solid",
-          "pages": ["bookings/no-show", "bookings/paid-bookings", "bookings/prefill-fields"]
+          "pages": [
+            "bookings/no-show",
+            "bookings/paid-bookings",
+            "bookings/prefill-fields",
+            "bookings/utm-tracking"
+          ]
         },
         {
           "group": "Embedding",
@@ -153,7 +158,9 @@
             "embedding/embed-events",
             "embedding/embed-instructions",
             "embedding/embed-snippet-generator",
-            "embedding/prefill-booking-form-embed"
+            "embedding/prefill-booking-form-embed",
+            "embedding/utm-tracking-embed",
+            "embedding/embed-auto-forward-query-params"
           ]
         },
         {
