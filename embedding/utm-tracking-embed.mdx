@@ -1,0 +1,80 @@
+---
+title: UTM Parameter Tracking in Embeds
+---
+
+Cal.com allows you to track UTM parameters on your embedded booking pages to better understand where your bookings are coming from. This helps you measure the effectiveness of your marketing campaigns and traffic sources when using Cal.com embeds.
+
+This guide assumes you have already set up UTM tracking questions as described in the [UTM Parameter Tracking](/bookings/utm-tracking) guide. If you haven't done that yet, please follow that guide first to set up your UTM tracking questions.
+
+For embedded calendars, you'll need to modify your embed code to pass the UTM parameters. There are two ways to achieve this:
+
+## Option 1: Using embed `config` to pass UTM parameters
+
+Add data attributes to your embed element for each UTM parameter you want to track:
+Depending on the type of embed you are using, you do it in following ways. 
+
+a. Element Click type embed:
+```html
+<button 
+  ..... // Rest of the attributes
+  data-cal-link="rick/get-rick-rolled"
+  // Add UTM parameters in addition to the existing config
+  data-cal-config='{....., "utm_source":"your-source","utm_medium":"your-medium","utm_campaign":"your-campaign"}'
+>
+  Book Now
+</button>
+```
+
+b. Inline embed:
+```html
+<script>
+  Cal("inline", {
+    elementOrSelector: "#my-cal-inline",
+    calLink: "rick/get-rick-rolled",
+    config: {
+      ..... // Rest of the config
+      // Add UTM parameters in addition to the existing config
+      utm_source: "your-source",
+      utm_medium: "your-medium",
+      utm_campaign: "your-campaign"
+    }
+  });
+</script>
+```
+
+c. Floating pop-up button embed:
+```html
+<script>
+  Cal.ns["30mins"]("floatingButton", {
+    calLink: "rick/get-rick-rolled",
+    config: {
+      ..... // Rest of the config
+      // Add UTM parameters in addition to the existing config
+      utm_source: "your-source",
+      utm_medium: "your-medium",
+      utm_campaign: "your-campaign"
+    }
+  });
+</script>
+```
+
+In all cases ensure the following:
+1. Make sure to modify the code taken from [Embed Snippet Generator](/embedding/embed-snippet-generator) and modify as mentioned below.
+2. Make sure to read the UTM parameters yourself from your webpage and pass them in the config. e.g. You could read from the query params as shown below. This would ensure that the parameters like your-website-example.com?utm_source=source&utm_medium=medium&utm_campaign=campaign are now passed to the embed.
+
+```html
+const urlParams = new URLSearchParams(window.location.search);
+const utmSource = urlParams.get('utm_source');
+const utmMedium = urlParams.get('utm_medium');
+const utmCampaign = urlParams.get('utm_campaign');
+```
+
+
+## Option 2: Automatically pass all parameters from the page
+
+You can follow the instructions in [Embed Auto-forwarding Query Parameters](/embedding/embed-auto-forward-query-params) to automatically pass all parameters from the page including the UTM parameters. 
+
+Once you have enabled this feature, you don't need to pass the UTM parameters in the embed config manually and tracking would work as expected. 
+
+#### Security Consideration
+Though this is a straightforward implementation, there is a caveat that all parameters from the page are passed to the embed. So, you need to ensure that the parameters you are passing to your webpage are not sensitive and you are fine passing them to the embed.

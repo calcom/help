@@ -1,0 +1,40 @@
+---
+title: 'Auto-forwarding Query Parameters'
+description: 'Learn how to automatically forward query parameters from your page to Cal.com embeds'
+---
+
+# Auto-forwarding Query Parameters
+
+Cal.com's embedding solution provides a powerful feature that allows you to automatically forward query parameters from your webpage to the embedded booking page.
+
+## How It Works
+
+When you embed Cal.com on your webpage, any query parameters present in the URL of your page will automatically be forwarded to the embedded Cal.com booking page. By default, this feature is disabled and can be enabled by adding the following code right after the code you get from [Embed Snippet Generator](/embedding/embed-snippet-generator).
+
+```html
+<script>
+  Cal.config = Cal.config || {};
+  Cal.config.forwardQueryParams = true;
+</script>
+```
+
+### Example
+
+Let's say you have Cal.com embedded on your page with this URL:
+```
+https://your-website-example.com/book?name=John&email=john@example.com
+```
+
+These query parameters (`name` and `email`) will automatically be forwarded to the Cal.com embed, pre-filling the corresponding fields in the booking form.
+
+## Use Cases
+
+1. **Pre-filling User Information**: If your users are already logged into your application, you can automatically pass their information to the booking form.
+
+2. **Tracking Sources**: Add UTM parameters or other tracking information that you want to preserve throughout the booking flow.
+
+When this is embedded on a page with query parameters, they will automatically be forwarded to the Cal.com booking flow.
+
+## Security Consideration
+
+Query parameters are passed as-is, so ensure you're not including sensitive information in your URL parameters
