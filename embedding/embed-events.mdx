@@ -2,17 +2,17 @@
 title: Embed Events
 ---
 
-## Actions
+## Listening to Events
 
-You can listen to an action that occurs in embedded cal link as follows. You can think of them as DOM events. We are avoiding the term "events" to not confuse it with Cal Events.
+You can listen to an event that occurs in embedded cal link as follows. You can think of them as DOM events.
 
 ```js
 <script>
   Cal("on", {
-    action: "ANY_ACTION_NAME",
+    action: "ANY_EVENT_NAME",
     callback: (e)=>{
       // `data` is properties for the event.
-      // `type` is the name of the action(You can also call it type of the action.) This would be same as "ANY_ACTION_NAME" except when ANY_ACTION_NAME="*" which listens to all the events.
+      // `type` is the name of the event(You can also call it type of the event.) This would be same as "ANY_EVENT_NAME" except when ANY_EVENT_NAME="*" which listens to all the events.
       // `namespace` tells you the Cal namespace for which the event is fired/
       const {data, type, namespace} = e.detail;
     }
@@ -20,19 +20,65 @@ You can listen to an action that occurs in embedded cal link as follows. You can
 </script>
 ```
 
-## Following are the list of supported actions.
-| Action | Description | Properties |
-|--------|-------------|------------|
-| eventTypeSelected | When user chooses an event-type from the listing. | eventType:object // Event Type that has been selected |
-| bookingSuccessful | When the booking is successfully done. It might not be confirmed. | confirmed: boolean; //Whether confirmation from organizer is pending or not<br/>eventType: "Object for Event Type that has been booked"<br/>date: string; // Date of Event<br/>duration: number; //Duration of booked Event<br/>organizer: object //Organizer details like name, timezone, email |
-| linkReady | Tells that the link is ready to be shown now. | None |
-| linkFailed | Fired if link fails to load | code: number; // Error Code<br/>msg: string; //Human Readable msg<br/>data: object // More details to debug the error |
-| __iframeReady | It is fired when the embedded iframe is ready to communicate with parent snippet. This is mostly for internal use by Embed Snippet | None |
-| __windowLoadComplete | Tells that window load for iframe is complete | None |
-| __dimensionChanged | Tells that dimensions of the content inside the iframe changed. | iframeWidth:number, iframeHeight:number |
+## Event Reference
 
-<Note>
-  Actions that start with `__` are internal.
-</Note>
+### `eventTypeSelected`
+**Description:** When user chooses an event-type from the listing.
+
+**Properties:**
+- `eventType`: `object` - Event Type that has been selected
+
+### `bookingSuccessfulV2` 
+
+_It deprecates `bookingSuccessful` event._
+
+**Description:** When a fresh booking is successfully done. It might not be confirmed.
+
+**Properties:**
+- `uid`: `string` | `undefined` - Unique identifier for the booking
+- `title`: `string` | `undefined` - Title of the booking
+- `startTime`: `string` | `undefined` - Start time of the booking
+- `endTime`: `string` | `undefined` - End time of the booking
+- `eventTypeId`: `number` | `null` | `undefined` - Event type id of the booking
+- `status`: `string` | `undefined` - Status of the booking
+- `paymentRequired`: `boolean` - Whether payment is required for the booking
+- `isRecurring`: `boolean` - Whether the booking is recurring
+- `allBookings`: `object` - Array of objects with `startTime` and `endTime`. Applicable only if `isRecurring` is `true`
+- `videoCallUrl`: `string` - URL of the video call
+
+### `rescheduleBookingSuccessfulV2` 
+
+_It deprecates `rescheduleBookingSuccessful` event._
+
+**Description:** When a booking is rescheduled.
+
+**Properties:**
+- `uid`: `string` | `undefined` - Unique identifier for the booking
+- `title`: `string` | `undefined` - Title of the booking
+- `startTime`: `string` | `undefined` - Start time of the booking
+- `endTime`: `string` | `undefined` - End time of the booking
+- `eventTypeId`: `number` | `null` | `undefined` - Event type id of the booking
+- `status`: `string` | `undefined` - Status of the booking
+- `paymentRequired`: `boolean` - Whether payment is required for the booking
+- `isRecurring`: `boolean` - Whether the booking is recurring
+- `allBookings`: `object` - Array of objects with `startTime` and `endTime`. Applicable only if `isRecurring` is `true`
+
+### `linkReady`
+
+**Description:** Tells that the link is ready to be shown now.
+
+**Properties:** None
+
+### `linkFailed`
+
+**Description:** Fired if link fails to load.
+
+**Properties:**
+
+- `code`: `number` - Error Code
+- `msg`: `string` - Human Readable msg
+- `data`: `object` - More details to debug the error
+
+NOTE: With GTM App enabled for an Event type, these events are automatically sent to GTM and GTM could be setup to send these events to your desired destination like Google Analytics, etc.
 
 To get more details on how Embed actually works, you can refer to this [Embed Flowchart](https://www.figma.com/file/zZ5oaUpg12Fuu5mGZrPlP5/Embed-Flowchart).
