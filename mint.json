@@ -76,6 +76,14 @@
           ]
         },
         {
+          "group": "Billing and Usage",
+          "icon": "credit-card",
+          "iconType": "solid",
+          "pages": [
+            "billing-and-usage/messaging-credits"
+          ]
+        },
+        {
           "group": "Event Types",
           "icon": "calendar",
           "iconType": "solid",
