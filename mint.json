@@ -149,6 +149,14 @@
           ]
         },
         {
+          "group": "Workflows",
+          "icon": "bars-staggered",
+          "iconType": "solid",
+          "pages": [
+            "workflows/workflowsoverview"
+          ]
+        },
+        {
           "group": "Embedding",
           "icon": "code",
           "iconType": "solid",
