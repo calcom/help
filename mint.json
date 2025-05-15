@@ -162,7 +162,8 @@
           "icon": "bars-staggered",
           "iconType": "solid",
           "pages": [
-            "workflows/workflowsoverview"
+            "workflows/workflowsoverview",
+            "workflows/credits"
           ]
         },
         {
