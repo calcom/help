@@ -1,5 +1,5 @@
 ---
-title: Embed Events
+title: "Embed Events"
 ---
 
 ## Listening to Events
@@ -23,18 +23,21 @@ You can listen to an event that occurs in embedded cal link as follows. You can 
 ## Event Reference
 
 ### `eventTypeSelected`
+
 **Description:** When user chooses an event-type from the listing.
 
 **Properties:**
+
 - `eventType`: `object` - Event Type that has been selected
 
-### `bookingSuccessfulV2` 
+### `bookingSuccessfulV2`
 
-_It deprecates `bookingSuccessful` event._
+_`It deprecates bookingSuccessful event.`_
 
 **Description:** When a fresh booking is successfully done. It might not be confirmed.
 
 **Properties:**
+
 - `uid`: `string` | `undefined` - Unique identifier for the booking
 - `title`: `string` | `undefined` - Title of the booking
 - `startTime`: `string` | `undefined` - Start time of the booking
@@ -46,13 +49,14 @@ _It deprecates `bookingSuccessful` event._
 - `allBookings`: `object` - Array of objects with `startTime` and `endTime`. Applicable only if `isRecurring` is `true`
 - `videoCallUrl`: `string` - URL of the video call
 
-### `rescheduleBookingSuccessfulV2` 
+### `rescheduleBookingSuccessfulV2`
 
-_It deprecates `rescheduleBookingSuccessful` event._
+_`It deprecates rescheduleBookingSuccessful event.`_
 
 **Description:** When a booking is rescheduled.
 
 **Properties:**
+
 - `uid`: `string` | `undefined` - Unique identifier for the booking
 - `title`: `string` | `undefined` - Title of the booking
 - `startTime`: `string` | `undefined` - Start time of the booking
