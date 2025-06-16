@@ -71,7 +71,7 @@ Credits are charged **per segment**, not per message. Most SMS messages are brok
 - **Standard segment**: up to **160 characters**
 - **Messages with emojis or special characters**: up to **70 characters per segment**
 
-So, for example, a message that spans **6 segments** will consume **6 credits**.
+Each segment is treated as a separate message, and credits are then calculated based on the information above. 
 
 📎 _Want to check how many segments your message will use?_\
 Use [Twilio’s Segment Calculator](https://www.twilio.com/en-us/blog/what-the-heck-is-a-segment-html) to estimate credit usage before sending.
@@ -88,7 +88,7 @@ This ensures bookings still go through, but real-time alerts may be delayed if r
 ---
 
 <Note>
-   Credits are **not the only way** SMS/WhatsApp are funded — they're just the default mechanism for smaller accounts and teams 
+  Credits are **not the only way** SMS/WhatsApp are funded — they're just the default mechanism for smaller accounts and teams
 </Note>
 
 ---
