@@ -91,7 +91,6 @@
             "event-types/event-types",
             "event-types/eventtype-id",
             "event-types/booking-questions",
-            "event-types/emailbq",
             "event-types/add-events",
             "event-types/managed-events",
             "event-types/adding-zoom",
