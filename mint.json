@@ -154,7 +154,8 @@
             "bookings/no-show",
             "bookings/paid-bookings",
             "bookings/prefill-fields",
-            "bookings/utm-tracking"
+            "bookings/utm-tracking",
+            "bookings/analytics"
           ]
         },
         {
@@ -185,7 +186,10 @@
           "group": "Auth and Provisioning",
           "icon": "user-lock",
           "iconType": "solid",
-          "pages": ["auth-and-provision/scim-okta", "auth-and-provision/oidc-with-okta"]
+          "pages": [
+            "auth-and-provision/scim-okta",
+            "auth-and-provision/oidc-with-okta"
+          ]
         },
         {
           "group": "Routing",
@@ -212,7 +216,7 @@
             "apps-and-integrations/salesforce"
           ]
         },
-         {
+        {
           "group": "Privacy and Compliance",
           "icon": "lock",
           "iconType": "solid",
@@ -224,7 +228,11 @@
           "group": "Developers",
           "icon": "terminal",
           "iconType": "solid",
-          "pages": ["apps-and-integrations/oauth", "apps-and-integrations/open-source", "webhooks"]
+          "pages": [
+            "apps-and-integrations/oauth",
+            "apps-and-integrations/open-source",
+            "webhooks"
+          ]
         }
       ]
     }
