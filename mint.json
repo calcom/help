@@ -111,6 +111,7 @@
             "event-types/dynamic",
             "event-types/event-buffer",
             "event-types/disable-canceling-rescheduling",
+            "event-types/hideorganizersemail",
             "event-types/hide-notes",
             "event-types/how-to-add-location",
             "event-types/how-to-receive-payments",
