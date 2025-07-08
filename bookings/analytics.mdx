@@ -1,0 +1,41 @@
+---
+title: 'Booking Page Analytics'
+---
+
+## How third-party analytics integrations work
+
+Most third-party analytics apps available on Cal.com (like Google Analytics or Meta Pixel) work by injecting a JavaScript tracking snippet onto your public booking pages.
+
+These apps simply inject the JS snippet provided by the third party onto the booking pages, with the Tracking ID configured in cal.com.
+
+## Limitations of direct analytics integrations
+
+We don't send any booking related events(like `bookingSucccessfulV2`) to any analytics app, except GTM, at the moment. So, events like `bookingSuccessfulV2` and other similar events aren't available to any analytics apps by default.
+
+## Using GTM for robust event tracking
+
+The only way to send booking related events to any analytics app(like Google Analytics/Meta) at the moment is to install GTM app and configure GTM(in GTM app itself) to listen to the events that we send to GTM and send to any analytics app from there.
+
+The process is:
+1.  Connect the Google Tag Manager app in your Cal.com account.
+2.  In your GTM account, create triggers to listen for custom events pushed by Cal.com.
+3.  Create tags in GTM that fire on these triggers and send the data to your chosen analytics platform(s).
+
+
+### Example: Setting up GA4 tracking for new bookings
+
+A community member has written an excellent, detailed guide on how to set up event tracking in Google Analytics 4 for new Cal.com bookings using GTM. We highly recommend this guide. This article seem to very well document the entire GTM and GA4 setup well and we should have an article of our own for this.
+
+**External guide:** [Set up GA4 event for Cal.com booking confirmation](https://www.garrettdigital.com/set-ga4-event-cal-com-booking-confirmation/)
+
+The guide covers:
+*   Finding your GTM ID and adding it to Cal.com.
+*   Using GTM's preview mode to see the events from Cal.com.
+*   Creating a trigger in GTM for the `bookingSuccessfulV2` event.
+*   Configuring a GA4 event tag to send the booking data to Google Analytics 4.
+
+By following a similar process, you can send your booking data wherever you need it.
+
+
+Further Reading:
+- [Exhaustive list of events we send to GTM](/embedding/embed-events)
