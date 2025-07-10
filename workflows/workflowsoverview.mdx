@@ -1,4 +1,120 @@
 ---
-title: "Workflows "
-description: "Description of your new file."
+title: "Cal.com Workflows"
+description: "Automate messages, actions, and follow-ups for your bookings"
 ---
+
+## What Are Workflows?
+
+Workflows in [Cal.com](http://Cal.com) allow you to automate actions when a specific event happens, such as when a booking is created, canceled, or about to start. This makes it easy to stay on top of communication, send reminders, and reduce manual work.
+
+Each workflow follows a simple logic:\
+**Trigger → Action**
+
+- **Trigger**: When something happens (e.g., a new booking)
+- **Action**: What should be done (e.g., send an email)
+
+## Example Use Cases
+
+- Send a reminder email and SMS to the attendee 1 hour before the meeting
+- Send a post-event follow-up email with a feedback link
+- Notify your internal teammate of the meeting details 
+- Email the organizer if the attendee cancels 
+
+## How to Set Up a Workflow
+
+<Steps>
+  <Step title="Go to your Cal.com dashboard">
+    
+  </Step>
+  <Step title="Navigate to Workflows">
+    https://app.cal.com/workflows
+  </Step>
+  <Step title="Click `New`button" titleSize="p">
+    
+  </Step>
+  <Step title="Give it a name">
+    
+  </Step>
+  <Step title="Select a Trigger (e.g., booking created, event canceled, 1 hour before start)">
+    
+  </Step>
+  <Step title="Add one or more Actions ">
+    
+  </Step>
+  <Step title="Customize message content using dynamic text variables (see table below)">
+    
+  </Step>
+  <Step title="Choose which event types this workflow should apply to">
+    ![BrandBird 2025-07-10 13.14.30.png](/images/BrandBird2025-07-1013.14.30.png)
+  </Step>
+  <Step title="Click Save">
+    
+  </Step>
+</Steps>
+
+## Available Triggers
+
+![BrandBird 2025-07-10 12.50.14.png](/images/BrandBird2025-07-1012.50.14.png)
+
+ These are the currently available trigger options:
+
+- Before the event starts 
+- When the event is canceled
+- When a new event is booked
+- After the event ends
+- When event is rescheduled
+
+## Available Actions
+
+![BrandBird 2025-07-10 12.54.26.png](/images/BrandBird2025-07-1012.54.26.png)
+
+You can automate actions such as:
+
+- Sending an email to host
+- Sending an email to attendees
+- Sending an email to a specific email address 
+- Sending SMS to attendee
+- Sending SMS to a specific number 
+- Send WhatsApp message to attendee
+- Send WhatsApp message to a specific number
+
+## Dynamic Text Variables
+
+You can insert dynamic text into your messages using variables. These variables will be replaced with real booking data when the message is sent.
+
+| Variable                                           | Description                                      |
+| :------------------------------------------------- | :----------------------------------------------- |
+| `{EVENT_NAME}`                                     | The event type name                              |
+| `{EVENT_DATE}`                                     | The event date                                   |
+| `{EVENT_TIME}`                                     | The event start time                             |
+| `{EVENT_END_TIME}`                                 | The event end time                               |
+| `{TIMEZONE_VARIABLE}`                              | The timezone of the person receiving the message |
+| `{LOCATION_VARIABLE}`                              | The location of the event                        |
+| `{ORGANIZER_NAME}`                                 | The organizer’s (host’s) name                    |
+| `{ATTENDEE}`                                       | Full name of the attendee/person booking         |
+| `{ATTENDEE_FIRST_NAME}`                            | First name of the attendee                       |
+| `{ATTENDEE_LAST_NAME}`                             | Last name of the attendee                        |
+| `{ATTENDEE_EMAIL}`                                 | Email address of the attendee                    |
+| `{ADDITIONAL_NOTES_VARIABLE}`                      | Additional notes submitted during booking        |
+| `{MEETING_URL}`                                    | The video conference/meeting URL                 |
+| `{CANCEL_URL}`                                     | Link to cancel the booking                       |
+| `{CANCELLATION_REASON}`                            | Reason provided for cancellation                 |
+| `{RESCHEDULE_URL}`                                 | Link to reschedule the booking                   |
+| `{RESCHEDULE_REASON}`                              | Reason provided for rescheduling                 |
+| `{RATING_URL_VARIABLE}`                            | URL to the post-event rating/feedback form       |
+| `{NO_SHOW_URL_VARIABLE}`                           | URL to mark/report a no-show                     |
+| `{ATTENDEE_TIMEZONE}`                              | Attendee's timezone information                  |
+| `{EVENT_START_TIME_IN_ATTENDEE_TIMEZONE_VARIABLE}` | Event start time in attendee’s local timezone    |
+| `{EVENT_END_TIME_IN_ATTENDEE_TIMEZONE_VARIABLE}`   | Event end time in attendee’s local timezone      |
+
+---
+
+## Plan Limitations
+
+- **Free Plan**: Can only use the default reminder email (no customization)
+- **Team, Organization, and Enterprise Plans**: Full access to create custom workflows with multiple actions and dynamic content
+- **Self-hosted Instances**: No restrictions on workflow usage
+
+<Note>
+  **Note:** WhatsApp workflows **cannot be customized** on any plan at the moment. They are currently limited to sending a **predetermined default message** only.
+</Note>
