@@ -1,0 +1,72 @@
+---
+title: "Restriction Schedule"
+---
+
+
+Team members with elevated permissions (Admins and Owners) can now add **restriction schedules** to team event types (Collective and Round Robin). This feature acts as a **policy-based filter**—ensuring bookings can only happen during specific time windows, regardless of actual user availability.
+
+<Note>
+💡 This feature is currently available for teams on request. To enable it for your organization, please contact the Cal.com support team.
+</Note>
+
+
+
+## How It Works
+
+A **Restriction Schedule** filters availability by clipping off any time slots that fall *outside* the defined restriction window.
+
+For example:
+If your team’s availability is from **7 AM to 6 PM**, and your restriction schedule is set from **8 AM to 5 PM**, then:
+
+* Slots from **7 AM to 8 AM** and **5 PM to 6 PM** will be removed
+* Bookings can only happen between **8 AM and 5 PM**
+
+This ensures more control over when your team can be booked—even if they're technically available outside the restricted window.
+
+
+
+### Use Booker’s Timezone with Restriction Schedule
+
+By default, the restriction schedule is applied in the timezone of the schedule you selected.
+However, you can enable the **“Use Booker Timezone”** option to apply the restriction based on the **invitee’s** local timezone.
+
+Example:
+If you want to prevent bookings **before 8 AM local time for the booker**, enable this option and define the restriction as starting from 8 AM.
+Now, a booker in New York won’t see slots before 8 AM *New York time*, even if the team is available at that hour in a different timezone.
+
+<Note>
+💡 Restriction Schedules are an additional layer on top of your availability. If you're unavailable on a given day, Cal.com still won’t show any times—Restriction Schedules only further limit what's shown.
+</Note>
+
+
+## How to Set It Up
+
+1. Open the **Team Event Type**
+2. Go to the **Availability** tab
+3. Toggle **Add Restriction Schedule** to enable
+4. Select the restriction schedule from the dropdown
+5. Check the box to **Use Booker’s Timezone** (if desired)
+6. Click **Save**
+
+
+## Example: TCPA Compliance
+
+If your legal team requires you to avoid contacting customers outside **8 AM to 9 PM** in their local time:
+
+* Create a restriction schedule from **8:00 to 21:00**
+* Enable **Use Booker Timezone**
+
+This guarantees that Cal.com will only show time slots **within this window**, evaluated in the **booker’s** local timezone—ensuring TCPA compliance.
+
+
+## Enforcing Company-Wide Booking Rules
+
+Restriction Schedules also allow you to:
+
+* Prevent early morning or late-night bookings (e.g., before 9 AM or after 5 PM)
+* Block off **lunch hours globally** (e.g., 12–1 PM)
+* Apply **blackout periods** for holidays or internal training sessions
+* **Block entire days** using date overrides (the event type will be unbookable on these days for all members)
+
+
+If you'd like help setting this up or enabling the feature, [reach out to us](https://cal.com/support).
