@@ -38,3 +38,26 @@ When this is embedded on a page with query parameters, they will automatically b
 ## Security Consideration
 
 Query parameters are passed as-is, so ensure you're not including sensitive information in your URL parameters
+
+## Framer-specific issue
+
+Framer seems to add the custom HTML (with JS) in an iframe of their own, so Cal.com Embed Snippet isn't able to access the query params of the webpage directly.
+So, you can't auto-forward query params in Framer websites at the moment, but you can pass any query param using the prefill config as explained [here](/embedding/prefill-booking-form-embed).
+
+You can get the value of query param and pass it to the prefill config as shown below:
+```js
+
+// For Framer websites, auto-forward of query params is not possible.
+// So, we need to get the query param from the parent and pass it to the prefill config.
+const queryParams = new URLSearchParams(window.parent.location.search);
+const myQueryParamValue = queryParams.get('my-query-param');
+
+Cal("inline", {
+    elementOrSelector: "#my-cal-inline",
+    config: {
+      "layout": "month_view",
+      'my-query-param': myQueryParamValue
+    },
+    calLink: "riley/test",
+  });
+```
