@@ -129,7 +129,6 @@
             "event-types/restriction-schedule",
             "event-types/secret-events",
             "event-types/setup-location",
-            "event-types/single-use",
             "event-types/split-name",
             "event-types/sponsor",
             "event-types/timezone-lock",
