@@ -122,6 +122,7 @@
             "event-types/location-of-event",
             "event-types/min-notice",
             "event-types/multiple-durations",
+            "event-types/private-links",
             "event-types/offer-seats",
             "event-types/recurring-events",
             "event-types/require-criteria",
