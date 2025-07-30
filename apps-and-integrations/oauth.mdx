@@ -60,13 +60,9 @@ Response:
 
 ### Testing OAuth Credentials
 To verify the correct setup and functionality of OAuth credentials you can use the following endpoint:
-`GET https://app.cal.com/api/auth/oauth/me`
+`GET https://api.cal.com/v2/me`
 
 Headers:
 - Authorization: Bearer *exampleAccessToken*
 
 
-### Authorize requests with Bearer token
-Ensure that Cal.com endpoints accessed by the app support authentication via Bearer Token. 
-If this is not the case, it will be necessary to update the code accordingly.
-Here is an example of an endpoint that supports both apiKey and Bearer token authentication: [/listBookings endpoint](https://github.com/calcom/cal.com/blob/main/packages/app-store/zapier/api/subscriptions/listBookings.ts)
