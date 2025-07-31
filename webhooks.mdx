@@ -17,6 +17,16 @@ The webhook subscription allows you to listen to specific trigger events, such a
 ### Creating a webhook subscription
 
 To create a new webhook subscription, visit `/settings/developer/webhooks` and proceed to enter the following details:
+<Note>
+A webhook created for a team will only trigger for team-level event types (e.g., Collective and Round Robin) belonging to that team.
+However, in the case of Managed events, bookings are made on the child event types, not the parent team event. Because of this, team-level webhooks will not trigger for managed events unless one of the following is true:
+
+- You create a webhook directly on the parent event type (recommended), or
+- You create individual webhooks on the child event types (owned by users).
+
+💡 **Note:**
+Users can create webhooks that apply to their own event types, including child events under a managed event, even if a team-level webhook exists.
+</Note>
 
 1. Subscriber URL: The listener URL where the payload will be sent to, when an event trigger is triggered.
 
