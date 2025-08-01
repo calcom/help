@@ -13,27 +13,27 @@ The webhook subscription allows you to listen to specific trigger events, such a
 ### Webhook scope levels
 Webhooks can be created at multiple levels of scope, each determining which events they apply to:
 
-#### User-level:
-Triggers for all event types owned by the user (excluding team-managed types).
+- **User-level**:
+  Triggers for all event types owned by the user (excluding team-managed types).
 
-#### Event-type level:
-Triggers only for a specific event type. Useful for fine-grained control.
+- **Event-type level**:
+  Triggers only for a specific event type. Useful for fine-grained control.
 
-#### Team-level:
-Applies to team event types (i.e., Collective and Round Robin) within the specified team.
+- **Team-level**:
+  Applies to team event types (i.e., Collective and Round Robin) within the specified team.
 
-<Note>
-In the case of Managed events, bookings are made on the child event types, not the parent team event. Because of this, team-level webhooks will **not** trigger for managed events unless one of the following is true:
+    <Note>
+    In the case of Managed events, bookings are made on the child event types, not the parent team event. Because of this, team-level webhooks will **not** trigger for managed events unless one of the following is true:
+    
+    - You create a webhook directly on the parent event type (recommended), or
+    - You create individual webhooks on the child event types (owned by users).
+    
+    💡 **Note:**
+    Users can create webhooks that apply to their own event types, including child events under a managed event, even if a team-level webhook exists.
+    </Note>
 
-- You create a webhook directly on the parent event type (recommended), or
-- You create individual webhooks on the child event types (owned by users).
-
-💡 **Note:**
-Users can create webhooks that apply to their own event types, including child events under a managed event, even if a team-level webhook exists.
-</Note>
-
-#### Organization-level:
-Applies to all team event types across all teams within the organization.
+- **Organization-level**:
+  Applies to all team event types across all teams within the organization.
 
 ### Creating a webhook subscription
 
@@ -42,11 +42,35 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 
 1. Subscriber URL: The listener URL where the payload will be sent to, when an event trigger is triggered.
 
-2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Payment Initiated`, `Booking Paid`, `Meeting Started`, `Recording Ready`, `Form Submitted`, `Meeting Ended` and `Instant Meeting Created`.
+2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Paid`, `Booking Payment Initiated`, `Booking No-Show Updated`, `Meeting Started`, `Meeting Ended`, `Recording Ready`, `Recording Transcription Generated`, `Instant Meeting Created`, `Out of Office Created`, `After Hosts Cal Video No-Show`, `After Guests Cal Video No-Show`, `Form Submitted`, and `Form Submitted (No Event)`.
 
 3. Secret: You can provide a secret key with this webhook and then [verify it](/docs/core-features/webhooks#verifying-the-authenticity-of-the-received-payload) on the subscriber URL when receiving a payload to confirm if the payload is authentic or adulterated. You can leave it blank, if you don't wish to secure the webhook with a secret key.
 
 4. Custom Payload: You have the option to [customize the payload](/docs/core-features/webhooks#adding-a-custom-payload-template) you receive when a subscribed event is triggered.
+
+
+### Expectations with the triggers
+
+| **Event**                          | **Triggers When...**                                                                                          |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Booking Created                   | A new booking is successfully created.                                                                        |
+| Booking Cancelled                 | A booking is cancelled by the host, attendee, or via API.                                                     |
+| Booking Rejected                  | A booking request is explicitly rejected by the host.                                                         |
+| Booking Requested                 | A booking requiring confirmation from the host is submitted.                                                  |
+| Booking Paid                      | Payment for a booking is completed.                                                                           |
+| Booking Payment Initiated         | A payment attempt is initiated (before confirmation).                                                         |
+| Booking No-Show Updated           | A host or attendee is marked as a no-show after the meeting.                                                  |
+| Meeting Started                   | At the scheduled start time of the meeting.                                                                   |
+| Meeting Ended                     | At the scheduled end time of the meeting.                                                                     |
+| Recording Ready                   | A meeting recording is available and ready to access.                                                         |
+| Recording Transcription Generated | A transcription of the meeting recording is successfully generated.                                           |
+| Instant Meeting Created           | An instant (ad-hoc) meeting is created.                                                                       |
+| Out of Office Created             | A user adds a new Out of Office entry to their availability.                                                  |
+| After Hosts Cal Video No-Show     | The host did not show up to a Cal Video meeting in the first `n` minutes, as set up in the configuration.     |
+| After Guests Cal Video No-Show    | The attendee did not show up to a Cal Video meeting in the first `n` minutes, as set up in the configuration. |
+| Form Submitted                    | A form is submitted as part of a routing form **with** a scheduled event.                                     |
+| Form Submitted (No Event)         | A form is submitted **without** a scheduled event (form-only flow).                                           |
+
 
 ### An example webhook payload
 
