@@ -10,16 +10,20 @@ Webhooks offer a great way to automate the flow with other apps when invitees sc
 
 The webhook subscription allows you to listen to specific trigger events, such as when a booking has been scheduled, for example. You can always listen to the webhook by providing a custom subscriber URL with your own development work. However, if you wish to trigger automations without any development work, you can use the integration with Zapier which connects Cal.com to your apps.
 
-<Note>
-  Please note that the webhooks can be associated with user as well as individual event types, including team event types.
-</Note>
+### Webhook scope levels
+Webhooks can be created at multiple levels of scope, each determining which events they apply to:
 
-### Creating a webhook subscription
+#### User-level:
+Triggers for all event types owned by the user (excluding team-managed types).
 
-To create a new webhook subscription, visit `/settings/developer/webhooks` and proceed to enter the following details:
+#### Event-type level:
+Triggers only for a specific event type. Useful for fine-grained control.
+
+#### Team-level:
+Applies to team event types (i.e., Collective and Round Robin) within the specified team.
+
 <Note>
-A webhook created for a team will only trigger for team-level event types (e.g., Collective and Round Robin) belonging to that team.
-However, in the case of Managed events, bookings are made on the child event types, not the parent team event. Because of this, team-level webhooks will not trigger for managed events unless one of the following is true:
+In the case of Managed events, bookings are made on the child event types, not the parent team event. Because of this, team-level webhooks will **not** trigger for managed events unless one of the following is true:
 
 - You create a webhook directly on the parent event type (recommended), or
 - You create individual webhooks on the child event types (owned by users).
@@ -27,6 +31,14 @@ However, in the case of Managed events, bookings are made on the child event typ
 💡 **Note:**
 Users can create webhooks that apply to their own event types, including child events under a managed event, even if a team-level webhook exists.
 </Note>
+
+#### Organization-level:
+Applies to all team event types across all teams within the organization.
+
+### Creating a webhook subscription
+
+To create a new webhook subscription, visit `/settings/developer/webhooks` and proceed to enter the following details:
+
 
 1. Subscriber URL: The listener URL where the payload will be sent to, when an event trigger is triggered.
 
