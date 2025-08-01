@@ -51,26 +51,25 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 
 ### Expectations with the triggers
 
-| **Event**                           | **Triggers When...**                                                                                          |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `Booking Created`                   | A new booking is successfully created.                                                                        |
-| `Booking Cancelled`                 | A booking is cancelled by the host, attendee, or via API.                                                     |
-| `Booking Rescheduled`               | A booking is rescheduled to a different time.                                                                 |
-| `Booking Rejected`                  | A booking request is explicitly rejected by the host.                                                         |
-| `Booking Requested`                 | A booking requiring confirmation from the host is submitted.                                                  |
-| `Booking Paid`                      | Payment for a booking is completed.                                                                           |
-| `Booking Payment Initiated`         | A payment attempt is initiated (before confirmation).                                                         |
-| `Booking No-Show Updated`           | A host or attendee is marked as a no-show after the meeting.                                                  |
-| `Meeting Started`                   | At the scheduled start time of the meeting.                                                                   |
-| `Meeting Ended`                     | At the scheduled end time of the meeting.                                                                     |
-| `Recording Ready`                   | A meeting recording is available and ready to access.                                                         |
-| `Recording Transcription Generated` | A transcription of the meeting recording is successfully generated.                                           |
-| `Instant Meeting Created`           | An instant (ad-hoc) meeting is created.                                                                       |
-| `Out of Office Created`             | A user adds a new Out of Office entry to their availability.                                                  |
-| `After Hosts Cal Video No-Show`     | The host did not show up to a Cal Video meeting in the first `n` minutes, as set up in the configuration.     |
-| `After Guests Cal Video No-Show`    | The attendee did not show up to a Cal Video meeting in the first `n` minutes, as set up in the configuration. |
-| `Form Submitted`                    | A form is submitted as part of a routing form **with** a scheduled event.                                     |
-| `Form Submitted (No Event)`         | A form is submitted **without** a scheduled event (form-only flow).                                           |
+| **Event**                          | **Triggers When...**                                                                                          |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Booking Created                   | A new booking is successfully created.                                                                        |
+| Booking Cancelled                 | A booking is cancelled by the host, attendee, or via API.                                                     |
+| Booking Rejected                  | A booking request is explicitly rejected by the host.                                                         |
+| Booking Requested                 | A booking requiring confirmation from the host is submitted.                                                  |
+| Booking Paid                      | Payment for a booking is completed.                                                                           |
+| Booking Payment Initiated         | A payment attempt is initiated (before confirmation).                                                         |
+| Booking No-Show Updated           | A host or attendee is marked as a no-show after the meeting.                                                  |
+| Meeting Started                   | At the scheduled start time of the meeting.                                                                   |
+| Meeting Ended                     | At the scheduled end time of the meeting.                                                                     |
+| Recording Ready                   | A meeting recording is available and ready to access.                                                         |
+| Recording Transcription Generated | A transcription of the meeting recording is successfully generated.                                           |
+| Instant Meeting Created           | An instant (ad-hoc) meeting is created.                                                                       |
+| Out of Office Created             | A user adds a new Out of Office entry to their availability.                                                  |
+| After Hosts Cal Video No-Show     | The host did not show up to a Cal Video meeting in the first `n` minutes, as set up in the configuration.     |
+| After Guests Cal Video No-Show    | The attendee did not show up to a Cal Video meeting in the first `n` minutes, as set up in the configuration. |
+| Form Submitted                    | A form is submitted as part of a routing form **with** a scheduled event.                                     |
+| Form Submitted (No Event)         | A form is submitted **without** a scheduled event (form-only flow).                                           |
 
 
 ### An example webhook payload
