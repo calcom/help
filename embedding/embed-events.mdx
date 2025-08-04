@@ -20,6 +20,30 @@ You can listen to an event that occurs in embedded cal link as follows. You can 
 </script>
 ```
 
+## Usage
+
+<table>
+  <thead>
+    <tr>
+      <th>Wrong ❌</th>
+      <th>Correct ✅</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`Cal.ns.yournamespace.on(...)`</td>
+      <td>`Cal.ns.yournamespace('on', ...)`</td>
+      <td>To be used when a namespace is used which you can identify by seeing if "init" call has namespace in it.<br/><br/>`Cal("init", "yournamespace", { origin: "https://cal.com" })`.<br/><br/>The Embed snippet you get from the Cal.com app uses a namespace derived from the event type slug.</td>
+    </tr>
+    <tr>
+      <td>`Cal.on(...)`</td>
+      <td>`Cal('on', ...)`</td>
+      <td>To be used when namespace is not used which you can identify by seeing if the "init" call has no namespace in it.<br/><br/>`Cal("init", { origin: "https://cal.com" })`</td>
+    </tr>
+  </tbody>
+</table>
+
 ## Event Reference
 
 ### `eventTypeSelected`
