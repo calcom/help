@@ -201,7 +201,8 @@
           "iconType": "solid",
           "pages": [
             "routing/routing-overview",
-            "routing/routing-with-attributes"
+            "routing/routing-with-attributes",
+            "routing/headless-routing"
           ]
         },
         {

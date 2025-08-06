@@ -1,0 +1,122 @@
+---
+title: 'Headless Routing'
+---
+This guide explains how to integrate Cal.com Routing Forms with your existing forms and client applications, enabling seamless data forwarding and dynamic routing decisions.
+
+---
+
+## What is Headless Routing?
+
+Headless Routing allows you to use your own custom forms (on your website, application, or landing pages) while leveraging Cal.com's powerful routing logic. Instead of requiring users to fill out a Cal.com Routing Form directly, you can:
+
+1. Collect data through your own forms
+2. Pass that data to Cal.com via URL parameters
+3. Let Cal.com handle the routing decision-making
+4. Direct users to the appropriate booking flow
+
+This approach provides a **completely seamless user experience** while maintaining centralized routing control within Cal.com.
+
+---
+
+## How It Works
+
+The headless routing flow follows these steps:
+
+1. **User fills out your custom form** on your website or application
+2. **Form data is collected** (e.g., name, email, company size, urgency)
+3. **Data is forwarded to Cal.com** as URL parameters
+4. **Cal.com Routing Form processes** the parameters
+5. **User is directed** to the appropriate booking page or outcome(e.g. redirecting to an external webpage or showing a Custom Page with a message)
+
+---
+
+## Implementation Steps
+
+### 1. Create Your Routing Form
+
+First, create a Routing Form in Cal.com with fields that will receive data from your external form:
+
+1. Navigate to [Routing Forms](https://app.cal.com/routing)
+2. Create a new Routing Form
+3. Add fields that match the data you'll collect:
+   - Use clear field identifiers (e.g., `firstName`, `lastName`, `email`, `companySize`)
+   - These identifiers will be used as URL parameter names
+4. Configure routing logic based on these fields
+
+### 2. Prepare Your External Form
+
+Your external form should:
+- Collect the necessary information
+- Match field names to your Routing Form identifiers
+- Construct the URL with parameters
+
+### 3. Pass Data via URL Parameters
+
+Construct the headless routing URL with your form data:
+
+```
+https://your-org.cal.com/router?form=YOUR_FORM_ID&firstName=John&lastName=Doe&email=john@example.com&companySize=10-100
+```
+
+**Important considerations:**
+- URL encode special characters (e.g., `+` becomes `%2B`)
+- All parameter names must match your Routing Form field identifiers
+- The `form` parameter should be the your Routing Form ID that you see on in your Routing Form URL. e.g. for `https://app.cal.com/routing/route-builder/8cfd7889-9043-4e20-9a09-db8e2c9f747c`, the Routing Form ID is `8cfd7889-9043-4e20-9a09-db8e2c9f747c`
+
+---
+
+## Using Attributes for Team Member Routing
+
+Headless routing works seamlessly with Cal.com's attribute-based routing system. This allows you to dynamically route bookings to specific team members based on attributes like:
+
+- **Service type** (e.g., Sales, Support, Technical)
+- **Language** preferences
+- **Geographic region**
+- **Product expertise**
+- **Custom attributes** specific to your organization
+
+### How Attribute Routing Works
+
+1. **Set up attributes** in your organization settings
+2. **Assign attributes** to team members
+3. **Configure your Routing Form** to match fields with attributes
+4. **Pass attribute values** via URL parameters from your custom form
+
+For example, if you have a `service` attribute, you can pass it directly:
+
+```
+/router?form={FORM_ID}&service=Technical%20Support&email=user@example.com
+```
+
+Cal.com will automatically match this to team members who have the "Technical Support" attribute assigned.
+
+**[Learn more about setting up attribute-based routing →](/routing/routing-with-attributes)**
+
+
+## Troubleshooting
+
+### Common Issues
+
+**Parameters not being recognized:**
+- Verify field identifiers match exactly
+- Check for typos in parameter names
+- Ensure proper URL encoding
+
+**Routing not working as expected:**
+- Test the Routing Form directly first
+- Verify all required fields are included
+- Check routing logic configuration
+
+---
+
+## Try It Out
+
+You can experiment with a live example in this [CodeSandbox demo](https://codesandbox.io/p/devbox/headless-router-with-embed-kzjc9s).
+
+---
+
+## Related Resources
+
+- [Routing Forms Overview](/routing/routing-overview)
+- [Routing with Attributes](/routing/routing-with-attributes) - Set up attribute-based team member routing
+- [Cal.com Embed Documentation](/embedding/adding-embed)
