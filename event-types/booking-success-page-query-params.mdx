@@ -1,0 +1,134 @@
+---
+title: Booking Success Redirect Parameters
+description: Complete reference guide for query parameters forwarded to custom success pages after successful bookings
+---
+
+
+When a booking is successfully created in Cal.com, users can be redirected to a custom success page by enabling 'Redirect to a custom URL after a successful booking' option in the Event Type's Advanced settings page. 
+This guide documents all the query parameters that are forwarded to your custom success URL when 'Forward parameters' option is enabled (which is the default).
+
+## Overview
+
+Cal.com automatically appends booking information as query parameters to your custom success redirect URL. These parameters allow you to display booking details, or integrate with your own systems.
+
+**Example redirect URL:**
+```
+https://yoursite.com/booking-success?uid=abc123&title=30min%20Meeting&startTime=2024-01-15T14%3A00%3A00.000Z&attendeeName=John%20Doe&email=john%40example.com
+```
+
+## Quick Reference
+
+| Parameter | Always Included | Description |
+|-----------|----------------|-------------|
+| `uid` | ✅ | Unique booking identifier |
+| `title` | ✅ | Event type title |
+| `startTime` | ✅ | Start time in UTC |
+| `endTime` | ✅ | End time in UTC |
+| `email` | ✅ | Primary attendee email |
+| `isEmbed` | ✅ | Boolean flag indicating embed booking |
+| `description` | ⚠️ | Event description (when available) |
+| `location` | ⚠️ | Meeting location (when set) |
+| `hostName` | ⚠️ | Host name(s) (when available) |
+| `hostStartTime` | ⚠️ | Start time in host timezone (when available) |
+| `attendeeName` | ⚠️ | Attendee name (when available) |
+| `attendeeStartTime` | ⚠️ | Start time in attendee timezone (when available) |
+| `attendeeFirstName` | ⚠️ | First name from booking form (when provided) |
+| `attendeeLastName` | ⚠️ | Last name from booking form (when provided) |
+| `guestEmails` | ⚠️ | Guest emails (when guests added) |
+| `phone` | ⚠️ | Phone number (when provided) |
+
+## Core Booking Parameters
+
+**`uid`** - Unique identifier for the booking
+- Always included
+- Example: `9ybDCbazSYpJHthpxG5EDM`
+- Usage: Use this to fetch additional booking details via API or store in your database
+
+**`title`** - The event type title
+- Always included
+- Example: `30 Minute Meeting`
+
+**`description`** - Event type description
+- Included when event has description
+- Example: `Quick sync meeting to discuss project updates`
+
+**`startTime`** - ISO 8601 formatted start time in UTC
+- Always included
+- Example: `2024-01-15T14:00:00.000Z`
+
+**`endTime`** - ISO 8601 formatted end time in UTC
+- Always included
+- Example: `2024-01-15T14:30:00.000Z`
+
+**`location`** - Meeting location or video conference URL
+- Included when location is set
+- Example: `integrations:daily` (Cal Video), `integrations:zoom` (Zoom). More possible values [here](../bookings/prefill-fields#pre-selecting-a-video-meeting)
+
+## Host/Organizer Parameters
+
+**`hostName`** - Host name(s), comma-separated for multiple hosts
+- Included when host information available
+- Example: `Jane Smith,Mike Johnson`
+
+**`hostStartTime`** - Start time formatted in host's timezone
+- Included when host timezone available
+- Example: `2024-01-15T09:00:00-05:00`
+
+## Attendee Parameters
+
+**`attendeeName`** - Name of the person who booked
+- Included when primary attendee name available
+- Example: `John Doe`
+
+**`attendeeStartTime`** - Start time in attendee's timezone
+- Included when attendee timezone available
+- Example: `2024-01-15T06:00:00-08:00`
+
+**`attendeeFirstName`** - First name from booking form
+- Included when first name provided in booking form
+- Example: `John`
+
+**`attendeeLastName`** - Last name from booking form
+- Included when last name provided in booking form
+- Example: `Doe`
+
+**`guestEmails`** - Comma-separated list of guest emails
+- Included when additional guests added
+- Example: `guest1@example.com, guest2@example.com`
+
+## Booking Context Parameters
+
+**`email`** - Primary attendee's email address
+- Always included
+- Example: `john@example.com`
+
+**`phone`** - Phone number from booking form
+- Included when phone number provided
+- Example: `+1234567890`
+
+## System Context Parameters
+
+**`isEmbed`** - Boolean flag indicating if booking was made via embed
+- Always included
+- Example: `false`
+
+## Troubleshooting
+
+### Common Issues
+
+**Missing Parameters**
+- Some parameters are only included when data is available
+
+**URL Encoding Issues**
+- Always use `decodeURIComponent()` in JavaScript or equivalent in other languages
+- Special characters like `@`, `+`, spaces are URL encoded
+
+**Date/Time Handling**
+- `startTime` and `endTime` are always in UTC (ISO 8601 format)
+- `hostStartTime` and `attendeeStartTime` include timezone information
+- Convert to local time as needed for display
+
+### Security Considerations
+
+- Always validate and sanitize parameters before using in database queries
+- Don't trust parameter values - validate against your expected data types
