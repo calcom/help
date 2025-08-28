@@ -71,17 +71,13 @@
           "group": "Enterprise",
           "icon": "landmark",
           "iconType": "solid",
-          "pages": [
-            "enterprise/members-onboarding"
-          ]
+          "pages": ["enterprise/members-onboarding"]
         },
         {
           "group": "Billing and Usage",
           "icon": "credit-card",
           "iconType": "solid",
-          "pages": [
-            "billing-and-usage/messaging-credits"
-          ]
+          "pages": ["billing-and-usage/messaging-credits"]
         },
         {
           "group": "Event Types",
@@ -167,10 +163,7 @@
           "group": "Workflows",
           "icon": "bars-staggered",
           "iconType": "solid",
-          "pages": [
-            "workflows/workflowsoverview",
-            "workflows/credits"
-          ]
+          "pages": ["workflows/workflowsoverview", "workflows/credits"]
         },
         {
           "group": "Embedding",
@@ -226,9 +219,13 @@
           "group": "Privacy and Compliance",
           "icon": "lock",
           "iconType": "solid",
-          "pages": [
-            "privacy-and-compliance/google-calendar-privacy"
-          ]
+          "pages": ["privacy-and-compliance/google-calendar-privacy"]
+        },
+        {
+          "group": "Importing",
+          "icon": "arrow-down-to-bracket",
+          "iconType": "solid",
+          "pages": ["importing/import-numbers"]
         },
         {
           "group": "Developers",
