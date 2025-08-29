@@ -222,10 +222,10 @@
           "pages": ["privacy-and-compliance/google-calendar-privacy"]
         },
         {
-          "group": "Importing",
+          "group": "Cal.ai",
           "icon": "arrow-down-to-bracket",
           "iconType": "solid",
-          "pages": ["importing/import-numbers"]
+          "pages": ["cal-ai/import-numbers"]
         },
         {
           "group": "Developers",
