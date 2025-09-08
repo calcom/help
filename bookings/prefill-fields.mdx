@@ -68,8 +68,9 @@ If there are multiple organizer addresses(say NYC, London, Paris), then the corr
 `location={"value":"Paris","optionValue":""}`
 
 [![](https://downloads.intercomcdn.com/i/o/1198198794/4983c503a9ce5201e0c1bba8/i1600x899-AlmOt5E4diMC_nkjeb4.png?expires=1736325000&signature=4d46fb2749e119580fab04853978f7338ae1b49f7b47c27bcc0e1496745ad183&req=dSEuHsh3lYZWXfMW1HO4zfhh%2BpZqpU47epa9VDhCuWvhAe0fXXhWclcsJTld%0AHrJR7dP6os%2FtnThVdsI%3D%0A)](https://downloads.intercomcdn.com/i/o/1198198794/4983c503a9ce5201e0c1bba8/i1600x899-AlmOt5E4diMC_nkjeb4.png?expires=1736325000&signature=4d46fb2749e119580fab04853978f7338ae1b49f7b47c27bcc0e1496745ad183&req=dSEuHsh3lYZWXfMW1HO4zfhh%2BpZqpU47epa9VDhCuWvhAe0fXXhWclcsJTld%0AHrJR7dP6os%2FtnThVdsI%3D%0A)
-## Pre-filling Attendee Phone
+## Pre-filling Attendee Phone - When chosen as one of the locations
 
+When Attendee Phone is chosen as one of the locations as shown in the screenshot below, you can prefill the phone number by using the `location` param.
 ```
 ...other-params...&location={"value":"phone","optionValue":"%2B919999999999"}
 ```
@@ -77,6 +78,16 @@ If there are multiple organizer addresses(say NYC, London, Paris), then the corr
 *Note: %2B is encoded form of +*
 
 [![](https://downloads.intercomcdn.com/i/o/1198198790/02943b0276723d5effc1ed0b/i1600x899-wVkiblWj8CDH_iwhwrd.png?expires=1736325000&signature=1244214d7c9fcfd16b6edc4b71a4267c3a0bf9c4ad5c91a93ee447cd65c1b3f9&req=dSEuHsh3lYZWWfMW1HO4zQf94cG%2FKVtkygk%2BlF1g7HiXVwSfutAPEbSq%2B3Jv%0A3p3Pf5Mj3PVQ%2F3avvp8%3D%0A)](https://downloads.intercomcdn.com/i/o/1198198790/02943b0276723d5effc1ed0b/i1600x899-wVkiblWj8CDH_iwhwrd.png?expires=1736325000&signature=1244214d7c9fcfd16b6edc4b71a4267c3a0bf9c4ad5c91a93ee447cd65c1b3f9&req=dSEuHsh3lYZWWfMW1HO4zQf94cG%2FKVtkygk%2BlF1g7HiXVwSfutAPEbSq%2B3Jv%0A3p3Pf5Mj3PVQ%2F3avvp8%3D%0A)
+
+
+## Pre-filling Attendee Phone - When used as a separate booking question
+
+Another way to ask for the attendee phone number is to toggle on the "Phone number" question in the Advanced -> Booking questions section. In that case, the correct approach to prefill the phone number is to use the `attendeePhoneNumber` param.
+
+```
+...other-params...&attendeePhoneNumber=%2B919999999999
+```
+
 
 ## Pre-selecting Link Meeting
 
