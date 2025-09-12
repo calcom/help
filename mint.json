@@ -222,6 +222,12 @@
           "pages": ["privacy-and-compliance/google-calendar-privacy"]
         },
         {
+          "group": "User Roles",
+          "icon": "user-check",
+          "iconType": "solid",
+          "pages": ["roles/make-user-an-org-admin"]
+        },
+        {
           "group": "Importing",
           "icon": "arrow-down-to-bracket",
           "iconType": "solid",
