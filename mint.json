@@ -166,6 +166,13 @@
           "pages": ["workflows/workflowsoverview", "workflows/credits"]
         },
         {
+          "group": "Cal AI",
+          "icon": "fa-phone-slash",
+          "iconType": "solid",
+          "pages": ["cal-ai/cal-ai-help"]
+        },
+
+        {
           "group": "Embedding",
           "icon": "code",
           "iconType": "solid",
@@ -189,11 +196,6 @@
             "auth-and-provision/oidc-with-okta"
           ]
         },
-        {
-          "group": "Cal.ai",
-          "icon": "phone-slash"
-          "iconType": "solid",
-          "pages":["cal-ai/cal-ai-help"] 
         {
           "group": "Routing",
           "icon": "arrows-repeat",
