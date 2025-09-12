@@ -166,8 +166,8 @@
           "pages": ["workflows/workflowsoverview", "workflows/credits"]
         },
         {
-          "group": "Cal AI",
-          "icon": "fa-phone-slash",
+          "group": "Cal.AI",
+          "icon": "phone-slash",
           "iconType": "solid",
           "pages": ["cal-ai/cal-ai-help"]
         },
