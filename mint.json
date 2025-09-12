@@ -190,6 +190,11 @@
           ]
         },
         {
+          "group": "Cal.ai",
+          "icon": "phone-slash"
+          "iconType": "solid",
+          "pages":["cal-ai/cal-ai-help"] 
+        {
           "group": "Routing",
           "icon": "arrows-repeat",
           "iconType": "solid",
