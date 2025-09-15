@@ -169,7 +169,7 @@
           "group": "Cal.ai",
           "icon": "phone-slash",
           "iconType": "solid",
-          "pages": ["cal-ai/cal-ai-setup"]
+          "pages": ["cal-ai/cal-ai-help"]
         },
 
         {
