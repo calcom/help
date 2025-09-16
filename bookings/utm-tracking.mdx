@@ -3,20 +3,39 @@ title: UTM Parameter Tracking
 ---
 
 Cal.com allows you to track UTM parameters on your booking pages to better understand where your bookings are coming from. This helps you measure the effectiveness of your marketing campaigns and traffic sources.
-It is a three step process:
 
-1. Add hidden questions to your booking page for all the params that you want to track
-2. Send those params in the booking link
-3. View the UTM parameters in the booking details page.
+## Automatic UTM Tracking
 
+Cal.com **automatically tracks** the following standard UTM parameters without any additional setup required:
 
-## Add hidden questions to your booking page
+- `utm_source`
+- `utm_medium`
+- `utm_campaign`
+- `utm_term`
+- `utm_content`
+
+Simply include these parameters in your booking links, and Cal.com will automatically capture and store them when someone makes a booking.
+
+**Example:**
+```
+https://cal.com/rick/get-rick-rolled?utm_source=google&utm_medium=cpc&utm_campaign=summer_sale
+```
+
+## Manual Tracking for Custom Parameters
+
+If you need to track **custom or non-standard UTM parameters** beyond the five automatically supported ones listed above, you can use the manual hidden booking fields approach. This is a three-step process:
+
+1. Add hidden questions to your booking page for the custom params you want to track
+2. Send those params in the booking link  
+3. View the custom parameters in the booking details page
+
+### Add hidden questions to your booking page
 You can follow [booking-questions](/event-types/booking-questions) to know how to add a question to the booking page of an event type.
 
-Create a booking question for each of the UTM params that you want to track.
+Create a booking question for each of the **custom** UTM params that you want to track (remember, the standard 5 parameters are tracked automatically).
 
 <Frame>
-<img src="/images/add-utm-medium-question.png" alt="Add utm medium question" />
+<img src="/images/add-custom-utm-param-hidden-question.png" alt="Add custom utm param question" />
 </Frame>
 
 Make sure to toggle the question to "Hidden"
@@ -24,30 +43,32 @@ Make sure to toggle the question to "Hidden"
 <img src="/images/toggle-question-hidden.png" alt="Toggle question hidden" />
 </Frame>
 
-Ensure following:
+Ensure the following:
 1. Input type is "Short Text"
-2. Identifier is one of the UTM params that you want to track.
+2. Identifier is one of the **custom** UTM params that you want to track (e.g., `utm_content_variant`)
 3. Question is toggled to "Hidden"
 4. Required is set to "No"
 
-## Send those params in the booking link
+### Send custom params in the booking link
 
-You need to send those params in the booking link and when someone books through that link, the params for which you have added questions will be captured.
+You need to send your custom params in the booking link. When someone books through that link, both the automatic standard UTM parameters and your custom parameters (for which you have added questions) will be captured.
 
-Example:
+Example with both automatic and custom parameters:
 
 ```
-https://cal.com/rick/get-rick-rolled?utm_source=source&utm_medium=medium&utm_campaign=campaign
+https://cal.com/rick/get-rick-rolled?utm_source=google&utm_medium=cpc&utm_campaign=summer_sale&utm_content_variant=content-variant
 ```
 
+In this example:
+- `utm_source`, `utm_medium`, and `utm_campaign` will be **automatically tracked** 
+- `utm_content_variant` will be captured via your hidden booking questions
 
-## View the UTM parameters in the booking details page
+## Viewing UTM Parameters
 
-You can view the UTM parameters in the booking details page when you are logged in to your cal.com account.
-Note that the booker and the attendees will not see these params. So, it is required to login to your cal.com account to view these params.
+You can view both automatically tracked and manually tracked UTM parameters in the booking details page when you are logged in to your Cal.com account.
+
+**Note:** Only the hosts of the booking will be able to view the UTM parameters and hidden booking questions' answers.
 
 <Frame>
 <img src="/images/view-utm-params-booking-details.png" alt="View utm parameters" />
 </Frame>
-
-
