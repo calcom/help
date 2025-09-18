@@ -40,6 +40,23 @@ The number of messaging credits available to your account depends on your plan t
 
 ---
 
+## Behavior When Credit Balance Is Exhausted
+
+- **Low credit alerts**: We'll send email warnings when your balance gets low (all admins are notified for teams)
+- **Exhaustion fallback**:
+  - If credits run out, SMS/WhatsApp messages will **automatically stop**
+  - Cal.com will **fall back to email delivery only** for affected messages
+
+This ensures bookings still go through, but real-time alerts may be delayed if recipients rely on SMS/WhatsApp.
+
+---
+
+<Note>
+  Credits are **not the only way** SMS/WhatsApp are funded — they're just the default mechanism for smaller accounts and teams
+</Note>
+
+---
+
 ## Credit-Based Messaging Costs
 
 The cost depends on the recipient's location and the delivery method:
@@ -76,20 +93,3 @@ Each segment is treated as a separate message, and credits are then calculated b
 
 📎 _Want to check how many segments your message will use?_\
 Use [Twilio’s Segment Calculator](https://www.twilio.com/en-us/blog/what-the-heck-is-a-segment-html) to estimate credit usage before sending.
-
-## Behavior When Credit Balance Is Exhausted
-
-- **Low credit alerts**: We'll send email warnings when your balance gets low (all admins are notified for teams)
-- **Exhaustion fallback**:
-  - If credits run out, SMS/WhatsApp messages will **automatically stop**
-  - Cal.com will **fall back to email delivery only** for affected messages
-
-This ensures bookings still go through, but real-time alerts may be delayed if recipients rely on SMS/WhatsApp.
-
----
-
-<Note>
-  Credits are **not the only way** SMS/WhatsApp are funded — they're just the default mechanism for smaller accounts and teams
-</Note>
-
----
