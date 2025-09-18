@@ -92,7 +92,6 @@
             "event-types/adding-zoom",
             "event-types/booking-frequency",
             "event-types/round-robin",
-            "event-types/dynamic",
             "event-types/collective-events",
             "event-types/create-first-event",
             "event-types/create-phone-only-event-type",
