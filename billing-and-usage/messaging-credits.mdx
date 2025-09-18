@@ -23,8 +23,9 @@ The number of messaging credits available to your account depends on your plan t
 
 ### **Organizations (Enterprise)**
 
-- **Unlimited credits**
+- **1000 credits per team member per month**
 - Messaging costs are typically covered through your organization's billing method, making credits unnecessary
+- SMS/Whatsapp sending is free
 
 ### **Team Plan**
 
@@ -36,6 +37,23 @@ The number of messaging credits available to your account depends on your plan t
 
 - **No free credits included**
 - You can purchase credits manually from your **Billing Settings**
+
+---
+
+## Behavior When Credit Balance Is Exhausted
+
+- **Low credit alerts**: We'll send email warnings when your balance gets low (all admins are notified for teams)
+- **Exhaustion fallback**:
+  - If credits run out, SMS/WhatsApp messages will **automatically stop**
+  - Cal.com will **fall back to email delivery only** for affected messages
+
+This ensures bookings still go through, but real-time alerts may be delayed if recipients rely on SMS/WhatsApp.
+
+---
+
+<Note>
+  Credits are **not the only way** SMS/WhatsApp are funded — they're just the default mechanism for smaller accounts and teams
+</Note>
 
 ---
 
@@ -75,20 +93,3 @@ Each segment is treated as a separate message, and credits are then calculated b
 
 📎 _Want to check how many segments your message will use?_\
 Use [Twilio’s Segment Calculator](https://www.twilio.com/en-us/blog/what-the-heck-is-a-segment-html) to estimate credit usage before sending.
-
-## Behavior When Credit Balance Is Exhausted
-
-- **Low credit alerts**: We'll send email warnings when your balance gets low (all admins are notified for teams)
-- **Exhaustion fallback**:
-  - If credits run out, SMS/WhatsApp messages will **automatically stop**
-  - Cal.com will **fall back to email delivery only** for affected messages
-
-This ensures bookings still go through, but real-time alerts may be delayed if recipients rely on SMS/WhatsApp.
-
----
-
-<Note>
-  Credits are **not the only way** SMS/WhatsApp are funded — they're just the default mechanism for smaller accounts and teams
-</Note>
-
----
