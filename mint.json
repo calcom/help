@@ -86,6 +86,7 @@
             "event-types/event-types",
             "event-types/eventtype-id",
             "event-types/booking-questions",
+            "event-types/eventtype-specific-checking-for-conflicts",
             "event-types/email-bookingq",
             "event-types/add-events",
             "event-types/managed-events",
