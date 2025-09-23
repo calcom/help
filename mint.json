@@ -119,6 +119,7 @@
             "event-types/multiple-durations",
             "event-types/private-links",
             "event-types/offer-seats",
+            "event-types/optimized-slots",
             "event-types/recurring-events",
             "event-types/require-criteria",
             "event-types/restriction-schedule",
