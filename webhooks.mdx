@@ -89,8 +89,9 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
         "organizer": {
             "id": 5,
             "name": "Pro Example",
-            "email": "pro@example.com",
-            "username": "pro",
+            "email": "owner@acme.com",
+            "username": "owner90",
+            "usernameInOrg": "owner",
             "timeZone": "Asia/Kolkata",
             "language": {
                 "locale": "en"
@@ -212,8 +213,8 @@ where `{{type}}` represents the event type slug and `{{title}}` represents the t
 | endTime            | Datetime  | The event's end time                                                                                                                                                                                                                                |
 | description        | String    | The event's description as described in the event type settings                                                                                                                                                                                     |
 | location           | String    | Location of the event                                                                                                                                                                                                                               |
-| organizer          | Person    | The organizer of the event                                                                                                                                                                                                                          |
-| attendees          | Person\[] | The event booker & any guests                                                                                                                                                                                                                       |
+| organizer          | Organizer | The organizer of the event                                                                                                                                                                                                                          |
+| attendees          | Attendee\[] | The event booker & any guests                                                                                                                                                                                                                     |
 | uid                | String    | The UID of the booking                                                                                                                                                                                                                              |
 | rescheduleUid      | String    | The UID for rescheduling                                                                                                                                                                                                                            |
 | cancellationReason | String    | Reason for cancellation                                                                                                                                                                                                                             |
@@ -222,11 +223,22 @@ where `{{type}}` represents the event type slug and `{{title}}` represents the t
 | team.members       | String\[] | Members of the team booked                                                                                                                                                                                                                          |
 | metadata           | JSON      | Contains a metadata of the booking, including the meeting URL (videoCallUrl) in case of Google Meet and Cal Video                                                                                                                                   |
 
-#### Person Structure
+#### Organizer Structure
 
 | Variable         | Type   | Description                                                            |
 | ---------------- | ------ | ---------------------------------------------------------------------- |
-| name             | String | Name of the individual                                                 |
-| email            | Email  | Email of the individual                                                |
-| timezone         | String | Timezone of the individual ("America/New\_York", "Asia/Kolkata", etc.) |
-| language?.locale | String | Locale of the individual ("en", "fr", etc.)                            |
+| name             | String | Name of the organizer                                                  |
+| email            | Email  | Email of the organizer                                                 |
+| username         | String | Global username of the organizer                                       |
+| usernameInOrg    | String | Username of the organizer within their organization (if applicable)    |
+| timeZone         | String | Timezone of the organizer ("America/New\_York", "Asia/Kolkata", etc.)  |
+| language?.locale | String | Locale of the organizer ("en", "fr", etc.)                            |
+
+#### Attendee Structure
+
+| Variable         | Type   | Description                                                              |
+| ---------------- | ------ | ------------------------------------------------------------------------ |
+| name             | String | Name of the attendee                                                     |
+| email            | Email  | Email of the attendee                                                    |
+| timeZone         | String | Timezone of the attendee ("America/New\_York", "Asia/Kolkata", etc.)    |
+| language?.locale | String | Locale of the attendee ("en", "fr", etc.)                               |
