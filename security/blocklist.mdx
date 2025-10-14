@@ -1,0 +1,128 @@
+---
+title: "Blocklist"
+---
+
+The **Blocklist** helps Organization Admins stop unwanted bookings made with suspicious emails or domains. Organization members can **report** bookings they believe are spam. Reported bookings are **flagged** and **auto-cancelled** (including all future occurrences for recurring events).\
+Admins then review these reports at [/organizations/privacy](https://app.cal.com/settings/organizations/privacy) and decide to **Ignore** or **Block** the email/domain. Admins can also **add blocklist entries directly** without a prior report.
+
+---
+
+## What happens when a booking is reported
+
+1. The booking is marked **Reported**.
+2. The booking (and any **future recurrences**) is **automatically cancelled**.
+3. The report appears in **Privacy & Security → Spam Blocklist** for admin review.
+
+<Note>
+  Past occurrences in a recurring series are not retroactively cancelled.
+</Note>
+
+---
+
+## Reviewing reports (Privacy & Security)
+
+Go to `/organizations/privacy` →**Blocklist** .
+
+For each report you’ll see:
+
+- **Booker email**
+- **Who reported it** and **when**
+- **Linked booking** (event, host, time)
+- **Actions**: **Ignore** or **Block**
+
+### Actions
+
+- **Ignore**: Closes the report. The email/domain isn't added to blocklist
+- **Block** (Email or Domain):
+  - **Email**: Blocks _that exact_ email.
+  - **Domain**: Blocks _all_ addresses at that domain (e.g., `@example.com`).
+
+<Note>
+  When **blocked**, **any future booking attempts** across your organization are **silently rejected**. The booker is **not** told they’ve been blocked.
+</Note>
+
+---
+
+## Add to blocklist directly (no report required)
+
+From the **Blocklist**:
+
+1. Click **Add to Blocklist**.
+2. Choose **Email** or **Domain**.
+3. Provide the value and (optionally) a description explaining **reason/notes**.
+4. Save.
+
+This immediately activates the block for all users in your organization.
+
+---
+
+## How blocking works (under the hood)
+
+- **Checks run at booking time** against your org’s blocklist.
+- **Silent failure**: We do **not** reveal the block to suspected spammers (prevents evasion and harassment).
+- **PII safe:** We do **not **reveal the host's PII in such cases.
+- **Scope**: Org-wide. A blocked email/domain cannot book **any** user in your org.
+
+---
+
+## Benefits
+
+- **Reduces noise** and protects calendars from spam or harassment.
+- **Prevents recurring spam** by shutting down future attempts automatically.
+- **Protects host privacy & safety** by avoiding explicit “you’re blocked” notices.
+- **Saves time** for admins and hosts; fewer manual cancellations and follow-ups.
+- **Organization-wide coverage** ensures consistent enforcement for all members.
+
+---
+
+## Best practices
+
+- **Prefer domain blocks** for obvious throwaway/spam domains; use **email blocks** for one-off bad actors on otherwise legitimate domains.
+- **Add a note** when blocking (reason, source). It helps future reviewers.
+- **Review regularly**: Clear out resolved reports to keep the queue tidy.
+- **Start narrow, widen later**: If unsure, block the email first; escalate to a domain block if you see a pattern.
+
+---
+
+## Permissions & access
+
+- **Who can report**: Any user who receives a suspicious booking.
+- **Who can review/block**: **Organization Admins** (and Owners).
+- **Where**: `/organizations/privacy` → **Blocklist** .
+
+---
+
+## Unblocking / managing entries
+
+- Navigate to **Blocklist**.
+- Find the entry → **Remove** or **Edit**.
+- Removing an entry **re-enables** booking attempts from that email/domain.
+
+<Note>
+  Removing a block does not restore previously cancelled bookings; those must be recreated if needed.
+</Note>
+
+---
+
+## FAQs
+
+**Q: Will the booker know they were blocked?**\
+**A:** No. We intentionally keep it silent to prevent abuse escalation and evasion.
+
+**Q: Can I block subdomains only (e.g., `@mail.bad.com but not  @good.bad.com)?**\
+**A:** Use a **domain** entry for the exact domain you want blocked. If you need finer control, prefer **email blocks** or add multiple domain entries.
+
+**Q: Do past recurring instances get cancelled when reported?**\
+**A:** We cancel the **reported instance and future occurrences**. Past instances are not retroactively altered.
+
+**Q: Can I import a list of domains?**\
+**A:** Add entries individually today. If you need bulk operations, contact support for recommended workflows.
+
+---
+
+## Quick reference (admin workflow)
+
+1. **Review reports** → **Ignore** or **Block (Email/Domain)**
+2. **Add direct blocks** (no report needed)
+3. **Silent enforcement** across the org for future bookings
+4. **Manage entries** (edit/remove) in the same page
