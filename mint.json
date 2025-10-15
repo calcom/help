@@ -230,6 +230,12 @@
           "pages": ["privacy-and-compliance/google-calendar-privacy"]
         },
         {
+          "group": "Security",
+          "icon": "shield-halved",
+          "iconType": "solid",
+          "pages": ["security/blocklist"]
+        },
+        {
           "group": "User Roles",
           "icon": "user-check",
           "iconType": "solid",
