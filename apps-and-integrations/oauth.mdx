@@ -5,9 +5,7 @@ title: "How to use OAuth to authorize apps with cal.com accounts"
 As an example, you can view our OAuth flow in action on Zapier. Try to connect your cal.com account [here](https://zapier.com/apps/calcom/integrations).
 To enable OAuth in one of your apps, you will need a Client ID, Client Secret, Authorization URL, Access Token Request URL, and Refresh Token Request URL.
 
-<Frame>
-  ![](/images/oauth-zapier.png)
-</Frame>
+<Frame>![](/images/oauth-zapier.png)</Frame>
 
 ### OAuth Client Credentials
 
@@ -51,6 +49,10 @@ Response:
 ### Refresh Token Request
 
 Endpoint: `POST https://app.cal.com/api/auth/oauth/refreshToken`
+
+Headers:
+
+- Authorization: Bearer _exampleRefreshToken_
 
 Request Body:
 
