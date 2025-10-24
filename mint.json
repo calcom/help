@@ -70,13 +70,17 @@
           "group": "Enterprise",
           "icon": "landmark",
           "iconType": "solid",
-          "pages": ["enterprise/members-onboarding"]
+          "pages": [
+            "enterprise/members-onboarding"
+          ]
         },
         {
           "group": "Billing and Usage",
           "icon": "credit-card",
           "iconType": "solid",
-          "pages": ["billing-and-usage/messaging-credits"]
+          "pages": [
+            "billing-and-usage/messaging-credits"
+          ]
         },
         {
           "group": "Event Types",
@@ -164,15 +168,19 @@
           "group": "Workflows",
           "icon": "bars-staggered",
           "iconType": "solid",
-          "pages": ["workflows/workflowsoverview", "workflows/credits"]
+          "pages": [
+            "workflows/workflowsoverview",
+            "workflows/credits"
+          ]
         },
         {
           "group": "Cal.ai",
           "icon": "phone-slash",
           "iconType": "solid",
-          "pages": ["cal-ai/cal-ai-help"]
+          "pages": [
+            "cal-ai/cal-ai-help"
+          ]
         },
-
         {
           "group": "Embedding",
           "icon": "code",
@@ -204,7 +212,8 @@
           "pages": [
             "routing/routing-overview",
             "routing/routing-with-attributes",
-            "routing/headless-routing"
+            "routing/headless-routing",
+            "routing/connect-routing-form-to-booking-questions"
           ]
         },
         {
@@ -227,25 +236,33 @@
           "group": "Privacy and Compliance",
           "icon": "lock",
           "iconType": "solid",
-          "pages": ["privacy-and-compliance/google-calendar-privacy"]
+          "pages": [
+            "privacy-and-compliance/google-calendar-privacy"
+          ]
         },
         {
           "group": "Security",
           "icon": "shield-halved",
           "iconType": "solid",
-          "pages": ["security/blocklist"]
+          "pages": [
+            "security/blocklist"
+          ]
         },
         {
           "group": "User Roles",
           "icon": "user-check",
           "iconType": "solid",
-          "pages": ["roles/make-user-an-org-admin"]
+          "pages": [
+            "roles/make-user-an-org-admin"
+          ]
         },
         {
           "group": "Importing",
           "icon": "arrow-down-to-bracket",
           "iconType": "solid",
-          "pages": ["importing/import-numbers"]
+          "pages": [
+            "importing/import-numbers"
+          ]
         },
         {
           "group": "Developers",
