@@ -1,0 +1,160 @@
+---
+title: 'Connect Routing Form Data to Booking Questions'
+---
+
+# How to Connect Routing Form Data to Booking Questions
+
+When using Cal.com's routing forms to direct leads to the appropriate calendar, you might want the information collected in the routing form to be available in the booking details and calendar events. This guide explains how to connect routing form fields with booking questions to ensure data flows seamlessly from initial lead capture to final booking confirmation.
+
+---
+
+## The Problem
+
+Users often face this scenario:
+- A routing form collects information from leads (company, department, specific needs, etc.)
+- The routing form directs them to the appropriate team member's calendar
+- The booking is created, but the original routing form data isn't associated with the booking
+- You receive booking notifications without context about how the lead originally found you
+
+This disconnect makes it difficult to:
+- Track lead sources and routing effectiveness
+- Understand attendee context before meetings
+- Maintain complete records of the customer journey
+
+---
+
+## The Solution: Matching Identifiers
+
+Cal.com allows you to connect routing form fields to booking questions using **matching identifiers**. When both the routing form field and booking question use the same identifier, the data automatically flows from the routing form to the booking.
+
+### How It Works
+
+1. **Routing Form Collection**: User fills out routing form with company information
+2. **Automatic Transfer**: Data transfers to the booking form using matching identifiers
+3. **Booking Association**: Information appears in booking details and can optionally show in calendar events
+
+---
+
+## Step-by-Step Implementation
+
+### Step 1: Set Up Your Routing Form Field
+
+When creating a field in your routing form, note the **identifier** you assign to it.
+
+**Example:**
+- **Field Label**: "What company are you with?"
+- **Field Identifier**: `company-name`
+
+### Step 2: Create a Matching Booking Question
+
+In your event type's booking questions section:
+
+1. Go to **Advanced** → **Booking Questions**
+2. Create a new booking question
+3. Use the **exact same identifier** as your routing form field
+4. Set the field type to match your routing form field
+
+**Example:**
+- **Question**: "Company Name"
+- **Identifier**: `company-name` *(must match routing form)*
+- **Type**: Text input
+- **Required**: Optional (depends on your needs)
+
+### Step 3: Choose Visibility
+
+You have two options for the booking question visibility:
+
+#### Option 1: Hidden Question (Recommended)
+- **Visibility**: Hidden
+- **Result**: Data flows automatically but doesn't show in calendar event
+- **Best for**: Internal tracking and booking details
+- **User Experience**: Seamless - no additional form fields for the user
+
+#### Option 2: Visible Question
+- **Visibility**: Visible
+- **Result**: Data appears in both booking details AND calendar event
+- **Best for**: Information needed during the actual meeting
+- **User Experience**: User sees pre-filled field they can modify if needed
+
+---
+
+## Complete Example Workflow
+
+### Scenario Setup
+You want to track which department a lead is interested in and route them accordingly.
+
+### Routing Form Configuration
+```
+Field: "Which department do you need help with?"
+Options: Sales, Support, Technical
+Identifier: department-interest
+```
+
+### Booking Question Configuration
+```
+Question: "Department"
+Identifier: department-interest
+Type: Select
+Options: Sales, Support, Technical
+Visibility: Hidden
+```
+
+### User Experience
+1. **Lead visits routing form** → Selects "Sales"
+2. **Gets routed to sales team calendar** → Based on routing rules
+3. **Books appointment** → "Sales" is automatically captured
+4. **Booking details show** → Department: Sales
+5. **You receive notification** → With full context about the lead's interest
+
+---
+
+## Best Practices
+
+### Identifier Naming
+- Use descriptive, lowercase identifiers
+- Use hyphens for readability
+- Keep them consistent across forms
+- Examples: `company-name`, `budget-range`, `use-case-type`
+
+### Hidden vs Visible Questions
+**Use Hidden Questions When:**
+- Information is for internal tracking only
+- You want the smoothest user experience
+- Data doesn't need to appear in calendar events
+
+**Use Visible Questions When:**
+- Information is relevant during the meeting
+- You want attendees to be able to modify the data
+- The information should appear in calendar event details
+
+### Multiple Field Connections
+You can connect multiple routing form fields to booking questions:
+
+```
+Routing Form Fields → Booking Questions
+company-name → company-name
+employee-count → employee-count  
+budget-range → budget-range
+timeline → project-timeline
+```
+
+---
+
+## Troubleshooting
+
+### Data Not Transferring
+**Check these common issues:**
+- ✅ Identifiers match exactly (case-sensitive)
+- ✅ Field types are compatible
+- ✅ Booking question is properly saved
+- ✅ Event type has the booking question configured
+
+### Data Not Appearing in Calendar Event
+- Hidden booking questions don't appear in calendar events
+- Change question visibility to "Visible" if needed
+
+### User Sees Duplicate Information
+- If booking question is visible, user will see the pre-filled data
+- This is expected behavior and allows them to modify if needed
+
+By connecting your routing forms to booking questions, you create a seamless lead capture and booking process that maintains context throughout the entire customer journey. This ensures you're always prepared for meetings and can make data-driven improvements to your routing and booking processes.
