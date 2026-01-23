@@ -230,6 +230,7 @@
             "apps-and-integrations/how-to-build-an-app",
             "apps-and-integrations/syncing-third-party",
             "apps-and-integrations/attio",
+            "apps-and-integrations/hubspot",
             "apps-and-integrations/salesforce"
           ]
         },
@@ -271,7 +272,6 @@
           "iconType": "solid",
           "pages": [
             "apps-and-integrations/oauth",
-            "apps-and-integrations/hubspot",
             "webhooks"
           ]
         }
