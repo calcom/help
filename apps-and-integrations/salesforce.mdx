@@ -24,26 +24,26 @@ Choose which record to create Salesforce events under or if the attendee does no
 If this option is enabled, we will only handle creating events under the main attendee of the event and not additional guests
 
 #### Skip creating contacts if they do not exist in Salesforce
-This option is available when [adding events on contacts](#On-booking-add-events-on-and-new-attendees-as). If the option is enabled, skip creating new contacts if they do not exist in Salesforce already.
+This option is available when [adding events on contacts](#on-booking,-add-events-on-and-new-attendees-as). If the option is enabled, skip creating new contacts if they do not exist in Salesforce already.
 
 #### Create event on contact, if it exists. Else fallback to lead
-This option is available when [adding events on leads](#On-booking-add-events-on-and-new-attendees-as). If this option is enabled, we check if a contact already exists with the attendee's email. If it does, create the event on the contact record. If it does not exist, then we create the event on an existing lead record or create a new lead
+This option is available when [adding events on leads](#on-booking,-add-events-on-and-new-attendees-as). If this option is enabled, we check if a contact already exists with the attendee's email. If it does, create the event on the contact record. If it does not exist, then we create the event on an existing lead record or create a new lead
 
 #### Create a new contact under an account based on email domain of attendee and existing contacts
-This option is available when [adding events on leads or a contact under an account](#On-booking-add-events-on-and-new-attendees-as). If this option is enabled, we create a new contact under an account if it does not already exist then create an event under that new contact. 
+This option is available when [adding events on leads or a contact under an account](#on-booking,-add-events-on-and-new-attendees-as). If this option is enabled, we create a new contact under an account if it does not already exist then create an event under that new contact. 
 
 [Determining which account an attendee belongs to](#determining-if-an-attendee-belongs-under-an-account)
 
 #### If the contact does not exist under an account, create new lead from attendee
-This option is available when [adding events on contacts under an account](#On-booking-add-events-on-and-new-attendees-as). If a contact under an account does not exist, then create a new lead record.
+This option is available when [adding events on contacts under an account](#on-booking,-add-events-on-and-new-attendees-as). If a contact under an account does not exist, then create a new lead record.
 
 #### On booking, write to event object
 When a booking is created, you can write to specific fields on the event record. To write to a field you need the following:
 - The API field name ex. `Custom_Field__c`
-- The value that you want to pass to the field ([Mapping data from Cal.com to Salesforce](#mapping-data-from-calcom-to-Salesforce))
+- The value that you want to pass to the field ([Mapping data from Cal.com to Salesforce](#mapping-data-from-cal-com-to-salesforce))
 
 #### On booking, write to a custom field on the attendee record
-This option writes to fields on the type of record that is set [to create events on](#On-booking-add-events-on-and-new-attendees-as). To write to a field you need the following:
+This option writes to fields on the type of record that is set [to create events on](#on-booking,-add-events-on-and-new-attendees-as). To write to a field you need the following:
 - The API field name ex. `Custom_Field__c`
 - The field type in Salesforce. We current support the following types:
     - Text (`text`, `textarea` )
@@ -52,7 +52,7 @@ This option writes to fields on the type of record that is set [to create events
     - Checkbox
     - Picklist
     - Custom (ignores field validations)
-- The value that you want to pass to the field ([Mapping data from Cal.com to Salesforce](#mapping-data-from-calcom-to-Salesforce))
+- The value that you want to pass to the field ([Mapping data from Cal.com to Salesforce](#mapping-data-from-cal-com-to-salesforce))
     - For checkbox fields, you can choose whether to pass true or false
     - For picklist fields, the value passed needs to match the value of a picklist option
 - When to write to the field
@@ -83,7 +83,7 @@ When this option is enabled, instead of deleting the event record we write to sp
     - Checkbox
     - Picklist
     - Custom (ignores field validations)
-- The value that you want to pass to the field ([Mapping data from Cal.com to Salesforce](#mapping-data-from-calcom-to-Salesforce))
+- The value that you want to pass to the field ([Mapping data from Cal.com to Salesforce](#mapping-data-from-cal-com-to-salesforce))
     - For checkbox fields, you can choose whether to pass true or false
     - For picklist fields, the value passed needs to match the value of a picklist option
 - When to write to the field
