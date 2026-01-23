@@ -24,6 +24,11 @@ When this option is enabled, the booking organizer will be set as the HubSpot ow
 This option is available when [Set booking organizer as contact owner](#set-booking-organizer-as-contact-owner) is enabled. If this option is enabled, the contact owner will be overwritten even if the contact already has an owner. If disabled, the owner will only be set when the contact does not have an existing owner.
 
 #### On booking, write to event object
+
+<Warning>
+To use this feature, your HubSpot account must be enrolled in the [Meetings index page and custom meeting properties](https://app-eu1.hubspot.com/l/product-updates/?rollout=195886) beta program.
+</Warning>
+
 When a booking is created, you can write to specific fields on the meeting record. To write to a field you need the following:
 - The API field name ex. `custom_field`
 - The field type in HubSpot. We currently support the following types:
