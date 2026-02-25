@@ -10,6 +10,17 @@ By default, event slots are generated at predefined intervals (for example, ever
 
 That can sometimes cause confusion. For example, if availability starts at 8:45 and the event length is 60 minutes, the first visible slot may appear at 9:00, because the system is aligning to predefined slot start times rather than the earliest possible start time.
 
+Instead of showing slots at odd times like 9:07 or 10:23, Cal.com rounds to familiar times that are easier to remember. This makes your booking page cleaner and more professional for the people scheduling with you.                    
+
+- 60-minute intervals start on the hour (9:00, 10:00, 11:00...)    
+- 30-minute intervals start on the hour and half-hour (9:00, 9:30, 10:00...)                                                
+- 20-minute intervals start every 20 minutes (9:00, 9:20, 9:40...)                                                          
+- 15-minute intervals start on quarter hours (9:00, 9:15, 9:30, 9:45...)                                                    
+- 10-minute intervals start every 10 minutes (9:00, 9:10, 9:20...)                                                          
+- 5-minute intervals start every 5 minutes (9:00, 9:05, 9:10...)
+
+                            
+
 Optimized Slots adjust this logic so that availability dynamically adapts around conflicts and real open time, helping ensure no usable time is left behind. In practice, this means booking options can better reflect the actual time someone is free, rather than only fixed interval boundaries.
 
 ## Example
