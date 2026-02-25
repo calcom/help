@@ -6,7 +6,11 @@ title: "Optimized Slots"
 
 ## How It Works
 
-By default, event slots are generated at predefined intervals (for example, every 60 minutes starting on the hour). Optimized Slots adjust this logic so that your availability dynamically adapts around conflicts, ensuring no usable time is left behind.
+By default, event slots are generated at predefined intervals (for example, every 60 minutes starting on the hour). This means booking options follow a fixed slot grid, not necessarily the exact start of someone’s availability.
+
+That can sometimes cause confusion. For example, if availability starts at 8:45 and the event length is 60 minutes, the first visible slot may appear at 9:00, because the system is aligning to predefined slot start times rather than the earliest possible start time.
+
+Optimized Slots adjust this logic so that availability dynamically adapts around conflicts and real open time, helping ensure no usable time is left behind. In practice, this means booking options can better reflect the actual time someone is free, rather than only fixed interval boundaries.
 
 ## Example
 
@@ -27,8 +31,7 @@ By default, event slots are generated at predefined intervals (for example, ever
 **With Optimized Slots**
 
 <Check>
-  9:00 AM – 10:00 AM
-  10:15 AM – 11:15 AM
+  9:00 AM – 10:00 AM 10:15 AM – 11:15 AM
 </Check>
 
 With Optimized Slots enabled, Cal.com adjusts the start time of your first slot to 10:15 AM after your busy block, allowing you to capture an extra meeting that would otherwise be impossible.
