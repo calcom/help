@@ -269,7 +269,7 @@
                 },
                 "pages": [
                   "webhooks",
-                  "apps-and-integrations/oauth",
+                  "apps-and-integrations/oauth"
                 ]
               }
             ]
