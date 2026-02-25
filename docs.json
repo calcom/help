@@ -268,8 +268,8 @@
                   "style": "solid"
                 },
                 "pages": [
-                  "apps-and-integrations/oauth",
-                  "webhooks"
+                  "webhooks",
+                  "apps-and-integrations/oauth"
                 ]
               }
             ]
