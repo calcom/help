@@ -1,0 +1,310 @@
+# Complete Guide to Cal.com Routing Form Operators
+
+When setting up routing in Cal.com, you have access to a comprehensive set of operators that determine how your routing forms match visitors to the right team members or event types. This guide covers all available operators and explains exactly how they work based on your field types.
+
+## Overview
+
+These operators are used in the **Routing** tab of your routing forms to create sophisticated rules that match visitors based on their form responses and team member attributes. The available operators depend on your field type, and you can combine multiple rules with AND/OR logic for complex routing scenarios.
+
+## Operators by Field Type
+
+Cal.com routing forms support different operators based on your field type. Here's a complete breakdown:
+
+---
+
+## Text Field Operators
+
+For text fields (Short Text, Long Text, Email, Phone), you have these comparison options:
+
+### Basic Comparison
+- **"Equals"**: Exact match (case-sensitive)
+- **"Does not equal"**: Does not match exactly
+
+### Pattern Matching  
+- **"Contains"**: Field value contains the specified text anywhere
+- **"Not contains"**: Field value does not contain the specified text
+- **"Starts with"**: Field value begins with the specified text
+
+### Empty/Null Checks
+- **"Is empty"**: Field has no value or is empty string
+- **"Is not empty"**: Field has some value
+
+**Example Use Cases:**
+```
+Email "Contains" "@company.com" → Route to enterprise team
+Name "Starts with" "Dr." → Route to medical specialists  
+Phone "Is not empty" → Prioritize for callback requests
+```
+
+---
+
+## Number Field Operators
+
+For number fields, you get mathematical comparison operators:
+
+### Basic Comparison
+- **"Equals"**: Exactly matches the number
+- **"Does not equal"**: Does not match the number
+
+### Range Comparison
+- **"Less than"**: Value is smaller than specified number
+- **"Less than or equal to"**: Value is smaller than or equal to specified number  
+- **"Greater than"**: Value is larger than specified number
+- **"Greater than or equal to"**: Value is larger than or equal to specified number
+
+### Range Operators
+- **"Between"**: Value falls within the specified range (inclusive)
+- **"Not between"**: Value falls outside the specified range
+
+**Example Use Cases:**
+```
+Budget "Greater than" 10000 → Route to enterprise sales
+Team Size "Between" 10 and 50 → Route to mid-market specialists
+Priority "Equals" 1 → Route to VIP support team
+```
+
+---
+
+## Single Select Field Operators
+
+For single select fields (dropdown with one choice), you have these options:
+
+### Basic Matching
+- **"Equals"**: Matches the selected option exactly
+- **"Does not equal"**: Does not match the selected option
+
+### List Matching
+- **"Any in"**: Selected option is in your specified list of options
+- **"Not any in"**: Selected option is NOT in your specified list of options
+
+**Example Scenario:**
+- Field: "Department" with options [Sales, Marketing, Support, Engineering]
+- Visitor selects: "Sales"
+
+```
+Department "Equals" Sales → Matches only Sales
+Department "Any in" [Sales, Marketing] → Matches (Sales is in the list)
+Department "Not any in" [Support, Engineering] → Matches (Sales is not in the excluded list)
+```
+
+---
+
+## Multi Select Field Operators
+
+For multi select fields (checkboxes allowing multiple choices), you get the most sophisticated operators:
+
+### "Any in" Operator
+**What it does:** Matches if **at least one** of the visitor's selections is in your specified list.
+
+**Example:**
+- Field: "Interests" with options [Web Design, SEO, Marketing, Development]
+- Visitor selects: [Web Design, Marketing]
+- Rule: Interests **Any in** [Web Design, Development]
+- **Result:** ✅ Matches (because Web Design is in the list)
+
+### "All in" Operator  
+**What it does:** Matches if **every single one** of the visitor's selections is contained within your specified list.
+
+**Example:**
+- Field: "Services Needed" with options [Strategy, Design, Development, Marketing]
+- Visitor selects: [Strategy, Design]
+- Rule: Services Needed **All in** [Strategy, Design, Development]
+- **Result:** ✅ Matches (both Strategy and Design are in the allowed list)
+
+**If visitor selected:** [Strategy, Marketing, SEO]
+- **Result:** ❌ Does not match (SEO is not in the allowed list)
+
+### "Not any in" Operator
+**What it does:** Matches if **none** of the visitor's selections are in your specified list.
+
+**Example:**
+- Visitor selects: [Web Design, Marketing] 
+- Rule: Interests **Not any in** [SEO, Advertising]
+- **Result:** ✅ Matches (neither Web Design nor Marketing are in the excluded list)
+
+### "Not all in" Operator
+**What it does:** Matches if the visitor has **at least one selection** that's NOT in your specified list.
+
+**Example:**
+- Visitor selects: [Strategy, Design, Custom Service]
+- Rule: Services **Not all in** [Strategy, Design, Development, Marketing]
+- **Result:** ✅ Matches (because "Custom Service" is not in the allowed list)
+
+---
+
+## Attribute-Based Routing
+
+When routing to team members based on their attributes, the same operators apply but work in reverse:
+
+### Single Select Attributes
+Team members have **one** value selected for each attribute.
+
+**Example:**
+- Attribute: "Department" (Single Select)
+- John: Sales, Sarah: Marketing, Mike: Support
+
+**Rule:** Department **Any in** [Sales, Support]
+- **Matches:** John and Mike
+- **Doesn't match:** Sarah
+
+### Multi Select Attributes  
+Team members can have **multiple** values selected for each attribute.
+
+**Example:**
+- Attribute: "Skills" (Multi Select)  
+- Alice: [JavaScript, React], Bob: [Python, Django], Carol: [React, Node.js]
+
+**Rule:** Skills **Any in** [React, Vue]
+- **Matches:** Alice and Carol (both have React)
+- **Doesn't match:** Bob (has neither React nor Vue)
+
+**Rule:** Skills **All in** [JavaScript, React, Python, Node.js]  
+- **Matches:** Alice and Carol (all their skills are in the allowed list)
+- **Doesn't match:** Bob (Django is not in the allowed list)
+
+---
+
+## Combining Rules with Logic
+
+### AND Logic ("All" conditions must match)
+```
+Department "Equals" Sales 
+AND Experience "Greater than" 2
+→ Only experienced sales team members
+```
+
+### OR Logic ("Any" condition can match)
+```  
+Department "Equals" Sales
+OR Skills "Any in" [Sales, Business Development]
+→ Sales team members OR anyone with sales skills
+```
+
+### Complex Combinations
+```
+(Department "Equals" Sales OR Department "Equals" Marketing)
+AND Region "Any in" [North America, Europe] 
+AND Availability "Not any in" [Vacation, Busy]
+→ Available Sales/Marketing team members in specific regions
+```
+
+---
+
+## Dynamic Values with "Value of Field"
+
+All operators support dynamic values using visitor form responses:
+
+### Basic Dynamic Matching
+```
+Team Member Location "Equals" [Value of field: Visitor Location]
+→ Match team members in the same location as the visitor
+```
+
+### Multi-Select Dynamic Matching
+```
+Team Member Skills "Any in" [Value of field: Required Skills]
+→ Match team members who have any of the skills the visitor needs
+```
+
+### Mixed Dynamic and Static Values
+```
+Services "Any in" [[Value of field: Services Needed], Premium Support, VIP Service]  
+→ Match team members who provide visitor's needed services OR premium services
+```
+
+---
+
+## Real-World Scenarios
+
+### Scenario 1: Lead Qualification Routing
+```
+Budget "Greater than" 50000
+AND Company Size "Greater than" 100
+AND Services "Any in" [Enterprise, Custom Development]
+→ Route high-value enterprise leads to senior sales team
+```
+
+### Scenario 2: Skill-Based Technical Support
+```
+Issue Type "Any in" [Bug, Technical Error]
+AND Technology "Any in" [Value of field: Tech Stack]
+AND Team Member Skills "Any in" [Value of field: Tech Stack]
+→ Match technical issues with team members who know the relevant technology
+```
+
+### Scenario 3: Geographic and Language Routing
+```
+Visitor Location "Any in" [Value of field: Location]
+AND Team Member Languages "Any in" [Value of field: Preferred Language]
+AND Availability "Not any in" [Vacation, Busy, Training]
+→ Match based on location, language preference, and availability
+```
+
+### Scenario 4: Tiered Service Routing  
+```
+Priority "Equals" High
+AND Service Level "Any in" [Premium, Enterprise]
+OR Customer Type "Equals" VIP
+→ Route high-priority or premium customers to specialized team
+```
+
+---
+
+## Best Practices
+
+### 1. Field Type Selection
+- Use **Single Select** when team members have one specialty/role
+- Use **Multi Select** when team members can handle multiple areas
+- Use **Number fields** for quantitative routing (budget, team size, etc.)
+- Use **Text fields** for pattern matching (company domains, job titles)
+
+### 2. Operator Selection Strategy
+- Start with **"Any in"** for inclusive matching
+- Use **"All in"** when you need strict compliance with all criteria
+- Use **"Not any in"** for exclusions  
+- Combine with **AND/OR logic** for sophisticated rules
+
+### 3. Testing and Validation
+- Always test with preview mode
+- Create fallback routes for unmatched scenarios
+- Verify attribute assignments on team members
+- Monitor routing outcomes and adjust as needed
+
+### 4. Performance Considerations
+- Simpler rules perform better than complex nested conditions
+- Limit the number of dynamic field references per rule
+- Consider caching frequently used attribute combinations
+
+---
+
+## Troubleshooting Guide
+
+### Common Issues and Solutions
+
+**No matches found:**
+- Verify team member attribute assignments
+- Check for exact value matching (case sensitivity)
+- Ensure at least one rule can be satisfied
+- Add fallback routes
+
+**Too many matches:**
+- Add more restrictive conditions with AND logic
+- Use exclusion operators ("Not any in")
+- Implement tiered routing with priority rules
+- Add availability/capacity checks
+
+**Dynamic values not working:**
+- Verify field identifiers match exactly
+- Check that referenced fields have values
+- Ensure data types are compatible
+- Test with static values first
+
+**Performance issues:**
+- Simplify complex nested conditions  
+- Reduce number of dynamic field references
+- Optimize attribute structure
+- Consider pre-filtering with simpler rules
+
+---
+
+By mastering these operators and logic combinations, you can create sophisticated routing systems that automatically connect visitors with the most qualified team members based on any criteria imaginable.
