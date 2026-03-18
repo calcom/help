@@ -23,6 +23,12 @@ When this option is enabled, the booking organizer will be set as the HubSpot ow
 #### Overwrite existing contact owner
 This option is available when [Set booking organizer as contact owner](#set-booking-organizer-as-contact-owner) is enabled. If this option is enabled, the contact owner will be overwritten even if the contact already has an owner. If disabled, the owner will only be set when the contact does not have an existing owner.
 
+#### If attendee exists in HubSpot, book directly with the owner
+This option is available for round robin events. When this option is enabled, you can pass `?email` as a URL param in the round robin booking link, Cal.com searches HubSpot for the contact owner. If the contact owner is a host of the round robin event, then only that owner's availability is presented and the attendee books directly with the owner.
+
+#### If attendee has a free email domain, skip the ownership check and round robin as normal
+If this option is enabled, if the attendee has a free email domain (ex. gmail.com) then ignore any HubSpot ownership checks.
+
 #### On booking, write to event object
 
 <Warning>
