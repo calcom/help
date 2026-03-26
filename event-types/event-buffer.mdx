@@ -58,7 +58,7 @@ The following examples use these assumptions:
 
 **Next available slot:** 01:00 PM because of before event buffer needed for any new events
 
-A meeting starting at 10:00 AM would need 60 minutes before it, which overlaps the existing booking. 
+A meeting starting at 10:00 AM would need 60 minutes before it, which overlaps the existing booking.
 
 ### Scenario 2: Only buffer after meetings (60 min)
 
@@ -112,7 +112,7 @@ The booked event is from 10:00 AM - 11:00 AM. A new event is attempted to be sch
 **Blocked timeline**
 
 <Frame>
-  ![Image](/images/image-6.png)
+  ![Image](/images/image-10.png)
 </Frame>
 
 **Effective blocked window:** 09:30 AM - 12:00 PM
@@ -167,7 +167,7 @@ Then a single meeting can block:
 Total blocked time = **6 hours**. This is expected behavior.
 
 <Note>
-  **Please note that buffers stack for multiple events. **\
+  \*\*Please note that buffers stack for multiple events. \*\*\
   For example, Existing booking 10:00–11:00 AM, event type has `afterBuffer=30, beforeBuffer=15`:
 
   - After the booking: blocked until 11:45 AM (30 \+ 15)
