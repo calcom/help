@@ -1,6 +1,6 @@
 ---
-title: Event buffers
-description: Learn how event buffers block time before and after meetings to prevent back-to-back bookings.
+title: "Event buffers"
+description: "Learn how event buffers block time before and after meetings to prevent back-to-back bookings."
 ---
 
 Event buffers automatically block time **before and/or after your meetings** so you don't get booked back-to-back.
@@ -16,7 +16,7 @@ When buffers are enabled, Cal.com treats that extra time as **busy**, so new boo
 
 Every meeting creates a **protected time window** around it.
 
-```
+```text
 | buffer before |   meeting time   | buffer after |
 ```
 
@@ -37,56 +37,51 @@ This is why you may sometimes see **more time blocked than the buffer value itse
 
 The following examples use these assumptions:
 
-- Working hours: 9:00 AM - 5:00 PM
+- Working hours: 8:00 AM - 5:00 PM
 - Meeting duration: 60 minutes
-- Existing meeting: **11:00 AM - 12:00 PM**
+- Existing meeting: **10:00 AM - 12:00 PM**
 
-### Scenario 1: Only buffer before meetings (30 min)
+### Scenario 1: Only buffer before meetings (60 min)
 
 **Settings**
 
-- Buffer before: 30 minutes
+- Buffer before: 60 minutes
 - Buffer after: 0
 
 **Blocked timeline**
 
-```
-09:00   10:00   10:30   11:00   12:00   12:30   13:00
- |------ available ------|
-          | buffer |
-                  |==== booked ====|
-                           | buffer |
-```
+<Frame>
+  ![Image](/images/image-2.png)
+</Frame>
 
-**Effective blocked window:** 10:30 AM - 12:30 PM
+**Effective blocked window:** 09:00 AM - 01:00 PM, 09-00 AM to 10:00 AM for before event buffer of the booked event, and 12:00 PM - 01:00 PM for the subsequent event that might be booked
 
-**Next available slot:** 12:30 PM
+**Next available slot:** 01:00 PM because of before event buffer needed for any new events
 
-A meeting starting at 12:00 PM would need 30 minutes before it, which overlaps the existing booking.
+A meeting starting at 10:00 AM would need 60 minutes before it, which overlaps the existing booking. 
 
-### Scenario 2: Only buffer after meetings (30 min)
+### Scenario 2: Only buffer after meetings (60 min)
 
 **Settings**
 
 - Buffer before: 0
-- Buffer after: 30 minutes
+- Buffer after: 60 minutes
 
 **Blocked timeline**
 
-```
-09:00   10:00   10:30   11:00   12:00   13:00
- |------ available ------|
-          | buffer |
-                  |==== booked ====|
-```
+<Frame>
+  ![Image](/images/image-3.png)
+</Frame>
 
-**Effective blocked window:** 10:30 AM - 12:00 PM
+**Effective blocked window:** 10:00 AM - 01:00 PM
 
-**Next available slot:** 12:00 PM
+**Next available slot:** 01:00 PM
 
-A meeting ending at 11:00 AM would need 30 minutes after it, which overlaps the existing booking.
+A meeting ending at 12:00 PM would need 60 minutes after it, which overlaps the existing booking.
 
 ### Scenario 3: Buffer before and after (30 min each)
+
+The planned event is from 10:00 AM - 11:00 AM
 
 **Settings**
 
@@ -95,39 +90,65 @@ A meeting ending at 11:00 AM would need 30 minutes after it, which overlaps the 
 
 **Blocked timeline**
 
-```
-09:00   10:00   11:00   12:00   13:00   14:00
- |---- available ----|
-      | buffer |
-            |==== booked ====|
-                    | buffer |
-```
+<Frame>
+  ![Image](/images/image-4.png)
+</Frame>
 
-**Effective blocked window:** 10:00 AM - 1:00 PM
+**Effective blocked window:** 09:30 AM - 12:00 PM
 
-A single 1-hour meeting blocks **3 hours total**.
+A single 1-hour meeting blocks 2.5 hours total.
 
-**Next available slot:** 1:00 PM
+**Next available slot:** 12:00 PM
+
+### Scenario 4: Behavior of new event when not enough buffer space is provided
+
+The booked event is from 10:00 AM - 11:00 AM. A new event is attempted to be scheduled at 11:45 AM - 12:45 PM.
+
+**Settings**
+
+- Buffer before: 30 minutes
+- Buffer after: 30 minutes
+
+**Blocked timeline**
+
+<Frame>
+  ![Image](/images/image-6.png)
+</Frame>
+
+**Effective blocked window:** 09:30 AM - 12:00 PM
+
+**Reason for failure:** This time does not allow enough pre-event buffer for the new meeting.\
+Buffers from existing bookings also apply, so the 11:00–11:30 AM window is reserved as post-event buffer and cannot be used as pre-event buffer.
+
+**Next available slot:** 12:00 PM
+
+### Scenario 5: Behavior of new event when enough buffer space is provided
+
+The booked event is from 10:00 AM - 11:00 AM. A new event is attempted to be scheduled at 12:00 PM - 01:00 PM.
+
+**Settings**
+
+- Buffer before: 30 minutes
+- Buffer after: 30 minutes
+
+**Blocked timeline**
+
+<Frame>
+  ![Image](/images/image-8.png)
+</Frame>
+
+**Effective blocked window:** 09:30 AM - 12:00 PM
+
+**Reason for success:** This time provides enough pre-event buffer for the new meeting.\
+Buffers from existing bookings are also respected — the 11:00–11:30 AM window remains reserved as post-event buffer, while 11:30 AM–12:00 PM is available to satisfy the required pre-event buffer.
+
+**Next available slot:** 12:00 PM
 
 ## External calendar events (Google, Outlook, etc.)
 
 Buffers also apply to events from connected calendars.
 
 However, external meetings only use the **buffer settings of the event type being booked** because external events do not have Cal.com buffer settings.
-
-**Example:**
-
-```
-External meeting: 11:00 – 12:00
-Your buffer before: 30 min
-
-Blocked timeline:
-
-11:00 |==== external meeting ====| 12:00
-                                      | buffer |
-```
-
-**Blocked window:** 11:00 - 12:30
 
 ## Large buffer example
 
@@ -139,11 +160,20 @@ If you configure:
 
 Then a single meeting can block:
 
-```
+```text
 |---- 2h buffer ----|==== 2h meeting ====|---- 2h buffer ----|
 ```
 
 Total blocked time = **6 hours**. This is expected behavior.
+
+<Note>
+  **Please note that buffers stack for multiple events. **\
+  For example, Existing booking 10:00–11:00 AM, event type has `afterBuffer=30, beforeBuffer=15`:
+
+  - After the booking: blocked until 11:45 AM (30 \+ 15)
+  - Before the booking: blocked from 9:15 AM (15 \+ 30)
+  - Next available slot for a 60-min event: 11:45 AM
+</Note>
 
 ## Why Cal.com works this way
 
@@ -163,7 +193,7 @@ It ensures **more realistic availability**.
 - Run high-volume short calls
 - Want maximum availability
 
-**Use larger buffers (30-60+ min)** if you:
+**Use larger buffers (30-60\+ min)** if you:
 
 - Need prep or recovery time
 - Travel between meetings
