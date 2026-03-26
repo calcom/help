@@ -1,35 +1,178 @@
 ---
-title: Event buffer
+title: Event buffers
+description: Learn how event buffers block time before and after meetings to prevent back-to-back bookings.
 ---
 
-Event buffers are time spaces that can be appended before and/or after an event. This is helpful in scheduling your availability such that you have time to prepare for a meeting, take breather between two meetings/events or to accommodate travel time in case of events on a physical location.
+Event buffers automatically block time **before and/or after your meetings** so you don't get booked back-to-back.
 
-You can customize buffer time for each event so that you can accommodate the needs of that specific event type to further optimize your event type setup.
+You can configure buffers per event type. For example:
 
-[![](https://downloads.intercomcdn.com/i/o/1195342457/4effb7e2ddca3abe6255f859/i1600x900-uzADteTYBNdE_dtrrdz.png?expires=1736299800&signature=8385572e45392f75874c3108b091b8aa45544b4bf94c30fa746eac0e977fe7e1&req=dSEuE8p6n4VaXvMW1HO4zYc2go6a4ghGZ5iwZ0kn3FIaHKGTu%2BwFrmbxkS2L%0A4jIA6QLEbqRSBwNBJak%3D%0A)](https://downloads.intercomcdn.com/i/o/1195342457/4effb7e2ddca3abe6255f859/i1600x900-uzADteTYBNdE_dtrrdz.png?expires=1736299800&signature=8385572e45392f75874c3108b091b8aa45544b4bf94c30fa746eac0e977fe7e1&req=dSEuE8p6n4VaXvMW1HO4zYc2go6a4ghGZ5iwZ0kn3FIaHKGTu%2BwFrmbxkS2L%0A4jIA6QLEbqRSBwNBJak%3D%0A)
+- Add buffer **before meetings** to prepare
+- Add buffer **after meetings** to take notes, travel, or follow up
 
-The before event buffer time allows the space of time of chosen length **before** the events being booked on Cal based on your availability. The after event buffer time allows the space of time of chosen length **after** the events being booked on Cal based on your availability. Hidden events are flexible; they can be whatever you need them to be. Whether you want to use hidden events to facilitate sponsorship meetings, organize a fundraising drive, or offer one-on-one mentoring sessions, this feature can help you make the most of your meetings while keeping them out of the public eye.
+When buffers are enabled, Cal.com treats that extra time as **busy**, so new bookings cannot overlap it.
 
-Event buffers are a great way to maintain a breathing space between multiple events in a day. Buffers are taken into consideration while booking a Cal event, if that Cal event has a buffer time selected. This simply means that buffers cannot overlap Cal events and thus a Cal event with buffer time can only be booked respecting the buffer time (before event, after event or both).
+## How buffers work
 
-## An example
+Every meeting creates a **protected time window** around it.
 
-Given the availability from 9am to 5pm (09:00-17:00) and a 60-minute event with a 30-minute buffer before and a 30-minute buffer after, the total calendar time required for an event is indeed 120 minutes. But the buffer is applied around busy times and **not to the start or end of the working day**.
+```
+| buffer before |   meeting time   | buffer after |
+```
 
-So, in this scenario (considering you didn't modify the **[Custom time-slot intervals](https://cal.com/docs/core-features/event-types/custom-time-slot-intervals)** in this example):
+Other meetings cannot be scheduled inside this protected window.
 
-1. The first available time slot starts at 9am. The buffer before doesn't push this since there's no preceding busy time.
-2. The event itself is for 60 minutes.
-3. There's a 30-minute buffer before & 30-minute buffer after the event. But again, if there's no following busy time immediately after, this buffer doesn't push the next available slot.
+## Buffers can stack
 
-Thus, the sequence is:
+When someone tries to book a new meeting near an existing one, Cal.com considers:
 
-- **9:00-10:00am**: First available slot
-- a. **10:00-11:00am**: If Slot 1 is booked, this slot will be blocked as buffer (after) to allow the buffer period relative to the 9-10am slot.
+- Buffers of the **existing meeting**
+- Buffers of the **new meeting being scheduled**
 
-b. **10:00-11:00am**: If Slot 1 is free, this slot will be free
+This ensures **both meetings get the space they require**.
 
-c. **10:00-11:00am**: If Slot 2 (10:00-11:00) is booked, since booking slot 1 (9:00-10:00) would imply that there will not be an after buffer (as 10-11 is already booked). Hence, slot 1 will not remain bookable anymore.
+This is why you may sometimes see **more time blocked than the buffer value itself**.
 
-You can take a look at our guide to learn **[How to set buffer time](https://cal.com/docs/how-to-guides/how-to-set-buffer-time)**.
+## Example scenarios
 
+The following examples use these assumptions:
+
+- Working hours: 9:00 AM - 5:00 PM
+- Meeting duration: 60 minutes
+- Existing meeting: **11:00 AM - 12:00 PM**
+
+### Scenario 1: Only buffer before meetings (30 min)
+
+**Settings**
+
+- Buffer before: 30 minutes
+- Buffer after: 0
+
+**Blocked timeline**
+
+```
+09:00   10:00   10:30   11:00   12:00   12:30   13:00
+ |------ available ------|
+          | buffer |
+                  |==== booked ====|
+                           | buffer |
+```
+
+**Effective blocked window:** 10:30 AM - 12:30 PM
+
+**Next available slot:** 12:30 PM
+
+A meeting starting at 12:00 PM would need 30 minutes before it, which overlaps the existing booking.
+
+### Scenario 2: Only buffer after meetings (30 min)
+
+**Settings**
+
+- Buffer before: 0
+- Buffer after: 30 minutes
+
+**Blocked timeline**
+
+```
+09:00   10:00   10:30   11:00   12:00   13:00
+ |------ available ------|
+          | buffer |
+                  |==== booked ====|
+```
+
+**Effective blocked window:** 10:30 AM - 12:00 PM
+
+**Next available slot:** 12:00 PM
+
+A meeting ending at 11:00 AM would need 30 minutes after it, which overlaps the existing booking.
+
+### Scenario 3: Buffer before and after (30 min each)
+
+**Settings**
+
+- Buffer before: 30 minutes
+- Buffer after: 30 minutes
+
+**Blocked timeline**
+
+```
+09:00   10:00   11:00   12:00   13:00   14:00
+ |---- available ----|
+      | buffer |
+            |==== booked ====|
+                    | buffer |
+```
+
+**Effective blocked window:** 10:00 AM - 1:00 PM
+
+A single 1-hour meeting blocks **3 hours total**.
+
+**Next available slot:** 1:00 PM
+
+## External calendar events (Google, Outlook, etc.)
+
+Buffers also apply to events from connected calendars.
+
+However, external meetings only use the **buffer settings of the event type being booked** because external events do not have Cal.com buffer settings.
+
+**Example:**
+
+```
+External meeting: 11:00 – 12:00
+Your buffer before: 30 min
+
+Blocked timeline:
+
+11:00 |==== external meeting ====| 12:00
+                                      | buffer |
+```
+
+**Blocked window:** 11:00 - 12:30
+
+## Large buffer example
+
+If you configure:
+
+- Meeting duration: 2 hours
+- Buffer before: 2 hours
+- Buffer after: 2 hours
+
+Then a single meeting can block:
+
+```
+|---- 2h buffer ----|==== 2h meeting ====|---- 2h buffer ----|
+```
+
+Total blocked time = **6 hours**. This is expected behavior.
+
+## Why Cal.com works this way
+
+This prevents real-world scheduling problems like:
+
+- Back-to-back fatigue
+- Travel conflicts
+- Prep time being ignored
+- Overlapping expectations between different event types
+
+It ensures **more realistic availability**.
+
+## Tips for choosing buffer settings
+
+**Use smaller buffers (5-15 min)** if you:
+
+- Run high-volume short calls
+- Want maximum availability
+
+**Use larger buffers (30-60+ min)** if you:
+
+- Need prep or recovery time
+- Travel between meetings
+- Run workshops or deep sessions
+
+## Common question
+
+<AccordionGroup>
+  <Accordion title="Why is more time blocked than the buffer I set?">
+    Because buffers from the existing meeting **and** the new meeting can combine. This is intentional to guarantee both meetings have the space they require.
+  </Accordion>
+</AccordionGroup>
