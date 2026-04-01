@@ -2,19 +2,20 @@
 title: "Credit System"
 ---
 
-At Cal.com, you can send SMS and WhatsApp messages, as well as use our AI-powered phone agent, cal.ai, to keep attendees informed about bookings, reminders, and cancellations. While these messages can be funded through various methods (e.g., organization-level billing), credits are one of the available ways to manage usage—especially for teams and smaller accounts.
+At Cal.com, you can send SMS and WhatsApp messages, use our AI-powered phone agent cal.ai, and run AI agent interactions — all powered by credits. While these services can be funded through various methods (e.g., organization-level billing), credits are one of the available ways to manage usage — especially for teams and smaller accounts.
 
 ---
 
-## Overview of Credits
+## Overview of credits
 
-Credits are used **as a flexible payment method** to send:
+Credits are used **as a flexible payment method** for:
 
 - **SMS messages** (booking confirmations, reminders, updates)
 - **WhatsApp messages** (booking alerts, confirmations)
-- \*\*Use [****Cal.ai****](https://cal.com/ai) \*\*(AI-powered phone agent)
+- **[Cal.ai](https://cal.com/ai)** (AI-powered phone agent)
+- **AI agents** (automated scheduling interactions via the Platform API)
 
-While many organization-level accounts may fund messaging centrally or directly via integrations like Twilio, **credits serve as a prepaid way to power messaging**, especially on smaller plans.
+While many organization-level accounts may fund messaging centrally or directly via integrations like Twilio, **credits serve as a prepaid way to power messaging and AI services**, especially on smaller plans.
 
 ---
 
@@ -41,7 +42,7 @@ The number of messaging credits available to your account depends on your plan t
 
 ---
 
-## Behavior When Credit Balance Is Exhausted
+## Behavior when credit balance is exhausted
 
 - **Low credit alerts**: We'll send email warnings when your balance gets low (all admins are notified for teams)
 - **Exhaustion fallback**:
@@ -56,9 +57,9 @@ This ensures bookings still go through, but real-time alerts may be delayed if r
 
 ---
 
-## Messaging Credits
+## Messaging credits
 
-### Credit-Based Messaging Costs
+### Credit-based messaging costs
 
 The cost depends on the recipient's location and the delivery method:
 
@@ -82,7 +83,7 @@ The cost depends on the recipient's location and the delivery method:
 
 You can check up-to-date Twilio pricing here: [Twilio SMS Pricing](https://www.twilio.com/sms/pricing)
 
-### Segment-Based Billing
+### Segment-based billing
 
 Credits are charged **per segment**, not per message. Most SMS messages are broken into segments based on character count:
 
@@ -97,3 +98,16 @@ Use [Twilio’s Segment Calculator](https://www.twilio.com/en-us/blog/what-the-h
 ## Cal.ai
 
 Cal.ai pricing is based on credits, with each call consuming a set number of credits based on its length. The cost is 29 credits per minute, which equals \$0.29 per minute.
+
+## AI agents
+
+AI agents built on the Cal.com Platform API can consume credits for automated scheduling interactions. If you are building integrations using the Platform API, your AI agent activity is charged against your team or organization's credit balance.
+
+Credits for AI agents are managed through the Platform API with two endpoints:
+
+- **Check available credits** — query your current balance before performing actions
+- **Charge credits** — deduct credits for AI agent usage, with optional idempotency support to prevent duplicate charges
+
+<Note>
+  AI agent credit usage is separate from Cal.ai phone call credits. Both draw from the same credit balance, but they are tracked as distinct usage types.
+</Note>
