@@ -40,7 +40,15 @@ Webhooks can be created at multiple levels of scope, each determining which even
 To create a new webhook subscription, visit `/settings/developer/webhooks` and proceed to enter the following details:
 
 
-1. Subscriber URL: The listener URL where the payload will be sent to when an event trigger is triggered. See [subscriber URL requirements](/webhooks#subscriber-url-requirements) for details on which URLs are accepted.
+1. Subscriber URL: The listener URL where the payload will be sent to, when an event trigger is triggered.
+
+    The subscriber URL must meet the following requirements:
+
+    - **Cal.com SaaS**: Only HTTPS URLs are accepted. HTTP, private/internal IP addresses (e.g., `10.x.x.x`, `192.168.x.x`, `127.0.0.1`), and `localhost` are blocked.
+    - **Self-hosted**: Both HTTP and HTTPS URLs are accepted, and private IP addresses are allowed for internal webhooks.
+    - **All environments**: Cloud metadata endpoints (e.g., `169.254.169.254`) and non-HTTP protocols (e.g., `ftp://`, `file://`) are always blocked.
+
+    If your subscriber URL does not meet these requirements, the webhook creation request will be rejected with an error.
 
 2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Paid`, `Booking Payment Initiated`, `Booking No-Show Updated`, `Meeting Started`, `Meeting Ended`, `Recording Ready`, `Recording Transcription Generated`, `Instant Meeting Created`, `Out of Office Created`, `After Hosts Cal Video No-Show`, `After Guests Cal Video No-Show`, `Form Submitted`, and `Form Submitted (No Event)`.
 
@@ -172,27 +180,6 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 }
 
 ```
-
-### Subscriber URL requirements
-
-Cal.com validates webhook subscriber URLs to protect against server-side request forgery (SSRF). The validation rules depend on whether you are using Cal.com Cloud or a self-hosted instance.
-
-**Cal.com Cloud:**
-
-- The subscriber URL must use HTTPS.
-- URLs pointing to private or internal IP addresses (such as `10.x.x.x`, `172.16.x.x`, `192.168.x.x`, or `127.0.0.1`) are blocked.
-- Cloud metadata endpoints (such as `169.254.169.254`) are blocked.
-- Hostnames that resolve to private IP addresses via DNS are also blocked.
-
-**Self-hosted:**
-
-- Both HTTP and HTTPS URLs are accepted, so you can use internal services as webhook targets.
-- Private IP addresses are allowed for internal webhooks.
-- Cloud metadata endpoints are still blocked for security, since self-hosted instances may run on cloud infrastructure.
-
-<Warning>
-If your subscriber URL does not meet these requirements, the webhook creation or update request will fail with a `400` error indicating the URL is not allowed.
-</Warning>
 
 ### Verifying the authenticity of the received payload
 
