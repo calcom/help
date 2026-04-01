@@ -1,0 +1,89 @@
+---
+title: "Audit logs"
+description: "Track security events, access changes, and API activity across your organization."
+---
+
+Audit logs give organization admins visibility into security-sensitive actions performed within their Cal.com organization. Every tracked event records who did what, when, and from where — giving you an immutable trail for compliance and incident investigation.
+
+<Note>
+  Audit logs are an enterprise feature available to organizations on an enterprise plan.
+</Note>
+
+---
+
+## What gets logged
+
+Cal.com records events across four categories:
+
+### Security events
+
+| Event | Description |
+|---|---|
+| Login | A user logged in to the organization |
+| Password changed | A user changed their password |
+| Two-factor enabled | A user turned on two-factor authentication |
+| Two-factor disabled | A user turned off two-factor authentication |
+| Impersonation started | An admin began impersonating another user |
+| Impersonation stopped | An admin stopped impersonating another user |
+| Email changed | A user updated their email address |
+
+### Access control events
+
+| Event | Description |
+|---|---|
+| Member added | One or more users were invited to a team |
+| Member removed | A user was removed from a team |
+| Role changed | A member's role was updated (e.g., Member to Admin) |
+
+### API key events
+
+| Event | Description |
+|---|---|
+| API key created | A new API key was generated |
+| API key revoked | An existing API key was revoked |
+
+### Workflow events
+
+| Event | Description |
+|---|---|
+| Workflow created | A new workflow was created |
+| Workflow modified | An existing workflow was updated |
+| Workflow deleted | A workflow was deleted |
+
+---
+
+## What each log entry contains
+
+Every audit log entry includes:
+
+- **Who** — the user who performed the action
+- **What** — the specific action taken, along with previous and new values when applicable (e.g., a role change from Member to Admin)
+- **Where** — the target resource (team, membership, API key, or workflow)
+- **When** — the timestamp of the event
+- **Source** — how the action was performed (web app, API, SAML, OAuth, etc.)
+- **Result** — whether the action succeeded, failed, or was denied
+
+For role changes, both the previous role and new role are recorded so you can see exactly what changed.
+
+---
+
+## How audit logging works
+
+Audit events are recorded automatically whenever a tracked action occurs. There is nothing you need to enable or configure — logging begins as soon as your organization is on an enterprise plan.
+
+Events are written directly to the database as part of the same operation, so there is no delay between an action and its audit record. Audit logging is designed to never interfere with or slow down the action being performed.
+
+---
+
+## Use cases
+
+- **Compliance** — demonstrate to auditors that your organization tracks access and security events
+- **Incident response** — investigate who changed a role, removed a member, or revoked an API key
+- **Security monitoring** — detect unusual login patterns or unauthorized impersonation
+- **Change tracking** — review when and why team membership or workflow configurations changed
+
+---
+
+## Permissions
+
+Only organization admins and owners can access audit logs.
