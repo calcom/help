@@ -48,6 +48,7 @@
                   "style": "solid"
                 },
                 "pages": [
+                  "billing-and-usage/seat-billing",
                   "billing-and-usage/messaging-credits"
                 ]
               },

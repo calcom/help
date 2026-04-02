@@ -1,0 +1,61 @@
+---
+title: "Seat billing"
+description: "Understand how seat-based billing works for teams and organizations on Cal.com."
+---
+
+Cal.com bills teams and organizations based on the number of seats used during each billing period. Depending on your plan, you may see one of two billing models in your billing settings: **high water mark billing** or **active user billing**.
+
+## High water mark billing
+
+With high water mark (HWM) billing, you are billed for the **peak number of team members** at any point during your billing cycle — not just the count at the end of the month.
+
+For example, if your team starts the month with 10 members, grows to 15 mid-month, then drops back to 12, you are billed for 15 seats that month.
+
+### What you see in billing settings
+
+When HWM billing is active, the **Seat billing** section appears on your team or organization billing page. It shows:
+
+- **Current members** — the number of members on your team right now
+- **Peak seats this period** — the highest member count recorded since the billing period started
+- **Billed seats** — the number of seats you are charged for (the higher of current members or peak seats, with a minimum of 1)
+
+The billing period start date is displayed so you can see when the current tracking window began.
+
+## Active user billing
+
+With active user billing, you are billed based on how many team members were **actively involved in bookings** during the billing period — either as a host or an attendee.
+
+### What you see in billing settings
+
+When active user billing is enabled, the **Active users** section appears on your billing page. It shows:
+
+- **Total members** — everyone on your team
+- **Active users** — the number of members who hosted or attended at least one booking during the period
+- **Minimum seats commitment** — if your plan includes a minimum seat commitment, it appears here
+- **Billed seats** — the higher of your active user count or minimum seat commitment
+
+You can also see a table listing each active user, their email, and whether they were active as a **host** or **attendee**. Selecting a user shows their bookings for the period.
+
+## Viewing your seat billing details
+
+<Steps>
+  <Step title="Go to billing settings">
+    Navigate to your **Team Settings** or **Organization Settings** and select **Billing**.
+  </Step>
+  <Step title="Review seat information">
+    Scroll to the **Seat billing** or **Active users** section (depending on your billing model) to see your current usage and billed seats.
+  </Step>
+  <Step title="Manage your subscription">
+    Select **Billing portal** to open Stripe, where you can update your payment method, view invoices, or make changes to your subscription.
+  </Step>
+</Steps>
+
+<Note>
+  Seat billing details only appear for teams and organizations on a paid plan. If you are on a free or trial plan, this section is not shown.
+</Note>
+
+## How seat changes are tracked
+
+Every time a member is added to or removed from your team, Cal.com logs the change. For high water mark billing, the system automatically checks whether the new member count exceeds the previous peak. If it does, the peak is updated. This ensures billing reflects the maximum number of seats used at any point in the period.
+
+Seat tracking resets at the start of each billing cycle.
