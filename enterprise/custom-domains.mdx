@@ -1,0 +1,94 @@
+---
+title: "Custom domains"
+description: "Use your own domain for your organization's Cal.com booking pages."
+---
+
+Custom domains let your organization replace the default `cal.com` URL with your own domain (for example, `bookings.yourcompany.com`). This gives your booking pages a branded, professional look and makes them easier for clients and teammates to remember.
+
+<Note>Custom domains are available for organizations on an Enterprise plan. You must be an **Owner** or **Admin** of the organization to set up or manage custom domains.</Note>
+
+---
+
+## How it works
+
+When you add a custom domain, Cal.com registers it with the hosting provider and guides you through DNS verification. Once verified, your organization's booking pages are accessible through your domain instead of the default `cal.com` URL.
+
+Each organization can have one custom domain at a time. You can replace or remove it at any time.
+
+---
+
+## Set up a custom domain
+
+<Steps>
+  <Step title="Open organization settings">
+    Go to your [organization settings](https://app.cal.com/settings/organizations) and find the **Custom domain** section.
+  </Step>
+  <Step title="Enter your domain">
+    Type the domain you want to use (for example, `bookings.yourcompany.com`). The domain must be lowercase and follow standard domain name formatting.
+  </Step>
+  <Step title="Add the domain">
+    Click **Add**. Cal.com checks that the domain is not already in use and registers it with the hosting provider.
+  </Step>
+  <Step title="Configure your DNS">
+    After adding the domain, you need to update your DNS settings. Add a **CNAME** record pointing your domain to the value provided by Cal.com. This is done through your domain registrar or DNS provider (for example, Cloudflare, GoDaddy, or Namecheap).
+  </Step>
+  <Step title="Verify the domain">
+    Return to the custom domain settings and click **Verify**. Cal.com checks your DNS configuration and confirms the domain is correctly pointed. Verification may take a few minutes depending on DNS propagation.
+  </Step>
+</Steps>
+
+---
+
+## Domain verification statuses
+
+After adding a domain, you may see one of the following statuses:
+
+| Status | What it means |
+|---|---|
+| **Pending** | The domain has been added but DNS verification has not completed yet. |
+| **Valid** | The domain is verified and active. Your booking pages are accessible through it. |
+| **Invalid configuration** | The DNS records are not set up correctly. Double-check the CNAME record with your DNS provider. |
+| **Conflicting DNS** | There are conflicting DNS records for this domain. Remove any existing A or AAAA records that conflict with the CNAME. |
+
+---
+
+## Replace a custom domain
+
+If you need to switch to a different domain:
+
+1. Go to your organization's custom domain settings.
+2. Click **Replace** and enter the new domain.
+3. Follow the DNS configuration and verification steps for the new domain.
+
+The old domain is automatically removed when the new one is added.
+
+---
+
+## Remove a custom domain
+
+To stop using a custom domain and revert to the default `cal.com` URL:
+
+1. Go to your organization's custom domain settings.
+2. Click **Remove**.
+
+After removing, your booking pages are only accessible through the default Cal.com URL. You can optionally clean up the CNAME record from your DNS provider, though leaving it in place has no effect.
+
+---
+
+## FAQ
+
+<Accordion title="Can I use a root domain (like yourcompany.com) instead of a subdomain?">
+  You can use any valid domain, including root domains and subdomains. However, using a subdomain (like `bookings.yourcompany.com`) is generally recommended because CNAME records on root domains can conflict with other DNS records.
+</Accordion>
+
+<Accordion title="How long does DNS verification take?">
+  DNS changes can take anywhere from a few minutes to 48 hours to propagate, depending on your DNS provider. Most changes propagate within 15 minutes.
+</Accordion>
+
+<Accordion title="Can I have multiple custom domains?">
+  Each organization can have one custom domain at a time. If you need to change it, use the replace option to swap to a new domain.
+</Accordion>
+
+<Accordion title="Who can manage custom domains?">
+  Only organization **Owners** and **Admins** can add, replace, or remove custom domains. All organization members can view the current custom domain and its verification status.
+</Accordion>
