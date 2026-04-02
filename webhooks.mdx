@@ -68,8 +68,8 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 | Booking Paid                      | Payment for a booking is completed.                                                                           |
 | Booking Payment Initiated         | A payment attempt is initiated (before confirmation).                                                         |
 | Booking No-Show Updated           | A host or attendee is marked as a no-show after the meeting.                                                  |
-| Meeting Started                   | At the scheduled start time of the meeting.                                                                   |
-| Meeting Ended                     | At the scheduled end time of the meeting.                                                                     |
+| Meeting Started                   | At the scheduled start time of the meeting. Uses a [flat payload format](#meeting-started--meeting-ended-flat-format). Automatically cancelled if the booking is cancelled or rescheduled.  |
+| Meeting Ended                     | At the scheduled end time of the meeting. Uses a [flat payload format](#meeting-started--meeting-ended-flat-format). Automatically cancelled if the booking is cancelled or rescheduled.    |
 | Recording Ready                   | A meeting recording is available and ready to access.                                                         |
 | Recording Transcription Generated | A transcription of the meeting recording is successfully generated.                                           |
 | Instant Meeting Created           | An instant (ad-hoc) meeting is created.                                                                       |
@@ -80,7 +80,13 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 | Form Submitted (No Event)         | A form is submitted **without** a scheduled event (form-only flow).                                           |
 
 
-### An example webhook payload
+### Example webhook payloads
+
+Most webhook events use a nested payload format with booking details inside a `payload` object. The `MEETING_STARTED` and `MEETING_ENDED` events use a different flat format where booking fields are at the top level.
+
+#### Booking events (nested format)
+
+Events like `BOOKING_CREATED`, `BOOKING_CANCELLED`, `BOOKING_RESCHEDULED`, and most other triggers use this format:
 
 ```json
 {
@@ -178,8 +184,74 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
         "status": "ACCEPTED"
     }
 }
-
 ```
+
+#### Meeting started / meeting ended (flat format)
+
+`MEETING_STARTED` and `MEETING_ENDED` webhooks use a flat payload format where booking fields are at the top level alongside `triggerEvent`, rather than nested inside a `payload` object. These webhooks are delivered at the scheduled start and end time of the meeting respectively.
+
+```json
+{
+    "triggerEvent": "MEETING_STARTED",
+    "id": 91,
+    "uid": "bFJeNb2uX8ANpT3JL5EfXw",
+    "title": "60min between Pro Example and John Doe",
+    "description": "",
+    "startTime": "2023-05-25T09:30:00.000Z",
+    "endTime": "2023-05-25T10:30:00.000Z",
+    "location": "https://cal.app/video/abc123",
+    "status": "ACCEPTED",
+    "paid": false,
+    "createdAt": "2023-05-24T09:30:00.538Z",
+    "updatedAt": "2023-05-24T09:30:00.538Z",
+    "userId": 5,
+    "eventTypeId": 7,
+    "metadata": {},
+    "responses": {
+        "name": {
+            "label": "your_name",
+            "value": "John Doe"
+        },
+        "email": {
+            "label": "email_address",
+            "value": "john.doe@example.com"
+        }
+    },
+    "user": {
+        "email": "owner@acme.com",
+        "name": "Pro Example",
+        "username": "owner90",
+        "timeZone": "Asia/Kolkata",
+        "locale": "en"
+    },
+    "attendees": [
+        {
+            "id": 201,
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "timeZone": "Asia/Kolkata",
+            "locale": "en",
+            "noShow": false
+        }
+    ],
+    "payment": [],
+    "references": [
+        {
+            "id": 42,
+            "type": "daily_video",
+            "uid": "abc123",
+            "meetingId": "abc123",
+            "meetingUrl": "https://cal.app/video/abc123"
+        }
+    ]
+}
+```
+
+<Note>
+`MEETING_STARTED` and `MEETING_ENDED` webhooks do not support [custom payload templates](#adding-a-custom-payload-template). They always send the full booking data in the flat format shown above.
+</Note>
+
+If a booking is cancelled or rescheduled before the meeting time, the scheduled `MEETING_STARTED` and `MEETING_ENDED` webhooks for that booking are automatically cancelled.
 
 ### Subscriber URL requirements
 
