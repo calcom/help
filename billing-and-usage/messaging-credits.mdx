@@ -97,3 +97,93 @@ Use [Twilio’s Segment Calculator](https://www.twilio.com/en-us/blog/what-the-h
 ## Cal.ai
 
 Cal.ai pricing is based on credits, with each call consuming a set number of credits based on its length. The cost is 29 credits per minute, which equals \$0.29 per minute.
+
+## AI agent credits
+
+Credits can also be consumed by AI agent interactions through the Cal.com platform API. When you build or use AI agents that integrate with Cal.com, each completed interaction charges credits against your balance.
+
+### How AI agent credits work
+
+- AI agent usage is tracked as a separate credit usage type (`AI_AGENT`) alongside SMS and Cal.ai phone calls
+- Credits are deducted from your monthly allocation or purchased balance, following the same priority as other credit types
+- You can check your available credit balance and charge credits programmatically using the API v2 endpoints below
+
+### Checking available credits
+
+Use the `GET /v2/credits/available` endpoint to check whether your account has credits remaining and to retrieve your current balance breakdown.
+
+**Response fields:**
+
+| Field | Description |
+|---|---|
+| `hasCredits` | Whether the account has any credits available |
+| `balance.monthlyRemaining` | Credits remaining from the monthly allocation |
+| `balance.additional` | Purchased credits available beyond the monthly allocation |
+
+```bash
+curl -X GET https://api.cal.com/v2/credits/available \
+  -H "Authorization: Bearer <your-api-key>"
+```
+
+```json
+{
+  "status": "success",
+  "data": {
+    "hasCredits": true,
+    "balance": {
+      "monthlyRemaining": 450,
+      "additional": 200
+    }
+  }
+}
+```
+
+### Charging credits
+
+Use the `POST /v2/credits/charge` endpoint to charge credits after a completed AI agent interaction.
+
+**Request fields:**
+
+| Field | Required | Description |
+|---|---|---|
+| `credits` | Yes | Number of credits to charge (minimum 1) |
+| `creditFor` | Yes | Usage type. Use `AI_AGENT` for AI agent interactions |
+| `externalRef` | No | Unique reference string for idempotency to prevent double-charging |
+
+**Response fields:**
+
+| Field | Description |
+|---|---|
+| `charged` | Whether the charge was applied successfully |
+| `teamId` | Team ID that was charged, if applicable |
+| `remainingBalance.monthlyRemaining` | Monthly credits remaining after the charge |
+| `remainingBalance.additional` | Purchased credits remaining after the charge |
+
+```bash
+curl -X POST https://api.cal.com/v2/credits/charge \
+  -H "Authorization: Bearer <your-api-key>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "credits": 5,
+    "creditFor": "AI_AGENT",
+    "externalRef": "agent-thread-123-1711432800000"
+  }'
+```
+
+```json
+{
+  "status": "success",
+  "data": {
+    "charged": true,
+    "teamId": null,
+    "remainingBalance": {
+      "monthlyRemaining": 445,
+      "additional": 200
+    }
+  }
+}
+```
+
+<Tip>
+  Use the `externalRef` field with a unique identifier for each interaction to prevent duplicate charges. If the same `externalRef` is sent twice, the second request will not charge credits again.
+</Tip>
