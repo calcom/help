@@ -38,7 +38,8 @@
                   "style": "solid"
                 },
                 "pages": [
-                  "enterprise/members-onboarding"
+                  "enterprise/members-onboarding",
+                  "enterprise/custom-smtp"
                 ]
               },
               {
