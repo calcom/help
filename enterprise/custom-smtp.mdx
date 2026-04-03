@@ -8,7 +8,7 @@ Organizations on Cal.com can configure a custom SMTP server so that booking-rela
 This helps keep your communications on-brand and can improve deliverability for your team's emails.
 
 <Note>
-  Custom SMTP is only available for organizations. Individual users and teams cannot configure their own SMTP settings.
+  Custom SMTP is an enterprise feature available for organizations only. Individual users and teams cannot configure their own SMTP settings. Contact your Cal.com account representative to enable it.
 </Note>
 
 ---
@@ -46,36 +46,66 @@ Before configuring custom SMTP, have the following details from your email provi
 | Setting | Description | Example |
 |---|---|---|
 | **SMTP host** | Your mail server address | `smtp.yourcompany.com` |
-| **SMTP port** | The port your server uses | `465` (SSL) or `587` (TLS) |
+| **SMTP port** | The port your server uses | `465` (SSL) or `587` (STARTTLS) |
 | **Username** | The account used to authenticate | `noreply@yourcompany.com` |
 | **Password** | The password or app-specific password | — |
-| **Secure connection** | Whether the server uses SSL/TLS | Yes for port 465, typically |
-| **From email** | The address that appears in the "From" field | `noreply@yourcompany.com` |
+| **Encryption** | SSL/TLS (port 465) or STARTTLS (port 587) | SSL/TLS |
+| **Sending email address** | The address that appears in the "From" field | `noreply@yourcompany.com` |
 | **From name** | The display name next to the email address | `Your Company` |
 
 <Warning>
-  Make sure your SMTP server allows sending from the "From email" address you configure. If there is a mismatch, emails may fail or be rejected by recipient mail servers.
+  Make sure your SMTP server allows sending from the "From" email address you configure. If there is a mismatch, emails may fail or be rejected by recipient mail servers.
 </Warning>
 
 ---
 
 ## Set up custom SMTP
 
-To configure custom SMTP for your organization, contact your Cal.com account representative or reach out through the [support portal](https://go.cal.com/support) with your SMTP details. The Cal.com team will enable the feature for your organization.
+Once the feature is enabled for your organization, org admins can configure SMTP directly from the settings page.
 
-Once enabled, you can send a test email to confirm that your SMTP configuration is working correctly before it goes live.
+<Steps>
+  <Step title="Open custom email settings">
+    Go to **Settings** → **Organization** → **Custom email**.
+  </Step>
+  <Step title="Connect your SMTP server">
+    Click the **Connect** button to open the configuration form.
+  </Step>
+  <Step title="Enter your SMTP details">
+    Fill in the following fields:
+    - **Name** — the display name for outgoing emails (e.g., "Your Company")
+    - **Sending email address** — the "From" email address
+    - **SMTP server name** — your mail server address (e.g., `smtp.yourcompany.com`)
+    - **Encryption** — choose **SSL/TLS** (port 465) or **STARTTLS** (port 587). The port is set automatically based on your selection.
+    - **Username** — your SMTP authentication username
+    - **Password** — your SMTP authentication password
+  </Step>
+  <Step title="Test the connection">
+    Click **Test Connection** to verify that Cal.com can reach your SMTP server with the credentials you provided. You must pass this test before saving.
+  </Step>
+  <Step title="Save the configuration">
+    Once the connection test succeeds, click **Save** to apply your SMTP settings. All supported emails from your organization will now be sent through your server.
+  </Step>
+</Steps>
 
 ---
 
 ## Test your configuration
 
-After your SMTP settings are configured, a test email is sent to verify the connection. This test email confirms:
+After saving, you can send a test email to confirm everything is working end to end.
 
-- Your SMTP server is reachable
-- Authentication credentials are valid
-- Emails can be delivered from the configured "From" address
+1. Open your SMTP configuration in **Settings** → **Organization** → **Custom email**.
+2. Expand the configuration card and click **Send a test**.
+3. Check your inbox for the test email.
 
-If the test fails, double-check your SMTP host, port, username, and password with your email provider.
+If the test email does not arrive, verify your SMTP host, port, username, and password with your email provider.
+
+---
+
+## Edit or delete your configuration
+
+To update your SMTP settings, open the configuration card and click **Edit**. You can change any field — if you modify connection-related settings (host, port, encryption, username, or password), you will need to pass a new connection test before saving.
+
+To remove custom SMTP entirely, click **Delete** on the configuration card. All emails will revert to Cal.com's default email address.
 
 ---
 
@@ -88,10 +118,13 @@ If your SMTP server becomes temporarily unavailable, Cal.com automatically retri
 ## Frequently asked questions
 
 <AccordionGroup>
+  <Accordion title="Who can configure custom SMTP?">
+    Only organization admins and owners can access the custom email settings page. The feature must also be enabled for your organization — contact your Cal.com account representative if you don't see it in your settings.
+  </Accordion>
   <Accordion title="Can I use different SMTP settings for different teams?">
     No. Custom SMTP is configured at the organization level and applies to all teams and members within the organization.
   </Accordion>
-  <Accordion title="What happens if I remove my SMTP configuration?">
+  <Accordion title="What happens if I delete my SMTP configuration?">
     All emails will be sent from Cal.com's default email address going forward. No previously sent emails are affected.
   </Accordion>
   <Accordion title="Do I need to update DNS records?">
@@ -99,5 +132,8 @@ If your SMTP server becomes temporarily unavailable, Cal.com automatically retri
   </Accordion>
   <Accordion title="Which email providers work with this?">
     Any provider that supports standard SMTP (such as Google Workspace, Microsoft 365, Amazon SES, SendGrid, or Postmark) is compatible.
+  </Accordion>
+  <Accordion title="Why is the connection test required?">
+    The connection test ensures your SMTP server is reachable and your credentials are correct before any booking emails are routed through it. This prevents email delivery failures.
   </Accordion>
 </AccordionGroup>
