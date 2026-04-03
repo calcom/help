@@ -39,7 +39,8 @@
                 },
                 "pages": [
                   "enterprise/members-onboarding",
-                  "enterprise/custom-smtp"
+                  "enterprise/custom-smtp",
+                  "enterprise/guest-notifications"
                 ]
               },
               {
