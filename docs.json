@@ -239,7 +239,8 @@
                   "style": "solid"
                 },
                 "pages": [
-                  "security/blocklist"
+                  "security/blocklist",
+                  "security/admin-security-requirements"
                 ]
               },
               {
