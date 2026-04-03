@@ -41,7 +41,7 @@ Custom SMTP applies to booking-related emails, including:
 
 ## What you need
 
-Before configuring custom SMTP, have the following details from your email provider:
+You must be an **organization admin** to configure custom SMTP. Before getting started, have the following details from your email provider:
 
 | Setting | Description | Example |
 |---|---|---|
@@ -61,21 +61,45 @@ Before configuring custom SMTP, have the following details from your email provi
 
 ## Set up custom SMTP
 
-To configure custom SMTP for your organization, contact your Cal.com account representative or reach out through the [support portal](https://go.cal.com/support) with your SMTP details. The Cal.com team will enable the feature for your organization.
+Organization admins can configure custom SMTP directly from the organization settings. To get started, ask your Cal.com account representative to enable the custom SMTP feature flag for your organization.
 
-Once enabled, you can send a test email to confirm that your SMTP configuration is working correctly before it goes live.
+Once the feature is enabled, follow these steps:
+
+<Steps>
+  <Step title="Open organization settings">
+    Go to your organization settings in the Cal.com dashboard.
+  </Step>
+  <Step title="Enter your SMTP details">
+    Fill in the required fields:
+    - **From email** — the address that appears in the "From" field
+    - **From name** — the display name next to the email address
+    - **SMTP host** — your mail server address
+    - **SMTP port** — the port your server uses (for example, `465` for SSL or `587` for TLS)
+    - **Username** — the account used to authenticate
+    - **Password** — the password or app-specific password
+    - **Secure connection** — enable this if your server uses SSL/TLS (recommended)
+  </Step>
+  <Step title="Test the connection">
+    Use the test connection option to verify that Cal.com can reach your SMTP server and authenticate with the credentials you provided.
+  </Step>
+  <Step title="Send a test email">
+    Send a test email to confirm that messages are delivered correctly from your configured "From" address. Enter a recipient email and check your inbox to verify delivery.
+  </Step>
+  <Step title="Save your configuration">
+    Once the test email arrives successfully, save your configuration. All supported email types will now be sent through your SMTP server.
+  </Step>
+</Steps>
 
 ---
 
 ## Test your configuration
 
-After your SMTP settings are configured, a test email is sent to verify the connection. This test email confirms:
+After saving your SMTP settings, you can verify them at any time:
 
-- Your SMTP server is reachable
-- Authentication credentials are valid
-- Emails can be delivered from the configured "From" address
+- **Test connection** — confirms that your SMTP server is reachable and your credentials are valid
+- **Send test email** — delivers a test message to an email address you specify, so you can confirm that emails arrive from your configured "From" address
 
-If the test fails, double-check your SMTP host, port, username, and password with your email provider.
+If either test fails, double-check your SMTP host, port, username, and password with your email provider.
 
 ---
 
@@ -90,6 +114,9 @@ If your SMTP server becomes temporarily unavailable, Cal.com automatically retri
 <AccordionGroup>
   <Accordion title="Can I use different SMTP settings for different teams?">
     No. Custom SMTP is configured at the organization level and applies to all teams and members within the organization.
+  </Accordion>
+  <Accordion title="Can I update my SMTP settings after saving?">
+    Yes. You can update any of your SMTP settings at any time from your organization settings. Changes take effect immediately for all future emails.
   </Accordion>
   <Accordion title="What happens if I remove my SMTP configuration?">
     All emails will be sent from Cal.com's default email address going forward. No previously sent emails are affected.
