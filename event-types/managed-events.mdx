@@ -1,5 +1,6 @@
 ---
-title: "Managed Events"
+title: "Managed events"
+description: "Create and manage shared event types across your team from one place."
 ---
 
 
@@ -11,7 +12,7 @@ Please take into account that Managed Events v2 do not support Webhooks and Apps
 
 ## Creation
 
-Be sure to be a team admin, and in case you are self-hosting, have the \`managed-event-types\`\` operational feature flag turned on.
+Be sure to be a team admin, and in case you are self-hosting, have the \`managed-event-types\` operational feature flag turned on.
 
 When creating a team event-type, you will be getting the option to create a Managed Event like so:
 
@@ -27,7 +28,20 @@ Think of the managed-event you created as a team admin as an event template, tha
 
 Whenever you make changes to locked fields, every team member will also get the same change on their regular event type created upon this managed event-type. Note that unlocked fields will not have any effect on already created event types for assigned members, only for new assign members.
 
-Take into consideration that whenever you try to assign a managed event-type to a team member that already has an event-type with the same slug, you will be getting a pop-up message to confirm you want to proceed to delete the existing conflicting event-type from the team member and notify them about this so the managed-event type can be created in its place. Like so:
+### Slug conflicts
 
+When you assign a managed event type to a team member who already has a personal event type with the same URL slug, a confirmation dialog appears asking whether you want to proceed.
 
-For which, team members notified will be getting the following email notification.
+If you confirm, the member's personal event type is **not deleted**. Instead, it is:
+
+- **Hidden** from their public booking page so it no longer accepts new bookings.
+- **Renamed** with a `-personal` suffix (for example, `/consultation` becomes `/consultation-personal`) so the managed event type can take over the original URL.
+- **Preserved** with all of its existing bookings and settings intact. The member can still find it on their event types page.
+
+The managed event type then takes over the original URL slug and begins accepting bookings with the settings you configured.
+
+<Note>
+  The member receives an email notification explaining that their booking link has been replaced by a managed event type and that their original event type has been hidden.
+</Note>
+
+If you do not want to overwrite a member's personal event type, click **Go back** in the confirmation dialog and remove that member from the assignment list before saving.
