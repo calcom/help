@@ -7,7 +7,7 @@ With our Salesforce integration you can sync data between Cal.com and your insta
 ## Basic functionality
 - On booking, we create an event record under a lead/contact record
 - On reschedule, we adjust the event record's dates
-- On cancellation, we delete the event record
+- On cancellation, we delete the event record (or optionally write to the event and attendee records instead)
 
 
 ## Event Type Options
@@ -89,6 +89,38 @@ When this option is enabled, instead of deleting the event record we write to sp
 - When to write to the field
     - When the field is empty
     - On every booking, overwriting the previous values
+
+#### On cancelled booking, write to a custom field on the attendee record
+When this option is enabled, Cal.com updates fields on the attendee's contact or lead record when a booking is cancelled. This lets you track cancellation information directly on the person record in Salesforce — for example, recording when a meeting was cancelled or flagging the contact as having cancelled.
+
+To write to a field you need the following:
+- The API field name ex. `Custom_Field__c`
+- The field type in Salesforce. We currently support the following types:
+    - Text (`text`, `textarea` )
+    - Date (`date`, `datetime`)
+    - Phone
+    - Checkbox
+    - Picklist
+    - Custom (ignores field validations)
+- The value that you want to pass to the field ([Mapping data from Cal.com to Salesforce](#mapping-data-from-cal-com-to-salesforce))
+    - For checkbox fields, you can choose whether to pass true or false
+    - For picklist fields, the value passed needs to match the value of a picklist option
+- When to write to the field
+    - When the field is empty
+    - On every cancellation, overwriting the previous values
+
+<Accordion title="Example: tracking cancellation date on a contact">
+To record the date a booking was cancelled on the contact record:
+
+1. In Salesforce, add a custom date field to the Contact object (e.g., `Last_Cancellation_Date__c`)
+2. In Cal.com, open the event type and go to the **Apps** tab
+3. Expand the Salesforce section and enable **On cancelled booking, write to a custom field on the attendee record**
+4. Add a field entry with:
+   - **Field name:** `Last_Cancellation_Date__c`
+   - **Field type:** Date
+   - **Value:** `booking_cancel_date`
+   - **When to write:** On every booking
+</Accordion>
 
 #### Send no show attendee data to event object
 When this option is enabled, we set the specific checkbox field to true when an attendee is marked as no-show in Cal.com
