@@ -343,3 +343,13 @@ where `{{type}}` represents the event type slug and `{{title}}` represents the t
 | email            | Email  | Email of the attendee                                                    |
 | timeZone         | String | Timezone of the attendee ("America/New\_York", "Asia/Kolkata", etc.)    |
 | language?.locale | String | Locale of the attendee ("en", "fr", etc.)                               |
+
+### Webhooks for seated event types
+
+When you use [seated event types](/event-types/offer-seats), multiple attendees can book the same time slot. In this case, webhook payloads include only the attendee whose booking triggered the event — not all attendees for that slot. This makes it easier to process individual bookings in your automation without needing to filter through other attendees.
+
+For cancellation events (`BOOKING_CANCELLED`), the payload includes all attendees for the time slot, since the cancellation may affect the entire booking.
+
+<Note>
+This applies to all webhook triggers except `BOOKING_CANCELLED`. If your event type does not use seats, the `attendees` array behaves the same as before — it contains the booker and any guests.
+</Note>
