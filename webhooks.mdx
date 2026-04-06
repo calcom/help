@@ -80,6 +80,10 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 | Form Submitted (No Event)         | A form is submitted **without** a scheduled event (form-only flow).                                           |
 
 
+### Seated event types
+
+For event types with [seats enabled](/event-types/offer-seats), the `attendees` array in webhook payloads contains only the attendee associated with the specific seat that triggered the webhook. For example, when a new seat is booked, the webhook includes only that seat's attendee — not all attendees across the entire booking. This applies to all booking-related triggers (`BOOKING_CREATED`, `BOOKING_RESCHEDULED`, etc.).
+
 ### Example webhook payloads
 
 Most webhook events use a nested payload format with booking details inside a `payload` object. The `MEETING_STARTED` and `MEETING_ENDED` events use a different flat format where booking fields are at the top level.
@@ -315,7 +319,7 @@ where `{{type}}` represents the event type slug and `{{title}}` represents the t
 | description        | String    | The event's description as described in the event type settings                                                                                                                                                                                     |
 | location           | String    | Location of the event                                                                                                                                                                                                                               |
 | organizer          | Organizer | The organizer of the event                                                                                                                                                                                                                          |
-| attendees          | Attendee\[] | The event booker & any guests                                                                                                                                                                                                                     |
+| attendees          | Attendee\[] | The event booker & any guests. For [seated event types](/event-types/offer-seats), this contains only the attendee for the specific seat that triggered the webhook. |
 | uid                | String    | The UID of the booking                                                                                                                                                                                                                              |
 | rescheduleUid      | String    | The UID for rescheduling                                                                                                                                                                                                                            |
 | cancellationReason | String    | Reason for cancellation                                                                                                                                                                                                                             |
