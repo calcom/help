@@ -90,6 +90,29 @@ When this option is enabled, instead of deleting the event record we write to sp
     - When the field is empty
     - On every booking, overwriting the previous values
 
+#### On cancelled booking, write to a custom field on the attendee record
+When this option is enabled, cancelling a booking updates fields on the attendee's contact or lead record in Salesforce. This is useful when you want to track cancellation status directly on the person's record rather than (or in addition to) the event record.
+
+To configure, provide:
+- The API field name ex. `Custom_Field__c`
+- The field type in Salesforce. We current support the following types:
+    - Text (`text`, `textarea` )
+    - Date (`date`, `datetime`)
+    - Phone
+    - Checkbox
+    - Picklist
+    - Custom (ignores field validations)
+- The value that you want to pass to the field ([Mapping data from Cal.com to Salesforce](#mapping-data-from-cal-com-to-salesforce))
+    - For checkbox fields, you can choose whether to pass true or false
+    - For picklist fields, the value passed needs to match the value of a picklist option
+- When to write to the field
+    - When the field is empty
+    - On every cancellation, overwriting the previous values
+
+<Tip>
+  You can use both the "write to event record" and "write to attendee record" options together. For example, you might mark the event as cancelled while also updating a status field on the contact or lead.
+</Tip>
+
 #### Send no show attendee data to event object
 When this option is enabled, we set the specific checkbox field to true when an attendee is marked as no-show in Cal.com
 
