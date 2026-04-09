@@ -61,7 +61,8 @@ Cal.com allows you to route prospects based on **Salesforce ownership**. Ownersh
 
 - Routing can be based on ownership of the lead, contact, or an account that the prospect belongs to.
 - When routing to an account:
-  - You can also search against the website or email domains of other contacts under an account that match the prospect’s email domain.
+  - Cal.com searches the account `Website` field against the prospect's email domain. Website values are normalized automatically, so accounts with URLs containing extra paths, ports, or protocols (e.g. `https://www.acme.com/about/`) are still matched correctly.
+  - If no account is found by website, Cal.com checks the email domains of existing contacts to find the most likely account.
   - Routing can be based on the account ownership or a custom user lookup field under the account.
 
 ---
