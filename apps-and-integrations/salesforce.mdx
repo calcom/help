@@ -120,10 +120,11 @@ When this option is enabled, we set the specific checkbox field to true when an 
 ## Appendix
 
 #### Determining if an attendee belongs under an account
-We determine if an attendee belongs under an account in the following order
-- If there is a contact that matches the attendee's email that belongs to an account
-- If there is an account where the `Website` field matches the email domain of the attendee
-- If there are multiple contacts that share the same email domain of the attendee, determine which account the majority of the contacts belong to
+We determine if an attendee belongs under an account in the following order:
+1. If there is a contact that matches the attendee's email that belongs to an account
+2. If there is an account where the `Website` field exactly matches the email domain of the attendee
+3. If there is an account where the `Website` field matches the email domain after normalization (this catches URLs with extra paths, ports, or inconsistent casing — for example, `https://www.Acme.com/about` is normalized to `acme.com`)
+4. If there are multiple contacts that share the same email domain of the attendee, determine which account the majority of the contacts belong to
 
 #### Mapping data from Cal.com to Salesforce
 When writing to fields in Salesforce, you can pass data from different sources in Cal.com
