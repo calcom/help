@@ -113,6 +113,13 @@ To configure, provide:
   You can use both the "write to event record" and "write to attendee record" options together. For example, you might mark the event as cancelled while also updating a status field on the contact or lead.
 </Tip>
 
+#### Match accounts by base domain across TLDs (fuzzy matching)
+This option is available when adding events on **Account** or **Lead** records. When enabled, Cal.com uses fuzzy domain matching to find the right Salesforce account even when the attendee's email domain uses a different top-level domain (TLD) than the account's website.
+
+For example, if an attendee's email is `user@acme.co.uk` and the Salesforce account has `acme.com` as its website, Cal.com strips the TLD from both and matches them by the base domain (`acme`). This is useful for companies that use country-specific email domains.
+
+Fuzzy matching runs only after exact and normalized website matching have been attempted. Free email domains (e.g. `gmail.com`) are excluded automatically.
+
 #### Send no show attendee data to event object
 When this option is enabled, we set the specific checkbox field to true when an attendee is marked as no-show in Cal.com
 
@@ -123,7 +130,8 @@ When this option is enabled, we set the specific checkbox field to true when an 
 We determine if an attendee belongs under an account in the following order:
 1. If there is a contact that matches the attendee's email that belongs to an account, use that account.
 2. If there is an account where the `Website` field matches the email domain of the attendee. Cal.com checks common URL formats first (e.g. `acme.com`, `https://www.acme.com`). If no exact match is found, Cal.com normalizes the `Website` values by stripping protocols, paths, ports, and trailing slashes before comparing. This means accounts with website values like `https://www.acme.com/about/` or `HTTP://ACME.COM:443/en/` still match an attendee with an `@acme.com` email.
-3. If no account is found by website, Cal.com looks at contacts that share the same email domain as the attendee and selects the account that the majority of those contacts belong to.
+3. If fuzzy domain matching is enabled for the event type, Cal.com strips the TLD from the attendee's email domain and searches for accounts whose website shares the same base domain. For example, an attendee with `@acme.co.uk` would match an account with website `acme.com`. Free email domains are excluded from this step.
+4. If no account is found by website, Cal.com looks at contacts that share the same email domain as the attendee and selects the account that the majority of those contacts belong to.
 
 #### Mapping data from Cal.com to Salesforce
 When writing to fields in Salesforce, you can pass data from different sources in Cal.com
