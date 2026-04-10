@@ -35,7 +35,7 @@ You must select your scopes when creating your OAuth client, and include them in
 | `PROFILE_WRITE` | Edit personal info | Updating the authorized user's profile |
 
 <Note>
-  Some endpoints like creating, cancelling, and rescheduling bookings are public and do not require any scope.
+  Some endpoints like creating, cancelling, and rescheduling bookings, as well as slot availability endpoints, are public and do not require any scope. You can still pass an OAuth access token when calling these endpoints — the token is accepted but not required. This means you can use a consistent `Authorization: Bearer <token>` header across all your API requests without worrying about whether a specific endpoint is public or scoped.
 </Note>
 
 ### Team scopes
