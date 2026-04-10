@@ -121,9 +121,28 @@ When this option is enabled, we set the specific checkbox field to true when an 
 
 #### Determining if an attendee belongs under an account
 We determine if an attendee belongs under an account in the following order:
-1. If there is a contact that matches the attendee's email that belongs to an account, use that account.
-2. If there is an account where the `Website` field matches the email domain of the attendee. Cal.com checks common URL formats first (e.g. `acme.com`, `https://www.acme.com`). If no exact match is found, Cal.com normalizes the `Website` values by stripping protocols, paths, ports, and trailing slashes before comparing. This means accounts with website values like `https://www.acme.com/about/` or `HTTP://ACME.COM:443/en/` still match an attendee with an `@acme.com` email.
-3. If no account is found by website, Cal.com looks at contacts that share the same email domain as the attendee and selects the account that the majority of those contacts belong to.
+1. **Exact website match** — If there is an account where the `Website` field matches the email domain of the attendee. Cal.com checks common URL formats first (e.g. `acme.com`, `https://www.acme.com`).
+2. **Normalized website match** — If no exact match is found, Cal.com normalizes the `Website` values by stripping protocols, `www.` prefixes, paths, ports, and trailing slashes before comparing. This means accounts with website values like `https://www.acme.com/about/` or `HTTP://ACME.COM:443/en/` still match an attendee with an `@acme.com` email.
+3. **Contact email match** — If there is a contact that matches the attendee's email that belongs to an account, use that account. If multiple contacts share the same email domain, Cal.com selects the account that the majority of those contacts belong to.
+4. **Cross-TLD fuzzy match** — Cal.com extracts the base domain (for example, `acme` from `acme.co.uk`) and matches it against all account websites regardless of their top-level domain. This means an attendee with an `@acme.co.uk` email can be matched to an account whose website is `acme.com`, `acme.de`, or any other TLD variant sharing the same base domain. See [Cross-TLD fuzzy domain matching](#cross-tld-fuzzy-domain-matching) for more details.
+
+Cal.com uses the first match found. If no account is resolved at any step, the integration falls back to the behavior configured in your event type settings.
+
+#### Cross-TLD fuzzy domain matching
+
+When using the **Contact under Account** attendee record type, Cal.com resolves the attendee's Salesforce Account by matching their email domain against account `Website` fields. By default, this lookup requires an exact domain match — `acme.com` only matches accounts whose website is on `acme.com`.
+
+With cross-TLD fuzzy domain matching, Cal.com also matches across different top-level domains. An attendee with an `@acme.co.uk` email can be matched to a Salesforce Account whose website is `acme.com`, `acme.de`, or any other TLD variant sharing the same base domain.
+
+This is useful when:
+
+- Your Salesforce Accounts have websites on a single TLD (for example, `acme.com`) but attendees book from regional email domains (for example, `@acme.co.uk`, `@acme.de`)
+- You want to automatically link international attendees to the correct parent account without creating duplicate records
+- Your organization operates across multiple country domains under the same brand
+
+<Note>
+  Cross-TLD fuzzy matching only applies to the **Contact under Account** attendee record type. It does not affect contact-only or lead-only lookups.
+</Note>
 
 #### Mapping data from Cal.com to Salesforce
 When writing to fields in Salesforce, you can pass data from different sources in Cal.com
