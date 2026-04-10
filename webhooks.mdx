@@ -326,6 +326,7 @@ where `{{type}}` represents the event type slug and `{{title}}` represents the t
 | rejectionReason    | String    | Reason for rejection                                                                                                                                                                                                                                |
 | team.name          | String    | Name of the team booked                                                                                                                                                                                                                             |
 | team.members       | String\[] | Members of the team booked                                                                                                                                                                                                                          |
+| hashedLink         | String    | The link ID of the [private link](/event-types/private-links) used to book, if the booking was made through a private link. Returns the raw link ID (not a full URL). `null` if no private link was used.                                            |
 | metadata           | JSON      | Contains a metadata of the booking, including the meeting URL (videoCallUrl) in case of Google Meet and Cal Video                                                                                                                                   |
 
 #### Organizer Structure
