@@ -23,14 +23,14 @@ You must select your scopes when creating your OAuth client, and include them in
 
 | Scope | Description | What it covers |
 |-------|-------------|----------------|
-| `EVENT_TYPE_READ` | View event types | Listing and viewing event types and their private links |
-| `EVENT_TYPE_WRITE` | Create, edit, and delete event types | Creating, updating, deleting event types and managing private links |
-| `BOOKING_READ` | View bookings | Listing bookings, viewing recordings, transcripts, calendar links, and references |
-| `BOOKING_WRITE` | Create, edit, and delete bookings | Adding guests, updating locations, confirming, declining, and reassigning bookings |
-| `SCHEDULE_READ` | View availability | Listing and viewing schedules |
-| `SCHEDULE_WRITE` | Create, edit, and delete availability | Creating, updating, and deleting schedules |
-| `APPS_READ` | View connected apps and calendars | Listing connected calendars, checking busy times, checking ICS feeds, and verifying calendar connections |
-| `APPS_WRITE` | Connect and disconnect apps | Saving ICS feeds, connecting calendars via OAuth, saving Apple calendar credentials, and disconnecting calendars |
+| `EVENT_TYPE_READ` | View event types | Listing and viewing event types, their private links, and webhooks |
+| `EVENT_TYPE_WRITE` | Create, edit, and delete event types | Creating, updating, deleting event types and managing private links and webhooks |
+| `BOOKING_READ` | View bookings | Listing bookings, viewing attendees, recordings, transcripts, calendar links, and references |
+| `BOOKING_WRITE` | Create, edit, and delete bookings | Adding guests and attendees, updating locations, confirming, declining, and reassigning bookings |
+| `SCHEDULE_READ` | View availability | Listing and viewing schedules and out-of-office entries |
+| `SCHEDULE_WRITE` | Create, edit, and delete availability | Creating, updating, and deleting schedules and out-of-office entries |
+| `APPS_READ` | View connected apps and calendars | Listing connected calendars and conferencing apps, checking busy times, checking ICS feeds, and verifying calendar connections |
+| `APPS_WRITE` | Connect and disconnect apps | Saving ICS feeds, connecting calendars and conferencing apps via OAuth, managing selected and destination calendars, saving Apple calendar credentials, and disconnecting calendars |
 | `PROFILE_READ` | View personal info | Viewing the authorized user's profile |
 | `PROFILE_WRITE` | Edit personal info | Updating the authorized user's profile |
 
@@ -44,12 +44,12 @@ Team scopes control access to team-level resources. These apply to endpoints und
 
 | Scope | Description |
 |-------|-------------|
-| `TEAM_EVENT_TYPE_READ` | View team event types |
-| `TEAM_EVENT_TYPE_WRITE` | Create, edit, and delete team event types |
+| `TEAM_EVENT_TYPE_READ` | View team event types, their webhooks, and private links |
+| `TEAM_EVENT_TYPE_WRITE` | Create, edit, and delete team event types, their webhooks, and private links |
 | `TEAM_BOOKING_READ` | View team bookings |
 | `TEAM_BOOKING_WRITE` | Create, edit, and delete team bookings |
-| `TEAM_SCHEDULE_READ` | View team schedules |
-| `TEAM_SCHEDULE_WRITE` | Create, edit, and delete team schedules |
+| `TEAM_SCHEDULE_READ` | View team schedules and out-of-office entries |
+| `TEAM_SCHEDULE_WRITE` | Create, edit, and delete team schedules and out-of-office entries |
 | `TEAM_PROFILE_READ` | View team profiles |
 | `TEAM_PROFILE_WRITE` | Create, edit, and delete teams |
 | `TEAM_MEMBERSHIP_READ` | View team memberships |
@@ -69,10 +69,12 @@ Organization scopes control access to organization-wide resources. These apply t
 | `ORG_EVENT_TYPE_WRITE` | Create, edit, and delete event types across the organization |
 | `ORG_BOOKING_READ` | View all bookings across the organization |
 | `ORG_BOOKING_WRITE` | Create, edit, and delete bookings across the organization |
-| `ORG_SCHEDULE_READ` | View schedules across the organization |
-| `ORG_SCHEDULE_WRITE` | Create, edit, and delete schedules across the organization |
+| `ORG_SCHEDULE_READ` | View schedules and out-of-office entries across the organization |
+| `ORG_SCHEDULE_WRITE` | Create, edit, and delete schedules and out-of-office entries across the organization |
 | `ORG_PROFILE_READ` | View organization teams |
 | `ORG_PROFILE_WRITE` | Create, edit, and delete organization teams |
+| `ORG_MEMBERSHIP_READ` | View organization memberships and users |
+| `ORG_MEMBERSHIP_WRITE` | Create, edit, and delete organization memberships and users |
 
 ## Authorize
 
