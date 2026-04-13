@@ -138,6 +138,7 @@
                 "pages": [
                   "bookings/no-show",
                   "bookings/paid-bookings",
+                  "bookings/past-bookings-filtering",
                   "bookings/prefill-fields",
                   "bookings/utm-tracking",
                   "bookings/analytics"
