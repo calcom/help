@@ -70,6 +70,14 @@ Options to search ownership against
 - Contact
 - Account ([Determining which account an attendee belongs to](#determining-if-an-attendee-belongs-under-an-account)) 
 
+#### Field rules for round robin skip
+When the round robin ownership check is enabled, you can add field rules to control when the ownership check applies. Each rule has a field name, a value, and an action:
+
+- **Ignore** — if the Salesforce record's field matches this value, the ownership check is skipped and normal round robin logic is used instead.
+- **Must include** — only route directly to the owner if the record's field matches this value.
+
+For example, you could add a rule with Field Name `Industry`, Value `Technology`, and Action `Must include` to only skip round robin when the account is in the Technology industry.
+
 #### If attendee has a free email domain, skip the ownership check and round robin as normal
 If this option is enabled, if the attendee has a free email domain (ex. gmail.com) then ignore any Salesforce ownership checks.
 
@@ -124,6 +132,24 @@ We determine if an attendee belongs under an account in the following order:
 1. If there is a contact that matches the attendee's email that belongs to an account, use that account.
 2. If there is an account where the `Website` field matches the email domain of the attendee. Cal.com checks common URL formats first (e.g. `acme.com`, `https://www.acme.com`). If no exact match is found, Cal.com normalizes the `Website` values by stripping protocols, paths, ports, and trailing slashes before comparing. This means accounts with website values like `https://www.acme.com/about/` or `HTTP://ACME.COM:443/en/` still match an attendee with an `@acme.com` email.
 3. If no account is found by website, Cal.com looks at contacts that share the same email domain as the attendee and selects the account that the majority of those contacts belong to.
+4. If fuzzy domain matching is enabled, Cal.com extracts the base domain from the attendee's email (for example, `acme` from `acme.co.uk`) and matches it against account website values across different top-level domains. This means an attendee with an `@acme.co.uk` email can match an account with `acme.com` as its website. Free email domains like gmail.com are automatically excluded from fuzzy matching.
+
+If multiple accounts match at any step, Cal.com uses a tiebreaker waterfall to pick the best match. Accounts are compared in order by number of child accounts, number of opportunities, number of contacts, most recent activity, and earliest creation date.
+
+#### Fuzzy domain matching
+Fuzzy domain matching extends the account lookup to handle cases where the attendee's email domain uses a different top-level domain (TLD) than the account's website. For example, a prospect with an `@acme.co.uk` email address is matched to a Salesforce account with `acme.com` as the website.
+
+To enable fuzzy domain matching, toggle **Match accounts by base domain across TLDs using fuzzy matching** in the Salesforce event type settings. This option appears when "Add new attendees as" is set to **Contact under an account** or **Lead**.
+
+<Note>Fuzzy domain matching is only available when the feature has been enabled for your organization. Contact support if you do not see this option.</Note>
+
+#### Exclude account record types
+You can exclude specific Salesforce account record types from being matched during the account lookup. This is useful when you have account types like "Partner" or "Vendor" that should not be used for routing or contact creation.
+
+Enter a comma-separated list of record type names in the **Exclude account record types** field. For example: `Partner/Alliance, Vendor`. Any account with a matching record type is filtered out during all account matching steps (website match, contact domain match, and fuzzy match).
+
+#### Sync error notifications
+If a Salesforce API write fails when creating or updating records, a notification banner appears at the top of the Salesforce event type settings. The banner shows the error code, error message, and any fields that were dropped from the payload to allow the remaining data to sync. You can dismiss the notification after reviewing the error.
 
 #### Mapping data from Cal.com to Salesforce
 When writing to fields in Salesforce, you can pass data from different sources in Cal.com

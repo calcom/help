@@ -63,6 +63,9 @@ Cal.com allows you to route prospects based on **Salesforce ownership**. Ownersh
 - When routing to an account:
   - Cal.com searches the account `Website` field against the prospect's email domain. Website values are normalized automatically, so accounts with URLs containing extra paths, ports, or protocols (e.g. `https://www.acme.com/about/`) are still matched correctly.
   - If no account is found by website, Cal.com checks the email domains of existing contacts to find the most likely account.
+  - If fuzzy domain matching is enabled, Cal.com can also match across different top-level domains (e.g. matching `acme.co.uk` to an account with `acme.com`). See [Salesforce integration settings](/apps-and-integrations/salesforce#fuzzy-domain-matching) for details.
+  - When multiple accounts match, a tiebreaker waterfall automatically selects the best account based on child accounts, opportunities, contacts, recent activity, and creation date.
+  - You can exclude specific account record types (e.g. Partner, Vendor) from being considered during routing. See [Exclude account record types](/apps-and-integrations/salesforce#exclude-account-record-types).
   - Routing can be based on the account ownership or a custom user lookup field under the account.
 
 ---
