@@ -137,6 +137,7 @@
                 },
                 "pages": [
                   "bookings/no-show",
+                  "bookings/host-reschedule-busy-slots",
                   "bookings/paid-bookings",
                   "bookings/prefill-fields",
                   "bookings/utm-tracking",
