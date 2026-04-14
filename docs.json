@@ -39,6 +39,7 @@
                 },
                 "pages": [
                   "enterprise/members-onboarding",
+                  "enterprise/audit-logs",
                   "enterprise/custom-smtp",
                   "enterprise/guest-notification-settings"
                 ]
@@ -137,7 +138,9 @@
                 },
                 "pages": [
                   "bookings/no-show",
+                  "bookings/host-reschedule-busy-slots",
                   "bookings/paid-bookings",
+                  "bookings/past-bookings-filtering",
                   "bookings/prefill-fields",
                   "bookings/utm-tracking",
                   "bookings/analytics"

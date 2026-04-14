@@ -1,9 +1,9 @@
 ---
 title: "Guest notification settings"
-description: "Control which Cal Video email notifications are sent to attendees across your organization."
+description: "Control which booking email notifications are sent to attendees across your organization."
 ---
 
-Organization admins can disable specific Cal Video email notifications for attendees (guests) across all bookings in the organization. When a notification type is disabled, attendees no longer receive that email, but organizers continue to receive it as normal.
+Organization admins can disable specific booking email notifications for attendees (guests) across all bookings in the organization. When a notification type is disabled, attendees no longer receive that email, but organizers continue to receive their notifications as normal.
 
 <Note>
   Guest notification settings are only available for organizations. You must be an organization admin to access them.
@@ -13,13 +13,27 @@ Organization admins can disable specific Cal Video email notifications for atten
 
 ## Available settings
 
-| Setting | What it does | Default |
-|---|---|---|
-| **Disable recording emails to attendees** | Prevents attendees from receiving Cal Video recording download emails after a meeting ends | Off |
-| **Disable transcription emails to attendees** | Prevents attendees from receiving Cal Video transcription emails after a meeting ends | Off |
+You can disable individual email types or turn off all guest booking emails at once using the master toggle.
+
+<Warning>
+  Disabling guest emails means attendees will not receive those notifications for any bookings in your organization. Make sure your team has an alternative way to communicate important booking details if needed.
+</Warning>
+
+| Email type | What it controls |
+|---|---|
+| **Confirmation** | Booking confirmation emails sent to attendees when a booking is created |
+| **Cancellation** | Emails sent to attendees when a booking is cancelled |
+| **Rescheduled** | Emails sent to attendees when a booking is rescheduled |
+| **Request** | Emails sent to attendees when a booking requires approval |
+| **Host reassignment** | Emails sent to attendees when a booking is reassigned to a different host |
+| **Awaiting payment** | Emails sent to attendees when payment is required for a booking |
+| **Reschedule request** | Emails sent to attendees when the organizer requests a reschedule |
+| **Location change** | Emails sent to attendees when the meeting location changes |
+| **Guest added** | Emails sent to attendees when they are added to an existing booking |
+| **Cal Video recording** | Recording download emails sent to attendees after a Cal Video meeting ends |
 
 <Note>
-  These settings only affect emails sent to attendees. The meeting organizer always receives recording and transcription emails regardless of these settings.
+  These settings only affect emails sent to attendees. Organizers always receive their booking notifications regardless of these settings.
 </Note>
 
 ---
@@ -30,10 +44,15 @@ Organization admins can disable specific Cal Video email notifications for atten
   <Step title="Go to organization settings">
     Navigate to **Settings** → **Organization** → **Guest notifications**.
   </Step>
-  <Step title="Toggle the desired setting">
-    Enable or disable the notification types you want to control. Changes take effect immediately for all future Cal Video meetings in your organization.
+  <Step title="Toggle individual email types">
+    Use the checkboxes next to each email type to enable or disable it. Disabling an email type triggers a confirmation prompt before saving.
+  </Step>
+  <Step title="Or disable all guest emails at once">
+    Use the **Disable all booking emails to guests** toggle at the top to turn off all notification types at once. You can re-enable individual types afterward if needed.
   </Step>
 </Steps>
+
+Changes take effect immediately for all future bookings in your organization.
 
 ---
 
@@ -41,17 +60,19 @@ Organization admins can disable specific Cal Video email notifications for atten
 
 These settings are useful when your organization:
 
-- Has privacy or compliance requirements that restrict sharing recordings with external attendees
-- Wants to limit the distribution of meeting transcriptions
-- Prefers to share recordings manually through a controlled process rather than automatic emails
+- Has privacy or compliance requirements that restrict sharing certain booking details with external attendees
+- Wants to limit the distribution of meeting recordings or transcriptions
+- Manages attendee communications through a separate system (such as a CRM or marketing platform)
+- Prefers to share booking details manually through a controlled process
 
 ---
 
 ## Prerequisites
 
-- Your organization must have Cal Video enabled as a conferencing provider.
-- Video recording must be enabled on your plan for recording and transcription emails to be sent.
-- To learn more about Cal Video recording and transcription options at the event-type level, see [Cal Video advanced settings](/event-types/calvideo-advanced-settings).
+- You must have an organization plan
+- You must be an organization admin or owner
+- For Cal Video recording emails, video recording must be enabled on your plan
+- To control recording and transcription behavior at the event-type level, see [Cal Video advanced settings](/event-types/calvideo-advanced-settings)
 
 ---
 
@@ -59,12 +80,15 @@ These settings are useful when your organization:
 
 <AccordionGroup>
   <Accordion title="Do these settings affect the organizer's emails?">
-    No. Organizers always receive recording and transcription emails, even when guest notifications are disabled.
+    No. Organizers always receive their booking notifications, even when guest notifications are disabled.
   </Accordion>
   <Accordion title="Do changes apply to existing bookings?">
-    Changes take effect for all future Cal Video meetings. Emails for meetings that have already ended are not affected.
+    Changes take effect for all future bookings. Emails for bookings that already happened are not affected.
   </Accordion>
   <Accordion title="Can I disable notifications for specific event types instead of the whole organization?">
     These settings apply organization-wide. To control recording and transcription behavior at the event-type level, use the [Cal Video advanced settings](/event-types/calvideo-advanced-settings) on each event type.
+  </Accordion>
+  <Accordion title="What happens if I disable all emails and then re-enable one?">
+    You can re-enable individual email types at any time. Only the types you have enabled will be sent to attendees.
   </Accordion>
 </AccordionGroup>
