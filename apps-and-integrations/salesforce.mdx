@@ -117,6 +117,47 @@ To configure, provide:
 When this option is enabled, we set the specific checkbox field to true when an attendee is marked as no-show in Cal.com
 
 
+## Field mapping validation
+
+Cal.com validates your Salesforce field mappings at two points to help you catch configuration issues early.
+
+### Inline validation
+
+When you add or edit a field mapping entry, Cal.com checks that the value you provide is compatible with the selected field type:
+
+- **Checkbox** fields require a boolean value (True or False). Entering text triggers an error.
+- **Date** fields require a valid date reference (such as Booking Start Date or Booking Created Date).
+- **Text**, **Phone**, **Picklist**, and **Custom** fields require a non-empty text value.
+
+If a value is invalid, an error message appears directly below the field mapping row so you can correct it before saving.
+
+### Save-time validation
+
+When you save your event type settings, Cal.com connects to your Salesforce org and validates each field mapping against the actual Salesforce schema. The following checks run automatically:
+
+- **Field existence** — the API field name must exist on the Salesforce object.
+- **Writability** — the field must not be read-only.
+- **Type compatibility** — if you configured a field as Checkbox, the Salesforce field must be a boolean (and vice versa).
+- **Picklist values** — for Picklist fields, the value you entered must match one of the active picklist options in Salesforce.
+- **Field name casing** — the field name must match the exact casing used in Salesforce (for example, `Custom_Field__c` instead of `custom_field__c`).
+
+If any check fails, the save is blocked and you see an error message describing which field has the problem and what needs to be fixed.
+
+<Tip>
+  If your Salesforce connection is inactive or unreachable, save-time validation is skipped so that you can still save other event type settings. Reconnect Salesforce to re-enable validation.
+</Tip>
+
+### Sync error notifications
+
+If a booking triggers a write to Salesforce and it fails at runtime, Cal.com stores the error details and displays a diagnostic notification banner at the top of the Salesforce settings tab for that event type. The banner includes:
+
+- **Error code** — the Salesforce error code (for example, `FIELD_CUSTOM_VALIDATION_EXCEPTION`).
+- **Error message** — a description of what went wrong.
+- **Dropped fields** — if custom fields caused the failure, the fields that were removed from the write so the booking could still be created.
+- **Timestamp** — when the error occurred.
+
+You can dismiss the banner after reviewing the error. To prevent the error from recurring, update your field mappings using the guidance in the error message.
+
 ## Appendix
 
 #### Determining if an attendee belongs under an account
