@@ -123,6 +123,100 @@ Fuzzy matching runs only after exact and normalized website matching have been a
 #### Send no show attendee data to event object
 When this option is enabled, we set the specific checkbox field to true when an attendee is marked as no-show in Cal.com
 
+## Record type filtering
+
+Salesforce objects can have multiple record types — for example, your contacts may include both "Business Contact" and "Person Account" types. You can exclude specific record types so that Cal.com only looks up or creates records of the types you want.
+
+<Steps>
+  <Step title="Open Salesforce settings">
+    Navigate to the event type's **Apps** tab and expand the Salesforce section.
+  </Step>
+  <Step title="Find the record type exclusion setting">
+    Below the attendee record type selector, look for the **Exclude Record Types** setting.
+  </Step>
+  <Step title="Select record types to exclude">
+    Cal.com fetches the available record types from your Salesforce org. Select any record types you want to skip during contact or lead lookups. Records matching excluded types are filtered out of results.
+  </Step>
+  <Step title="Save">
+    Save your event type. Future bookings only match records whose record type is not in the exclusion list.
+  </Step>
+</Steps>
+
+<Note>
+  Record type matching is case-insensitive. This setting applies to both lookups and record creation — Cal.com does not create records with an excluded record type.
+</Note>
+
+## Field mapping validation
+
+Cal.com validates your Salesforce field mappings when you save event type settings. If a field mapping has a type mismatch — for example, a non-boolean value mapped to a checkbox field, or an empty value for a required text field — Cal.com displays an inline error and prevents the save.
+
+| Field type | Validation rule |
+|---|---|
+| Checkbox | Value must be a boolean (`true` or `false`) |
+| Date | Must reference a valid dynamic date value (e.g., `booking_start_date`, `booking_created_date`, or `booking_cancel_date`) |
+| Text, phone, picklist, textarea | Value must be a non-empty string |
+| Custom | No automatic validation — values are passed through as-is |
+
+## Sync error notifications
+
+When a Salesforce sync fails at booking time — for example, due to a permission error or an invalid field — Cal.com stores the error and displays a diagnostic notification on the Salesforce settings tab. The notification includes:
+
+- The error code and message
+- Which fields were dropped from the sync
+- A timestamp of when the error occurred
+
+This helps you identify and fix integration issues without needing to check Salesforce logs directly.
+
+## Cross-TLD fuzzy domain matching
+
+When using the **Contact under Account** attendee record type, Cal.com resolves the attendee's Salesforce account by matching their email domain against account `Website` fields. By default, this lookup requires an exact domain match — `acme.com` only matches accounts whose website is on `acme.com`.
+
+With **cross-TLD fuzzy domain matching** enabled, Cal.com also matches across different top-level domains. An attendee with an `@acme.co.uk` email can be matched to a Salesforce account whose website is `acme.com`, `acme.de`, or any other TLD variant sharing the same base domain.
+
+Fuzzy domain matching is a per-credential toggle — enable it in your Salesforce connection settings, and it applies to all event types using that credential.
+
+### How account resolution works
+
+Cal.com resolves the attendee's Salesforce account using a multi-step waterfall:
+
+1. **Exact match** — Look for an account whose `Website` exactly matches the attendee's email domain (for example, `acme.com`)
+2. **Normalized match** — Strip URL prefixes like `www.`, `http://`, and trailing paths, then retry the exact match
+3. **Contact email match** — Search for existing contacts whose email domain matches, and use their linked account
+4. **Fuzzy cross-TLD match** — Extract the base domain (for example, `acme` from `acme.co.uk`) and match it against all account websites regardless of TLD
+
+Cal.com uses the first match found. If multiple accounts match at any step, the [tiebreaker waterfall](#tiebreaker-waterfall) runs to select the best candidate. If no account is resolved at any step, the integration falls back to the behavior configured in your event type settings.
+
+<Note>
+  Fuzzy matching only applies to the **Contact under Account** attendee record type. It does not affect contact-only or lead-only lookups.
+</Note>
+
+### When to use fuzzy matching
+
+Fuzzy domain matching is useful when:
+
+- Your Salesforce accounts have websites on a single TLD (for example, `acme.com`) but attendees book from regional email domains (for example, `@acme.co.uk`, `@acme.de`)
+- You want to automatically link international attendees to the correct parent account without creating duplicate records
+- Your organization operates across multiple country domains under the same brand
+
+### Tiebreaker waterfall
+
+When multiple Salesforce accounts match a domain during account resolution, Cal.com runs a tiebreaker waterfall to select the best candidate. This is especially relevant for round robin event types where the resolved account owner determines which host receives the booking.
+
+The tiebreaker evaluates candidates in priority order. The first criterion that produces a single winner ends the waterfall:
+
+| Priority | Criterion | Description |
+|---|---|---|
+| 1 | Most child accounts | Account with the highest number of child accounts in its hierarchy |
+| 2 | Most opportunities | Account with the highest number of related opportunities |
+| 3 | Most contacts | Account with the most related contact records |
+| 4 | Most recent activity | Account with the most recent `LastActivityDate` |
+| 5 | Earliest created | Account with the oldest `CreatedDate` (longest-standing relationship) |
+
+If all criteria result in a tie, the last-resort rule selects the account that was created first.
+
+#### Host filtering
+
+For round robin event types, candidates are filtered before the tiebreaker runs. Only account owners who are hosts on the event type are eligible. If this filter removes all candidates, Cal.com falls back to standard round robin assignment.
 
 ## Field mapping validation
 
@@ -168,11 +262,64 @@ You can dismiss the banner after reviewing the error. To prevent the error from 
 ## Appendix
 
 #### Determining if an attendee belongs under an account
-We determine if an attendee belongs under an account in the following order:
-1. If there is a contact that matches the attendee's email that belongs to an account, use that account.
-2. If there is an account where the `Website` field matches the email domain of the attendee. Cal.com checks common URL formats first (e.g. `acme.com`, `https://www.acme.com`). If no exact match is found, Cal.com normalizes the `Website` values by stripping protocols, paths, ports, and trailing slashes before comparing. This means accounts with website values like `https://www.acme.com/about/` or `HTTP://ACME.COM:443/en/` still match an attendee with an `@acme.com` email.
-3. If fuzzy domain matching is enabled for the event type, Cal.com strips the TLD from the attendee's email domain and searches for accounts whose website shares the same base domain. For example, an attendee with `@acme.co.uk` would match an account with website `acme.com`. Free email domains are excluded from this step.
-4. If no account is found by website, Cal.com looks at contacts that share the same email domain as the attendee and selects the account that the majority of those contacts belong to.
+
+Cal.com resolves the attendee's Salesforce Account using a multi-step waterfall:
+
+1. **Exact website match** — Check Account `Website` fields for an exact domain match against the attendee's email domain
+2. **Normalized website match** — Strip protocols, paths, ports, and trailing slashes from Account `Website` values before comparing. This means accounts with website values like `https://www.acme.com/about/` or `HTTP://ACME.COM:443/en/` still match an attendee with an `@acme.com` email.
+3. **Contact email match** — Search for existing contacts whose email domain matches, and use their linked Account
+4. **Fuzzy cross-TLD match** — Extract the base domain (for example, `acme` from `acme.co.uk`) and match it against all Account websites regardless of TLD
+
+Cal.com uses the first match found. If multiple Accounts match at any step, the [tiebreaker waterfall](#tiebreaker-waterfall) runs to select the best candidate. If no Account is resolved at any step, the integration falls back to the behavior configured in your event type settings.
+
+#### Tiebreaker waterfall
+
+When multiple Salesforce Accounts match a domain during account resolution, Cal.com runs a tiebreaker waterfall to select the best candidate. This is especially relevant for round-robin event types where the resolved Account owner determines which host receives the booking.
+
+The tiebreaker evaluates candidates in priority order. The first criterion that produces a single winner ends the waterfall:
+
+| Priority | Criterion | Description |
+|---|---|---|
+| 1 | Most child accounts | Account with the highest number of child Accounts in its hierarchy |
+| 2 | Most opportunities | Account with the highest number of related Opportunities |
+| 3 | Most contacts | Account with the most related Contact records |
+| 4 | Most recent activity | Account with the most recent `LastActivityDate` |
+| 5 | Earliest created | Account with the oldest `CreatedDate` (longest-standing relationship) |
+
+If all criteria result in a tie, the last-resort rule selects the Account that was created first.
+
+For round-robin event types, candidates are filtered before the tiebreaker runs. Only Account owners who are hosts on the event type are eligible. If this filter removes all candidates, Cal.com falls back to standard round-robin assignment.
+
+#### Record type filtering
+
+You can exclude specific Salesforce record types from account resolution. When record type filtering is enabled, Accounts with excluded record types are skipped during the resolution waterfall. This prevents Cal.com from matching against Accounts that are not relevant to booking routing, such as partner or vendor accounts.
+
+Configure record type filtering in the Salesforce section of your event type's **Apps** tab.
+
+#### When to use fuzzy matching
+
+Fuzzy domain matching is useful when:
+
+- Your Salesforce org has accounts with different TLDs (for example, `acme.com` and `acme.co.uk`)
+- Attendees book from regional email domains that differ from the main account website
+- You want Cal.com to match attendees to the correct account without manually maintaining every domain variant
+
+<Note>
+  Fuzzy matching only applies to the **Contact under Account** attendee record type. It does not affect Contact-only or Lead-only lookups.
+</Note>
+
+#### Field mapping validation
+
+Cal.com validates your Salesforce field mappings when you save event type settings. If a field mapping has a type mismatch — for example, a non-boolean value mapped to a checkbox field, or an empty value for a required text field — Cal.com displays an inline error and prevents the save.
+
+If a sync error occurs at runtime (for example, a field was deleted in Salesforce after configuration), Cal.com stores the error and displays a diagnostic notification on the Salesforce settings tab. The notification includes the error code, message, any dropped fields, and a timestamp to help you troubleshoot.
+
+| Field type | Validation rule |
+|---|---|
+| Checkbox | Value must be a boolean (`true` or `false`) |
+| Date | Must reference a valid dynamic date value (e.g., `booking_start_date`) |
+| Text, phone, picklist, textarea | Value must be a non-empty string |
+| Custom | No automatic validation — values are passed through as-is |
 
 #### Mapping data from Cal.com to Salesforce
 When writing to fields in Salesforce, you can pass data from different sources in Cal.com
