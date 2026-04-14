@@ -206,17 +206,75 @@ The tiebreaker evaluates candidates in priority order. The first criterion that 
 
 | Priority | Criterion | Description |
 |---|---|---|
-| 1 | Most child accounts | Account with the highest number of child accounts in its hierarchy |
-| 2 | Most opportunities | Account with the highest number of related opportunities |
-| 3 | Most contacts | Account with the most related contact records |
-| 4 | Most recent activity | Account with the most recent `LastActivityDate` |
-| 5 | Earliest created | Account with the oldest `CreatedDate` (longest-standing relationship) |
+| 1 | Sub-region match | Account whose custom sub-region field matches the booker's sub-region (geo tiebreaker only) |
+| 2 | Country + state + zip match | Account whose billing address matches the booker's country, state, and postal code (geo tiebreaker only) |
+| 3 | Country + state match | Account whose billing country and state match the booker's (geo tiebreaker only) |
+| 4 | Country match | Account whose billing country matches the booker's (geo tiebreaker only) |
+| 5 | Most child accounts | Account with the highest number of child accounts in its hierarchy |
+| 6 | Most opportunities | Account with the highest number of related opportunities |
+| 7 | Most contacts | Account with the most related contact records |
+| 8 | Most recent activity | Account with the most recent `LastActivityDate` |
+| 9 | Earliest created | Account with the oldest `CreatedDate` (longest-standing relationship) |
 
-If all criteria result in a tie, the last-resort rule selects the account that was created first.
+Priorities 1–4 only run when geo tiebreaker is enabled and the booker's geographic information is available. If geo tiebreaker is not configured, the waterfall starts at priority 5. If all criteria result in a tie, the last-resort rule selects the account that was created first.
 
 #### Host filtering
 
 For round robin event types, candidates are filtered before the tiebreaker runs. Only account owners who are hosts on the event type are eligible. If this filter removes all candidates, Cal.com falls back to standard round robin assignment.
+
+### Geo tiebreaker
+
+The geo tiebreaker lets Cal.com prefer the Salesforce account that is geographically closest to the booker when multiple accounts match. This is configured on individual routes within a routing form and is only available when the Salesforce routing option is set to **Route to custom lookup field**.
+
+When enabled, Cal.com compares the booker's location against each candidate account's billing address fields (`BillingCountry`, `BillingState`, `BillingPostalCode`) and an optional custom sub-region field. The closest geographic match wins before any size or recency-based tiebreakers run.
+
+#### Configuring the geo tiebreaker
+
+<Steps>
+  <Step title="Open the routing form">
+    Navigate to **Routing Forms** and select the form you want to configure.
+  </Step>
+  <Step title="Select a route">
+    Choose the route where you want to enable geographic tiebreaking. The route must use the **Route to custom lookup field** Salesforce option.
+  </Step>
+  <Step title="Enable geo tiebreaker">
+    Toggle **Geo tiebreaker** on. A configuration panel appears with the following fields.
+  </Step>
+  <Step title="Map booker location fields">
+    Enter the routing form field identifiers that capture the booker's location. These are the identifiers of fields on your routing form, not Salesforce field names.
+
+    | Setting | Description | Example value |
+    |---|---|---|
+    | Booker country field identifier | The form field that captures the booker's country | `country` |
+    | Booker state field identifier | The form field that captures the booker's state or region | `state` |
+    | Booker zip/postal code field identifier | The form field that captures the booker's postal code | `zip` |
+    | Booker sub-region field identifier | (Optional) A form field for a custom sub-region value | `sub_region` |
+  </Step>
+  <Step title="Map the Salesforce sub-region field (optional)">
+    If you use a custom sub-region field on the Account object in Salesforce, enter its API name in the **Salesforce sub-region field API name** setting (for example, `Sub_Region_DV__c`). This enables priority 1 matching in the tiebreaker waterfall.
+  </Step>
+  <Step title="Enable IP geolocation fallback (optional)">
+    Toggle **Use IP geolocation as fallback** if you want Cal.com to use the booker's IP address to determine their country and state when the routing form fields are empty. This uses standard geolocation headers from the hosting provider.
+  </Step>
+  <Step title="Save the routing form">
+    Save your changes. The geo tiebreaker takes effect for new bookings routed through this form.
+  </Step>
+</Steps>
+
+#### How geo matching works
+
+When the geo tiebreaker is enabled, Cal.com compares the booker's location against each candidate account's Salesforce billing address in this order:
+
+1. **Sub-region** — If configured, check whether the account's custom sub-region field matches the booker's sub-region value. This is useful for organizations that segment territories by custom regions.
+2. **Country + state + zip** — Match the account's `BillingCountry`, `BillingState`, and `BillingPostalCode` against the booker's location.
+3. **Country + state** — Match on country and state only, ignoring postal code.
+4. **Country** — Match on country only.
+
+The first level that narrows candidates to a single account wins. If multiple accounts still tie after all geographic checks, the waterfall continues with size and recency-based criteria (child accounts, opportunities, contacts, recent activity, and creation date).
+
+<Note>
+  The geo tiebreaker is only available on routing form routes using the **Route to custom lookup field** Salesforce option. It does not apply to event type-level Salesforce settings.
+</Note>
 
 ## Field mapping validation
 
@@ -280,13 +338,17 @@ The tiebreaker evaluates candidates in priority order. The first criterion that 
 
 | Priority | Criterion | Description |
 |---|---|---|
-| 1 | Most child accounts | Account with the highest number of child Accounts in its hierarchy |
-| 2 | Most opportunities | Account with the highest number of related Opportunities |
-| 3 | Most contacts | Account with the most related Contact records |
-| 4 | Most recent activity | Account with the most recent `LastActivityDate` |
-| 5 | Earliest created | Account with the oldest `CreatedDate` (longest-standing relationship) |
+| 1 | Sub-region match | Account whose custom sub-region field matches the booker's sub-region (geo tiebreaker only) |
+| 2 | Country + state + zip match | Account whose billing address matches the booker's country, state, and postal code (geo tiebreaker only) |
+| 3 | Country + state match | Account whose billing country and state match the booker's (geo tiebreaker only) |
+| 4 | Country match | Account whose billing country matches the booker's (geo tiebreaker only) |
+| 5 | Most child accounts | Account with the highest number of child Accounts in its hierarchy |
+| 6 | Most opportunities | Account with the highest number of related Opportunities |
+| 7 | Most contacts | Account with the most related Contact records |
+| 8 | Most recent activity | Account with the most recent `LastActivityDate` |
+| 9 | Earliest created | Account with the oldest `CreatedDate` (longest-standing relationship) |
 
-If all criteria result in a tie, the last-resort rule selects the Account that was created first.
+Priorities 1–4 only run when [geo tiebreaker](#geo-tiebreaker) is enabled and the booker's geographic information is available. If geo tiebreaker is not configured, the waterfall starts at priority 5. If all criteria result in a tie, the last-resort rule selects the Account that was created first.
 
 For round-robin event types, candidates are filtered before the tiebreaker runs. Only Account owners who are hosts on the event type are eligible. If this filter removes all candidates, Cal.com falls back to standard round-robin assignment.
 
