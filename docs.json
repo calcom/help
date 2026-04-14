@@ -140,6 +140,7 @@
                   "bookings/no-show",
                   "bookings/host-reschedule-busy-slots",
                   "bookings/paid-bookings",
+                  "bookings/past-bookings-filtering",
                   "bookings/prefill-fields",
                   "bookings/utm-tracking",
                   "bookings/analytics"
