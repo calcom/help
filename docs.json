@@ -39,6 +39,7 @@
                 },
                 "pages": [
                   "enterprise/members-onboarding",
+                  "enterprise/audit-logs",
                   "enterprise/custom-smtp",
                   "enterprise/guest-notification-settings"
                 ]
