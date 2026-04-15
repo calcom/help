@@ -35,6 +35,8 @@ You must select your scopes when creating your OAuth client, and include them in
 | `PROFILE_WRITE` | Edit personal info | Updating the authorized user's profile |
 | `WEBHOOK_READ` | View webhooks | Listing and viewing webhooks |
 | `WEBHOOK_WRITE` | Create, edit, and delete webhooks | Creating, updating, and deleting webhooks |
+| `VERIFIED_RESOURCES_READ` | View verified emails and phone numbers | Listing verified email addresses and phone numbers |
+| `VERIFIED_RESOURCES_WRITE` | Verify emails and phone numbers | Requesting verification codes and verifying email addresses and phone numbers |
 
 <Note>
   Some endpoints like creating, cancelling, and rescheduling bookings are public and do not require any scope.
@@ -62,6 +64,8 @@ Team scopes control access to team-level resources. These apply to endpoints und
 | `TEAM_ROUTING_FORM_WRITE` | Create, edit, and delete team routing form responses |
 | `TEAM_WORKFLOW_READ` | View team workflows |
 | `TEAM_WORKFLOW_WRITE` | Create, edit, and delete team workflows |
+| `TEAM_VERIFIED_RESOURCES_READ` | View team verified emails and phone numbers |
+| `TEAM_VERIFIED_RESOURCES_WRITE` | Verify emails and phone numbers for teams |
 
 ### Organization scopes
 
