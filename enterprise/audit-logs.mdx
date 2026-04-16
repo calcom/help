@@ -1,17 +1,17 @@
 ---
-title: "Booking audit logs"
-description: "View a detailed history of every change made to a booking across your organization."
+title: "Audit logs"
+description: "View a detailed history of booking changes and security events across your organization."
 ---
 
-Booking audit logs give organization admins a complete timeline of changes to any booking. Every action — from creation and rescheduling to cancellations and reassignments — is recorded with details about who made the change, when, and how.
+Audit logs give organization admins a complete record of important actions across your organization. This includes a timeline of every change made to bookings, as well as security events like email changes and account locks.
 
 <Note>
-  Booking audit logs are only available for organizations. You must be an organization or team admin to view them.
+  Audit logs are only available for organizations. You must be an organization or team admin to view them.
 </Note>
 
 ---
 
-## What audit logs track
+## Booking events
 
 Each booking keeps a history of the following events:
 
@@ -34,7 +34,25 @@ If the booking was created through a routing form, the form submission is also s
 
 ---
 
-## How to view audit logs
+## Security events
+
+Cal.com also tracks security-related actions for your organization. These events help admins monitor account activity and maintain compliance.
+
+| Event | What it records |
+|---|---|
+| **Email changed** | When a member changes their email address, including the previous and new email |
+| **Account locked** | When an admin locks a user account |
+| **Account unlocked** | When an admin unlocks a previously locked user account |
+| **Login** | When a user signs in |
+| **Password changed** | When a user updates their password |
+| **Two-factor enabled** | When a user turns on two-factor authentication |
+| **Two-factor disabled** | When a user turns off two-factor authentication |
+| **Impersonation started** | When an admin begins impersonating another user |
+| **Impersonation stopped** | When an admin stops impersonating another user |
+
+---
+
+## How to view booking audit logs
 
 <Steps>
   <Step title="Open the bookings page">
@@ -80,7 +98,7 @@ Two filters are available above the timeline:
 
 Audit log access is controlled by your organization's permission settings:
 
-- **Organization admins and owners** can view audit logs for all bookings in the organization
+- **Organization admins and owners** can view audit logs for all bookings and security events in the organization
 - **Team admins and owners** can view audit logs for bookings within their team
 - **Regular members** do not have access to audit logs by default
 
@@ -102,5 +120,8 @@ If you see a message that audit logs are not available, contact your organizatio
   </Accordion>
   <Accordion title="What does the 'System' actor mean?">
     Actions performed automatically by Cal.com (rather than by a specific person) are attributed to "Cal.com" as the actor.
+  </Accordion>
+  <Accordion title="What are security audit events used for?">
+    Security events help organization admins monitor sensitive account activity such as email changes, account locks, and authentication changes. These events support compliance and security monitoring across your organization.
   </Accordion>
 </AccordionGroup>
