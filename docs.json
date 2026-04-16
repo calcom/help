@@ -71,6 +71,7 @@
                   "event-types/managed-events",
                   "event-types/adding-zoom",
                   "event-types/booking-frequency",
+                  "event-types/user-booking-limits",
                   "event-types/round-robin",
                   "event-types/collective-events",
                   "event-types/create-first-event",
