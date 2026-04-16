@@ -1,0 +1,178 @@
+---
+title: "MCP server"
+description: "Connect AI assistants like Claude, Cursor, and VS Code to your Cal.com account using the MCP server so you can manage your schedule with natural language."
+---
+
+The Cal.com MCP server lets you connect AI assistants to your Cal.com account through the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction). Once connected, you can manage bookings, event types, schedules, and more using natural language — directly from your AI tool.
+
+## What you can do
+
+With the MCP server connected, you can ask your AI assistant things like:
+
+- "What bookings do I have this week?"
+- "Create a 30-minute event type called Quick Chat"
+- "Cancel my meeting with John tomorrow"
+- "Show me my available slots for next Monday"
+- "Reschedule my 2pm meeting to Thursday at 3pm"
+- "What event types do I have?"
+
+The server supports actions across bookings, event types, schedules, availability, conferencing, routing forms, and organization management.
+
+## Connect using the hosted server
+
+The quickest way to get started is the hosted server at `mcp.cal.com`. When you first connect, your AI client walks you through an authorization flow where you grant the server access to your Cal.com account. No API key is needed.
+
+<Tabs>
+  <Tab title="Claude Desktop">
+    Add the following to your `claude_desktop_config.json`:
+
+    - **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+    - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+
+    ```json
+    {
+      "mcpServers": {
+        "calcom": {
+          "url": "https://mcp.cal.com/mcp"
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Cursor">
+    Open **Settings → MCP** and add a new server with the URL `https://mcp.cal.com/mcp`, or add it to your `.cursor/mcp.json`:
+
+    ```json
+    {
+      "mcpServers": {
+        "calcom": {
+          "url": "https://mcp.cal.com/mcp"
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="VS Code">
+    Add the server to your VS Code MCP settings:
+
+    ```json
+    {
+      "mcpServers": {
+        "calcom": {
+          "url": "https://mcp.cal.com/mcp"
+        }
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Connect using a self-hosted server
+
+If you prefer to run the server locally, you can use an API key instead of the OAuth flow. This option requires Node.js 18 or later.
+
+<Steps>
+  <Step title="Generate an API key">
+    Go to [Settings → Developer → API Keys](https://app.cal.com/settings/developer/api-keys) in your Cal.com dashboard and create a new key.
+  </Step>
+  <Step title="Add the server to your MCP client">
+    Add the following to your MCP client's configuration, replacing `cal_live_xxxx` with your actual API key:
+
+    ```json
+    {
+      "mcpServers": {
+        "calcom": {
+          "command": "npx",
+          "args": ["@calcom/cal-mcp@latest"],
+          "env": {
+            "CAL_API_KEY": "cal_live_xxxx"
+          }
+        }
+      }
+    }
+    ```
+  </Step>
+</Steps>
+
+<Warning>
+  Never share or commit your API key. If it's been exposed, rotate it immediately in your [Cal.com settings](https://app.cal.com/settings/developer/api-keys).
+</Warning>
+
+## Available tools
+
+The MCP server provides 34 tools organized by category:
+
+<AccordionGroup>
+  <Accordion title="User profile">
+    | Tool | Description |
+    |------|-------------|
+    | `get_me` | Get your authenticated user profile |
+    | `update_me` | Update your user profile |
+  </Accordion>
+
+  <Accordion title="Event types">
+    | Tool | Description |
+    |------|-------------|
+    | `get_event_types` | List all event types |
+    | `get_event_type` | Get a specific event type by ID |
+    | `create_event_type` | Create a new event type |
+    | `update_event_type` | Update an event type |
+    | `delete_event_type` | Delete an event type |
+  </Accordion>
+
+  <Accordion title="Bookings">
+    | Tool | Description |
+    |------|-------------|
+    | `get_bookings` | List bookings with optional filters |
+    | `get_booking` | Get a specific booking by UID |
+    | `create_booking` | Create a new booking |
+    | `reschedule_booking` | Reschedule a booking |
+    | `cancel_booking` | Cancel a booking |
+    | `confirm_booking` | Confirm a pending booking |
+    | `mark_booking_absent` | Mark a booking absence |
+    | `get_booking_attendees` | Get all attendees for a booking |
+    | `add_booking_attendee` | Add an attendee to a booking |
+    | `get_booking_attendee` | Get a specific attendee |
+  </Accordion>
+
+  <Accordion title="Schedules">
+    | Tool | Description |
+    |------|-------------|
+    | `get_schedules` | List all schedules |
+    | `get_schedule` | Get a specific schedule by ID |
+    | `create_schedule` | Create a new schedule |
+    | `update_schedule` | Update a schedule |
+    | `delete_schedule` | Delete a schedule |
+    | `get_default_schedule` | Get your default schedule |
+  </Accordion>
+
+  <Accordion title="Availability">
+    | Tool | Description |
+    |------|-------------|
+    | `get_availability` | Get available time slots |
+    | `get_busy_times` | Get busy times from calendars |
+  </Accordion>
+
+  <Accordion title="Conferencing">
+    | Tool | Description |
+    |------|-------------|
+    | `get_conferencing_apps` | List conferencing applications |
+  </Accordion>
+
+  <Accordion title="Routing forms">
+    | Tool | Description |
+    |------|-------------|
+    | `calculate_routing_form_slots` | Calculate slots based on routing form response |
+  </Accordion>
+
+  <Accordion title="Organizations">
+    | Tool | Description |
+    |------|-------------|
+    | `get_org_memberships` | Get all organization memberships |
+    | `create_org_membership` | Create an organization membership |
+    | `get_org_membership` | Get an organization membership |
+    | `delete_org_membership` | Delete an organization membership |
+    | `get_org_routing_forms` | Get organization routing forms |
+    | `get_org_routing_form_responses` | Get routing form responses |
+  </Accordion>
+</AccordionGroup>
