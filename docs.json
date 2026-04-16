@@ -166,7 +166,8 @@
                   "style": "solid"
                 },
                 "pages": [
-                  "cal-ai/cal-ai-help"
+                  "cal-ai/cal-ai-help",
+                  "cal-ai/mcp-server"
                 ]
               },
               {
