@@ -210,21 +210,50 @@ Fuzzy domain matching is useful when:
 
 When multiple Salesforce accounts match a domain during account resolution, Cal.com runs a tiebreaker waterfall to select the best candidate. This is especially relevant for round robin event types where the resolved account owner determines which host receives the booking.
 
-The tiebreaker evaluates candidates in priority order. The first criterion that produces a single winner ends the waterfall:
+You can customize which tiebreaker rules are active and the order in which they run. By default, all nine rules are enabled in the order shown below. The first criterion that produces a single winner ends the waterfall:
 
-| Priority | Criterion | Description |
-|---|---|---|
-| 1 | Sub-region match | Account whose custom sub-region field matches the booker's sub-region (geo tiebreaker only) |
-| 2 | Country + state + zip match | Account whose billing address matches the booker's country, state, and postal code (geo tiebreaker only) |
-| 3 | Country + state match | Account whose billing country and state match the booker's (geo tiebreaker only) |
-| 4 | Country match | Account whose billing country matches the booker's (geo tiebreaker only) |
-| 5 | Most child accounts | Account with the highest number of child accounts in its hierarchy |
-| 6 | Most opportunities | Account with the highest number of related opportunities |
-| 7 | Most contacts | Account with the most related contact records |
-| 8 | Most recent activity | Account with the most recent `LastActivityDate` |
-| 9 | Earliest created | Account with the oldest `CreatedDate` (longest-standing relationship) |
+| Default priority | Rule | Category | Description |
+|---|---|---|---|
+| 1 | Sub-region match | Geo | Account whose custom sub-region field matches the booker's sub-region (geo tiebreaker only) |
+| 2 | Country + state + zip match | Geo | Account whose billing address matches the booker's country, state, and postal code (geo tiebreaker only) |
+| 3 | Country + state match | Geo | Account whose billing country and state match the booker's (geo tiebreaker only) |
+| 4 | Country match | Geo | Account whose billing country matches the booker's (geo tiebreaker only) |
+| 5 | Most child accounts | Size | Account with the highest number of child accounts in its hierarchy |
+| 6 | Most opportunities | Size | Account with the highest number of related opportunities |
+| 7 | Most contacts | Size | Account with the most related contact records |
+| 8 | Most recent activity | Recency | Account with the most recent `LastActivityDate` |
+| 9 | Oldest account | Age | Account with the oldest `CreatedDate` (longest-standing relationship) |
 
-Priorities 1–4 only run when geo tiebreaker is enabled and the booker's geographic information is available. If geo tiebreaker is not configured, the waterfall starts at priority 5. If all criteria result in a tie, the last-resort rule selects the account that was created first.
+Geo rules (1–4) only run when geo tiebreaker is enabled and the booker's geographic information is available. If geo tiebreaker is not configured, those rules are skipped. If all active criteria result in a tie, Cal.com falls back to round robin assignment.
+
+#### Configuring tiebreaker rules
+
+You can enable, disable, reorder, add, and remove tiebreaker rules from your event type's Salesforce settings.
+
+<Steps>
+  <Step title="Open Salesforce settings">
+    Navigate to the event type's **Apps** tab and expand the Salesforce section.
+  </Step>
+  <Step title="Find the tiebreaker priority rules section">
+    Scroll to **Tiebreaker Priority Rules**. Use the toggle to enable or disable the entire tiebreaker waterfall.
+  </Step>
+  <Step title="Reorder rules">
+    Hover over a rule and use the arrow buttons to move it up or down. Rules at the top are evaluated first.
+  </Step>
+  <Step title="Remove a rule">
+    Click the trash icon on any rule you do not need. Removing a rule means it is skipped during account resolution.
+  </Step>
+  <Step title="Add a rule">
+    Click **Add rule** below the list to add a rule that was previously removed. Select the rule from the dropdown — each rule shows a description and category to help you decide.
+  </Step>
+  <Step title="Save">
+    Save your event type. The updated rule order and selection apply to new bookings immediately.
+  </Step>
+</Steps>
+
+<Tip>
+  If no tiebreaker rules resolve the tie, Cal.com falls back to standard round robin assignment. You can see which rule decided a booking in the [routing trace](/routing/routing-overview#5-routing-trace).
+</Tip>
 
 #### Host filtering
 
@@ -340,23 +369,25 @@ Cal.com uses the first match found. If multiple Accounts match at any step, the 
 
 #### Tiebreaker waterfall
 
-When multiple Salesforce Accounts match a domain during account resolution, Cal.com runs a tiebreaker waterfall to select the best candidate. This is especially relevant for round-robin event types where the resolved Account owner determines which host receives the booking.
+When multiple Salesforce Accounts match a domain during account resolution, Cal.com runs a configurable tiebreaker waterfall to select the best candidate. This is especially relevant for round-robin event types where the resolved Account owner determines which host receives the booking.
 
-The tiebreaker evaluates candidates in priority order. The first criterion that produces a single winner ends the waterfall:
+You can customize which rules are active and their priority order in your event type's Salesforce settings under **Tiebreaker Priority Rules**. See [Configuring tiebreaker rules](#configuring-tiebreaker-rules) for step-by-step instructions.
 
-| Priority | Criterion | Description |
-|---|---|---|
-| 1 | Sub-region match | Account whose custom sub-region field matches the booker's sub-region (geo tiebreaker only) |
-| 2 | Country + state + zip match | Account whose billing address matches the booker's country, state, and postal code (geo tiebreaker only) |
-| 3 | Country + state match | Account whose billing country and state match the booker's (geo tiebreaker only) |
-| 4 | Country match | Account whose billing country matches the booker's (geo tiebreaker only) |
-| 5 | Most child accounts | Account with the highest number of child Accounts in its hierarchy |
-| 6 | Most opportunities | Account with the highest number of related Opportunities |
-| 7 | Most contacts | Account with the most related Contact records |
-| 8 | Most recent activity | Account with the most recent `LastActivityDate` |
-| 9 | Earliest created | Account with the oldest `CreatedDate` (longest-standing relationship) |
+By default, all nine rules are enabled. The first criterion that produces a single winner ends the waterfall:
 
-Priorities 1–4 only run when [geo tiebreaker](#geo-tiebreaker) is enabled and the booker's geographic information is available. If geo tiebreaker is not configured, the waterfall starts at priority 5. If all criteria result in a tie, the last-resort rule selects the Account that was created first.
+| Default priority | Rule | Category | Description |
+|---|---|---|---|
+| 1 | Sub-region match | Geo | Account whose custom sub-region field matches the booker's sub-region (geo tiebreaker only) |
+| 2 | Country + state + zip match | Geo | Account whose billing address matches the booker's country, state, and postal code (geo tiebreaker only) |
+| 3 | Country + state match | Geo | Account whose billing country and state match the booker's (geo tiebreaker only) |
+| 4 | Country match | Geo | Account whose billing country matches the booker's (geo tiebreaker only) |
+| 5 | Most child accounts | Size | Account with the highest number of child Accounts in its hierarchy |
+| 6 | Most opportunities | Size | Account with the highest number of related Opportunities |
+| 7 | Most contacts | Size | Account with the most related Contact records |
+| 8 | Most recent activity | Recency | Account with the most recent `LastActivityDate` |
+| 9 | Oldest account | Age | Account with the oldest `CreatedDate` (longest-standing relationship) |
+
+Geo rules (1–4) only run when [geo tiebreaker](#geo-tiebreaker) is enabled and the booker's geographic information is available. If geo tiebreaker is not configured, those rules are skipped. If all active criteria result in a tie, Cal.com falls back to round-robin assignment.
 
 For round-robin event types, candidates are filtered before the tiebreaker runs. Only Account owners who are hosts on the event type are eligible. If this filter removes all candidates, Cal.com falls back to standard round-robin assignment.
 
