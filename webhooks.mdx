@@ -50,7 +50,7 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 
     If your subscriber URL does not meet these requirements, the webhook creation request will be rejected with an error.
 
-2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Paid`, `Booking Payment Initiated`, `Booking No-Show Updated`, `Meeting Started`, `Meeting Ended`, `Recording Ready`, `Recording Transcription Generated`, `Instant Meeting Created`, `Out of Office Created`, `After Hosts Cal Video No-Show`, `After Guests Cal Video No-Show`, `Form Submitted`, and `Form Submitted (No Event)`.
+2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Paid`, `Booking Payment Initiated`, `Booking No-Show Updated`, `Meeting Started`, `Meeting Ended`, `Recording Ready`, `Recording Transcription Generated`, `Instant Meeting Created`, `Instant Meeting Accepted`, `Out of Office Created`, `After Hosts Cal Video No-Show`, `After Guests Cal Video No-Show`, `Form Submitted`, and `Form Submitted (No Event)`.
 
 3. Secret: You can provide a secret key with this webhook and then [verify it](/docs/core-features/webhooks#verifying-the-authenticity-of-the-received-payload) on the subscriber URL when receiving a payload to confirm if the payload is authentic or adulterated. You can leave it blank, if you don't wish to secure the webhook with a secret key.
 
@@ -73,6 +73,7 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 | Recording Ready                   | A meeting recording is available and ready to access.                                                         |
 | Recording Transcription Generated | A transcription of the meeting recording is successfully generated.                                           |
 | Instant Meeting Created           | An instant (ad-hoc) meeting is created.                                                                       |
+| Instant Meeting Accepted          | A host accepts an instant meeting and becomes the organizer. Only fires for the first host to accept.         |
 | Out of Office Created             | A user adds a new Out of Office entry to their availability.                                                  |
 | After Hosts Cal Video No-Show     | The host did not show up to a Cal Video meeting in the first `n` minutes, as set up in the configuration.     |
 | After Guests Cal Video No-Show    | The attendee did not show up to a Cal Video meeting in the first `n` minutes, as set up in the configuration. |
@@ -257,6 +258,40 @@ Events like `BOOKING_CREATED`, `BOOKING_CANCELLED`, `BOOKING_RESCHEDULED`, and m
 
 If a booking is cancelled or rescheduled before the meeting time, the scheduled `MEETING_STARTED` and `MEETING_ENDED` webhooks for that booking are automatically cancelled.
 
+#### Instant meeting accepted
+
+The `INSTANT_MEETING_ACCEPTED` webhook fires when a host accepts an instant meeting request through the connect-and-join flow. It only triggers for the first host to accept — if another host has already accepted the booking, the webhook is not sent again. This trigger is available for team event types only.
+
+```json
+{
+    "triggerEvent": "INSTANT_MEETING_ACCEPTED",
+    "createdAt": "2025-04-17T10:00:00.000Z",
+    "payload": {
+        "bookingId": 142,
+        "bookingUid": "aB3kL9mNpQ7rS1tU",
+        "bookingTitle": "Instant meeting between Team and Jane Smith",
+        "startTime": "2025-04-17T10:00:00.000Z",
+        "endTime": "2025-04-17T10:30:00.000Z",
+        "eventTypeId": 15,
+        "organizer": {
+            "id": 8,
+            "name": "Host Example",
+            "email": "host@example.com",
+            "timeZone": "America/New_York",
+            "username": "host-example"
+        },
+        "attendees": [
+            {
+                "name": "Jane Smith",
+                "email": "jane.smith@example.com",
+                "timeZone": "Europe/London"
+            }
+        ],
+        "meetingUrl": "https://cal.app/video/xyz789"
+    }
+}
+```
+
 ### Subscriber URL requirements
 
 Cal.com validates webhook subscriber URLs to protect against server-side request forgery (SSRF). The validation rules depend on whether you are using Cal.com Cloud or a self-hosted instance.
@@ -310,7 +345,7 @@ where `{{type}}` represents the event type slug and `{{title}}` represents the t
 
 | Variable           | Type      | Description                                                                                                                                                                                                                                         |
 | ------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| triggerEvent       | String    | The name of the trigger event \[BOOKING\_CREATED, BOOKING\_RESCHEDULED, BOOKING\_CANCELLED, MEETING\_ENDED, BOOKING\_REJECTED, BOOKING\_REQUESTED, BOOKING\_PAYMENT\_INITIATED, BOOKING\_PAID, MEETING\_STARTED, RECORDING\_READY, FORM\_SUBMITTED] |
+| triggerEvent       | String    | The name of the trigger event \[BOOKING\_CREATED, BOOKING\_RESCHEDULED, BOOKING\_CANCELLED, MEETING\_ENDED, BOOKING\_REJECTED, BOOKING\_REQUESTED, BOOKING\_PAYMENT\_INITIATED, BOOKING\_PAID, MEETING\_STARTED, RECORDING\_READY, INSTANT\_MEETING, INSTANT\_MEETING\_ACCEPTED, FORM\_SUBMITTED] |
 | createdAt          | Datetime  | The Time of the webhook                                                                                                                                                                                                                             |
 | type               | String    | The event type slug                                                                                                                                                                                                                                 |
 | title              | String    | The event type name                                                                                                                                                                                                                                 |
