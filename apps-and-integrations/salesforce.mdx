@@ -73,6 +73,14 @@ Options to search ownership against
 #### If attendee has a free email domain, skip the ownership check and round robin as normal
 If this option is enabled, if the attendee has a free email domain (ex. gmail.com) then ignore any Salesforce ownership checks.
 
+## Viewing routing traces for Salesforce-routed bookings
+
+When a booking is routed through Salesforce ownership — even without a routing form — Cal.com records a routing trace that shows how the host was selected. You can view the trace from the bookings list (via the actions menu) or from the booking detail page.
+
+This is useful for verifying that Salesforce-based routing resolved to the correct owner and for troubleshooting assignment issues.
+
+For more details on routing traces, see [Routing overview](/routing/routing-overview#5-routing-trace).
+
 #### On cancelled booking, write to event record instead of deleting event
 When this option is enabled, instead of deleting the event record we write to specific fields. To write to a field you need the following:
 - The API field name ex. `Custom_Field__c`
