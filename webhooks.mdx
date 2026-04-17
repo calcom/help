@@ -262,32 +262,57 @@ If a booking is cancelled or rescheduled before the meeting time, the scheduled 
 
 The `INSTANT_MEETING_ACCEPTED` webhook fires when a host accepts an instant meeting request through the connect-and-join flow. It only triggers for the first host to accept — if another host has already accepted the booking, the webhook is not sent again. This trigger is available for team event types only.
 
+The payload includes the booking `status` (set to `ACCEPTED`), the accepting host as the `organizer` with their locale and time format preferences, the guest `attendees` list, booking `responses`, and a `metadata` object containing the `videoCallUrl` for the meeting.
+
 ```json
 {
     "triggerEvent": "INSTANT_MEETING_ACCEPTED",
-    "createdAt": "2025-04-17T10:00:00.000Z",
+    "createdAt": "2025-04-17T10:01:00.000Z",
     "payload": {
         "bookingId": 142,
         "bookingUid": "aB3kL9mNpQ7rS1tU",
-        "bookingTitle": "Instant meeting between Team and Jane Smith",
+        "eventTypeId": 15,
+        "status": "ACCEPTED",
+        "title": "Instant meeting between Team and Jane Smith",
         "startTime": "2025-04-17T10:00:00.000Z",
         "endTime": "2025-04-17T10:30:00.000Z",
-        "eventTypeId": 15,
         "organizer": {
             "id": 8,
             "name": "Host Example",
             "email": "host@example.com",
+            "username": "host-example",
             "timeZone": "America/New_York",
-            "username": "host-example"
+            "language": {
+                "locale": "en"
+            },
+            "timeFormat": "h:mma",
+            "utcOffset": -300
         },
         "attendees": [
             {
-                "name": "Jane Smith",
                 "email": "jane.smith@example.com",
-                "timeZone": "Europe/London"
+                "name": "Jane Smith",
+                "timeZone": "Europe/London",
+                "language": {
+                    "locale": "en"
+                },
+                "utcOffset": 60
             }
         ],
-        "meetingUrl": "https://cal.app/video/xyz789"
+        "responses": {
+            "name": {
+                "label": "your_name",
+                "value": "Jane Smith"
+            },
+            "email": {
+                "label": "email_address",
+                "value": "jane.smith@example.com"
+            }
+        },
+        "location": "integrations:daily",
+        "metadata": {
+            "videoCallUrl": "https://cal.app/video/aB3kL9mNpQ7rS1tU"
+        }
     }
 }
 ```
