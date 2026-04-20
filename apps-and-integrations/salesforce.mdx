@@ -224,7 +224,7 @@ You can customize which tiebreaker rules are active and the order in which they 
 | 8 | Most recent activity | Recency | Account with the most recent `LastActivityDate` |
 | 9 | Oldest account | Age | Account with the oldest `CreatedDate` (longest-standing relationship) |
 
-Geo rules (1–4) only run when geo tiebreaker is enabled and the booker's geographic information is available. If geo tiebreaker is not configured, those rules are skipped. If all active criteria result in a tie, Cal.com falls back to round robin assignment.
+Geo rules (1–4) only apply when a booking comes through a routing form that collects the booker's location. They are skipped for direct bookings. If geo tiebreaker is not configured, those rules are skipped. If all active criteria result in a tie, Cal.com falls back to round robin assignment.
 
 #### Configuring tiebreaker rules
 
@@ -261,11 +261,32 @@ For round robin event types, candidates are filtered before the tiebreaker runs.
 
 ### Geo tiebreaker
 
-The geo tiebreaker lets Cal.com prefer the Salesforce account that is geographically closest to the booker when multiple accounts match. This is configured on individual routes within a routing form and is only available when the Salesforce routing option is set to **Route to custom lookup field**.
+The geo tiebreaker lets Cal.com prefer the Salesforce account that is geographically closest to the booker when multiple accounts match. It compares the booker's location against each candidate account's billing address fields (`BillingCountry`, `BillingState`, `BillingPostalCode`) and an optional custom sub-region field. The closest geographic match wins before any size or recency-based tiebreakers run.
 
-When enabled, Cal.com compares the booker's location against each candidate account's billing address fields (`BillingCountry`, `BillingState`, `BillingPostalCode`) and an optional custom sub-region field. The closest geographic match wins before any size or recency-based tiebreakers run.
+Geo tiebreakers only apply when a booking comes through a routing form — they are skipped for direct bookings.
 
-#### Configuring the geo tiebreaker
+#### Convention-based field identifiers
+
+The simplest way to enable geo tiebreakers is to add fields to your routing form using the standard identifiers below. Cal.com detects these automatically with no per-route configuration required.
+
+| Field identifier | Description | Matches against | IP fallback |
+|---|---|---|---|
+| `country` | The booker's country (ISO code or name) | Account `BillingCountry` | Yes |
+| `state` | The booker's state or region | Account `BillingState` | Yes |
+| `zip` | The booker's ZIP or postal code | Account `BillingPostalCode` | No |
+| `sub_region` | A custom sub-region value | A custom field on the Account object | No |
+
+Use the exact identifier shown (lowercase, snake_case). The field label displayed to the booker can be anything you want.
+
+When a `country` or `state` form field is missing or left blank, Cal.com automatically falls back to the booker's IP geolocation to determine their country and state. ZIP and sub-region do not have an IP fallback.
+
+<Tip>
+  When any geo tiebreaker rule is active, a **"How do geo tiebreakers read booker location?"** link appears in the tiebreaker rules section. Click it to see the field identifiers and which rules use each field.
+</Tip>
+
+#### Configuring geo tiebreaker per route
+
+You can also configure the geo tiebreaker on individual routes within a routing form. This is available when the Salesforce routing option is set to **Route to custom lookup field** and gives you control over the field mapping on a per-route basis.
 
 <Steps>
   <Step title="Open the routing form">
@@ -310,7 +331,7 @@ When the geo tiebreaker is enabled, Cal.com compares the booker's location again
 The first level that narrows candidates to a single account wins. If multiple accounts still tie after all geographic checks, the waterfall continues with size and recency-based criteria (child accounts, opportunities, contacts, recent activity, and creation date).
 
 <Note>
-  The geo tiebreaker is only available on routing form routes using the **Route to custom lookup field** Salesforce option. It does not apply to event type-level Salesforce settings.
+  The geo tiebreaker only applies when bookings come through a routing form. It does not apply to direct bookings or event type-level Salesforce settings. Per-route configuration is only available when the route uses the **Route to custom lookup field** Salesforce option.
 </Note>
 
 ## Field mapping validation
@@ -387,7 +408,7 @@ By default, all nine rules are enabled. The first criterion that produces a sing
 | 8 | Most recent activity | Recency | Account with the most recent `LastActivityDate` |
 | 9 | Oldest account | Age | Account with the oldest `CreatedDate` (longest-standing relationship) |
 
-Geo rules (1–4) only run when [geo tiebreaker](#geo-tiebreaker) is enabled and the booker's geographic information is available. If geo tiebreaker is not configured, those rules are skipped. If all active criteria result in a tie, Cal.com falls back to round-robin assignment.
+Geo rules (1–4) only apply when a booking comes through a routing form that collects the booker's location. They are skipped for direct bookings. If geo tiebreaker is not configured, those rules are skipped. If all active criteria result in a tie, Cal.com falls back to round-robin assignment.
 
 For round-robin event types, candidates are filtered before the tiebreaker runs. Only Account owners who are hosts on the event type are eligible. If this filter removes all candidates, Cal.com falls back to standard round-robin assignment.
 
