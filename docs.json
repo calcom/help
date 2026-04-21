@@ -247,7 +247,8 @@
                   "style": "solid"
                 },
                 "pages": [
-                  "security/blocklist"
+                  "security/blocklist",
+                  "security/account-lockout"
                 ]
               },
               {

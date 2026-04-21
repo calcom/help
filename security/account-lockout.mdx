@@ -1,0 +1,69 @@
+---
+title: "Account lockout"
+description: "Protect user accounts from brute-force attacks with automatic lockout after repeated failed login attempts."
+---
+
+Account lockout automatically locks a user account after **10 consecutive failed login attempts**. This protects accounts from brute-force password attacks and unauthorized access.
+
+<Note>
+  This feature is controlled by a feature flag and may not yet be enabled on all instances.
+</Note>
+
+---
+
+## How it works
+
+1. Each time someone enters the wrong password or an incorrect two-factor authentication code, the failed attempt counter increments.
+2. After **10 failed attempts**, the account is locked and the user cannot log in.
+3. A successful login resets the counter back to zero.
+
+Rate limiting is also applied to failed login attempts so that attackers cannot rapidly trigger a lockout on someone else's account.
+
+---
+
+## What locked users see
+
+When a locked user tries to log in, they see an error indicating their account has been locked. They cannot log in even with the correct password until an admin unlocks the account.
+
+---
+
+## Unlocking a user (admins)
+
+Organization admins can unlock a user from the admin panel:
+
+<Steps>
+  <Step title="Go to admin settings">
+    Navigate to your organization's admin area.
+  </Step>
+  <Step title="Find the locked user">
+    Look for the locked user in the users list or the locked users view.
+  </Step>
+  <Step title="Unlock the account">
+    Select the user and choose **Unlock**. This resets their failed login counter and restores access.
+  </Step>
+</Steps>
+
+---
+
+## What triggers the counter
+
+The failed attempt counter increments when:
+
+- An incorrect password is entered
+- An incorrect two-factor authentication (2FA) code is provided
+- An incorrect backup code is used
+
+The counter **does not** increment when:
+
+- The email address does not match any account
+- The account is already locked
+- Rate limiting has been exceeded for that email
+
+---
+
+## Best practices
+
+- **Enable two-factor authentication** to add an extra layer of security beyond passwords.
+- **Use strong, unique passwords** to reduce the risk of brute-force attacks succeeding before lockout kicks in.
+- **Monitor locked accounts** regularly in the admin panel. Frequent lockouts for the same user may indicate a targeted attack.
+- **Educate your team** so they know to contact an admin if they get locked out, rather than creating a new account.
