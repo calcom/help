@@ -1,0 +1,68 @@
+---
+title: "Admin security requirements"
+description: "Learn about the password and two-factor authentication requirements for admin accounts on self-hosted Cal.com."
+---
+
+Admin accounts on self-hosted Cal.com instances must meet specific security requirements. If your account does not meet these requirements, your admin privileges are temporarily restricted until you update your credentials.
+
+---
+
+## Requirements
+
+To keep full admin access, your account must satisfy **both** of the following:
+
+1. **Password** — at least 15 characters, including uppercase letters, lowercase letters, and a number.
+2. **Two-factor authentication (2FA)** — enabled on your account.
+
+If either requirement is missing, your role is automatically changed to **Inactive Admin** at your next login. You can still use the application, but admin-level actions are unavailable until you fix the issue.
+
+<Note>
+  This enforcement only applies to admin accounts that use Cal.com password-based login. Admins who sign in through an external identity provider (such as SAML or OIDC) are not affected.
+</Note>
+
+---
+
+## What happens when requirements are not met
+
+When you sign in as an admin without meeting the security requirements, Cal.com:
+
+1. Restricts your session so admin actions are unavailable.
+2. Shows a **warning banner** at the top of every page explaining what needs to be fixed.
+3. Links you directly to the relevant settings page.
+
+The banner message depends on what is missing:
+
+| Missing requirement | Banner action |
+| --- | --- |
+| Password and 2FA | Directs you to update your password |
+| Password only | Directs you to update your password |
+| 2FA only | Directs you to enable two-factor authentication |
+
+---
+
+## How to resolve
+
+<Steps>
+  <Step title="Update your password (if needed)">
+    Go to **Settings → Security → Password** and set a new password that is at least 15 characters long and includes uppercase letters, lowercase letters, and a number.
+  </Step>
+  <Step title="Enable two-factor authentication (if needed)">
+    Go to **Settings → Security → Two-factor authentication** and follow the prompts to enable 2FA.
+  </Step>
+  <Step title="Sign in again">
+    After making changes you are signed out automatically. Log back in with your updated credentials to regain full admin access.
+  </Step>
+</Steps>
+
+---
+
+## FAQs
+
+**Q: Will I lose any data if my admin access is restricted?**\
+**A:** No. Your data and settings remain intact. Only admin-level actions are temporarily unavailable.
+
+**Q: What counts as a strong enough password?**\
+**A:** Your password must be at least 15 characters and include at least one uppercase letter, one lowercase letter, and one number.
+
+**Q: Do these requirements apply to the Cal.com cloud platform?**\
+**A:** No. These requirements apply only to self-hosted Cal.com instances.
