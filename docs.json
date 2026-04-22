@@ -139,6 +139,7 @@
                 },
                 "pages": [
                   "bookings/no-show",
+                  "bookings/email-verification",
                   "bookings/host-reschedule-busy-slots",
                   "bookings/paid-bookings",
                   "bookings/past-bookings-filtering",
