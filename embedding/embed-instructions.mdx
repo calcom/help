@@ -40,3 +40,24 @@ To open cal link on some action, make it pop open instantly by using `preload`.
 ```
 
 - `calLink` - Cal Link that you want to embed e.g. john. Just give the username. No need to give the full URL https://cal.com/john
+
+#### Close modal
+
+Programmatically closes a modal-based embed shown as a pop-up (for example, when opened via an element click or the floating button).
+
+```js
+<script>
+  Cal("closeModal");
+</script>
+```
+
+**Supported embed types:**
+- Pop-up via element click
+- Floating button pop-up
+
+**Namespaced usage:**
+```js
+<script>
+  Cal.ns.yournamespace("closeModal");
+</script>
+```
