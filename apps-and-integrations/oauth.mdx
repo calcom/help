@@ -110,7 +110,7 @@ https://app.cal.com/auth/oauth2/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=
 | `scope` | Yes | Space or comma-separated list of scopes (e.g. `BOOKING_READ BOOKING_WRITE`). Must be a subset of scopes enabled on your OAuth client. |
 | `code_challenge` | For public clients | PKCE code challenge (S256 method) |
 
-After users click **Allow**, they are redirected to your `redirect_uri` with the authorization `code` and `state` as URL parameters.
+After users click **Allow**, they are redirected to your `redirect_uri` with the authorization `code` as a URL parameter. If you included a `state` parameter in the authorization URL, it is returned unchanged so you can verify the response matches the original request.
 
 ## Exchange token
 
