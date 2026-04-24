@@ -68,10 +68,10 @@ This option is available for round robin events. When this option is enabled, yo
 Options to search ownership against
 - Lead
 - Contact
-- Account ([Determining which account an attendee belongs to](#determining-if-an-attendee-belongs-under-an-account)) 
+- Account — Cal.com uses the full [account resolution waterfall](#determining-if-an-attendee-belongs-under-an-account) to find the matching account. If the initial lookup returns no results, Cal.com automatically falls back to normalized website matching and, when enabled, [fuzzy cross-TLD matching](#cross-tld-fuzzy-domain-matching). This means attendees with regional email domains (for example, `user@acme.co.uk`) can still be matched to the correct account owner even if the account's website is listed as `acme.com`.
 
 #### If attendee has a free email domain, skip the ownership check and round robin as normal
-If this option is enabled, if the attendee has a free email domain (ex. gmail.com) then ignore any Salesforce ownership checks.
+If this option is enabled, attendees with free email domains (for example, gmail.com, yahoo.com, or outlook.com) skip the Salesforce ownership check entirely and go through normal round robin assignment. This applies to all ownership lookup types, including Account-based lookups.
 
 ## Viewing routing traces for Salesforce-routed bookings
 
@@ -194,8 +194,10 @@ Cal.com resolves the attendee's Salesforce account using a multi-step waterfall:
 
 Cal.com uses the first match found. If multiple accounts match at any step, the [tiebreaker waterfall](#tiebreaker-waterfall) runs to select the best candidate. If no account is resolved at any step, the integration falls back to the behavior configured in your event type settings.
 
+This same resolution waterfall also runs for [Account-based round robin ownership lookups](#if-attendee-exists-in-salesforce,-book-directly-with-the-owner). If the initial Account lookup returns no results, Cal.com falls back through normalized and fuzzy matching to find the correct account owner.
+
 <Note>
-  Fuzzy matching only applies to the **Contact under Account** attendee record type. It does not affect contact-only or lead-only lookups.
+  Fuzzy matching applies to the **Contact under Account** attendee record type and to **Account-based round robin ownership lookups**. It does not affect contact-only or lead-only lookups.
 </Note>
 
 ### When to use fuzzy matching
@@ -427,7 +429,7 @@ Fuzzy domain matching is useful when:
 - You want Cal.com to match attendees to the correct account without manually maintaining every domain variant
 
 <Note>
-  Fuzzy matching only applies to the **Contact under Account** attendee record type. It does not affect Contact-only or Lead-only lookups.
+  Fuzzy matching applies to the **Contact under Account** attendee record type and to **Account-based round robin ownership lookups**. It does not affect Contact-only or Lead-only lookups.
 </Note>
 
 #### Field mapping validation
