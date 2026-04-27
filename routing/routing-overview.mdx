@@ -93,6 +93,30 @@ This method provides a seamless user experience while maintaining centralized ro
 
 ---
 
+## Route actions
+
+Each route in a routing form ends in one of three actions:
+
+- **Event Redirect** — Send the booker to a Cal.com event type (the most common option for team scheduling).
+- **External Redirect** — Send the booker to a URL outside Cal.com (for example, a thank-you page or a `mailto:` link).
+- **Custom Page Message** — Show a static message on the form instead of redirecting.
+
+### Supported URLs for External Redirect
+
+For security, only the following URL schemes are accepted in the **External Redirect** action:
+
+- `http://`
+- `https://`
+- `mailto:`
+
+Any other scheme (such as `javascript:`, `data:`, `file:`, or protocol-relative URLs like `//example.com`) is rejected when you save the form. If a previously saved form contains an unsupported redirect URL, that route automatically falls back to a custom page message so the form keeps working safely while you fix it.
+
+<Tip>
+  If you need to send bookers to an internal tool that uses a custom URL scheme, host a small redirect page on `https://` that forwards to the destination instead of pointing the route directly at the custom scheme.
+</Tip>
+
+---
+
 ## Why Use Cal.com Routing?
 
 - **Precision Matching:** Ensure meetings are scheduled with the most relevant team member based on attributes.
