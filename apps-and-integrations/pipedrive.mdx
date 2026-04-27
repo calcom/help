@@ -1,0 +1,53 @@
+---
+title: "Pipedrive and Cal.com"
+---
+
+With our Pipedrive integration you can sync data between Cal.com and your Pipedrive account, so every booking, reschedule, and cancellation is automatically reflected in your CRM.
+
+## Basic functionality
+
+- On booking, we create an activity in Pipedrive and associate it with the attendee's person record
+- On reschedule, we update the activity's date and time
+- On cancellation, we mark the activity as deleted
+
+## Installing Pipedrive
+
+You can install the Pipedrive app for your personal account or for a team you administer.
+
+### Personal install
+
+1. Go to the [App Store](https://app.cal.com/apps) and select **Pipedrive CRM**.
+2. Click **Install**.
+3. You'll be redirected to Pipedrive to authorize Cal.com.
+4. After approving, you'll be returned to Cal.com and the app will be available on your event types.
+
+### Team install
+
+If you're an admin or owner of a team, you can install Pipedrive for the team so that bookings on team event types sync to a shared Pipedrive workspace.
+
+1. Go to your team's **Apps** page in Cal.com.
+2. Find **Pipedrive CRM** and click **Install**.
+3. Select the team you want to install the app on.
+4. Authorize Cal.com in Pipedrive when redirected.
+
+Only team admins and owners can install or remove the Pipedrive credential on a team. Once installed, the team's Pipedrive credential is available to any team event type.
+
+## Event type options
+
+#### Do not create new records for guests added to the booking
+
+If this option is enabled, we will only handle creating activities under the main attendee of the event and not additional guests.
+
+#### Skip creating contacts if they do not exist in Pipedrive
+
+If this option is enabled, skip creating new person records if they do not exist in Pipedrive already. We search for contacts based on the attendee email.
+
+## Required permissions
+
+When you authorize Cal.com, Pipedrive grants the following scopes:
+
+- `deals:read`, `deals:write`
+- `persons:read`, `persons:write`
+- `activities:read`, `activities:write`
+
+These permissions allow Cal.com to look up attendees, create activities for bookings, and update or delete activities when bookings change.
