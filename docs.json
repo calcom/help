@@ -128,7 +128,9 @@
                   "availabilities/add-new-availability",
                   "availabilities/date-overrides",
                   "availabilities/multiple-schedules",
-                  "availabilities/multiple-slots"
+                  "availabilities/multiple-slots",
+                  "availabilities/out-of-office",
+                  "availabilities/holidays"
                 ]
               },
               {
