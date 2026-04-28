@@ -39,6 +39,8 @@
                 },
                 "pages": [
                   "enterprise/members-onboarding",
+                  "enterprise/delegation-credential",
+                  "enterprise/delegation-credential-google-workspace",
                   "enterprise/audit-logs",
                   "enterprise/custom-smtp",
                   "enterprise/guest-notification-settings"
