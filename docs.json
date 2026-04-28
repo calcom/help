@@ -184,7 +184,8 @@
                   "embedding/embed-snippet-generator",
                   "embedding/prefill-booking-form-embed",
                   "embedding/utm-tracking-embed",
-                  "embedding/embed-auto-forward-query-params"
+                  "embedding/embed-auto-forward-query-params",
+                  "embedding/onboarding-embed"
                 ]
               },
               {
