@@ -1,0 +1,103 @@
+---
+title: "Custom SMTP for organizations"
+description: "Send booking emails from your own domain using a custom SMTP server."
+---
+
+Organizations on Cal.com can configure a custom SMTP server so that booking-related emails (confirmations, reminders, cancellations, and more) are sent from your own domain instead of Cal.com's default email address.
+
+This helps keep your communications on-brand and can improve deliverability for your team's emails.
+
+<Note>
+  Custom SMTP is only available for organizations. Individual users and teams cannot configure their own SMTP settings.
+</Note>
+
+---
+
+## How it works
+
+When you set up a custom SMTP configuration, Cal.com routes supported email types through your SMTP server. If your server is temporarily unreachable, Cal.com automatically falls back to its default email service so that no emails are lost.
+
+Each organization can have one SMTP configuration at a time.
+
+---
+
+## Supported email types
+
+Custom SMTP applies to booking-related emails, including:
+
+- **Booking confirmations** — sent to both the attendee and the organizer
+- **Cancellations and reschedules** — notifications when bookings change
+- **Booking requests** — emails for events that require approval
+- **Payment emails** — no-show fee notifications
+- **Recording and transcript links** — download links after meetings
+- **Workflow emails** — messages triggered by your custom workflows
+- **Routing form responses** — emails from routing form submissions
+
+<Note>
+  Account-level emails such as password resets or login verifications are not sent through your custom SMTP server.
+</Note>
+
+---
+
+## What you need
+
+Before configuring custom SMTP, have the following details from your email provider:
+
+| Setting | Description | Example |
+|---|---|---|
+| **SMTP host** | Your mail server address | `smtp.yourcompany.com` |
+| **SMTP port** | The port your server uses | `465` (SSL) or `587` (TLS) |
+| **Username** | The account used to authenticate | `noreply@yourcompany.com` |
+| **Password** | The password or app-specific password | — |
+| **Secure connection** | Whether the server uses SSL/TLS | Yes for port 465, typically |
+| **From email** | The address that appears in the "From" field | `noreply@yourcompany.com` |
+| **From name** | The display name next to the email address | `Your Company` |
+
+<Warning>
+  Make sure your SMTP server allows sending from the "From email" address you configure. If there is a mismatch, emails may fail or be rejected by recipient mail servers.
+</Warning>
+
+---
+
+## Set up custom SMTP
+
+To configure custom SMTP for your organization, contact your Cal.com account representative or reach out through the [support portal](https://go.cal.com/support) with your SMTP details. The Cal.com team will enable the feature for your organization.
+
+Once enabled, you can send a test email to confirm that your SMTP configuration is working correctly before it goes live.
+
+---
+
+## Test your configuration
+
+After your SMTP settings are configured, a test email is sent to verify the connection. This test email confirms:
+
+- Your SMTP server is reachable
+- Authentication credentials are valid
+- Emails can be delivered from the configured "From" address
+
+If the test fails, double-check your SMTP host, port, username, and password with your email provider.
+
+---
+
+## Automatic fallback
+
+If your SMTP server becomes temporarily unavailable, Cal.com automatically retries the email using its default email service. This ensures that booking emails are always delivered, even if there is an issue with your mail server.
+
+---
+
+## Frequently asked questions
+
+<AccordionGroup>
+  <Accordion title="Can I use different SMTP settings for different teams?">
+    No. Custom SMTP is configured at the organization level and applies to all teams and members within the organization.
+  </Accordion>
+  <Accordion title="What happens if I remove my SMTP configuration?">
+    All emails will be sent from Cal.com's default email address going forward. No previously sent emails are affected.
+  </Accordion>
+  <Accordion title="Do I need to update DNS records?">
+    Cal.com does not require specific DNS changes, but your email provider may require SPF, DKIM, or DMARC records to authorize the sending server. Check with your email provider for their requirements.
+  </Accordion>
+  <Accordion title="Which email providers work with this?">
+    Any provider that supports standard SMTP (such as Google Workspace, Microsoft 365, Amazon SES, SendGrid, or Postmark) is compatible.
+  </Accordion>
+</AccordionGroup>

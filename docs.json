@@ -38,7 +38,13 @@
                   "style": "solid"
                 },
                 "pages": [
-                  "enterprise/members-onboarding"
+                  "enterprise/members-onboarding",
+                  "enterprise/delegation-credential",
+                  "enterprise/delegation-credential-google-workspace",
+                  "enterprise/delegation-credential-microsoft-365",
+                  "enterprise/audit-logs",
+                  "enterprise/custom-smtp",
+                  "enterprise/guest-notification-settings"
                 ]
               },
               {
@@ -48,6 +54,7 @@
                   "style": "solid"
                 },
                 "pages": [
+                  "billing-and-usage/seat-billing",
                   "billing-and-usage/messaging-credits"
                 ]
               },
@@ -67,6 +74,7 @@
                   "event-types/managed-events",
                   "event-types/adding-zoom",
                   "event-types/booking-frequency",
+                  "event-types/user-booking-limits",
                   "event-types/round-robin",
                   "event-types/collective-events",
                   "event-types/create-first-event",
@@ -123,7 +131,9 @@
                   "availabilities/add-new-availability",
                   "availabilities/date-overrides",
                   "availabilities/multiple-schedules",
-                  "availabilities/multiple-slots"
+                  "availabilities/multiple-slots",
+                  "availabilities/out-of-office",
+                  "availabilities/holidays"
                 ]
               },
               {
@@ -134,10 +144,13 @@
                 },
                 "pages": [
                   "bookings/no-show",
+                  "bookings/host-reschedule-busy-slots",
                   "bookings/paid-bookings",
+                  "bookings/past-bookings-filtering",
                   "bookings/prefill-fields",
                   "bookings/utm-tracking",
-                  "bookings/analytics"
+                  "bookings/analytics",
+                  "bookings/insights"
                 ]
               },
               {
@@ -158,7 +171,8 @@
                   "style": "solid"
                 },
                 "pages": [
-                  "cal-ai/cal-ai-help"
+                  "cal-ai/cal-ai-help",
+                  "cal-ai/mcp-server"
                 ]
               },
               {
@@ -218,6 +232,7 @@
                   "apps-and-integrations/syncing-third-party",
                   "apps-and-integrations/attio",
                   "apps-and-integrations/hubspot",
+                  "apps-and-integrations/pipedrive",
                   "apps-and-integrations/salesforce"
                 ]
               },
@@ -238,7 +253,8 @@
                   "style": "solid"
                 },
                 "pages": [
-                  "security/blocklist"
+                  "security/blocklist",
+                  "security/account-lockout"
                 ]
               },
               {

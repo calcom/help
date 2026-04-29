@@ -50,7 +50,7 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 
     If your subscriber URL does not meet these requirements, the webhook creation request will be rejected with an error.
 
-2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Paid`, `Booking Payment Initiated`, `Booking No-Show Updated`, `Meeting Started`, `Meeting Ended`, `Recording Ready`, `Recording Transcription Generated`, `Instant Meeting Created`, `Out of Office Created`, `After Hosts Cal Video No-Show`, `After Guests Cal Video No-Show`, `Form Submitted`, and `Form Submitted (No Event)`.
+2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Paid`, `Booking Payment Initiated`, `Booking No-Show Updated`, `Meeting Started`, `Meeting Ended`, `Recording Ready`, `Recording Transcription Generated`, `Instant Meeting Created`, `Instant Meeting Accepted`, `Out of Office Created`, `After Hosts Cal Video No-Show`, `After Guests Cal Video No-Show`, `Form Submitted`, and `Form Submitted (No Event)`.
 
 3. Secret: You can provide a secret key with this webhook and then [verify it](/docs/core-features/webhooks#verifying-the-authenticity-of-the-received-payload) on the subscriber URL when receiving a payload to confirm if the payload is authentic or adulterated. You can leave it blank, if you don't wish to secure the webhook with a secret key.
 
@@ -68,11 +68,12 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 | Booking Paid                      | Payment for a booking is completed.                                                                           |
 | Booking Payment Initiated         | A payment attempt is initiated (before confirmation).                                                         |
 | Booking No-Show Updated           | A host or attendee is marked as a no-show after the meeting.                                                  |
-| Meeting Started                   | At the scheduled start time of the meeting.                                                                   |
-| Meeting Ended                     | At the scheduled end time of the meeting.                                                                     |
+| Meeting Started                   | At the scheduled start time of the meeting. Uses a [flat payload format](#meeting-started--meeting-ended-flat-format). Automatically cancelled if the booking is cancelled or rescheduled.  |
+| Meeting Ended                     | At the scheduled end time of the meeting. Uses a [flat payload format](#meeting-started--meeting-ended-flat-format). Automatically cancelled if the booking is cancelled or rescheduled.    |
 | Recording Ready                   | A meeting recording is available and ready to access.                                                         |
 | Recording Transcription Generated | A transcription of the meeting recording is successfully generated.                                           |
 | Instant Meeting Created           | An instant (ad-hoc) meeting is created.                                                                       |
+| Instant Meeting Accepted          | A host accepts an instant meeting and becomes the organizer. Only fires for the first host to accept.         |
 | Out of Office Created             | A user adds a new Out of Office entry to their availability.                                                  |
 | After Hosts Cal Video No-Show     | The host did not show up to a Cal Video meeting in the first `n` minutes, as set up in the configuration.     |
 | After Guests Cal Video No-Show    | The attendee did not show up to a Cal Video meeting in the first `n` minutes, as set up in the configuration. |
@@ -80,7 +81,17 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 | Form Submitted (No Event)         | A form is submitted **without** a scheduled event (form-only flow).                                           |
 
 
-### An example webhook payload
+### Seated event types
+
+For event types with [seats enabled](/event-types/offer-seats), the `attendees` array in webhook payloads contains only the attendee associated with the specific seat that triggered the webhook. For example, when a new seat is booked, the webhook includes only that seat's attendee — not all attendees across the entire booking. This applies to all booking-related triggers (`BOOKING_CREATED`, `BOOKING_RESCHEDULED`, etc.).
+
+### Example webhook payloads
+
+Most webhook events use a nested payload format with booking details inside a `payload` object. The `MEETING_STARTED` and `MEETING_ENDED` events use a different flat format where booking fields are at the top level.
+
+#### Booking events (nested format)
+
+Events like `BOOKING_CREATED`, `BOOKING_CANCELLED`, `BOOKING_RESCHEDULED`, and most other triggers use this format:
 
 ```json
 {
@@ -178,7 +189,132 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
         "status": "ACCEPTED"
     }
 }
+```
 
+#### Meeting started / meeting ended (flat format)
+
+`MEETING_STARTED` and `MEETING_ENDED` webhooks use a flat payload format where booking fields are at the top level alongside `triggerEvent`, rather than nested inside a `payload` object. These webhooks are delivered at the scheduled start and end time of the meeting respectively.
+
+```json
+{
+    "triggerEvent": "MEETING_STARTED",
+    "id": 91,
+    "uid": "bFJeNb2uX8ANpT3JL5EfXw",
+    "title": "60min between Pro Example and John Doe",
+    "description": "",
+    "startTime": "2023-05-25T09:30:00.000Z",
+    "endTime": "2023-05-25T10:30:00.000Z",
+    "location": "https://cal.app/video/abc123",
+    "status": "ACCEPTED",
+    "paid": false,
+    "createdAt": "2023-05-24T09:30:00.538Z",
+    "updatedAt": "2023-05-24T09:30:00.538Z",
+    "userId": 5,
+    "eventTypeId": 7,
+    "metadata": {},
+    "responses": {
+        "name": {
+            "label": "your_name",
+            "value": "John Doe"
+        },
+        "email": {
+            "label": "email_address",
+            "value": "john.doe@example.com"
+        }
+    },
+    "user": {
+        "email": "owner@acme.com",
+        "name": "Pro Example",
+        "username": "owner90",
+        "timeZone": "Asia/Kolkata",
+        "locale": "en"
+    },
+    "attendees": [
+        {
+            "id": 201,
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "timeZone": "Asia/Kolkata",
+            "locale": "en",
+            "noShow": false
+        }
+    ],
+    "payment": [],
+    "references": [
+        {
+            "id": 42,
+            "type": "daily_video",
+            "uid": "abc123",
+            "meetingId": "abc123",
+            "meetingUrl": "https://cal.app/video/abc123"
+        }
+    ]
+}
+```
+
+<Note>
+`MEETING_STARTED` and `MEETING_ENDED` webhooks do not support [custom payload templates](#adding-a-custom-payload-template). They always send the full booking data in the flat format shown above.
+</Note>
+
+If a booking is cancelled or rescheduled before the meeting time, the scheduled `MEETING_STARTED` and `MEETING_ENDED` webhooks for that booking are automatically cancelled.
+
+#### Instant meeting accepted
+
+The `INSTANT_MEETING_ACCEPTED` webhook fires when a host accepts an instant meeting request through the connect-and-join flow. It only triggers for the first host to accept — if another host has already accepted the booking, the webhook is not sent again. This trigger is available for team event types only.
+
+The payload includes the booking `status` (set to `ACCEPTED`), the accepting host as the `organizer` with their locale and time format preferences, the guest `attendees` list, booking `responses`, and a `metadata` object containing the `videoCallUrl` for the meeting.
+
+```json
+{
+    "triggerEvent": "INSTANT_MEETING_ACCEPTED",
+    "createdAt": "2025-04-17T10:01:00.000Z",
+    "payload": {
+        "bookingId": 142,
+        "bookingUid": "aB3kL9mNpQ7rS1tU",
+        "eventTypeId": 15,
+        "status": "ACCEPTED",
+        "title": "Instant meeting between Team and Jane Smith",
+        "startTime": "2025-04-17T10:00:00.000Z",
+        "endTime": "2025-04-17T10:30:00.000Z",
+        "organizer": {
+            "id": 8,
+            "name": "Host Example",
+            "email": "host@example.com",
+            "username": "host-example",
+            "timeZone": "America/New_York",
+            "language": {
+                "locale": "en"
+            },
+            "timeFormat": "h:mma",
+            "utcOffset": -300
+        },
+        "attendees": [
+            {
+                "email": "jane.smith@example.com",
+                "name": "Jane Smith",
+                "timeZone": "Europe/London",
+                "language": {
+                    "locale": "en"
+                },
+                "utcOffset": 60
+            }
+        ],
+        "responses": {
+            "name": {
+                "label": "your_name",
+                "value": "Jane Smith"
+            },
+            "email": {
+                "label": "email_address",
+                "value": "jane.smith@example.com"
+            }
+        },
+        "location": "integrations:daily",
+        "metadata": {
+            "videoCallUrl": "https://cal.app/video/aB3kL9mNpQ7rS1tU"
+        }
+    }
+}
 ```
 
 ### Subscriber URL requirements
@@ -234,7 +370,7 @@ where `{{type}}` represents the event type slug and `{{title}}` represents the t
 
 | Variable           | Type      | Description                                                                                                                                                                                                                                         |
 | ------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| triggerEvent       | String    | The name of the trigger event \[BOOKING\_CREATED, BOOKING\_RESCHEDULED, BOOKING\_CANCELLED, MEETING\_ENDED, BOOKING\_REJECTED, BOOKING\_REQUESTED, BOOKING\_PAYMENT\_INITIATED, BOOKING\_PAID, MEETING\_STARTED, RECORDING\_READY, FORM\_SUBMITTED] |
+| triggerEvent       | String    | The name of the trigger event \[BOOKING\_CREATED, BOOKING\_RESCHEDULED, BOOKING\_CANCELLED, MEETING\_ENDED, BOOKING\_REJECTED, BOOKING\_REQUESTED, BOOKING\_PAYMENT\_INITIATED, BOOKING\_PAID, MEETING\_STARTED, RECORDING\_READY, INSTANT\_MEETING, INSTANT\_MEETING\_ACCEPTED, FORM\_SUBMITTED] |
 | createdAt          | Datetime  | The Time of the webhook                                                                                                                                                                                                                             |
 | type               | String    | The event type slug                                                                                                                                                                                                                                 |
 | title              | String    | The event type name                                                                                                                                                                                                                                 |
@@ -243,7 +379,7 @@ where `{{type}}` represents the event type slug and `{{title}}` represents the t
 | description        | String    | The event's description as described in the event type settings                                                                                                                                                                                     |
 | location           | String    | Location of the event                                                                                                                                                                                                                               |
 | organizer          | Organizer | The organizer of the event                                                                                                                                                                                                                          |
-| attendees          | Attendee\[] | The event booker & any guests                                                                                                                                                                                                                     |
+| attendees          | Attendee\[] | The event booker & any guests. For [seated event types](/event-types/offer-seats), this contains only the attendee for the specific seat that triggered the webhook. |
 | uid                | String    | The UID of the booking                                                                                                                                                                                                                              |
 | rescheduleUid      | String    | The UID for rescheduling                                                                                                                                                                                                                            |
 | cancellationReason | String    | Reason for cancellation                                                                                                                                                                                                                             |

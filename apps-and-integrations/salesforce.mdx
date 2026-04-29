@@ -68,10 +68,18 @@ This option is available for round robin events. When this option is enabled, yo
 Options to search ownership against
 - Lead
 - Contact
-- Account ([Determining which account an attendee belongs to](#determining-if-an-attendee-belongs-under-an-account)) 
+- Account — Cal.com uses the full [account resolution waterfall](#determining-if-an-attendee-belongs-under-an-account) to find the matching account. If the initial lookup returns no results, Cal.com automatically falls back to normalized website matching and, when enabled, [fuzzy cross-TLD matching](#cross-tld-fuzzy-domain-matching). This means attendees with regional email domains (for example, `user@acme.co.uk`) can still be matched to the correct account owner even if the account's website is listed as `acme.com`.
 
 #### If attendee has a free email domain, skip the ownership check and round robin as normal
-If this option is enabled, if the attendee has a free email domain (ex. gmail.com) then ignore any Salesforce ownership checks.
+If this option is enabled, attendees with free email domains (for example, gmail.com, yahoo.com, or outlook.com) skip the Salesforce ownership check entirely and go through normal round robin assignment. This applies to all ownership lookup types, including Account-based lookups.
+
+## Viewing routing traces for Salesforce-routed bookings
+
+When a booking is routed through Salesforce ownership — even without a routing form — Cal.com records a routing trace that shows how the host was selected. You can view the trace from the bookings list (via the actions menu) or from the booking detail page.
+
+This is useful for verifying that Salesforce-based routing resolved to the correct owner and for troubleshooting assignment issues.
+
+For more details on routing traces, see [Routing overview](/routing/routing-overview#5-routing-trace).
 
 #### On cancelled booking, write to event record instead of deleting event
 When this option is enabled, instead of deleting the event record we write to specific fields. To write to a field you need the following:
@@ -90,17 +98,352 @@ When this option is enabled, instead of deleting the event record we write to sp
     - When the field is empty
     - On every booking, overwriting the previous values
 
+#### On cancelled booking, write to a custom field on the attendee record
+When this option is enabled, cancelling a booking updates fields on the attendee's contact or lead record in Salesforce. This is useful when you want to track cancellation status directly on the person's record rather than (or in addition to) the event record.
+
+To configure, provide:
+- The API field name ex. `Custom_Field__c`
+- The field type in Salesforce. We current support the following types:
+    - Text (`text`, `textarea` )
+    - Date (`date`, `datetime`)
+    - Phone
+    - Checkbox
+    - Picklist
+    - Custom (ignores field validations)
+- The value that you want to pass to the field ([Mapping data from Cal.com to Salesforce](#mapping-data-from-cal-com-to-salesforce))
+    - For checkbox fields, you can choose whether to pass true or false
+    - For picklist fields, the value passed needs to match the value of a picklist option
+- When to write to the field
+    - When the field is empty
+    - On every cancellation, overwriting the previous values
+
+<Tip>
+  You can use both the "write to event record" and "write to attendee record" options together. For example, you might mark the event as cancelled while also updating a status field on the contact or lead.
+</Tip>
+
+#### Match accounts by base domain across TLDs (fuzzy matching)
+This option is available when adding events on **Account** or **Lead** records. When enabled, Cal.com uses fuzzy domain matching to find the right Salesforce account even when the attendee's email domain uses a different top-level domain (TLD) than the account's website.
+
+For example, if an attendee's email is `user@acme.co.uk` and the Salesforce account has `acme.com` as its website, Cal.com strips the TLD from both and matches them by the base domain (`acme`). This is useful for companies that use country-specific email domains.
+
+Fuzzy matching runs only after exact and normalized website matching have been attempted. Free email domains (e.g. `gmail.com`) are excluded automatically.
+
 #### Send no show attendee data to event object
 When this option is enabled, we set the specific checkbox field to true when an attendee is marked as no-show in Cal.com
 
+## Record type filtering
+
+Salesforce objects can have multiple record types — for example, your contacts may include both "Business Contact" and "Person Account" types. You can exclude specific record types so that Cal.com only looks up or creates records of the types you want.
+
+<Steps>
+  <Step title="Open Salesforce settings">
+    Navigate to the event type's **Apps** tab and expand the Salesforce section.
+  </Step>
+  <Step title="Find the record type exclusion setting">
+    Below the attendee record type selector, look for the **Exclude Record Types** setting.
+  </Step>
+  <Step title="Select record types to exclude">
+    Cal.com fetches the available record types from your Salesforce org. Select any record types you want to skip during contact or lead lookups. Records matching excluded types are filtered out of results.
+  </Step>
+  <Step title="Save">
+    Save your event type. Future bookings only match records whose record type is not in the exclusion list.
+  </Step>
+</Steps>
+
+<Note>
+  Record type matching is case-insensitive. This setting applies to both lookups and record creation — Cal.com does not create records with an excluded record type.
+</Note>
+
+## Field mapping validation
+
+Cal.com validates your Salesforce field mappings when you save event type settings. If a field mapping has a type mismatch — for example, a non-boolean value mapped to a checkbox field, or an empty value for a required text field — Cal.com displays an inline error and prevents the save.
+
+| Field type | Validation rule |
+|---|---|
+| Checkbox | Value must be a boolean (`true` or `false`) |
+| Date | Must reference a valid dynamic date value (e.g., `booking_start_date`, `booking_created_date`, or `booking_cancel_date`) |
+| Text, phone, picklist, textarea | Value must be a non-empty string |
+| Custom | No automatic validation — values are passed through as-is |
+
+## Sync error notifications
+
+When a Salesforce sync fails at booking time — for example, due to a permission error or an invalid field — Cal.com stores the error and displays a diagnostic notification on the Salesforce settings tab. The notification includes:
+
+- The error code and message
+- Which fields were dropped from the sync
+- A timestamp of when the error occurred
+
+This helps you identify and fix integration issues without needing to check Salesforce logs directly.
+
+## Cross-TLD fuzzy domain matching
+
+When using the **Contact under Account** attendee record type, Cal.com resolves the attendee's Salesforce account by matching their email domain against account `Website` fields. By default, this lookup requires an exact domain match — `acme.com` only matches accounts whose website is on `acme.com`.
+
+With **cross-TLD fuzzy domain matching** enabled, Cal.com also matches across different top-level domains. An attendee with an `@acme.co.uk` email can be matched to a Salesforce account whose website is `acme.com`, `acme.de`, or any other TLD variant sharing the same base domain.
+
+Fuzzy domain matching is a per-credential toggle — enable it in your Salesforce connection settings, and it applies to all event types using that credential.
+
+### How account resolution works
+
+Cal.com resolves the attendee's Salesforce account using a multi-step waterfall:
+
+1. **Exact match** — Look for an account whose `Website` exactly matches the attendee's email domain (for example, `acme.com`)
+2. **Normalized match** — Strip URL prefixes like `www.`, `http://`, and trailing paths, then retry the exact match
+3. **Contact email match** — Search for existing contacts whose email domain matches, and use their linked account
+4. **Fuzzy cross-TLD match** — Extract the base domain (for example, `acme` from `acme.co.uk`) and match it against all account websites regardless of TLD
+
+Cal.com uses the first match found. If multiple accounts match at any step, the [tiebreaker waterfall](#tiebreaker-waterfall) runs to select the best candidate. If no account is resolved at any step, the integration falls back to the behavior configured in your event type settings.
+
+This same resolution waterfall also runs for [Account-based round robin ownership lookups](#if-attendee-exists-in-salesforce,-book-directly-with-the-owner). If the initial Account lookup returns no results, Cal.com falls back through normalized and fuzzy matching to find the correct account owner.
+
+<Note>
+  Fuzzy matching applies to the **Contact under Account** attendee record type and to **Account-based round robin ownership lookups**. It does not affect contact-only or lead-only lookups.
+</Note>
+
+### When to use fuzzy matching
+
+Fuzzy domain matching is useful when:
+
+- Your Salesforce accounts have websites on a single TLD (for example, `acme.com`) but attendees book from regional email domains (for example, `@acme.co.uk`, `@acme.de`)
+- You want to automatically link international attendees to the correct parent account without creating duplicate records
+- Your organization operates across multiple country domains under the same brand
+
+### Tiebreaker waterfall
+
+When multiple Salesforce accounts match a domain during account resolution, Cal.com runs a tiebreaker waterfall to select the best candidate. This is especially relevant for round robin event types where the resolved account owner determines which host receives the booking.
+
+You can customize which tiebreaker rules are active and the order in which they run. By default, all nine rules are enabled in the order shown below. The first criterion that produces a single winner ends the waterfall:
+
+| Default priority | Rule | Category | Description |
+|---|---|---|---|
+| 1 | Sub-region match | Geo | Account whose custom sub-region field matches the booker's sub-region (geo tiebreaker only) |
+| 2 | Country + state + zip match | Geo | Account whose billing address matches the booker's country, state, and postal code (geo tiebreaker only) |
+| 3 | Country + state match | Geo | Account whose billing country and state match the booker's (geo tiebreaker only) |
+| 4 | Country match | Geo | Account whose billing country matches the booker's (geo tiebreaker only) |
+| 5 | Most child accounts | Size | Account with the highest number of child accounts in its hierarchy |
+| 6 | Most opportunities | Size | Account with the highest number of related opportunities |
+| 7 | Most contacts | Size | Account with the most related contact records |
+| 8 | Most recent activity | Recency | Account with the most recent `LastActivityDate` |
+| 9 | Oldest account | Age | Account with the oldest `CreatedDate` (longest-standing relationship) |
+
+Geo rules (1–4) only apply when a booking comes through a routing form that collects the booker's location. They are skipped for direct bookings. If geo tiebreaker is not configured, those rules are skipped. If all active criteria result in a tie, Cal.com falls back to round robin assignment.
+
+#### Configuring tiebreaker rules
+
+You can enable, disable, reorder, add, and remove tiebreaker rules from your event type's Salesforce settings.
+
+<Steps>
+  <Step title="Open Salesforce settings">
+    Navigate to the event type's **Apps** tab and expand the Salesforce section.
+  </Step>
+  <Step title="Find the tiebreaker priority rules section">
+    Scroll to **Tiebreaker Priority Rules**. Use the toggle to enable or disable the entire tiebreaker waterfall.
+  </Step>
+  <Step title="Reorder rules">
+    Hover over a rule and use the arrow buttons to move it up or down. Rules at the top are evaluated first.
+  </Step>
+  <Step title="Remove a rule">
+    Click the trash icon on any rule you do not need. Removing a rule means it is skipped during account resolution.
+  </Step>
+  <Step title="Add a rule">
+    Click **Add rule** below the list to add a rule that was previously removed. Select the rule from the dropdown — each rule shows a description and category to help you decide.
+  </Step>
+  <Step title="Save">
+    Save your event type. The updated rule order and selection apply to new bookings immediately.
+  </Step>
+</Steps>
+
+<Tip>
+  If no tiebreaker rules resolve the tie, Cal.com falls back to standard round robin assignment. You can see which rule decided a booking in the [routing trace](/routing/routing-overview#5-routing-trace).
+</Tip>
+
+#### Host filtering
+
+For round robin event types, candidates are filtered before the tiebreaker runs. Only account owners who are hosts on the event type are eligible. If this filter removes all candidates, Cal.com falls back to standard round robin assignment.
+
+### Geo tiebreaker
+
+The geo tiebreaker lets Cal.com prefer the Salesforce account that is geographically closest to the booker when multiple accounts match. It compares the booker's location against each candidate account's billing address fields (`BillingCountry`, `BillingState`, `BillingPostalCode`) and an optional custom sub-region field. The closest geographic match wins before any size or recency-based tiebreakers run.
+
+Geo tiebreakers only apply when a booking comes through a routing form — they are skipped for direct bookings.
+
+#### Convention-based field identifiers
+
+The simplest way to enable geo tiebreakers is to add fields to your routing form using the standard identifiers below. Cal.com detects these automatically with no per-route configuration required.
+
+| Field identifier | Description | Matches against | IP fallback |
+|---|---|---|---|
+| `country` | The booker's country (ISO code or name) | Account `BillingCountry` | Yes |
+| `state` | The booker's state or region | Account `BillingState` | Yes |
+| `zip` | The booker's ZIP or postal code | Account `BillingPostalCode` | No |
+| `sub_region` | A custom sub-region value | A custom field on the Account object | No |
+
+Use the exact identifier shown (lowercase, snake_case). The field label displayed to the booker can be anything you want.
+
+When a `country` or `state` form field is missing or left blank, Cal.com automatically falls back to the booker's IP geolocation to determine their country and state. ZIP and sub-region do not have an IP fallback.
+
+<Tip>
+  When any geo tiebreaker rule is active, a **"How do geo tiebreakers read booker location?"** link appears in the tiebreaker rules section. Click it to see the field identifiers and which rules use each field.
+</Tip>
+
+#### Configuring geo tiebreaker per route
+
+You can also configure the geo tiebreaker on individual routes within a routing form. This is available when the Salesforce routing option is set to **Route to custom lookup field** and gives you control over the field mapping on a per-route basis.
+
+<Steps>
+  <Step title="Open the routing form">
+    Navigate to **Routing Forms** and select the form you want to configure.
+  </Step>
+  <Step title="Select a route">
+    Choose the route where you want to enable geographic tiebreaking. The route must use the **Route to custom lookup field** Salesforce option.
+  </Step>
+  <Step title="Enable geo tiebreaker">
+    Toggle **Geo tiebreaker** on. A configuration panel appears with the following fields.
+  </Step>
+  <Step title="Map booker location fields">
+    Enter the routing form field identifiers that capture the booker's location. These are the identifiers of fields on your routing form, not Salesforce field names.
+
+    | Setting | Description | Example value |
+    |---|---|---|
+    | Booker country field identifier | The form field that captures the booker's country | `country` |
+    | Booker state field identifier | The form field that captures the booker's state or region | `state` |
+    | Booker zip/postal code field identifier | The form field that captures the booker's postal code | `zip` |
+    | Booker sub-region field identifier | (Optional) A form field for a custom sub-region value | `sub_region` |
+  </Step>
+  <Step title="Map the Salesforce sub-region field (optional)">
+    If you use a custom sub-region field on the Account object in Salesforce, enter its API name in the **Salesforce sub-region field API name** setting (for example, `Sub_Region_DV__c`). This enables priority 1 matching in the tiebreaker waterfall.
+  </Step>
+  <Step title="Enable IP geolocation fallback (optional)">
+    Toggle **Use IP geolocation as fallback** if you want Cal.com to use the booker's IP address to determine their country and state when the routing form fields are empty. This uses standard geolocation headers from the hosting provider.
+  </Step>
+  <Step title="Save the routing form">
+    Save your changes. The geo tiebreaker takes effect for new bookings routed through this form.
+  </Step>
+</Steps>
+
+#### How geo matching works
+
+When the geo tiebreaker is enabled, Cal.com compares the booker's location against each candidate account's Salesforce billing address in this order:
+
+1. **Sub-region** — If configured, check whether the account's custom sub-region field matches the booker's sub-region value. This is useful for organizations that segment territories by custom regions.
+2. **Country + state + zip** — Match the account's `BillingCountry`, `BillingState`, and `BillingPostalCode` against the booker's location.
+3. **Country + state** — Match on country and state only, ignoring postal code.
+4. **Country** — Match on country only.
+
+The first level that narrows candidates to a single account wins. If multiple accounts still tie after all geographic checks, the waterfall continues with size and recency-based criteria (child accounts, opportunities, contacts, recent activity, and creation date).
+
+<Note>
+  The geo tiebreaker only applies when bookings come through a routing form. It does not apply to direct bookings or event type-level Salesforce settings. Per-route configuration is only available when the route uses the **Route to custom lookup field** Salesforce option.
+</Note>
+
+## Field mapping validation
+
+Cal.com validates your Salesforce field mappings at two points to help you catch configuration issues early.
+
+### Inline validation
+
+When you add or edit a field mapping entry, Cal.com checks that the value you provide is compatible with the selected field type:
+
+- **Checkbox** fields require a boolean value (True or False). Entering text triggers an error.
+- **Date** fields require a valid date reference (such as Booking Start Date or Booking Created Date).
+- **Text**, **Phone**, **Picklist**, and **Custom** fields require a non-empty text value.
+
+If a value is invalid, an error message appears directly below the field mapping row so you can correct it before saving.
+
+### Save-time validation
+
+When you save your event type settings, Cal.com connects to your Salesforce org and validates each field mapping against the actual Salesforce schema. The following checks run automatically:
+
+- **Field existence** — the API field name must exist on the Salesforce object.
+- **Writability** — the field must not be read-only.
+- **Type compatibility** — if you configured a field as Checkbox, the Salesforce field must be a boolean (and vice versa).
+- **Picklist values** — for Picklist fields, the value you entered must match one of the active picklist options in Salesforce.
+- **Field name casing** — the field name must match the exact casing used in Salesforce (for example, `Custom_Field__c` instead of `custom_field__c`).
+
+If any check fails, the save is blocked and you see an error message describing which field has the problem and what needs to be fixed.
+
+<Tip>
+  If your Salesforce connection is inactive or unreachable, save-time validation is skipped so that you can still save other event type settings. Reconnect Salesforce to re-enable validation.
+</Tip>
+
+### Sync error notifications
+
+If a booking triggers a write to Salesforce and it fails at runtime, Cal.com stores the error details and displays a diagnostic notification banner at the top of the Salesforce settings tab for that event type. The banner includes:
+
+- **Error code** — the Salesforce error code (for example, `FIELD_CUSTOM_VALIDATION_EXCEPTION`).
+- **Error message** — a description of what went wrong.
+- **Dropped fields** — if custom fields caused the failure, the fields that were removed from the write so the booking could still be created.
+- **Timestamp** — when the error occurred.
+
+You can dismiss the banner after reviewing the error. To prevent the error from recurring, update your field mappings using the guidance in the error message.
 
 ## Appendix
 
 #### Determining if an attendee belongs under an account
-We determine if an attendee belongs under an account in the following order
-- If there is a contact that matches the attendee's email that belongs to an account
-- If there is an account where the `Website` field matches the email domain of the attendee
-- If there are multiple contacts that share the same email domain of the attendee, determine which account the majority of the contacts belong to
+
+Cal.com resolves the attendee's Salesforce Account using a multi-step waterfall:
+
+1. **Exact website match** — Check Account `Website` fields for an exact domain match against the attendee's email domain
+2. **Normalized website match** — Strip protocols, paths, ports, and trailing slashes from Account `Website` values before comparing. This means accounts with website values like `https://www.acme.com/about/` or `HTTP://ACME.COM:443/en/` still match an attendee with an `@acme.com` email.
+3. **Contact email match** — Search for existing contacts whose email domain matches, and use their linked Account
+4. **Fuzzy cross-TLD match** — Extract the base domain (for example, `acme` from `acme.co.uk`) and match it against all Account websites regardless of TLD
+
+Cal.com uses the first match found. If multiple Accounts match at any step, the [tiebreaker waterfall](#tiebreaker-waterfall) runs to select the best candidate. If no Account is resolved at any step, the integration falls back to the behavior configured in your event type settings.
+
+#### Tiebreaker waterfall
+
+When multiple Salesforce Accounts match a domain during account resolution, Cal.com runs a configurable tiebreaker waterfall to select the best candidate. This is especially relevant for round-robin event types where the resolved Account owner determines which host receives the booking.
+
+You can customize which rules are active and their priority order in your event type's Salesforce settings under **Tiebreaker Priority Rules**. See [Configuring tiebreaker rules](#configuring-tiebreaker-rules) for step-by-step instructions.
+
+By default, all nine rules are enabled. The first criterion that produces a single winner ends the waterfall:
+
+| Default priority | Rule | Category | Description |
+|---|---|---|---|
+| 1 | Sub-region match | Geo | Account whose custom sub-region field matches the booker's sub-region (geo tiebreaker only) |
+| 2 | Country + state + zip match | Geo | Account whose billing address matches the booker's country, state, and postal code (geo tiebreaker only) |
+| 3 | Country + state match | Geo | Account whose billing country and state match the booker's (geo tiebreaker only) |
+| 4 | Country match | Geo | Account whose billing country matches the booker's (geo tiebreaker only) |
+| 5 | Most child accounts | Size | Account with the highest number of child Accounts in its hierarchy |
+| 6 | Most opportunities | Size | Account with the highest number of related Opportunities |
+| 7 | Most contacts | Size | Account with the most related Contact records |
+| 8 | Most recent activity | Recency | Account with the most recent `LastActivityDate` |
+| 9 | Oldest account | Age | Account with the oldest `CreatedDate` (longest-standing relationship) |
+
+Geo rules (1–4) only apply when a booking comes through a routing form that collects the booker's location. They are skipped for direct bookings. If geo tiebreaker is not configured, those rules are skipped. If all active criteria result in a tie, Cal.com falls back to round-robin assignment.
+
+For round-robin event types, candidates are filtered before the tiebreaker runs. Only Account owners who are hosts on the event type are eligible. If this filter removes all candidates, Cal.com falls back to standard round-robin assignment.
+
+#### Record type filtering
+
+You can exclude specific Salesforce record types from account resolution. When record type filtering is enabled, Accounts with excluded record types are skipped during the resolution waterfall. This prevents Cal.com from matching against Accounts that are not relevant to booking routing, such as partner or vendor accounts.
+
+Configure record type filtering in the Salesforce section of your event type's **Apps** tab.
+
+#### When to use fuzzy matching
+
+Fuzzy domain matching is useful when:
+
+- Your Salesforce org has accounts with different TLDs (for example, `acme.com` and `acme.co.uk`)
+- Attendees book from regional email domains that differ from the main account website
+- You want Cal.com to match attendees to the correct account without manually maintaining every domain variant
+
+<Note>
+  Fuzzy matching applies to the **Contact under Account** attendee record type and to **Account-based round robin ownership lookups**. It does not affect Contact-only or Lead-only lookups.
+</Note>
+
+#### Field mapping validation
+
+Cal.com validates your Salesforce field mappings when you save event type settings. If a field mapping has a type mismatch — for example, a non-boolean value mapped to a checkbox field, or an empty value for a required text field — Cal.com displays an inline error and prevents the save.
+
+If a sync error occurs at runtime (for example, a field was deleted in Salesforce after configuration), Cal.com stores the error and displays a diagnostic notification on the Salesforce settings tab. The notification includes the error code, message, any dropped fields, and a timestamp to help you troubleshoot.
+
+| Field type | Validation rule |
+|---|---|
+| Checkbox | Value must be a boolean (`true` or `false`) |
+| Date | Must reference a valid dynamic date value (e.g., `booking_start_date`) |
+| Text, phone, picklist, textarea | Value must be a non-empty string |
+| Custom | No automatic validation — values are passed through as-is |
 
 #### Mapping data from Cal.com to Salesforce
 When writing to fields in Salesforce, you can pass data from different sources in Cal.com

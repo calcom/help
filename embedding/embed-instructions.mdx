@@ -28,6 +28,17 @@ Configure `ui` for embed. Make it look part of your webpage.
 </script>
 ```
 - `styles` - It supports styling for body and eventTypeListItem. Right now we support just background on these two.
+- `hideEventTypeDetails` - When `true`, the event type details card (title, duration, description) is hidden so only the calendar and time slots are shown.
+- `showTimezoneWhenEventDetailsHidden` - When `true` and used together with `hideEventTypeDetails: true`, the timezone selector is rendered above the booker. Use this when you have hidden the event type details card but still want bookers to be able to see and change their timezone before picking a slot. Defaults to `false`.
+
+```js
+<script>
+  Cal("ui", {
+    hideEventTypeDetails: true,
+    showTimezoneWhenEventDetailsHidden: true,
+  });
+</script>
+```
 
 #### Preload
 
@@ -40,3 +51,24 @@ To open cal link on some action, make it pop open instantly by using `preload`.
 ```
 
 - `calLink` - Cal Link that you want to embed e.g. john. Just give the username. No need to give the full URL https://cal.com/john
+
+#### Close modal
+
+Programmatically closes a modal-based embed shown as a pop-up (for example, when opened via an element click or the floating button).
+
+```js
+<script>
+  Cal("closeModal");
+</script>
+```
+
+**Supported embed types:**
+- Pop-up via element click
+- Floating button pop-up
+
+**Namespaced usage:**
+```js
+<script>
+  Cal.ns.yournamespace("closeModal");
+</script>
+```

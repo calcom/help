@@ -1,33 +1,60 @@
 ---
 title: "Managed Events"
+description: "Create and manage shared event types for your team from one place."
 ---
 
+Team admins can manage event types for their members, making it easy to create common event types for all members and manage them from one place.
 
-Team admins now have the ability to manage event-types for their members, to facilitate creating common event-types for all members and managing them from one place.
+A managed event type comes with certain fields locked by the team admin, and certain fields open to be modified by the team members receiving the managed event.
 
-A managed event-type comes with certain fields locked by the team admin, and certain fields open to be modified by the team members receiving the managed event.
-
-Please take into account that Managed Events v2 do not support Webhooks and Apps. Subsequent releases of this feature will tackle them.
+<Note>
+  Managed Events v2 do not currently support Webhooks and Apps. Support for these will be added in a future release.
+</Note>
 
 ## Creation
 
-Be sure to be a team admin, and in case you are self-hosting, have the \`managed-event-types\`\` operational feature flag turned on.
+Be sure to be a team admin, and in case you are self-hosting, have the `managed-event-types` operational feature flag turned on.
 
-When creating a team event-type, you will be getting the option to create a Managed Event like so:
+When creating a team event type, you will get the option to create a Managed Event.
 
 ## Management
 
-Once the managed event-type is created, you will be able to set all the fields you want to manage as a team admin. You can distinguish fields that will be locked by team members by the "lock" icon next to the field label, like so:
+Once the managed event type is created, you can set all the fields you want to manage as a team admin. You can distinguish fields that will be locked for team members by the "lock" icon next to the field label.
+
+### URL slug
+
+Managed event types do not expose a URL slug field on the parent template. Each assigned team member receives their own copy of the event with a booking link based on their personal username (for example, `cal.com/your-username/30min`), so there is no shared URL to configure on the parent.
 
 ## Assignment
 
-A crucial part of a managed event-type is the assignment of team members, so managed event-types can be created on your behalf.
+A crucial part of a managed event type is the assignment of team members, so managed event types can be created on your behalf.
 
-Think of the managed-event you created as a team admin as an event template, that team members will get regular event types from it once they are assign to it.
+Think of the managed event you created as a team admin as an event template. Team members will get regular event types from it once they are assigned to it.
 
-Whenever you make changes to locked fields, every team member will also get the same change on their regular event type created upon this managed event-type. Note that unlocked fields will not have any effect on already created event types for assigned members, only for new assign members.
+Whenever you make changes to locked fields, every team member will also get the same change on their regular event type created from this managed event type. Unlocked fields will not affect already-created event types for assigned members, only new members.
 
-Take into consideration that whenever you try to assign a managed event-type to a team member that already has an event-type with the same slug, you will be getting a pop-up message to confirm you want to proceed to delete the existing conflicting event-type from the team member and notify them about this so the managed-event type can be created in its place. Like so:
+### Slug conflicts
 
+When you assign a managed event type to a team member who already has a personal event type with the same slug (URL), Cal.com will show a confirmation dialog. If you proceed:
 
-For which, team members notified will be getting the following email notification.
+- The team member's personal event type is **hidden and renamed** rather than deleted. They can still find it on their event types page if needed.
+- The managed event type takes over the booking link at that slug.
+- The team member receives an email notification explaining that their booking link has been replaced by a managed event type.
+
+This also applies when you enable the **Assign all team members** toggle. A warning dialog will inform you that any current or future team member with a conflicting slug will have their booking link replaced automatically.
+
+## No-availability notifications
+
+When a booker visits a managed event type and sees no available time slots, organization admins are notified so they can fix the issue. For managed event types, Cal.com sends a single **digest email** instead of individual emails for each affected member. This prevents inbox overload when many members have no availability at the same time.
+
+The digest email includes:
+
+- The name of the managed event type
+- A list of all team members who had no availability
+- A link to check team availability settings
+
+Digest emails are sent at most once every 24 hours per managed event type. To receive these notifications, an organization admin must enable the **Get notifications when your team has no availability** toggle in organization settings.
+
+<Note>
+  This setting applies to the entire organization. Go to **Settings** → **Organization** → **General** and enable the no-availability notifications toggle.
+</Note>
