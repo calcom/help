@@ -100,6 +100,27 @@ To initiate the OAuth flow, direct users to the following authorization URL:
 https://app.cal.com/auth/oauth2/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&state=YOUR_STATE&scope=BOOKING_READ%20BOOKING_WRITE
 ```
 
+### Rotating client secrets
+
+You can rotate your OAuth client secret without downtime. Cal.com supports up to two active secrets per client at the same time, so you can transition gracefully.
+
+<Steps>
+  <Step title="Generate a new secret">
+    In your Cal.com dashboard, go to your OAuth client settings and create a new secret. Both your old and new secrets are now valid.
+  </Step>
+  <Step title="Update your application">
+    Replace the old `client_secret` value in your application with the new one. Verify that token exchanges and refreshes work with the new secret.
+  </Step>
+  <Step title="Delete the old secret">
+    Once your application is using the new secret, delete the old one from your OAuth client settings.
+  </Step>
+</Steps>
+
+<Warning>
+  You cannot delete your last remaining secret. Confidential OAuth clients must always have at least one active secret.
+</Warning>
+
+### Authorization URL
 **URL parameters:**
 
 | Parameter | Required | Description |
