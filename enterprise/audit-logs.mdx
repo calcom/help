@@ -44,7 +44,10 @@ Cal.com also tracks security-related actions for your organization. These events
 | **Account locked** | When an admin locks a user account |
 | **Account unlocked** | When an admin unlocks a previously locked user account |
 | **Login** | When a user signs in, including both successful logins and failed login attempts (for example, wrong password, locked account, or failed two-factor verification) |
+| **SSO login** | When a user signs in successfully through SAML single sign-on, including the identity provider used |
 | **Password changed** | When a user updates their password |
+| **Password reset requested** | When a password reset email is requested, either by the user from the forgot password page or by an organization admin on a member's behalf |
+| **Invitation sent** | When a team or organization invitation is sent or resent, including the email addresses invited and the team or organization the invite was for |
 | **Two-factor enabled** | When a user turns on two-factor authentication |
 | **Two-factor disabled** | When a user turns off two-factor authentication |
 | **Impersonation started** | When an admin begins impersonating another user |
@@ -122,6 +125,6 @@ If you see a message that audit logs are not available, contact your organizatio
     Actions performed automatically by Cal.com (rather than by a specific person) are attributed to "Cal.com" as the actor.
   </Accordion>
   <Accordion title="What are security audit events used for?">
-    Security events help organization admins monitor sensitive account activity such as email changes, account locks, login attempts (including failed sign-ins), and authentication changes. These events support compliance and security monitoring across your organization.
+    Security events help organization admins monitor sensitive account activity such as email changes, account locks, login attempts (including failed sign-ins and SAML SSO logins), password reset requests, team and organization invitations, and authentication changes. These events support compliance and security monitoring across your organization.
   </Accordion>
 </AccordionGroup>
