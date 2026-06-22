@@ -186,10 +186,17 @@ Events like `BOOKING_CREATED`, `BOOKING_CANCELLED`, `BOOKING_RESCHEDULED`, and m
         "length": 60,
         "bookingId": 91,
         "metadata": {},
-        "status": "ACCEPTED"
+        "status": "ACCEPTED",
+        "existingRecurringEvent": {
+            "recurringEventId": "abc123_recurrence_id@google.com"
+        }
     }
 }
 ```
+
+<Note>
+For bookings that are part of a recurring series synced to a connected calendar (for example, Google Calendar), the payload includes an `existingRecurringEvent` object containing the `recurringEventId` from the calendar provider. This lets your integration link individual booking instances back to the same recurring series in the third-party calendar. The field is only present when a recurring event ID is available, so check for it before reading.
+</Note>
 
 #### Meeting started / meeting ended (flat format)
 
@@ -387,6 +394,7 @@ where `{{type}}` represents the event type slug and `{{title}}` represents the t
 | team.name          | String    | Name of the team booked                                                                                                                                                                                                                             |
 | team.members       | String\[] | Members of the team booked                                                                                                                                                                                                                          |
 | metadata           | JSON      | Contains a metadata of the booking, including the meeting URL (videoCallUrl) in case of Google Meet and Cal Video                                                                                                                                   |
+| existingRecurringEvent | Object | Present only for bookings that belong to a recurring series synced to a connected calendar. Contains `recurringEventId`, the recurring event ID from the third-party calendar (for example, Google Calendar), so you can group instances of the same recurring booking. |
 
 #### Organizer Structure
 
