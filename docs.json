@@ -32,6 +32,17 @@
                 ]
               },
               {
+                "group": "Account Settings",
+                "icon": {
+                  "name": "gear",
+                  "style": "solid"
+                },
+                "pages": [
+                  "account-settings/settings-overview",
+                  "account-settings/schedule-timezone"
+                ]
+              },
+              {
                 "group": "Enterprise",
                 "icon": {
                   "name": "landmark",
