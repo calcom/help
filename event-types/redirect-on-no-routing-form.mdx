@@ -1,0 +1,37 @@
+---
+title: "Redirect when accessed without a routing form"
+description: "Send visitors who open an event type directly, without going through a routing form, to a URL you control."
+---
+
+This setting lets you send visitors to a URL of your choice when they open an event type directly instead of arriving through a routing form. It's useful for event types that are only meant to receive traffic that has already been qualified by a routing form, so anyone who lands on the booking page some other way gets pointed to the right place.
+
+#### Useful when:
+
+- You use routing forms to qualify leads and only want qualified traffic to reach a specific event type.
+- You want to redirect direct visitors to a marketing page, a general contact form, or a support portal.
+- You want to keep a shareable link tidy without exposing a booking page to unqualified traffic.
+
+#### How to enable:
+
+1. Open the event type you want to configure.
+2. Go to the **Privacy & security** section under **Policies**.
+3. Toggle **Redirect when accessed without routing form**.
+4. Enter the URL you want visitors to be sent to.
+5. Click **Save** in the top-right corner.
+
+Anyone who opens the event type without a routing form response is now redirected to that URL. Visitors who arrive through a routing form still see the normal booking page.
+
+## Domain restriction for organizations
+
+If the event type belongs to an organization, the redirect URL must use the organization's verified domain. This prevents an event type from being used to send visitors to an unrelated or untrusted site.
+
+The URL's hostname must either:
+
+- Exactly match the verified domain (for example, `acme.com`).
+- Be a subdomain of the verified domain (for example, `app.acme.com` or `help.acme.com`).
+
+Any other hostname is rejected when you save, and you'll see a validation error. Personal event types that don't belong to an organization aren't subject to this check.
+
+<Tip>
+  The verified domain comes from your organization's auto-accept email domain. If you're not sure which domain is verified for your organization, ask your organization admin or check your organization settings.
+</Tip>
