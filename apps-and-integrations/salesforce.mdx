@@ -70,6 +70,8 @@ Options to search ownership against
 - Contact
 - Account — Cal.com uses the full [account resolution waterfall](#determining-if-an-attendee-belongs-under-an-account) to find the matching account. If the initial lookup returns no results, Cal.com automatically falls back to normalized website matching and, when enabled, [fuzzy cross-TLD matching](#cross-tld-fuzzy-domain-matching). This means attendees with regional email domains (for example, `user@acme.co.uk`) can still be matched to the correct account owner even if the account's website is listed as `acme.com`.
 
+When this option is enabled, you can also turn on **Show banner with CRM contact owner** to display a banner at the top of the booking page confirming who the attendee is booking with (for example, "Booking directly with jane@acme.com"). The banner only appears when a matching CRM contact owner is resolved for the attendee; otherwise the booking page renders as usual.
+
 #### If attendee has a free email domain, skip the ownership check and round robin as normal
 If this option is enabled, attendees with free email domains (for example, gmail.com, yahoo.com, or outlook.com) skip the Salesforce ownership check entirely and go through normal round robin assignment. This applies to all ownership lookup types, including Account-based lookups.
 
