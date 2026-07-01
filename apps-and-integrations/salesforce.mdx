@@ -286,6 +286,21 @@ When a `country` or `state` form field is missing or left blank, Cal.com automat
   When any geo tiebreaker rule is active, a **"How do geo tiebreakers read booker location?"** link appears in the tiebreaker rules section. Click it to see the field identifiers and which rules use each field.
 </Tip>
 
+### Route to custom lookup field
+
+When routing form routes are set to **Route to custom lookup field**, Cal.com resolves the host by reading a **user lookup field** on the attendee's Salesforce account, instead of using the account's owner. This is useful when you assign bookings to a rep tracked outside of `Account.OwnerId` — for example a `Region_Manager__c` field, or a manager on a related record like a parent account or region.
+
+Enter the field's API name in **Lookup field name**. Two syntaxes are supported:
+
+- **Flat field on the Account** — the API name of a user lookup field defined directly on the Account object, for example `Region_Manager__c`.
+- **Dot-notation to a connected object** — a path that hops through a relationship on the Account and ends at a user lookup field on the connected object, for example `Region__r.Owner__c` or `Parent.Owner__c`.
+
+In a dot-notation path, each intermediate segment is a **relationship name** (custom relationships end in `__r`; standard relationships such as `Parent` or `Owner` are also allowed), and the final segment is the API name of the user lookup field to read on that related object. Only letters, numbers, and underscores are allowed in each segment. Cal.com validates the syntax as you type and shows an inline error if the name is malformed.
+
+<Note>
+  Cal.com follows the first target of a polymorphic lookup. If the resolved value is not a valid user ID — for example the field is empty or the traversal hits a missing record — routing falls back to standard round robin assignment for the event.
+</Note>
+
 #### Configuring geo tiebreaker per route
 
 You can also configure the geo tiebreaker on individual routes within a routing form. This is available when the Salesforce routing option is set to **Route to custom lookup field** and gives you control over the field mapping on a per-route basis.
