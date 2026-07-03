@@ -91,6 +91,7 @@
                   "event-types/booker-active-booking-limit",
                   "event-types/disable-canceling-rescheduling",
                   "event-types/hideorganizersemail",
+                  "event-types/redirect-on-no-routing-form",
                   "event-types/hide-notes",
                   "event-types/how-to-add-location",
                   "event-types/calvideo-advanced-settings",
