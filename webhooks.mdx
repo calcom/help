@@ -50,7 +50,7 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 
     If your subscriber URL does not meet these requirements, the webhook creation request will be rejected with an error.
 
-2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Paid`, `Booking Payment Initiated`, `Booking No-Show Updated`, `Meeting Started`, `Meeting Ended`, `Recording Ready`, `Recording Transcription Generated`, `Instant Meeting Created`, `Instant Meeting Accepted`, `Out of Office Created`, `After Hosts Cal Video No-Show`, `After Guests Cal Video No-Show`, `Form Submitted`, and `Form Submitted (No Event)`.
+2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Paid`, `Booking Payment Initiated`, `Booking No-Show Updated`, `Meeting Started`, `Meeting Ended`, `Recording Ready`, `Recording Transcription Generated`, `Instant Meeting Created`, `Instant Meeting Accepted`, `Out of Office Created`, `After Hosts Cal Video No-Show`, `After Guests Cal Video No-Show`, `Form Submitted`, `Form Submitted (No Event)`, and `Calendar Entry Rejected`.
 
 3. Secret: You can provide a secret key with this webhook and then [verify it](/docs/core-features/webhooks#verifying-the-authenticity-of-the-received-payload) on the subscriber URL when receiving a payload to confirm if the payload is authentic or adulterated. You can leave it blank, if you don't wish to secure the webhook with a secret key.
 
@@ -79,6 +79,7 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 | After Guests Cal Video No-Show    | The attendee did not show up to a Cal Video meeting in the first `n` minutes, as set up in the configuration. |
 | Form Submitted                    | A form is submitted as part of a routing form **with** a scheduled event.                                     |
 | Form Submitted (No Event)         | A form is submitted **without** a scheduled event (form-only flow).                                           |
+| Calendar Entry Rejected           | An external attendee declines a Cal.com event from their connected Google or Microsoft 365 calendar.          |
 
 
 ### Seated event types
@@ -317,6 +318,37 @@ The payload includes the booking `status` (set to `ACCEPTED`), the accepting hos
 }
 ```
 
+#### Calendar entry rejected
+
+The `CALENDAR_ENTRY_REJECTED` webhook fires when an external attendee declines a Cal.com event from their connected Google Calendar or Microsoft 365 calendar. Cal.com detects the decline during calendar sync and dispatches the webhook once per attendee per booking — duplicate syncs do not re-fire the trigger, so you can rely on it as an at-most-once signal.
+
+Use this trigger when you want to react to attendee declines that happen outside Cal.com, for example to notify the host, update a CRM, or offer the attendee a reschedule link. The webhook resolves subscribers at the user, event type, team, and organization levels, so any matching subscription receives the payload.
+
+The payload uses a flat format with `booking`, `calendarEvent`, and `declinedAttendee` objects at the top level:
+
+```json
+{
+    "triggerEvent": "CALENDAR_ENTRY_REJECTED",
+    "createdAt": "2026-06-18T14:22:00.000Z",
+    "booking": {
+        "uid": "aB3kL9mNpQ7rS1tU",
+        "title": "60min between Pro Example and Jane Smith",
+        "startTime": "2026-06-20T09:30:00.000Z",
+        "endTime": "2026-06-20T10:30:00.000Z"
+    },
+    "calendarEvent": {
+        "id": "abc123xyz",
+        "iCalUID": "abc123xyz@google.com",
+        "provider": "google_calendar"
+    },
+    "declinedAttendee": {
+        "email": "jane.smith@example.com"
+    }
+}
+```
+
+The `provider` field is `google_calendar` or `office365_calendar` depending on where the decline originated.
+
 ### Subscriber URL requirements
 
 Cal.com validates webhook subscriber URLs to protect against server-side request forgery (SSRF). The validation rules depend on whether you are using Cal.com Cloud or a self-hosted instance.
@@ -370,7 +402,7 @@ where `{{type}}` represents the event type slug and `{{title}}` represents the t
 
 | Variable           | Type      | Description                                                                                                                                                                                                                                         |
 | ------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| triggerEvent       | String    | The name of the trigger event \[BOOKING\_CREATED, BOOKING\_RESCHEDULED, BOOKING\_CANCELLED, MEETING\_ENDED, BOOKING\_REJECTED, BOOKING\_REQUESTED, BOOKING\_PAYMENT\_INITIATED, BOOKING\_PAID, MEETING\_STARTED, RECORDING\_READY, INSTANT\_MEETING, INSTANT\_MEETING\_ACCEPTED, FORM\_SUBMITTED] |
+| triggerEvent       | String    | The name of the trigger event \[BOOKING\_CREATED, BOOKING\_RESCHEDULED, BOOKING\_CANCELLED, MEETING\_ENDED, BOOKING\_REJECTED, BOOKING\_REQUESTED, BOOKING\_PAYMENT\_INITIATED, BOOKING\_PAID, MEETING\_STARTED, RECORDING\_READY, INSTANT\_MEETING, INSTANT\_MEETING\_ACCEPTED, FORM\_SUBMITTED, CALENDAR\_ENTRY\_REJECTED] |
 | createdAt          | Datetime  | The Time of the webhook                                                                                                                                                                                                                             |
 | type               | String    | The event type slug                                                                                                                                                                                                                                 |
 | title              | String    | The event type name                                                                                                                                                                                                                                 |
