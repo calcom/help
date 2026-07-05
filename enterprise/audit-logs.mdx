@@ -1,9 +1,9 @@
 ---
 title: "Audit logs"
-description: "View a detailed history of booking changes and security events across your organization."
+description: "View a detailed history of booking, routing form, and security events across your organization."
 ---
 
-Audit logs give organization admins a complete record of important actions across your organization. This includes a timeline of every change made to bookings, as well as security events like email changes and account locks.
+Audit logs give organization admins a complete record of important actions across your organization. This includes a timeline of every change made to bookings and routing forms, as well as security events like email changes and account locks.
 
 <Note>
   Audit logs are included with every Cal.com organization plan and are turned on by default. You must be an organization or team admin to view them.
@@ -52,6 +52,37 @@ Cal.com also tracks security-related actions for your organization. These events
 
 ---
 
+## Routing form history
+
+Each routing form keeps a history of every change made to its configuration. This helps organization admins audit who edited a form, when the change happened, and exactly what was updated.
+
+The following changes are recorded:
+
+| Event | What it records |
+|---|---|
+| **Form created** | When the form was created, including the initial form name |
+| **Form modified** | Any change to the form's name, description, fields, routes, or settings, including before and after values |
+| **Form deleted** | When the form was removed |
+| **Router-sync change** | When an edit to a router form propagated field changes to a connected form |
+
+Each entry shows the actor who made the change, when it happened, and a structured diff of what was updated — including field additions and renames, route condition changes, and updates to attribute mappings or team members in `sendUpdatesTo`.
+
+### How to view routing form history
+
+<Steps>
+  <Step title="Open the routing form">
+    Go to **Routing** from the main navigation and open the form you want to review.
+  </Step>
+  <Step title="Open the actions menu">
+    In the form editor, open the actions dropdown menu.
+  </Step>
+  <Step title="Select Form history">
+    Choose **Form history** to open the history sheet and view the timeline of changes.
+  </Step>
+</Steps>
+
+---
+
 ## How to view booking audit logs
 
 <Steps>
@@ -96,13 +127,20 @@ Two filters are available above the timeline:
 
 ## Who can access audit logs
 
-Audit log access is controlled by your organization's permission settings:
+Audit log access is controlled by your organization's permission settings. Booking audit logs and routing form history are gated independently, so an admin can grant one without the other.
 
-- **Organization admins and owners** can view audit logs for all bookings and security events in the organization
-- **Team admins and owners** can view audit logs for bookings within their team
-- **Regular members** do not have access to audit logs by default
+- **Organization admins and owners** can view audit logs for all bookings, routing forms, and security events in the organization by default.
+- **Team admins and owners** can view audit logs for bookings and routing forms owned by their team.
+- **Regular members** do not have access to audit logs by default.
 
-If you see a message that audit logs are not available, contact your organization admin to request access.
+To grant a custom role access to routing form history, enable one or both of the following permissions on the role:
+
+- **View team routing form audit logs** — history for forms owned by teams the member belongs to.
+- **View organization routing form audit logs** — history for every routing form in the organization.
+
+Both permissions require the base **View routing forms** permission.
+
+If you see a message that a form's history is not available, contact your organization admin to request access.
 
 ---
 
