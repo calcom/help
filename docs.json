@@ -255,7 +255,8 @@
                 },
                 "pages": [
                   "security/blocklist",
-                  "security/account-lockout"
+                  "security/account-lockout",
+                  "security/report-user"
                 ]
               },
               {

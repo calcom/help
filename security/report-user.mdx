@@ -1,0 +1,104 @@
+---
+title: "Report a user"
+description: "Flag suspicious Cal.com profiles for admin review and manage submitted reports from the Abuse Control panel."
+---
+
+You can report a Cal.com user profile if you believe it violates Cal.com's policies, for example if the profile is used for spam, phishing, impersonation, harassment, or other inappropriate content. Reports go to system admins for review inside the **Abuse Control** panel.
+
+---
+
+## Reporting a profile
+
+The **Report** button appears at the bottom-right of a public profile page (`cal.com/username`), just below the profile card.
+
+<Steps>
+  <Step title="Open the public profile">
+    Visit the profile you want to report, for example `cal.com/username`. You must be signed in to Cal.com to see the **Report** button.
+  </Step>
+  <Step title="Select Report">
+    Select **Report** at the bottom-right of the page.
+  </Step>
+  <Step title="Choose a reason">
+    Pick the reason that best matches the issue:
+
+    - **Spam**
+    - **Phishing**
+    - **Impersonation**
+    - **Harassment or abuse**
+    - **Inappropriate content**
+    - **Other**
+  </Step>
+  <Step title="Add optional context">
+    Add a short description if the reason needs extra context (for example, a link to the impersonated account). The description is optional.
+  </Step>
+  <Step title="Submit">
+    Select **Submit**. A toast confirms the report was received.
+  </Step>
+</Steps>
+
+<Note>
+  You can submit only one report against the same user every 24 hours. A second submission within that window returns a friendly error.
+</Note>
+
+### When the Report button is hidden
+
+The **Report** button is intentionally hidden in these cases:
+
+- You are viewing your own profile.
+- You are not signed in.
+- The profile belongs to a member of an organization (organization admins handle abuse for their members internally).
+
+---
+
+## Reviewing reports (admins)
+
+System admins review submitted reports in the **Reports** tab of the **Abuse Control** panel.
+
+<Steps>
+  <Step title="Open Abuse Control">
+    Go to [`/settings/admin/abuse-rules`](https://app.cal.com/settings/admin/abuse-rules).
+  </Step>
+  <Step title="Open the Reports tab">
+    Select the **Reports** tab, next to **Rules**, **Locked users**, and **Configuration**.
+  </Step>
+  <Step title="Filter the queue">
+    Filter by status (**Pending**, **Reviewed**, **Actioned**, **Dismissed**) or reason, or use the search box to find a specific reported user or reporter.
+  </Step>
+  <Step title="Take action on a report">
+    For any pending row, choose one of the row actions:
+
+    - **Mark reviewed** — you've looked at the report but aren't taking further action yet.
+    - **Dismiss** — the report doesn't warrant action and should be closed.
+
+    Once a report reaches a terminal state (**Actioned** or **Dismissed**), the row actions are hidden.
+  </Step>
+</Steps>
+
+Each row shows the reported user, the reporter, the selected reason, the optional description, the current status, and when the report was created.
+
+---
+
+## Report statuses
+
+| Status         | Meaning                                                                 |
+| -------------- | ----------------------------------------------------------------------- |
+| **Pending**    | New report awaiting admin review.                                       |
+| **Reviewed**   | An admin has looked at the report but hasn't taken further action yet.  |
+| **Actioned**   | An admin acted on the report (for example, the reported user was locked or removed). |
+| **Dismissed**  | The report was closed without action.                                   |
+
+---
+
+## FAQs
+
+**Q: Does the reported user see who reported them?**\
+**A:** No. Reports are only visible to system admins.
+
+**Q: Can I report the same user multiple times?**\
+**A:** You can submit one report per user every 24 hours. Additional reports within that window are blocked to prevent abuse of the reporting system.
+
+**Q: Can I report an organization member?**\
+**A:** No. Profiles belonging to organization members don't show the **Report** button. Contact the organization's admin or Cal.com support if you need to report abuse from an organization member.
+
+**Q: Can I report a user without being signed in?**\
+**A:** No. You must be signed in to submit a report.
