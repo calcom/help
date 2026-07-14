@@ -116,7 +116,8 @@
                   "event-types/timezone-lock",
                   "event-types/allow-rescheduling",
                   "event-types/symbolic-issues",
-                  "event-types/booking-success-page-query-params"
+                  "event-types/booking-success-page-query-params",
+                  "event-types/custom-reply-to"
                 ]
               },
               {
