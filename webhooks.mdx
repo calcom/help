@@ -50,7 +50,7 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 
     If your subscriber URL does not meet these requirements, the webhook creation request will be rejected with an error.
 
-2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Paid`, `Booking Payment Initiated`, `Booking No-Show Updated`, `Meeting Started`, `Meeting Ended`, `Recording Ready`, `Recording Transcription Generated`, `Instant Meeting Created`, `Instant Meeting Accepted`, `Out of Office Created`, `After Hosts Cal Video No-Show`, `After Guests Cal Video No-Show`, `Form Submitted`, `Form Submitted (No Event)`, and `Calendar Entry Rejected`.
+2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Paid`, `Booking Payment Initiated`, `Booking No-Show Updated`, `Meeting Started`, `Meeting Ended`, `Recording Ready`, `Recording Transcription Generated`, `Instant Meeting Created`, `Instant Meeting Accepted`, `Out of Office Created`, `After Hosts Cal Video No-Show`, `After Guests Cal Video No-Show`, `Form Submitted`, `Form Submitted (No Event)`, `Calendar Entry Rejected`, and `Delegation Credential Rotation Required`.
 
 3. Secret: You can provide a secret key with this webhook and then [verify it](/docs/core-features/webhooks#verifying-the-authenticity-of-the-received-payload) on the subscriber URL when receiving a payload to confirm if the payload is authentic or adulterated. You can leave it blank, if you don't wish to secure the webhook with a secret key.
 
@@ -80,6 +80,7 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 | Form Submitted                    | A form is submitted as part of a routing form **with** a scheduled event.                                     |
 | Form Submitted (No Event)         | A form is submitted **without** a scheduled event (form-only flow).                                           |
 | Calendar Entry Rejected           | An external attendee declines a Cal.com event from their connected Google or Microsoft 365 calendar.          |
+| Delegation Credential Rotation Required | The client secret for a Microsoft 365 [Delegation Credential](/enterprise/delegation-credential-microsoft-365) that has opted out of automatic rotation is approaching expiry (~14 days out). Organization-level only. |
 
 
 ### Seated event types
