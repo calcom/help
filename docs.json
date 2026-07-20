@@ -83,7 +83,6 @@
                           "event-types/how-to-add-location",
                           "event-types/calvideo-advanced-settings",
                           "event-types/adding-zoom",
-                          "event-types/create-phone-only-event-type",
                           "event-types/multiple-durations"
                         ]
                       },
@@ -104,6 +103,7 @@
                         "group": "Booking form",
                         "pages": [
                           "event-types/booking-questions",
+                          "event-types/create-phone-only-event-type",
                           "event-types/email-bookingq",
                           "event-types/disable-guests",
                           "event-types/split-name"
