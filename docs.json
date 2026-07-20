@@ -67,57 +67,116 @@
                 "pages": [
                   "event-types/event-types",
                   "event-types/eventtype-id",
-                  "event-types/booking-questions",
-                  "event-types/eventtype-specific-checking-for-conflicts",
-                  "event-types/email-bookingq",
                   "event-types/add-events",
-                  "event-types/managed-events",
-                  "event-types/adding-zoom",
-                  "event-types/booking-frequency",
-                  "event-types/user-booking-limits",
-                  "event-types/round-robin",
-                  "event-types/collective-events",
                   "event-types/create-first-event",
-                  "event-types/create-phone-only-event-type",
                   "event-types/create-recurring",
-                  "event-types/create-secret",
-                  "event-types/custom-name",
-                  "event-types/custom-time-slots",
-                  "event-types/disable-confirmation",
-                  "event-types/disable-guests",
                   "event-types/display-issues",
-                  "event-types/dynamic",
-                  "event-types/event-buffer",
-                  "event-types/booker-active-booking-limit",
-                  "event-types/disable-canceling-rescheduling",
-                  "event-types/hideorganizersemail",
-                  "event-types/redirect-on-no-routing-form",
-                  "event-types/hide-notes",
-                  "event-types/how-to-add-location",
-                  "event-types/calvideo-advanced-settings",
-                  "event-types/how-to-receive-payments",
-                  "event-types/how-to-requires",
-                  "event-types/how-to-set-buffer",
-                  "event-types/how-to-time-slot-intervals",
-                  "event-types/limit-future-bookings",
-                  "event-types/location-of-event",
-                  "event-types/min-notice",
-                  "event-types/multiple-durations",
-                  "event-types/private-links",
-                  "event-types/offer-seats",
-                  "event-types/optimized-slots",
-                  "event-types/recurring-events",
-                  "event-types/require-criteria",
-                  "event-types/restriction-schedule",
-                  "event-types/secret-events",
-                  "event-types/setup-location",
-                  "event-types/split-name",
                   "event-types/sponsor",
-                  "event-types/timezone-lock",
-                  "event-types/allow-rescheduling",
                   "event-types/symbolic-issues",
-                  "event-types/booking-success-page-query-params",
-                  "event-types/custom-reply-to"
+                  "event-types/user-booking-limits",
+                  {
+                    "group": "Setup",
+                    "pages": [
+                      {
+                        "group": "Basics",
+                        "pages": [
+                          "event-types/how-to-add-location",
+                          "event-types/calvideo-advanced-settings",
+                          "event-types/adding-zoom",
+                          "event-types/create-phone-only-event-type",
+                          "event-types/multiple-durations"
+                        ]
+                      },
+                      {
+                        "group": "Availability",
+                        "pages": [
+                          "event-types/eventtype-specific-checking-for-conflicts",
+                          "event-types/optimized-slots",
+                          "event-types/restriction-schedule"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Booking experience",
+                    "pages": [
+                      {
+                        "group": "Booking form",
+                        "pages": [
+                          "event-types/booking-questions",
+                          "event-types/email-bookingq",
+                          "event-types/disable-guests",
+                          "event-types/split-name"
+                        ]
+                      },
+                      {
+                        "group": "Confirmation",
+                        "pages": [
+                          "event-types/custom-name",
+                          "event-types/booking-success-page-query-params",
+                          "event-types/custom-reply-to",
+                          "event-types/disable-confirmation"
+                        ]
+                      },
+                      {
+                        "group": "Appearance",
+                        "pages": [
+                          "event-types/timezone-lock"
+                        ]
+                      },
+                      {
+                        "group": "Payments & Seats",
+                        "pages": [
+                          "event-types/how-to-receive-payments",
+                          "event-types/offer-seats"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Policies",
+                    "pages": [
+                      {
+                        "group": "Limits & buffers",
+                        "pages": [
+                          "event-types/booking-frequency",
+                          "event-types/booker-active-booking-limit",
+                          "event-types/event-buffer",
+                          "event-types/custom-time-slots",
+                          "event-types/limit-future-bookings",
+                          "event-types/min-notice"
+                        ]
+                      },
+                      {
+                        "group": "Reschedule & cancel",
+                        "pages": [
+                          "event-types/disable-canceling-rescheduling",
+                          "event-types/allow-rescheduling"
+                        ]
+                      },
+                      {
+                        "group": "Privacy & security",
+                        "pages": [
+                          "event-types/hideorganizersemail",
+                          "event-types/redirect-on-no-routing-form",
+                          "event-types/hide-notes",
+                          "event-types/private-links",
+                          "event-types/how-to-requires",
+                          "event-types/create-secret"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Teams",
+                    "pages": [
+                      "event-types/managed-events",
+                      "event-types/round-robin",
+                      "event-types/collective-events",
+                      "event-types/dynamic",
+                      "event-types/setup-location"
+                    ]
+                  }
                 ]
               },
               {
