@@ -44,6 +44,7 @@
                   "enterprise/delegation-credential-microsoft-365",
                   "enterprise/audit-logs",
                   "enterprise/custom-smtp",
+                  "enterprise/instant-meetings",
                   "enterprise/guest-notification-settings"
                 ]
               },
