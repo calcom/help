@@ -1,0 +1,241 @@
+---
+title: "Onboarding embed"
+description: "Let users create a Cal.com account, complete onboarding, and authorize your app — all without leaving your site."
+---
+
+The onboarding embed allows you to add a "Continue with Cal.com" button to your application. When a user clicks it, a dialog opens where they can sign up for Cal.com, set up their profile, connect a calendar, and authorize your app with OAuth — all in one flow, without ever leaving your site.
+
+This is useful if you are building an integration that needs access to a user's Cal.com account. Instead of sending users to Cal.com separately, you can embed the entire signup and authorization experience directly in your app.
+
+<Note>
+The onboarding embed is a React component available in the `@calcom/atoms` package. You need an OAuth client ID from Cal.com to use it. See [OAuth setup](/apps-and-integrations/oauth) for details on obtaining credentials.
+</Note>
+
+## How it works
+
+The onboarding embed guides users through four steps inside a modal dialog:
+
+1. **Sign up or log in** — The user creates a new Cal.com account or signs in to an existing one.
+2. **Profile setup** — The user enters their name, username, and bio.
+3. **Calendar connection** — The user optionally connects a calendar (Google Calendar, Apple Calendar, etc.).
+4. **OAuth authorization** — The user reviews the permissions your app is requesting and clicks "Allow" or "Deny".
+
+If a user closes the dialog before finishing, they can reopen it and resume where they left off.
+
+## Installation
+
+Install the `@calcom/atoms` package:
+
+```bash
+npm install @calcom/atoms
+```
+
+## Basic usage
+
+Import the `OnboardingEmbed` component and add it to your page:
+
+```jsx
+import { OnboardingEmbed } from "@calcom/atoms";
+
+function App() {
+  const state = crypto.randomUUID();
+
+  return (
+    <OnboardingEmbed
+      oAuthClientId="your-client-id"
+      authorization={{
+        redirectUri: "https://yourapp.com/callback",
+        scope: ["EVENT_TYPE_READ", "BOOKING_READ"],
+        state: state,
+      }}
+      onAuthorizationAllowed={({ code }) => {
+        // Exchange this code for an access token on your server
+        console.log("Authorization code:", code);
+      }}
+      onAuthorizationDenied={() => {
+        console.log("User denied access");
+      }}
+      onError={(error) => {
+        console.error("Onboarding error:", error);
+      }}
+    />
+  );
+}
+```
+
+By default, the component renders a "Continue with Cal.com" button. Clicking it opens the onboarding dialog.
+
+## Configuration
+
+### Required props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| `oAuthClientId` | `string` | Your OAuth client ID registered with Cal.com. |
+| `authorization` | `object` | OAuth authorization parameters (see below). |
+
+### Authorization object
+
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| `redirectUri` | `string` | Yes | One of the redirect URIs registered on your OAuth client. Must share the same origin as the page hosting the embed. |
+| `scope` | `string[]` | Yes | OAuth scopes to request, such as `EVENT_TYPE_READ`, `BOOKING_WRITE`, or `SCHEDULE_READ`. |
+| `state` | `string` | Yes | A random string to prevent CSRF attacks. Use `crypto.randomUUID()` to generate one. |
+| `codeChallenge` | `string` | No | PKCE code challenge for public clients that cannot store a client secret. Uses the S256 method. |
+
+### Optional props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `host` | `string` | `https://app.cal.com` | The Cal.com host URL. Change this if you are using a self-hosted instance. |
+| `theme` | `"light"` or `"dark"` | `"light"` | Controls the appearance of the button and dialog. |
+| `user` | `object` | — | Pre-fill the signup form with `email`, `name`, and `username`. |
+| `trigger` | `ReactNode` | "Continue with Cal.com" button | A custom element to open the onboarding dialog. |
+| `onAuthorizationAllowed` | `function` | — | Called when the user clicks "Allow". Receives `{ code }` with the authorization code. |
+| `onAuthorizationDenied` | `function` | — | Called when the user clicks "Deny". |
+| `onError` | `function` | — | Called when an error occurs. Receives an error object with `code` and `message`. |
+| `onClose` | `function` | — | Called when the dialog is dismissed. |
+
+## Authorization modes
+
+The onboarding embed supports two ways to handle the authorization result.
+
+### Callback mode
+
+If you provide the `onAuthorizationAllowed` prop, the component calls your function with the authorization code and closes the dialog. This keeps the user on your page.
+
+```jsx
+<OnboardingEmbed
+  oAuthClientId="your-client-id"
+  authorization={{
+    redirectUri: "https://yourapp.com/callback",
+    scope: ["EVENT_TYPE_READ"],
+    state: crypto.randomUUID(),
+  }}
+  onAuthorizationAllowed={({ code }) => {
+    // Send the code to your server to exchange for tokens
+    fetch("/api/exchange-token", {
+      method: "POST",
+      body: JSON.stringify({ code }),
+    });
+  }}
+  onAuthorizationDenied={() => {
+    // Handle denial
+  }}
+/>
+```
+
+### Redirect mode
+
+If you do not provide `onAuthorizationAllowed`, the browser redirects to your `redirectUri` with the authorization code and state as URL parameters:
+
+```
+https://yourapp.com/callback?code=AUTHORIZATION_CODE&state=YOUR_STATE
+```
+
+If the user denies access, the redirect includes an error parameter:
+
+```
+https://yourapp.com/callback?error=access_denied&state=YOUR_STATE
+```
+
+## Pre-filling user details
+
+You can pass a `user` prop to pre-fill the signup form:
+
+```jsx
+<OnboardingEmbed
+  oAuthClientId="your-client-id"
+  user={{
+    email: "jane@company.com",
+    name: "Jane Smith",
+    username: "janesmith",
+  }}
+  authorization={{
+    redirectUri: "https://yourapp.com/callback",
+    scope: ["EVENT_TYPE_READ"],
+    state: crypto.randomUUID(),
+  }}
+  onAuthorizationAllowed={({ code }) => {
+    console.log("Authorization code:", code);
+  }}
+/>
+```
+
+## Using PKCE
+
+For public clients that cannot securely store a client secret, use PKCE (Proof Key for Code Exchange) by including a `codeChallenge` in the authorization object:
+
+```jsx
+<OnboardingEmbed
+  oAuthClientId="your-client-id"
+  authorization={{
+    redirectUri: "https://yourapp.com/callback",
+    scope: ["EVENT_TYPE_READ"],
+    state: crypto.randomUUID(),
+    codeChallenge: "your-generated-code-challenge",
+  }}
+  onAuthorizationAllowed={({ code }) => {
+    // Exchange the code along with your code_verifier
+    console.log("Authorization code:", code);
+  }}
+/>
+```
+
+## Custom trigger element
+
+By default, the embed renders a "Continue with Cal.com" button. You can replace it with your own element:
+
+```jsx
+<OnboardingEmbed
+  oAuthClientId="your-client-id"
+  authorization={{
+    redirectUri: "https://yourapp.com/callback",
+    scope: ["EVENT_TYPE_READ"],
+    state: crypto.randomUUID(),
+  }}
+  trigger={<button className="my-button">Connect your calendar</button>}
+  onAuthorizationAllowed={({ code }) => {
+    console.log("Authorization code:", code);
+  }}
+/>
+```
+
+## Error handling
+
+The `onError` callback receives an error object with a `code` and `message`. The possible error codes are:
+
+| Error code | Description |
+| --- | --- |
+| `INVALID_PROPS` | Required props are missing (such as `oAuthClientId` or `authorization`). |
+| `SIGNUP_FAILED` | Account creation failed. |
+| `ONBOARDING_FAILED` | A step in the onboarding process failed. |
+| `AUTHORIZATION_FAILED` | The OAuth authorization step failed. |
+| `STATE_MISMATCH` | The state parameter in the response does not match the one you provided. This may indicate a CSRF attack. |
+| `UNKNOWN` | An unexpected error occurred. |
+
+```jsx
+<OnboardingEmbed
+  oAuthClientId="your-client-id"
+  authorization={{
+    redirectUri: "https://yourapp.com/callback",
+    scope: ["EVENT_TYPE_READ"],
+    state: crypto.randomUUID(),
+  }}
+  onError={(error) => {
+    switch (error.code) {
+      case "INVALID_PROPS":
+        console.error("Check your component configuration");
+        break;
+      case "STATE_MISMATCH":
+        console.error("Possible security issue — state does not match");
+        break;
+      default:
+        console.error("Onboarding error:", error.message);
+    }
+  }}
+  onAuthorizationAllowed={({ code }) => {
+    console.log("Authorization code:", code);
+  }}
+/>
+```
