@@ -3,7 +3,7 @@ title: "Booking Success Redirect Parameters"
 description: "Complete reference guide for query parameters forwarded to custom success pages after successful bookings"
 ---
 
-When a booking is successfully created in Cal.com, users can be redirected to a custom success page by enabling `Redirect on booking`option in the Confirmation tab of the Booking experience section of the event type settings. This guide documents all the query parameters that are forwarded to your custom success URL when 'Forward parameters' option is enabled (which is the default).
+When a booking is successfully created in Cal.com, users can be redirected to a custom success page by enabling `Redirect on booking`option in the Confirmation tab of the Booking experience section of the link settings. This guide documents all the query parameters that are forwarded to your custom success URL when 'Forward parameters' option is enabled (which is the default).
 
 ## Overview
 
@@ -20,7 +20,7 @@ https://yoursite.com/booking-success?uid=abc123&title=30min%20Meeting&startTime=
 | Parameter | Always Included | Description |
 | --- | --- | --- |
 | `uid` | ✅ | Unique booking identifier |
-| `title` | ✅ | Event type title |
+| `title` | ✅ | Lin title |
 | `startTime` | ✅ | Start time in UTC |
 | `endTime` | ✅ | End time in UTC |
 | `email` | ✅ | Primary attendee email |
@@ -44,12 +44,12 @@ https://yoursite.com/booking-success?uid=abc123&title=30min%20Meeting&startTime=
 - Example: `9ybDCbazSYpJHthpxG5EDM`
 - Usage: Use this to fetch additional booking details via API or store in your database
 
-**`title`** - The event type title
+`title` - The link title
 
 - Always included
 - Example: `30 Minute Meeting`
 
-**`description`** - Event type description
+`description` - Link description
 
 - Included when event has description
 - Example: `Quick sync meeting to discuss project updates`
