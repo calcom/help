@@ -42,6 +42,7 @@
                   "enterprise/delegation-credential",
                   "enterprise/delegation-credential-google-workspace",
                   "enterprise/delegation-credential-microsoft-365",
+                  "enterprise/delegation-credential-microsoft-365-secret-rotation",
                   "enterprise/audit-logs",
                   "enterprise/custom-smtp",
                   "enterprise/instant-meetings",
