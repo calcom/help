@@ -1,29 +1,34 @@
 ---
-title: How to set up requires confirmation
+title: "How require confirmation for your Cal.com bookings"
 ---
 
-To set requires confirmation configuration, you simply need to:
+By default, any open slot on your booking page can be booked instantly. Requiring confirmation adds a manual approval step: when someone books, the request comes to you first, and the booking is only pushed to your calendar and confirmed to the attendee once you accept it. Until then, the booking stays in a pending state and no confirmation email is sent.
 
-<Frame className="aspect-video">
-  <iframe
-    width="100%"
-    height="100%"
-    src="https://www.youtube.com/embed/zGr_s-fG84k?si=tcWJVCS9injCY_ds"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen></iframe>
-</Frame>
+This is useful when you want control over who gets on your calendar, such as screening inbound sales calls, vetting interview requests, or protecting your time from bookings that arrive with very little notice.
 
-<Steps>
-  <Step>Log in to your cal.com account</Step>
-  <Step>Open the event-type from the **`cal.com/event-type`** page and click on -> Advanced tab</Step>
-  <Step>Enable the toggle that reads **`Requires Confirmation`**</Step>
-  <Step>
-    From here, -> Select **Always** if you want it to be an event-type that requires confirmation at all times
-    -> Select **When booked with less than** `{{ num }}` `{{ time }}` notice to only make it an opt-in event
-    type when a booking is made within the selected/configured time-frame.
-  </Step>
-</Steps>
-[![](https://downloads.intercomcdn.com/i/o/1195442097/a5b0328b32e60f326620c303/i1600x380-Exh1QWe7r2We_olub0g.png?expires=1736324100&signature=5879cbffb49ab0e23ed07c6ac7d243c36d9b29e30a86bb493191a24f46d0a80c&req=dSEuE816n4FWXvMW1HO4zV01ZfG9ZHkZlrmJG14MYHPZ01wnUaDUdGPmycd3%0Ab80g%2F18HT6Ab%2Ba6Jahc%3D%0A)](https://downloads.intercomcdn.com/i/o/1195442097/a5b0328b32e60f326620c303/i1600x380-Exh1QWe7r2We_olub0g.png?expires=1736324100&signature=5879cbffb49ab0e23ed07c6ac7d243c36d9b29e30a86bb493191a24f46d0a80c&req=dSEuE816n4FWXvMW1HO4zV01ZfG9ZHkZlrmJG14MYHPZ01wnUaDUdGPmycd3%0Ab80g%2F18HT6Ab%2Ba6Jahc%3D%0A)
+**How to enable it**
+
+1. Go to **Links** and open the link you want to change.
+2. In the left sidebar, under **Policies**, select **Privacy & security**.
+3. Toggle on **Requires confirmation**.
+4. Click **Save**.
+
+![Require Confirmation Highlighted](/images/require-confirmation-highlighted.png "Require Confirmation Highlighted")
+
+Once enabled, your booking page will show a "Requires confirmation" label so attendees know their booking is subject to approval.
+
+**Choosing when confirmation is required**
+
+You can decide how strictly this applies:
+
+- **Always** – every booking on this event type needs your approval before it is confirmed.
+- **When booked with less than X notice** – only bookings made close to the start time need approval. Set the threshold in minutes, hours, or days. Bookings made further in advance are confirmed automatically, so this is a good option if you only want to review last-minute requests.
+
+**Additional options**
+
+- **Unconfirmed bookings still block calendar slots** – while a booking is waiting for your approval, that time is held and not offered to other bookers. Turn this off if you want the slot to stay open until you confirm.
+- **Only require confirmation for free email providers** – bookings from addresses on free providers such as @[gmail.com](http://gmail.com) or @[outlook.com](http://outlook.com) require your approval, while bookings from company domains are confirmed automatically. This is a simple way to filter for business contacts without reviewing every request.
+
+**Managing pending bookings**
+
+Bookings awaiting your approval appear under the **Unconfirmed** tab on your Bookings page. From there you can accept or reject each request. Accepting pushes the event to your calendar and sends the confirmation to the attendee; rejecting notifies them that the booking was declined, and you can optionally include a reason.<br /><br />
