@@ -65,36 +65,7 @@ The available instant meeting triggers are:
 
 The webhook does not notify hosts by itself. Its receiving service must turn the webhook event into the notification your team uses.
 
-#### Instant Meeting Created payload
-
-The **Instant Meeting Created** payload carries the booker's form `responses` and the `connectAndJoinUrl` a host opens to accept and join the meeting:
-
-```json
-{
-    "triggerEvent": "INSTANT_MEETING",
-    "createdAt": "2025-04-17T10:00:00.000Z",
-    "payload": {
-        "triggerEvent": "INSTANT_MEETING",
-        "uid": "aB3kL9mNpQ7rS1tU",
-        "responses": {
-            "name": "Jane Smith",
-            "email": "jane.smith@example.com",
-            "notes": "Need help choosing a plan",
-            "guests": []
-        },
-        "connectAndJoinUrl": "https://app.cal.com/connect-and-join?token=EXAMPLE_TOKEN",
-        "eventTypeId": 15,
-        "eventTypeTitle": "Instant meeting",
-        "customInputs": {}
-    }
-}
-```
-
-<Note>
-  The fields in `responses` depend on the booking questions configured on the event type, so a payload from your own event type can contain more or fewer fields than the example above. `customInputs` is empty unless the event type still uses legacy custom inputs.
-</Note>
-
-The **Instant Meeting Accepted** payload is documented in [Webhooks](/webhooks#instant-meeting-accepted).
+For example payloads of both triggers, see [Instant meeting created](/webhooks#instant-meeting-created) and [Instant meeting accepted](/webhooks#instant-meeting-accepted).
 
 #### Example: notify hosts in Slack with Zapier
 

@@ -260,6 +260,33 @@ Events like `BOOKING_CREATED`, `BOOKING_CANCELLED`, `BOOKING_RESCHEDULED`, and m
 
 If a booking is cancelled or rescheduled before the meeting time, the scheduled `MEETING_STARTED` and `MEETING_ENDED` webhooks for that booking are automatically cancelled.
 
+#### Instant meeting created
+
+The `INSTANT_MEETING` webhook fires when a booker submits an [Instant Meeting](/enterprise/instant-meetings) request. Its payload carries the booker's form `responses` and the `connectAndJoinUrl` a host opens to accept and join the meeting, so a receiving service can alert the hosts who can take the request.
+
+The fields in `responses` depend on the booking questions configured on the event type, so your own payload can contain more or fewer fields than the example below. `customInputs` is empty unless the event type still uses legacy custom inputs.
+
+```json
+{
+    "triggerEvent": "INSTANT_MEETING",
+    "createdAt": "2025-04-17T10:00:00.000Z",
+    "payload": {
+        "triggerEvent": "INSTANT_MEETING",
+        "uid": "aB3kL9mNpQ7rS1tU",
+        "responses": {
+            "name": "Jane Smith",
+            "email": "jane.smith@example.com",
+            "notes": "Need help choosing a plan",
+            "guests": []
+        },
+        "connectAndJoinUrl": "https://app.cal.com/connect-and-join?token=EXAMPLE_TOKEN",
+        "eventTypeId": 15,
+        "eventTypeTitle": "Instant meeting",
+        "customInputs": {}
+    }
+}
+```
+
 #### Instant meeting accepted
 
 The `INSTANT_MEETING_ACCEPTED` webhook fires when a host accepts an instant meeting request through the connect-and-join flow. It only triggers for the first host to accept — if another host has already accepted the booking, the webhook is not sent again. This trigger is available for team event types only.
