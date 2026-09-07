@@ -191,7 +191,9 @@
                 "pages": [
                   "events/what-is-a-cal-event",
                   "events/registration-and-capacity",
-                  "events/manage-guests"
+                  "events/manage-guests",
+                  "events/public-event-page",
+                  "events/troubleshooting-events"
                 ]
               },
               {
