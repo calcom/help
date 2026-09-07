@@ -189,7 +189,8 @@
                   "library": "fontawesome"
                 },
                 "pages": [
-                  "events/what-is-a-cal-event"
+                  "events/what-is-a-cal-event",
+                  "events/registration-and-capacity"
                 ]
               },
               {
