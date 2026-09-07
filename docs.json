@@ -190,10 +190,12 @@
                 },
                 "pages": [
                   "events/what-is-a-cal-event",
+                  "events/create-an-event",
                   "events/registration-and-capacity",
                   "events/manage-guests",
                   "events/public-event-page",
-                  "events/troubleshooting-events"
+                  "events/troubleshooting-events",
+                  "events/paid-events"
                 ]
               },
               {
