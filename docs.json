@@ -193,9 +193,9 @@
                   "events/create-an-event",
                   "events/registration-and-capacity",
                   "events/manage-guests",
-                  "events/public-event-page",
                   "events/troubleshooting-events",
-                  "events/paid-events"
+                  "events/paid-events",
+                  "events/public-event-page"
                 ]
               },
               {
