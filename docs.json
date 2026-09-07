@@ -182,6 +182,23 @@
                 ]
               },
               {
+                "group": "Events",
+                "icon": {
+                  "style": "solid",
+                  "name": "ticket",
+                  "library": "fontawesome"
+                },
+                "pages": [
+                  "events/what-is-a-cal-event",
+                  "events/create-an-event",
+                  "events/registration-and-capacity",
+                  "events/manage-guests",
+                  "events/paid-events",
+                  "events/public-event-page",
+                  "events/troubleshooting-events"
+                ]
+              },
+              {
                 "group": "Availabilities",
                 "icon": {
                   "name": "magnifying-glass",

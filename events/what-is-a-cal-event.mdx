@@ -1,0 +1,51 @@
+---
+title: "What is a Cal Event"
+sidebarTitle: "What is a Cal Event"
+description: "Events are for a single, fixed-date happening that guests register for, such as a workshop, meetup, dinner, or launch party."
+---
+
+An **Event** is a one-time happening on a fixed date that people register or RSVP for: a workshop, a meetup, a dinner, a launch party.
+
+This is different from a **Link** (previously called an event type), where a booker picks a slot from your availability. Events and Links sit side by side and do not affect each other.
+
+You will find events in the left sidebar under **Events**, or at `app.cal.com/events`. Select **+ Create Event** to make one.
+
+## Events compared with Links
+
+| | Events | Links |
+| --- | --- | --- |
+| When it happens | One fixed date and time that you set | Any slot the booker picks from your availability |
+| Repeats | No, events are one-time only | Recurring events are supported |
+| Who picks the time | You do | The booker does |
+| Public URL | `cal.com/<event-slug>` | `cal.com/<username>/<event-slug>` |
+| Guests | Many guests share one booking | Usually one booker per booking |
+| Managed at | `app.cal.com/events` | `app.cal.com/event-types` |
+
+## Which one am I looking at?
+
+If you are not sure whether you created an Event or a Link, check the URL in your browser's address bar:
+
+- `app.cal.com/events/...` means you are working with an Event
+- `app.cal.com/event-types/...` means you are working with a Link
+
+## Event URLs do not include your username
+
+An event's public URL is top level. It looks like `cal.com/breathwork-session`, with no `/<username>/` segment.
+
+This is expected. Being asked to set a URL without your username does not mean a second account was created, and it is not a signup problem. It is simply how the Events feature works. Links keep the `cal.com/<username>/<event-slug>` format.
+
+## What events have in common with the rest of Cal.com
+
+- Confirmed guests share one booking, so calendar invites and workflows behave the way they do for bookings.
+- Events use the same Workflows and Webhooks editors as bookings. Reminders before and after the event are scheduled once for the whole event, not once per guest.
+- Publishing adds the event to your connected calendar, and to the calendars of any co-hosts who accepted their invitation.
+
+<Note>
+  Some parts of Events, including paid ticketing, AI cover images, and AI description translation, are gated and may not be enabled on every account yet.
+</Note>
+
+## Related
+
+- [Create and publish an event](/events/create-an-event)
+- [Registration, approval and capacity](/events/registration-and-capacity)
+- [The public event page](/events/public-event-page)
