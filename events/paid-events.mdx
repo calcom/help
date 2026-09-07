@@ -1,0 +1,55 @@
+---
+title: "Paid events with Cal Pay"
+sidebarTitle: "Paid events"
+description: "Charge for tickets on an event, hold seats while guests check out, and handle refunds."
+---
+
+<Note>
+  Paid ticketing is a newer, gated feature and may not be enabled on your account yet.
+</Note>
+
+## Events use Cal Pay, not Stripe
+
+Payments on events run through **Cal Pay only**. Stripe and PayPal are not options for events, so there is no need to install Stripe to charge for one.
+
+The payment option lives inside the event's **registration experience**. If you are looking for a **Booking experience > Payments and Seats** tab on an event and cannot find it, that is why: events use the registration experience layout instead. That tab belongs to Links.
+
+## Turn on payment
+
+Switch on **Paid event**, then set a price and currency. The price must be at least the currency's minimum charge.
+
+<Warning>
+  Paid events cannot be combined with approval or a waitlist. Turn both off before you can charge for an event. On an event that is already paid, those options are unavailable. If you could not enable payment until you disabled approval or the waitlist, that is expected behaviour.
+</Warning>
+
+**Payment deadline** sets how long a seat is held while a guest checks out. The form accepts anything from 10 minutes up to 7 days. If you do not set one, your account default applies.
+
+## What the guest experiences
+
+1. The guest RSVPs and their seat is held as **Payment pending**.
+2. They receive a "complete your payment" email showing the pay-by deadline.
+3. They check out through Cal Pay.
+4. Once paid, they are confirmed and receive a paid confirmation and receipt showing the amount paid.
+
+If the deadline passes, the seat is released. The guest is emailed to say their spot was released, that nothing was charged, and that they can register again.
+
+On the public page, the registration button reads **Get your ticket** for paid events.
+
+## Refunds
+
+On the roster, paid guests show as **Paid**, **Awaiting payment**, or **Refunded**. You have two actions:
+
+- **Refund payment** refunds the guest but keeps their registration.
+- **Refund and remove guest** refunds them and releases the seat.
+
+If a refund fails, you are emailed so you can refund the guest manually from your payment provider.
+
+## Setting up Cal Pay
+
+Cal Pay setup, payouts, identity verification, fees, and supported payment methods are covered separately. Payouts run through Whop and require identity verification before any money can reach you, so complete that before your first paid event.
+
+## Related
+
+- [Registration, approval and capacity](/events/registration-and-capacity)
+- [Invite guests and manage the roster](/events/manage-guests)
+- [Troubleshooting events](/events/troubleshooting-events)

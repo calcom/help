@@ -191,7 +191,9 @@
                 "pages": [
                   "events/what-is-a-cal-event",
                   "events/create-an-event",
-                  "events/registration-and-capacity"
+                  "events/registration-and-capacity",
+                  "events/manage-guests",
+                  "events/paid-events"
                 ]
               },
               {
