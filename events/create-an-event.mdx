@@ -3,3 +3,78 @@ title: "Create and publish an event"
 sidebarTitle: "Create and publish"
 description: "Set up an event, fill in the editor, publish it, and understand what happens when you cancel or delete."
 ---
+
+## Create the event
+
+Go to **Events** in the left sidebar and select **+ Create Event**. The dialog collects only the basics. Everything else is filled in afterwards in the editor.
+
+1. **Event name.**
+2. **Event URL (slug)**, suggested from the name. It must be at least 10 characters, use only lowercase letters, numbers, and dashes, and be unique across Cal.com. It is checked against usernames, reserved routes, and other events. If it is already in use, the app tells you the URL is taken.
+3. **Starts**, **Ends**, and **Timezone**. The end must be after the start, and the start must be in the future. For in-person events, use the venue's local time.
+4. **Private event**, an optional toggle that keeps the event reachable by its URL but hides it from your public event listing.
+
+<Note>
+  If you type a link into the event name, it is removed from the saved title, and the URL is never allowed to spell out the removed link. If this forces the URL to change, you are told the new URL and that the old one no longer works. The editor always shows the URL the event is actually saved under.
+</Note>
+
+## Fill in the editor
+
+The editor is grouped into sections. A live preview of the public page sits alongside the form.
+
+### Setup: Basics
+
+The event name, the event URL (read-only once published), an **About the event** description with a **Translate using AI** option, the date, time and timezone, the **Private event** toggle, and a cover image.
+
+The cover image can be dragged in or browsed for. The ideal size is 800x800 and the maximum is 10 MB. You can replace or remove it later. There is also an option to generate a cover image with AI, which is uploaded when the event is saved.
+
+### Setup: Location
+
+Choose in-person or virtual.
+
+- **In-person** is an address. A map preview is generated automatically after the event is saved, and guests get an **Open in maps** action. Changing the address regenerates the map.
+- **Virtual** is either Cal Video, another connected conferencing option, or a custom meeting link.
+
+The exact join link or address is only revealed to a guest after they register.
+
+### Setup: Hosts
+
+You are always listed as a host. Team members can be added, and people outside your team can be invited as external co-hosts by email. Co-hosts accept or decline, and you can see their Invited, Declined, or accepted state, revoke access at any time, or watch a co-host leave the event themselves.
+
+A co-host can edit event details and manage attendees. A co-host **cannot** change the host roster, cancel, delete, or publish the event, or change who appears on the public guest list. Locked controls tell them to contact the main host.
+
+### The remaining sections
+
+- **Registration experience** and **Attendance**: see [Registration, approval and capacity](/events/registration-and-capacity).
+- **Attendance > Guests**: available only after the event is published. See [Invite guests and manage the roster](/events/manage-guests).
+- **Automation > Workflows and Webhooks**: events use the same editors as bookings.
+
+## Publish the event
+
+An event moves through four statuses:
+
+| Status | What it means |
+| --- | --- |
+| Draft | Created but not published. Not publicly reachable, and no registrations or invitations are possible yet |
+| Published | Live at its public URL, with registration open |
+| Past | The start time has passed, so registration is closed |
+| Cancelled | You cancelled it. The page stays online marked as cancelled and registration is closed |
+
+To publish, make sure the form has no errors and all changes are saved. If you cannot publish, check for unsaved changes or form errors first.
+
+On publish, the event is added to your connected calendar and to those of any accepted co-hosts. If that fails, the event still publishes and you are asked to reconnect your calendar. A calendar problem never blocks publishing.
+
+<Warning>
+  The event URL becomes permanent once published, because links and invites are already circulating. The slug can only be changed while the event is still a draft.
+</Warning>
+
+## Cancel or delete an event
+
+**Cancelling** cannot be undone from the app. It closes registration, leaves the page online marked as cancelled, and notifies registered guests. Free confirmed guests receive the standard booking cancellation email. Paid and pending guests receive a dedicated Cal Events cancellation email covering any refund, or a note that nothing was charged. Guests who had already declined or cancelled are not notified again.
+
+**Deleting** removes the event entirely.
+
+## Related
+
+- [What is a Cal Event](/events/what-is-a-cal-event)
+- [Registration, approval and capacity](/events/registration-and-capacity)
+- [Troubleshooting events](/events/troubleshooting-events)
