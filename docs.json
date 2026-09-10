@@ -57,8 +57,7 @@
                 },
                 "pages": [
                   "billing-and-usage/seat-billing",
-                  "billing-and-usage/messaging-credits",
-                  "untitled-page"
+                  "billing-and-usage/messaging-credits"
                 ]
               },
               {
@@ -131,7 +130,8 @@
                         "group": "Payments & Seats",
                         "pages": [
                           "event-types/how-to-receive-payments",
-                          "event-types/offer-seats"
+                          "event-types/offer-seats",
+                          "untitled-page"
                         ]
                       }
                     ]
