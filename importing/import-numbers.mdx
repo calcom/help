@@ -80,7 +80,19 @@ description: Learn how to import phone numbers from Twilio for your Cal.ai agent
   />
 </Frame>
 
-- Here you will specify SIP server address as the origination SIP URI: `sip:5t4n6j0wnrl.sip.livekit.cloud` and click 'Add'
+- Enter `sip:sip.retellai.com` as the **Origination SIP URI** and click **Add**.
+
+<Warning>
+  The previous Cal.ai SIP address, `sip:5t4n6j0wnrl.sip.livekit.cloud`, was retired
+  on September 30, 2026. If you previously configured a trunk with that address,
+  update its Origination SIP URI
+  to `sip:sip.retellai.com`. Calls routed to the retired address may no longer
+  connect.
+</Warning>
+
+- If your existing URI specifies a transport, preserve it on the new host, for example `sip:sip.retellai.com;transport=tls` (or `;transport=tcp` / `;transport=udp`).
+- If your provider or firewall uses an IP allowlist, certificate pinning, or mTLS, contact [Cal.com support](https://go.cal.com/support) for the connection settings required for the new SIP address.
+- Keep your Twilio Termination URI and SIP credentials unchanged when migrating. After saving the origination change, place an inbound test call to verify routing.
 
 ### 2. Move numbers to Elastic SIP Trunking
 
