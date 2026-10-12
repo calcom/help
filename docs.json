@@ -1,6 +1,12 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
+  "redirects": [
+    {
+      "source": "/availabilities/set-up-your-availability",
+      "destination": "/availabilities/availability-dashboard-overview"
+    }
+  ],
   "name": "Cal.com Help",
   "colors": {
     "primary": "#111827",
