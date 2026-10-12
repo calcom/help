@@ -213,6 +213,7 @@
                 },
                 "pages": [
                   "availabilities/availability-dashboard-overview",
+                  "availabilities/troubleshoot-your-availability",
                   "availabilities/edit-availability",
                   "availabilities/team-availability",
                   "availabilities/add-new-availability",
