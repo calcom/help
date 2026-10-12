@@ -1,27 +1,88 @@
 ---
-title: "Availability Dashboard"
-description: "A quick overview of Cal.com's availability dashboard"
+title: "Set up your availability"
+description: "Create availability schedules, set your weekly hours, add date overrides and pick the timezone people book you in."
 sidebarTitle: 'Overview'
 ---
 
-![Availability dashboard](/Screenshot2025-03-122.30.23PM.png "Availability dashboard in dark mode")
-Your availability dashboard is where you can create an availability schedule. Availability schedules are used to define the hours of operation that each bookable event type cross-references when offering appointment slots.
+Your availability decides when people can book you. You can keep one schedule for everything or create several, for example one for client calls and one for internal meetings, and pick which schedule each event type uses.
 
-There is no limit to the number of availability schedules Cal.com account holders can create.
+<Steps>
+  <Step title="Open your availability">
+    Log in to Cal.com and click **Availability** in the sidebar. You'll see your existing schedules, such as **Working hours**, with the days, hours and timezone each one uses. The schedule marked **Default** is used by any event type that doesn't have its own schedule.
 
-From within your availability dashboard is the place where you'll be able to create, delete, duplicate, and edit your account's availability schedules. This also includes team availability schedules if you're subscribed to a team, organization, or Enterprise plan.
+    <Frame>
+      <img src="/images/availability/availability-page.png" alt="Availability page with the Availability item in the sidebar and the Working hours schedule highlighted" />
+    </Frame>
+  </Step>
+  <Step title="Create a new schedule">
+    Click **New** in the top-right corner, enter a name for the schedule (for example "Test Availability") and click **Continue**. New schedules start as Monday to Friday, 9:00am to 5:00pm.
 
-**Learn more about:**
+    <Frame>
+      <img src="/images/availability/new-schedule.png" alt="Add a new schedule dialog with the Name field and the Continue button" />
+    </Frame>
+  </Step>
+  <Step title="Set your weekly hours">
+    In **Weekly hours**, choose when you're available each day:
 
-* [Date Overrides](https://cal.com/help/availabilities/date-overrides)
+    - **Turn days on or off:** use the toggle next to a day. Days that are off show as **Unavailable**.
+    - **Change the hours:** click a start or end time and pick a new one. For example, turn on Saturday and set it to 9:00am to 1:00pm.
 
-* [Multiple Schedules](https://cal.com/help/availabilities/multiple-schedules)
+    <Frame>
+      <img src="/images/availability/weekly-hours.png" alt="Weekly hours card with the Saturday toggle turned on and its end time set to 1:00pm" />
+    </Frame>
+  </Step>
+  <Step title="Add more than one time slot to a day">
+    To split a day into separate blocks, click the **+** button on that day's row. A new time range is added below the first one, and you can set its hours the same way. For example, you can be available 9:00am to 11:00am and again 5:00pm to 7:30pm. Click the **X** next to a range to remove it.
 
-* [Multiple Slots](https://cal.com/help/availabilities/multiple-slots)
+    <Frame>
+      <img src="/images/availability/add-time-slot.png" alt="Monday row with a second time range added using the plus button" />
+    </Frame>
+  </Step>
+  <Step title="Copy hours to other days">
+    Once one day looks right, click the copy button next to it. In **Copy times to**, select the days you want to match (or **Select all**) and click **Apply**.
 
-* [Team Availability](https://cal.com/help/availabilities/team-availability)
+    <Frame>
+      <img src="/images/availability/copy-times.png" alt="Copy times to menu open from Tuesday's copy button with the list of days and the Apply button" />
+    </Frame>
+  </Step>
+  <Step title="Add date overrides">
+    Use a date override when your hours are different on specific dates, such as a holiday or a day you're finishing early. Click **Add an override** in the **Date overrides** section, then:
 
-* [Add New Availability](https://cal.com/help/availabilities/add-new-availability)
+    - Pick one or more dates in the calendar.
+    - Under **Which hours are you free?**, set the hours for those dates, or turn on **Mark unavailable (All day)**.
+    - Click **Save override**.
 
-* [Edit Availability](https://cal.com/help/availabilities/edit-availability)  
+    Overrides are archived automatically once the date has passed.
 
+    <Frame>
+      <img src="/images/availability/date-override.png" alt="Date override dialog with a calendar to pick dates and the hours and Mark unavailable options" />
+    </Frame>
+  </Step>
+  <Step title="Choose the timezone">
+    Use the **Timezone** menu to set the timezone for this schedule. This is useful if you travel and want a schedule that follows another country's time.
+
+    <Frame>
+      <img src="/images/availability/timezone.png" alt="Timezone menu at the top right of the schedule page" />
+    </Frame>
+  </Step>
+  <Step title="Save your schedule">
+    Click **Save** in the top-right corner to apply your changes. To use this schedule for every event type that doesn't have its own schedule, turn on **Set as default**.
+  </Step>
+  <Step title="Troubleshoot your availability">
+    If times aren't showing up the way you expect, click **Launch troubleshooter** under **Something doesn't look right?**. It shows how your schedule, calendar events and other settings combine to decide when you can be booked. See [Troubleshoot your availability](/availabilities/troubleshoot-your-availability) for examples.
+
+    <Frame>
+      <img src="/images/availability/troubleshooter.png" alt="Something doesn't look right card with the Launch troubleshooter button" />
+    </Frame>
+  </Step>
+</Steps>
+
+## Learn more
+
+- [Troubleshoot your availability](/availabilities/troubleshoot-your-availability)
+- [Date overrides](/availabilities/date-overrides)
+- [Multiple schedules](/availabilities/multiple-schedules)
+- [Multiple slots](/availabilities/multiple-slots)
+- [Team availability](/availabilities/team-availability)
+- [Add new availability](/availabilities/add-new-availability)
+- [Edit availability](/availabilities/edit-availability)
