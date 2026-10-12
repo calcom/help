@@ -6,7 +6,7 @@ description: "Charge for a booking without connecting Stripe, and withdraw what 
 
 Cal Pay is Cal.com's own payment option. It is available on every account by default, so there is nothing to install from the app store and no Stripe or PayPal account to connect before you can charge for a booking.
 
-Payments are processed by Whop. Cal.com does not add a commission on top of what you charge.
+Payments are processed by Whop. Fees are taken out of each payment and each withdrawal, so the booker pays exactly the price you set. See [Fees](#fees) for the full breakdown.
 
 ## Turn on Cal Pay for a Link
 
@@ -37,18 +37,54 @@ Payments are processed by Whop. Cal.com does not add a commission on top of what
 
 The booker fills in your booking form as usual and pays before the booking is created. Checkout runs inside the booking page itself, so they are never redirected to an external payment page. Once the payment goes through, the booking is confirmed and they receive their confirmation and a receipt.
 
-## Payment methods and fees
+## Fees
 
-Cal Pay supports cards, standard ACH, next day ACH, wire, PayPal, and Cash App. The processing fee depends on which one the booker uses.
+Cal Pay charges a fee at two points: when a booker pays you, and when you withdraw your balance. Both are deducted from the amount, never added to the price the booker sees.
 
-| Payment method | Processing fee |
+### Fees on each payment
+
+Each payment includes these fees:
+
+- **Fixed card processing fee:** $0.30
+- **Radar fee:** $0.07
+- **Payment processing percentage fee:** a percentage of the payment amount
+- **Application fee:** Cal.com's take rate
+- **Orchestration fee**
+
+The fixed card processing fee and the Radar fee are the same on every payment, so they make up a much bigger share of very small payments. For example, a $1.00 payment has $0.42 in fees:
+
+| Fee | Amount |
+| --- | --- |
+| Fixed card processing fee | $0.30 |
+| Radar fee | $0.07 |
+| Payment processing percentage fee | $0.03 |
+| Application fee (Cal.com's take rate) | $0.01 |
+| Orchestration fee | $0.01 |
+| **Total fees** | **$0.42** |
+
+### Fees on each withdrawal
+
+You can withdraw your balance by card, standard ACH, next day ACH, wire, PayPal, or Cash App. The processing rate depends on the method you choose.
+
+| Withdrawal method | Processing rate |
 | --- | --- |
 | Card | 2.3% |
-| ACH | 1% |
+| ACH (standard or next day) | 1% |
 | PayPal | 2.7% |
 | Cash App | 2.7% |
 
-PayPal and Cash App transactions are instant. ACH and wire transfers can take 1 to 3 days to settle with the bank.
+PayPal and Cash App withdrawals are instant. ACH and wire transfers take 1 to 3 days to reach your bank. A Cal.com withdrawal fee is also deducted from each withdrawal.
+
+### Example: a $55.00 booking from payment to bank
+
+Here is how fees added up to $6.12 on a $55.00 payment that was then withdrawn to a bank account.
+
+| Step | Fee | Remaining |
+| --- | --- | --- |
+| Booker pays | | $55.00 |
+| Payment fee: $3.00 processing + $0.33 Cal.com platform fee | $3.33 | $51.67 in your Cal Pay wallet |
+| Withdrawal fee: $2.09 bank payout fee + $0.70 Cal.com withdrawal fee | $2.79 | $48.88 deposited to your bank |
+| **Total fees** | **$6.12** | |
 
 ## How the money reaches you
 
