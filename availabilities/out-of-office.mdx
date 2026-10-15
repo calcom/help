@@ -1,6 +1,6 @@
 ---
 title: "Out of office"
-description: "Block bookings, redirect them to a teammate, and manage entries for yourself or your team."
+description: "Block bookings, redirect them to a teammate, manage entries for your team, and sync time off to other tools."
 sidebarTitle: "Out of office"
 ---
 
@@ -22,8 +22,9 @@ Go to **Settings → My account → Out of office**.
 The page is split into tabs:
 
 - **My OOO** — entries you've created for yourself
-- **Team** — entries for members of teams you administer (only visible if you belong to at least one team or organization)
+- **Team OOO** — entries for members of teams you administer (only visible if you belong to at least one team or organization)
 - **Holidays** — country-based public holidays that automatically block your calendar (see [Holidays](/availabilities/holidays))
+- **Integrations** — apps that copy your out of office to other tools (only visible to team and organization admins, see [Out of office integrations](#out-of-office-integrations))
 
 ## Add an out of office entry
 
@@ -47,13 +48,40 @@ When you have several OOO entries, use the filters above the list to narrow by r
 
 ## Manage team out of office
 
-If you're an admin or owner of a team or organization, the **Team** tab lists OOO entries for everyone on your teams. From this tab you can:
+If you're an admin or owner of a team or organization, the **Team OOO** tab lists OOO entries for everyone on your teams. From this tab you can:
 
 - Add an OOO entry on behalf of a team member
 - Edit or remove an existing team member's entry
 - Filter by team or by member
 
 This is useful for managing time off for direct reports or for keeping team-wide coverage visible in one place.
+
+## Out of office integrations
+
+The **Integrations** tab connects out of office to the other tools your team uses. You can see it if you're an admin or owner of a team or organization.
+
+- **Google Calendar**: once installed, pick a calendar under **Add OOO events to**. Your out of office entries are added to it as events.
+- **Slack**: pick a channel under **Post OOO messages to**. When you create an entry, Cal.com posts a message with the reason, your name, the dates and your notes. Editing the entry updates the message, and deleting the entry strikes it through.
+- **Deel**: install Deel and select **Sync time off types**. Then map each Cal.com reason (for example, Vacation or Sick leave) to one of your Deel time off types. New out of office entries are filed in Deel as the mapped type. Reasons left as **Not mapped** aren't sent to Deel.
+
+When Deel is installed for a team or organization, its mapping applies to the entries of all its members, so each person doesn't need to install it.
+
+## Booking conflict notifications for organizations
+
+Organizations can email people when a member goes out of office but still hosts upcoming bookings during that time. This helps admins reassign or reschedule those bookings before they're missed.
+
+To set it up, go to **Settings → Organization → General** and turn on **Email members about booking conflicts with out of office**. Then choose who gets the email under **Notify**.
+
+<Frame>
+  <img src="/images/availability/ooo-booking-conflict-notifications.png" alt="The out of office booking conflict email setting in organization General settings, with the Notify dropdown" />
+</Frame>
+
+You can pick:
+
+- **Default (owners and admins)**: all organization owners and admins.
+- **A specific role**: everyone with that role, including custom roles. Only roles that can see bookings across the organization can be picked. Roles without that access are marked **Missing booking access**.
+
+The email lists the member's accepted bookings that overlap the out of office period. Private notes on the entry aren't included. If someone else created the entry for the member, the member also gets a copy.
 
 ## How OOO affects bookings
 
