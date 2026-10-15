@@ -5,38 +5,38 @@ title: "Instant Meetings"
 Instant Meetings let someone request a meeting with your team immediately, without choosing a future time. The booker selects **Connect now**, enters their details, and waits while a team member accepts the request.
 
 <Note>
-  Instant Meetings are available for team event types in a Cal.com organization. They cannot be enabled on personal event types.
+  Instant Meetings are available for team booking links in a Cal.com organization. They cannot be enabled on personal booking links.
 </Note>
 
 ## Required setup
 
-You only need an organization team event type with **Instant booking** enabled. The other settings on the Instant booking page are optional.
+You only need an organization team booking link with **Instant booking** enabled. The other settings on the Instant booking page are optional.
 
 <Steps>
-  <Step title="Open a team event type">
-    From **Event Types**, select an existing team event type or create a new one.
+  <Step title="Open a team booking link">
+    From **Links**, select an existing team booking link or create a new one.
   </Step>
   <Step title="Enable Instant booking">
-    Select **Instant booking** from the event type settings, then turn on the **Instant booking** toggle.
+    Select **Instant booking** from the booking link settings, then turn on the **Instant booking** toggle.
   </Step>
-  <Step title="Save the event type">
-    Select **Save**. You can now share the team event type link or make the event type public on your team's profile.
+  <Step title="Save the booking link">
+    Select **Save**. You can now share the team booking link or make the booking link public on your team's profile.
   </Step>
 </Steps>
 
-![Instant booking settings for a team event type](/images/instant-booking-settings.png)
+![Instant booking settings for a team booking link](/images/instant-booking-settings.png)
 
 <Note>
-  Instant Meetings always use Cal Video, even when the event type has a different location configured for scheduled bookings. No additional meeting location is required.
+  Instant Meetings always use Cal Video, even when the booking link has a different location configured for scheduled bookings. No additional meeting location is required.
 </Note>
 
 <Warning>
-  Instant Meetings cannot be enabled for an event type that has payments enabled.
+  Instant Meetings cannot be enabled for a booking link that has payments enabled.
 </Warning>
 
 ## Optional settings
 
-The following settings are not required to use Instant Meetings. Use them only when you need to customize how Instant booking works for this event type.
+The following settings are not required to use Instant Meetings. Use them only when you need to customize how Instant booking works for this booking link.
 
 ### Host join window
 
@@ -55,7 +55,7 @@ Webhooks provide a reliable way to notify hosts that an attendee is waiting. Wit
 Team members who have enabled Cal.com browser notifications can receive a push notification when a request is created. However, browser notifications depend on each member granting notification permission. Configure a webhook if your team needs requests delivered through another channel, such as Slack, Microsoft Teams, email, or an internal alerting system.
 
 <Tip>
-  We recommend configuring an **Instant Meeting Created** webhook before sharing the event type. Use it to alert the hosts who can accept the meeting and include the connect-and-join link from the webhook payload in the notification.
+  We recommend configuring an **Instant Meeting Created** webhook before sharing the booking link. Use it to alert the hosts who can accept the meeting and include the connect-and-join link from the webhook payload in the notification.
 </Tip>
 
 The available instant meeting triggers are:
@@ -75,7 +75,7 @@ A common setup is to use Zapier as the receiving service and send each new reque
   <Step title="Create a Zapier webhook trigger">
     In Zapier, create a Zap with **Webhooks by Zapier → Catch Hook** as the trigger. Copy the webhook URL that Zapier provides.
   </Step>
-  <Step title="Add the webhook to the event type">
+  <Step title="Add the webhook to the booking link">
     Under **Instant booking → Webhooks**, select **New webhook**, use the Zapier URL as the subscriber URL, and choose **Instant Meeting Created** as the trigger.
   </Step>
   <Step title="Connect Slack">
@@ -92,9 +92,9 @@ For instructions on creating a webhook and working with its payload, see [Webhoo
 
 ### Require URL parameter values
 
-Add required URL parameter values when an Instant Meeting should only appear for particular links. Cal.com shows **Connect now** only when every value configured here appears as a query-parameter value in the event type URL. This is useful when a routing form, campaign, or application should control who can request an immediate meeting.
+Add required URL parameter values when an Instant Meeting should only appear for particular links. Cal.com shows **Connect now** only when every value configured here appears as a query-parameter value in the booking link URL. This is useful when a routing form, campaign, or application should control who can request an immediate meeting.
 
-Leave this setting empty to show Instant booking on every version of the event type link.
+Leave this setting empty to show Instant booking on every version of the booking link.
 
 For example, if you add `support`, share a URL whose query string contains that value:
 
@@ -112,10 +112,10 @@ This setting is enabled by default. Turn it off to keep the title in English.
 
 Availability controls when the **Connect now** prompt appears on the booking page.
 
-- If you leave this setting empty, the prompt appears every time the event type is opened, provided any configured URL parameter values are present.
+- If you leave this setting empty, the prompt appears every time the booking link is opened, provided any configured URL parameter values are present.
 - If you select a schedule, the prompt only appears when the current time and the full meeting duration fit within that schedule.
 
-When the prompt is not available, the booker can still use the event type's regular scheduling flow to select a future time.
+When the prompt is not available, the booker can still use the booking link's regular scheduling flow to select a future time.
 
 ## What the booker experiences
 
@@ -132,10 +132,10 @@ The booker does not need a Cal.com account. After a host accepts, the booker is 
 
 ### Cooldown after an Instant Meeting request
 
-After an Instant Meeting request is created successfully, Cal.com starts a 10-minute cooldown for that event type. During the cooldown, **Connect now** remains visible but is disabled, preventing the same booker from immediately submitting another request.
+After an Instant Meeting request is created successfully, Cal.com starts a 10-minute cooldown for that booking link. During the cooldown, **Connect now** remains visible but is disabled, preventing the same booker from immediately submitting another request.
 
-The cooldown is stored in the booker's browser and tracked separately for each event type. It therefore applies when the booker reloads or revisits the event type in the same browser, but it does not carry over to another browser or device.
+The cooldown is stored in the booker's browser and tracked separately for each booking link. It therefore applies when the booker reloads or revisits the booking link in the same browser, but it does not carry over to another browser or device.
 
 ## Manage Instant Meetings across your organization
 
-Instant Meeting settings apply to the event type where you configure them. Organization admins can use a managed event type to distribute the same Instant Meeting setup to multiple team members and keep its locked settings consistent.
+Instant Meeting settings apply to the booking link where you configure them. Organization admins can use a template to distribute the same Instant Meeting setup to multiple team members and keep its locked settings consistent.

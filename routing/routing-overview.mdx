@@ -25,21 +25,21 @@ This reduces unnecessary scheduling conflicts and ensures meetings are routed to
 
 ### 2. Attribute Weights and Virtual Queues
 
-Instead of relying on the host's weight set within an event type, you can use **attribute weights**. This allows a host to have different weights for each assigned attribute value, providing greater flexibility in distribution. Using attribute weights also enables **virtual queues**, which help balance assigned bookings more effectively.
+Instead of relying on the host's weight set within a booking link, you can use **attribute weights**. This allows a host to have different weights for each assigned attribute value, providing greater flexibility in distribution. Using attribute weights also enables **virtual queues**, which help balance assigned bookings more effectively.
 
 **How It Works:**
 
 - Admins can enable weights on attributes and assign specific weights to team members based on their attributes.
 - If an attribute has weights set, it can be enabled and used on a routing form route.
 
-> **Note:** The event type used in the route must have weights enabled.
+> **Note:** The booking link used in the route must have weights enabled.
 
 #### What Are Virtual Queues?
 
 Virtual queues play an important role in distributing bookings within our **Round Robin** algorithm. Virtual queues are defined by the selected route and the attribute used for weighting on that route.
 
 **Example:**  
-If the `Country` attribute is used for weights and a client requests a representative in the USA, the Round Robin algorithm will only consider bookings that match both the same route and the USA attribute. Without virtual queues, all bookings from the event type would be counted, leading to less precise distribution.
+If the `Country` attribute is used for weights and a client requests a representative in the USA, the Round Robin algorithm will only consider bookings that match both the same route and the USA attribute. Without virtual queues, all bookings from the booking link would be counted, leading to less precise distribution.
 
 ---
 
@@ -97,7 +97,7 @@ This method provides a seamless user experience while maintaining centralized ro
 
 Each route in a routing form ends in one of three actions:
 
-- **Event Redirect** — Send the booker to a Cal.com event type (the most common option for team scheduling).
+- **Event Redirect** — Send the booker to a Cal.com booking link (the most common option for team scheduling).
 - **External Redirect** — Send the booker to a URL outside Cal.com (for example, a thank-you page or a `mailto:` link).
 - **Custom Page Message** — Show a static message on the form instead of redirecting.
 

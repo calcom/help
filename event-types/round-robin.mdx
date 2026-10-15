@@ -2,7 +2,7 @@
 title: "Round Robin Scheduling"
 ---
 
-Round robin event types allow you to distribute meetings amongst team members. At the moment, the distribution is based on availability, optimizing all options regardless of individual load. The booking will be assigned to an available host based on weights, priorities or the person least recently booked.
+Round robin booking links allow you to distribute meetings amongst team members. At the moment, the distribution is based on availability, optimizing all options regardless of individual load. The booking will be assigned to an available host based on weights, priorities or the person least recently booked.
 
 <Frame>
   <iframe width="100%" height="100%" src="https://www.youtube.com/embed/93iOmzHieCU?si=cT8uKL8NcPr2e-Rg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
@@ -26,7 +26,7 @@ Weights are optional and must be enabled to use. They allow you to determine how
 
 For instance, Jane Doe has a weight of 100% and already has 8 bookings while John Doe has a weight of 200% and already has 12 bookings. Assuming both of them are available, the next bookings would go to John Doe until a total of 16 bookings is reached.
 
-**Weight Adjustment**: If new hosts are added to a round-robin event type that has weights enabled, their weights will be adjusted accordingly. New hosts will have their bookings adjusted proportionally to their weight, taking into account the bookings that existing hosts already have. This ensures a fair distribution of bookings when new hosts are added.
+**Weight Adjustment**: If new hosts are added to a round-robin booking link that has weights enabled, their weights will be adjusted accordingly. New hosts will have their bookings adjusted proportionally to their weight, taking into account the bookings that existing hosts already have. This ensures a fair distribution of bookings when new hosts are added.
 
 ### Example:
 
@@ -91,11 +91,11 @@ When this setting is enabled, the reassignment email sent to the previous host:
 - Removes attendee and location information from the calendar invite (`.ics`) attachment.
 - Still shows a **Reassigned to** line so the previous host knows the booking was handed off.
 
-This setting is available only for round robin event types.
+This setting is available only for round robin booking links.
 
 #### How to enable:
 
-- Open the event type settings.
+- Open the booking link settings.
 - Go to the **Reschedule** tab.
 - Toggle **Hide host details in reassignment notifications**.
 - Click **Save** in the top-right corner.

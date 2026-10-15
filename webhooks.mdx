@@ -14,26 +14,26 @@ The webhook subscription allows you to listen to specific trigger events, such a
 Webhooks can be created at multiple levels of scope, each determining which events they apply to:
 
 - **User-level**:
-  Triggers for all event types owned by the user (excluding team-managed types).
+  Triggers for all booking links owned by the user (excluding team-managed types).
 
-- **Event-type level**:
-  Triggers only for a specific event type. Useful for fine-grained control.
+- **Booking-link level**:
+  Triggers only for a specific booking link. Useful for fine-grained control.
 
 - **Team-level**:
-  Applies to team event types (i.e., Collective and Round Robin) within the specified team.
+  Applies to team booking links (i.e., Collective and Round Robin) within the specified team.
 
     <Note>
-    In the case of Managed events, bookings are made on the child event types, not the parent team event. Because of this, team-level webhooks will **not** trigger for managed events unless one of the following is true:
+    In the case of Templates, bookings are made on the child booking links, not the parent team event. Because of this, team-level webhooks will **not** trigger for templates unless one of the following is true:
     
-    - You create a webhook directly on the parent event type (recommended), or
-    - You create individual webhooks on the child event types (owned by users).
+    - You create a webhook directly on the parent booking link (recommended), or
+    - You create individual webhooks on the child booking links (owned by users).
     
     💡 **Note:**
-    Users can create webhooks that apply to their own event types, including child events under a managed event, even if a team-level webhook exists.
+    Users can create webhooks that apply to their own booking links, including child events under a template, even if a team-level webhook exists.
     </Note>
 
 - **Organization-level**:
-  Applies to all team event types across all teams within the organization.
+  Applies to all team booking links across all teams within the organization.
 
 ### Creating a webhook subscription
 
@@ -83,9 +83,9 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 | Delegation Credential Rotation Required | The client secret for a Microsoft 365 [Delegation Credential](/enterprise/delegation-credential-microsoft-365) that has opted out of automatic rotation is approaching expiry (~14 days out). Organization-level only. |
 
 
-### Seated event types
+### Seated booking links
 
-For event types with [seats enabled](/event-types/offer-seats), the `attendees` array in webhook payloads contains only the attendee associated with the specific seat that triggered the webhook. For example, when a new seat is booked, the webhook includes only that seat's attendee — not all attendees across the entire booking. This applies to all booking-related triggers (`BOOKING_CREATED`, `BOOKING_RESCHEDULED`, etc.).
+For booking links with [seats enabled](/event-types/offer-seats), the `attendees` array in webhook payloads contains only the attendee associated with the specific seat that triggered the webhook. For example, when a new seat is booked, the webhook includes only that seat's attendee — not all attendees across the entire booking. This applies to all booking-related triggers (`BOOKING_CREATED`, `BOOKING_RESCHEDULED`, etc.).
 
 ### Example webhook payloads
 
@@ -264,7 +264,7 @@ If a booking is cancelled or rescheduled before the meeting time, the scheduled 
 
 The `INSTANT_MEETING` webhook fires when a booker submits an [Instant Meeting](/enterprise/instant-meetings) request. Its payload carries the booker's form `responses` and the `connectAndJoinUrl` a host opens to accept and join the meeting, so a receiving service can alert the hosts who can take the request.
 
-The fields in `responses` depend on the booking questions configured on the event type, so your own payload can contain more or fewer fields than the example below. `customInputs` is empty unless the event type still uses legacy custom inputs.
+The fields in `responses` depend on the booking questions configured on the booking link, so your own payload can contain more or fewer fields than the example below. `customInputs` is empty unless the booking link still uses legacy custom inputs.
 
 ```json
 {
@@ -289,7 +289,7 @@ The fields in `responses` depend on the booking questions configured on the even
 
 #### Instant meeting accepted
 
-The `INSTANT_MEETING_ACCEPTED` webhook fires when a host accepts an instant meeting request through the connect-and-join flow. It only triggers for the first host to accept — if another host has already accepted the booking, the webhook is not sent again. This trigger is available for team event types only.
+The `INSTANT_MEETING_ACCEPTED` webhook fires when a host accepts an instant meeting request through the connect-and-join flow. It only triggers for the first host to accept — if another host has already accepted the booking, the webhook is not sent again. This trigger is available for team booking links only.
 
 The payload includes the booking `status` (set to `ACCEPTED`), the accepting host as the `organizer` with their locale and time format preferences, the guest `attendees` list, booking `responses`, and a `metadata` object containing the `videoCallUrl` for the meeting.
 
@@ -350,7 +350,7 @@ The payload includes the booking `status` (set to `ACCEPTED`), the accepting hos
 
 The `CALENDAR_ENTRY_REJECTED` webhook fires when an external attendee declines a Cal.com event from their connected Google Calendar or Microsoft 365 calendar. Cal.com detects the decline during calendar sync and dispatches the webhook once per attendee per booking — duplicate syncs do not re-fire the trigger, so you can rely on it as an at-most-once signal.
 
-Use this trigger when you want to react to attendee declines that happen outside Cal.com, for example to notify the host, update a CRM, or offer the attendee a reschedule link. The webhook resolves subscribers at the user, event type, team, and organization levels, so any matching subscription receives the payload.
+Use this trigger when you want to react to attendee declines that happen outside Cal.com, for example to notify the host, update a CRM, or offer the attendee a reschedule link. The webhook resolves subscribers at the user, booking link, team, and organization levels, so any matching subscription receives the payload.
 
 The payload uses a flat format with `booking`, `calendarEvent`, and `declinedAttendee` objects at the top level:
 
@@ -424,7 +424,7 @@ An example of a custom payload template is provided here:
 }
 ```
 
-where `{{type}}` represents the event type slug and `{{title}}` represents the title of the event type. Note that the variables should be added with a double parenthesis as shown above. Here’s a breakdown of the payload that you would receive via an incoming webhook, with an exhaustive list of all the supported variables provided below:
+where `{{type}}` represents the booking link slug and `{{title}}` represents the title of the booking link. Note that the variables should be added with a double parenthesis as shown above. Here’s a breakdown of the payload that you would receive via an incoming webhook, with an exhaustive list of all the supported variables provided below:
 
 #### Webhook variable list
 
@@ -432,14 +432,14 @@ where `{{type}}` represents the event type slug and `{{title}}` represents the t
 | ------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | triggerEvent       | String    | The name of the trigger event \[BOOKING\_CREATED, BOOKING\_RESCHEDULED, BOOKING\_CANCELLED, MEETING\_ENDED, BOOKING\_REJECTED, BOOKING\_REQUESTED, BOOKING\_PAYMENT\_INITIATED, BOOKING\_PAID, MEETING\_STARTED, RECORDING\_READY, INSTANT\_MEETING, INSTANT\_MEETING\_ACCEPTED, FORM\_SUBMITTED, CALENDAR\_ENTRY\_REJECTED] |
 | createdAt          | Datetime  | The Time of the webhook                                                                                                                                                                                                                             |
-| type               | String    | The event type slug                                                                                                                                                                                                                                 |
-| title              | String    | The event type name                                                                                                                                                                                                                                 |
+| type               | String    | The booking link slug                                                                                                                                                                                                                                 |
+| title              | String    | The booking link name                                                                                                                                                                                                                                 |
 | startTime          | Datetime  | The event's start time                                                                                                                                                                                                                              |
 | endTime            | Datetime  | The event's end time                                                                                                                                                                                                                                |
-| description        | String    | The event's description as described in the event type settings                                                                                                                                                                                     |
+| description        | String    | The event's description as described in the booking link settings                                                                                                                                                                                     |
 | location           | String    | Location of the event                                                                                                                                                                                                                               |
 | organizer          | Organizer | The organizer of the event                                                                                                                                                                                                                          |
-| attendees          | Attendee\[] | The event booker & any guests. For [seated event types](/event-types/offer-seats), this contains only the attendee for the specific seat that triggered the webhook. |
+| attendees          | Attendee\[] | The event booker & any guests. For [seated booking links](/event-types/offer-seats), this contains only the attendee for the specific seat that triggered the webhook. |
 | uid                | String    | The UID of the booking                                                                                                                                                                                                                              |
 | rescheduleUid      | String    | The UID for rescheduling                                                                                                                                                                                                                            |
 | cancellationReason | String    | Reason for cancellation                                                                                                                                                                                                                             |
