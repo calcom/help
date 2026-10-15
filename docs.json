@@ -129,7 +129,8 @@
                       {
                         "group": "Appearance",
                         "pages": [
-                          "event-types/timezone-lock"
+                          "event-types/timezone-lock",
+                          "event-types/start-of-week"
                         ]
                       },
                       {

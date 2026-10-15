@@ -1,9 +1,50 @@
 ---
 title: Offer seats
+description: "Let more than one attendee book the same time slot, and review seat requests one by one when the link requires confirmation."
 ---
 
-If you have a booking link with the "Offer seats" feature toggled, you can have more than one attendee book a specific slot.
+When **Offer seats** is turned on for a booking link, more than one attendee can book the same time slot. This is useful for classes, seminars, webinars, and any other session that has a fixed number of attendance spots.
 
-[![](https://downloads.intercomcdn.com/i/o/1195347848/5997a6b26c8533e1fbc728a5/i1600x900-V3uoAv_cFR4n_tmadtm.png?expires=1736299800&signature=3e880f4ec92be0e9f00b62c3186f5a5112254e4aa6f64e3231937ad6728c6e72&req=dSEuE8p6molbUfMW1HO4zeJNgjpqzF5BsxaeJjowKMaEkNLxe6fM%2BvfGX1yJ%0A%2F8HpdrSWHrbCY6y8xIA%3D%0A)](https://downloads.intercomcdn.com/i/o/1195347848/5997a6b26c8533e1fbc728a5/i1600x900-V3uoAv_cFR4n_tmadtm.png?expires=1736299800&signature=3e880f4ec92be0e9f00b62c3186f5a5112254e4aa6f64e3231937ad6728c6e72&req=dSEuE8p6molbUfMW1HO4zeJNgjpqzF5BsxaeJjowKMaEkNLxe6fM%2BvfGX1yJ%0A%2F8HpdrSWHrbCY6y8xIA%3D%0A)
+## Turn on seats
 
-This feature would be useful for all those businesses, classes, seminars etc. that offer "seats" as in attendance spots. Just select the maximum number of seats in your booking-link settings and your attendees will be able to book slots multiple times.
+1. Open the booking link and go to **Payments & Seats**.
+2. Turn on **Offer seats**.
+3. Enter the **Number of seats per booking**.
+4. Click **Save**.
+
+Attendees can keep booking the slot until every seat is taken.
+
+<Note>
+  A seated booking has one shared location for everyone, so seats can't be combined with the **In Person (Attendee's Address)** location. That location uses a single attendee's address, which would send every other attendee to that person's address. While the link uses that location, the **Offer seats** toggle is unavailable and the app asks you to pick another location. Choose a different location first, such as an in-person address you set, a phone number, or a video call.
+</Note>
+
+Booking links that already combined seats with **In Person (Attendee's Address)** before this restriction can still be saved, but you can't newly add that combination.
+
+## Review seat requests
+
+If a seated booking link also has **Requires confirmation** turned on, each attendee who books a seat is added as a request. You decide on each seat individually, without confirming or rejecting the whole session.
+
+To review seat requests:
+
+1. Go to **Bookings** and open the session. Seat requests show up on the **Unconfirmed** tab until you accept someone.
+2. In the booking details, the seat count shows how many seats are taken. Attendees who are waiting for a decision are listed under **Waiting**.
+3. Click **Accept** next to an attendee, or select several attendees and use **Accept** or **Reject** at the bottom of the panel.
+
+<Frame>
+  <img src="/images/seats/seat-requests-selected.png" alt="Seat requests waiting for a decision, with one attendee selected and the Accept and Reject actions at the bottom of the booking details" />
+</Frame>
+
+Accepted attendees move to **In the room**. You can still reject someone there later, which frees up their seat. Rejected attendees are removed from the list.
+
+<Frame>
+  <img src="/images/seats/seat-requests-in-the-room.png" alt="An accepted attendee listed under In the room, with the remaining requests under Waiting" />
+</Frame>
+
+A few things to know:
+
+- You can't accept more people than the seats that are left. When the session is full, reject someone to free a seat.
+- Use **Search by name or email** to find a specific attendee in a long list.
+- Once you accept the first attendee, the session shows as confirmed. Anyone you haven't decided on stays under **Waiting**.
+- The seat list is only shown to people who can confirm bookings for this link, and only until the session has ended.
+
+Seated booking links that don't require confirmation show the regular attendee list instead. Booking links that require confirmation but don't offer seats keep the usual **Confirm** and **Reject** actions for the whole booking.
