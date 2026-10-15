@@ -1,10 +1,12 @@
 ---
 title: "Holidays"
-description: "Automatically block bookings on public holidays for your country."
+description: "Block bookings on public holidays for your country, or on your organization's company holidays."
 sidebarTitle: "Holidays"
 ---
 
 The Holidays tab lets you select a country and automatically block bookings on its public holidays — no need to create a date override or out of office entry for each one. You can opt out of individual holidays you don't observe.
+
+If you're part of an organization, your admins can also connect a company holiday calendar that applies to every member. See [Organization holidays](#organization-holidays).
 
 ## When to use it
 
@@ -18,7 +20,7 @@ Use holidays when you want bookings to be blocked on national or public holidays
 
 1. Go to **Settings → My account → Out of office**.
 2. Open the **Holidays** tab.
-3. Select your country from the dropdown. Use the search box to filter the list.
+3. In the **Personal holidays** card, open **Select country** and pick your country. Use the search box to filter the list.
 
 Once a country is selected, Cal.com pulls the public holidays for that country and shows them in a list with each holiday's name and date.
 
@@ -36,6 +38,37 @@ If you select a country (or change countries) and there are existing confirmed b
 
 - To switch countries, open the country dropdown and pick a new one. The previous country's holidays are removed and replaced.
 - To stop blocking holidays entirely, open the country dropdown and select **Clear**.
+
+## Organization holidays
+
+Organization owners and admins can connect one company holiday calendar, for example from Justworks or any HR or calendar tool that offers an ICS subscription link. Its holidays block availability for every current and future member of the organization, so no one has to set anything up themselves.
+
+<Frame>
+  <img src="/images/availability/organization-holidays.png" alt="The Organization holidays card on the Holidays tab" />
+</Frame>
+
+### Connect a holiday calendar
+
+1. Go to **Settings → My account → Out of office** and open the **Holidays** tab.
+2. In the **Organization holidays** card, select **Add organization calendar**.
+3. Give the calendar a name and paste its **ICS calendar URL**. `https://` and `webcal://` links both work. For Justworks, paste the ICS subscription link from Justworks. There's no separate app to install.
+4. Select **Connect calendar**. Cal.com reads the calendar and lists the upcoming holidays.
+
+<Frame>
+  <img src="/images/availability/organization-holidays-add-calendar.png" alt="The Add organization calendar dialog with Calendar name and ICS calendar URL fields" />
+</Frame>
+
+Owners and admins can rename the calendar, replace its URL, select **Sync now**, or **Disconnect** it from the same card. Other members see the holidays and the sync status, but not the calendar URL.
+
+### How organization holidays work
+
+- Only **all-day** events are imported. Timed meetings in the calendar are ignored. Multi-day closures and recurring holidays are supported.
+- Each holiday blocks the whole day in each member's own schedule timezone, on personal and team booking links.
+- New members get the holidays as soon as they join the organization. Members who leave stop inheriting them.
+- Organization holidays apply on top of personal holidays. Turning off a personal holiday, or not choosing a country, doesn't unblock an organization holiday.
+- Changes in the calendar sync automatically every hour. Use **Sync now** to pull changes right away.
+- Existing bookings on a holiday are not cancelled. Reschedule or cancel them as needed.
+- If a sync fails, the previously imported holidays keep applying until an owner or admin fixes the calendar link and the next sync succeeds.
 
 ## Related
 
