@@ -10,7 +10,7 @@ Workflows send messages and run actions automatically when something happens wit
 You build each workflow on a canvas, from the top down:
 
 - **Trigger**: when the workflow starts (for example, 24 hours before the event).
-- **Steps**: what happens next. A step can send an email, SMS or WhatsApp message, call the attendee with Cal.ai, wait, check a condition, or look up details about the attendee.
+- **Steps**: what happens next. A step can send an email, SMS or WhatsApp message, call the attendee with Cal.ai, wait, or check a condition.
 
 Steps run in order from the trigger downwards. You can add as many as you need.
 
@@ -20,7 +20,7 @@ Steps run in order from the trigger downwards. You can add as many as you need.
 - Send a follow-up email with a feedback link 1 hour after the meeting ends
 - Notify a teammate when a new meeting is booked
 - Email the host when an attendee cancels
-- Send senior leads a different briefing than everyone else, using [Lead enrichment](#lead-enrichment) and [Paths](#paths)
+- Send a different message depending on the attendee, using [Paths](#paths)
 
 ## Create a workflow
 
@@ -85,7 +85,7 @@ The two routing form triggers run on routing forms instead of links, so you choo
 Click **+** on the canvas to open the step menu.
 
 <Frame>
-  <img src="/images/workflows/insert-step-menu.png" alt="The step menu with Send email, Send SMS / WhatsApp, Lead enrichment, Paths, Filter and Delay" />
+  <img src="/images/workflows/insert-step-menu.png" alt="The step menu with Send email, Send SMS / WhatsApp, Paths, Filter and Delay" />
 </Frame>
 
 ### Send email
@@ -137,20 +137,6 @@ Splits the workflow into branches. Each path has its own conditions and its own 
 
 Paths are added at the end of a branch, so the step menu only shows **Paths** when you click the **+** below the last step.
 
-### Lead enrichment
-
-Looks up the attendee's work email address with People Data Labs and passes what it finds to the steps below it, for example their job title, seniority and company. You can then:
-
-- Use the results in **Filter** and **Paths** conditions, for example only continue when the attendee's seniority is VP or CXO, or send a different message when nothing was found.
-- Add the results to email and SMS messages with variables like `{LEAD_JOB_TITLE}` and `{LEAD_COMPANY_NAME}`.
-
-Things to know:
-
-- Lead enrichment is an organization app. An organization admin has to install it first and confirm the consent dialog, which explains what is sent to People Data Labs. Until then, the step menu shows **Install Lead Enrichment for your organization**, which takes you to the app.
-- Personal email addresses (for example Gmail) are skipped.
-- Bookers can opt out of the lookup on the booking page.
-- Bookings made before you added the step are never looked up, because those bookers were never asked.
-
 ## Dynamic text variables
 
 Click **Add variable** above a message to insert one. Variables are replaced with the booking's details when the message is sent.
@@ -182,8 +168,6 @@ Click **Add variable** above a message to insert one. Variables are replaced wit
 | `{EVENT_END_TIME_IN_ATTENDEE_TIMEZONE}`            | Event end time in the attendee's timezone        |
 
 You can also format dates and times, for example `{EVENT_DATE_ddd, MMM D, YYYY h:mma}`, and use answers to your booking questions as variables.
-
-After a **Lead enrichment** step, the variable menu also has a **Lead enrichment** group with the attendee's job title, seniority, LinkedIn URL, location, and company name, website, size, industry, headquarters, description and LinkedIn URL.
 
 ---
 
