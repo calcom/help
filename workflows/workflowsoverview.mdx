@@ -1,152 +1,206 @@
 ---
 title: "Cal.com Workflows"
-description: "Automate messages, actions, and follow-ups for your bookings"
+description: "Automate reminders, follow-ups and actions around your bookings with the workflow canvas"
 ---
 
-## What Are Workflows?
+## What are workflows?
 
-Workflows in Cal.com allow you to automate actions when a specific event happens, such as when a booking is created, canceled, or about to start. This makes it easy to stay on top of communication, send reminders, and reduce manual work.
+Workflows send messages and run actions automatically when something happens with a booking, for example when a meeting is booked, cancelled or about to start.
 
-Each workflow follows a simple logic:\
-**Trigger → Action**
+You build each workflow on a canvas, from the top down:
 
-- **Trigger**: When something happens (e.g., a new booking)
-- **Action**: What should be done (e.g., send an email)
+- **Trigger**: when the workflow starts (for example, 24 hours before the event).
+- **Steps**: what happens next. A step can send an email, SMS or WhatsApp message, call the attendee with Cal.ai, wait, or check a condition.
 
-## Example Use Cases
+Steps run in order from the trigger downwards. You can add as many as you need.
 
-- Send a reminder email and SMS to the attendee 1 hour before the meeting
-- Send a post-event follow-up email with a feedback link
-- Notify your internal teammate of the meeting details
-- Email the organizer if the attendee cancels
+## Example use cases
 
-## How to Set Up a Workflow
+- Email and text the attendee 24 hours before the meeting, then again 1 hour before
+- Send a follow-up email with a feedback link 1 hour after the meeting ends
+- Notify a teammate when a new meeting is booked
+- Email the host when an attendee cancels
+- Send a different message depending on the attendee, using [Paths](#paths)
+
+## Create a workflow
 
 <Steps>
-  <Step title="Go to your Cal.com dashboard">
-    
+  <Step title="Go to Workflows">
+    Click **Workflows** in the sidebar, or go to [app.cal.com/workflows](https://app.cal.com/workflows).
+
+    <Frame>
+      <img src="/images/workflows/workflows-list.png" alt="The Workflows page in Cal.com" />
+    </Frame>
   </Step>
-  <Step title="Navigate to Workflows">
-    https://app.cal.com/workflows
+  <Step title="Click Create">
+    If you belong to a team, choose whether the workflow belongs to you or to one of your teams. Then pick **Start from scratch**, or **AI Phone template** to start with a Cal.ai phone call.
+
+    <Frame>
+      <img src="/images/workflows/new-workflow-dialog.png" alt="The New workflow dialog with Start from scratch and AI Phone template" />
+    </Frame>
   </Step>
-  <Step title="Click `New`button" titleSize="p">
-    
+  <Step title="Name the workflow">
+    Click the pencil icon next to **Untitled** at the top of the canvas and type a name.
   </Step>
-  <Step title="Give it a name">
-    
+  <Step title="Set up the trigger">
+    Click the trigger at the top of the canvas. Choose when the workflow starts and, for timed triggers, how long before or after the event. Then choose which links it runs on. Turn on **Apply to all** to include every link, including ones you create later. Click **Done**.
+
+    <Frame>
+      <img src="/images/workflows/trigger-settings.png" alt="Trigger settings with Before event starts, 24 hours and one team selected" />
+    </Frame>
   </Step>
-  <Step title="Select a Trigger (e.g., booking created, event canceled, 1 hour before start)">
-    
-  </Step>
-  <Step title="Add one or more Actions ">
-    
-  </Step>
-  <Step title="Customize message content using dynamic text variables (see table below)">
-    
-  </Step>
-  <Step title="Choose which event types this workflow should apply to">
-    ![BrandBird 2025-07-10 13.14.30.png](/images/BrandBird2025-07-1013.14.30.png)
+  <Step title="Add and edit steps">
+    New workflows start with an email step. Click any step to edit it, or click **+** between two steps to add a new one there. See [Steps you can add](#steps-you-can-add).
   </Step>
   <Step title="Click Save">
-    
+    The workflow only runs once it's saved. If you leave the canvas with unsaved changes, Cal.com asks before discarding them.
   </Step>
 </Steps>
 
-## Available Triggers
+## Triggers
 
-![BrandBird 2025-07-10 12.50.14.png](/images/BrandBird2025-07-1012.50.14.png)
+<Frame>
+  <img src="/images/workflows/trigger-list.png" alt="The list of available workflow triggers" />
+</Frame>
 
-These are the currently available trigger options:
-
-- Before the event starts
-- When the event is canceled
-- When a new event is booked
-- After the event ends
+- Before event starts
+- When event is canceled
+- When new event is booked
+- After event ends
 - When event is rescheduled
-- When the routing form is submitted 
-- When the routing form is submitted and no booking is created
-- When a booking is rejected (events that require confirmation)
-- When booking is requested (events that require confirmatoin) 
-- When booking payment is initiated 
+- When routing form is submitted
+- When routing form is submitted and no booking is created
+- When booking is rejected (for links that require confirmation)
+- When booking is requested (for links that require confirmation)
+- When booking payment is initiated
 - When booking payment is successful
-- When booking no-show is updated 
+- When booking no-show is updated
 
-## Available Actions
+**Before event starts** and **After event ends** also ask how many minutes, hours or days before or after.
 
-![BrandBird 2025-07-10 12.54.26.png](/images/BrandBird2025-07-1012.54.26.png)
+The two routing form triggers run on routing forms instead of links, so you choose which forms the workflow is active on.
 
-You can automate actions such as:
+## Steps you can add
 
-- Sending an email to host
-- Sending an email to attendees
-- Sending an email to a specific email address
-- Sending SMS to attendee
-- Sending SMS to a specific number
-- Send WhatsApp message to attendee
-- Send WhatsApp message to a specific number
-- Cal.ai - Call attendee using cal.ai voice agent (requires credits)
+Click **+** on the canvas to open the step menu.
 
-## Dynamic Text Variables
+<Frame>
+  <img src="/images/workflows/insert-step-menu.png" alt="The step menu with Send email, Send SMS / WhatsApp, Paths, Filter and Delay" />
+</Frame>
 
-You can insert dynamic text into your messages using variables. These variables will be replaced with real booking data when the message is sent.
+### Send email
+
+Email the attendees, the host, or a specific email address. You can pick a message template (for example **Reminder** or **Thank you**), set the sender name, and write your own subject and body with [variables](#dynamic-text-variables).
+
+Other options:
+
+- **Include calendar event**: attach the event as a calendar invite.
+- **Auto-translate for attendees**: see [Auto-translate for attendees](#auto-translate-for-attendees).
+
+<Frame>
+  <img src="/images/workflows/email-step-settings.png" alt="Email step settings with action, sender name, template, subject and body" />
+</Frame>
+
+Reminder emails always include links for the attendee to reschedule or cancel the booking.
+
+### Send SMS / WhatsApp
+
+Text the attendee or a specific phone number, by SMS or WhatsApp. Messages to a specific number need that number to be verified first. SMS messages use [credits](/workflows/credits).
+
+### Cal.ai phone call
+
+Cal.ai calls the attendee with an AI voice agent. Start from the **AI Phone template**, or add the step from the step menu. Cal.ai phone calls use credits. See [Cal.ai](/cal-ai/cal-ai-help) for setting up the agent.
+
+<Note>
+  Cal.ai isn't available on organization workflows, or on workflows that apply to all links.
+</Note>
+
+### Delay
+
+Waits before running the steps below it. Set **Wait for** to a number of minutes, hours or days. The step's title shows the wait, for example **Wait 1 hour**.
+
+<Frame>
+  <img src="/images/workflows/delay-step.png" alt="A Delay step set to wait 1 hour between the trigger and an email step" />
+</Frame>
+
+For example, with the trigger **When new event is booked**, a **Delay** of 2 days and an email step, the email goes out 2 days after the booking is made.
+
+If the booking is rescheduled while a delay is running, the wait carries over and the steps after it still run.
+
+### Filter
+
+Only continues when its conditions match. If they don't match, none of the steps below the filter run. For example, filter on the attendee's email or location so the next steps only run for some attendees.
+
+### Paths
+
+Splits the workflow into branches. Each path has its own conditions and its own steps, and runs when its conditions match. Use paths when different attendees should get different messages.
+
+Paths are added at the end of a branch, so the step menu only shows **Paths** when you click the **+** below the last step.
+
+## Dynamic text variables
+
+Click **Add variable** above a message to insert one. Variables are replaced with the booking's details when the message is sent.
 
 | Variable                                           | Description                                      |
 | :------------------------------------------------- | :----------------------------------------------- |
-| `{EVENT_NAME}`                                     | The event type name                              |
+| `{EVENT_NAME}` or `{CALENDAR_INVITE_TITLE}`        | The calendar invite title (event name)           |
+| `{LINK_TITLE}`                                     | The booking link title                           |
 | `{EVENT_DATE}`                                     | The event date                                   |
 | `{EVENT_TIME}`                                     | The event start time                             |
 | `{EVENT_END_TIME}`                                 | The event end time                               |
-| `{TIMEZONE_VARIABLE}`                              | The timezone of the person receiving the message |
-| `{LOCATION_VARIABLE}`                              | The location of the event                        |
-| `{ORGANIZER_NAME}`                                 | The organizer’s (host’s) name                    |
-| `{ATTENDEE}`                                       | Full name of the attendee/person booking         |
+| `{TIMEZONE}`                                       | The timezone of the person receiving the message |
+| `{LOCATION}`                                       | The location of the event                        |
+| `{ORGANIZER_NAME}`                                 | The organizer's (host's) name                    |
+| `{ATTENDEE}`                                       | Full name of the attendee                        |
 | `{ATTENDEE_FIRST_NAME}`                            | First name of the attendee                       |
 | `{ATTENDEE_LAST_NAME}`                             | Last name of the attendee                        |
 | `{ATTENDEE_EMAIL}`                                 | Email address of the attendee                    |
-| `{ADDITIONAL_NOTES_VARIABLE}`                      | Additional notes submitted during booking        |
+| `{ADDITIONAL_NOTES}`                               | Additional notes submitted during booking        |
 | `{MEETING_URL}`                                    | The video conference/meeting URL                 |
 | `{CANCEL_URL}`                                     | Link to cancel the booking                       |
 | `{CANCELLATION_REASON}`                            | Reason provided for cancellation                 |
 | `{RESCHEDULE_URL}`                                 | Link to reschedule the booking                   |
 | `{RESCHEDULE_REASON}`                              | Reason provided for rescheduling                 |
-| `{RATING_URL_VARIABLE}`                            | URL to the post-event rating/feedback form       |
-| `{NO_SHOW_URL_VARIABLE}`                           | URL to mark/report a no-show                     |
-| `{ATTENDEE_TIMEZONE}`                              | Attendee's timezone information                  |
-| `{EVENT_START_TIME_IN_ATTENDEE_TIMEZONE_VARIABLE}` | Event start time in attendee’s local timezone    |
-| `{EVENT_END_TIME_IN_ATTENDEE_TIMEZONE_VARIABLE}`   | Event end time in attendee’s local timezone      |
+| `{RATING_URL}`                                     | URL to the post-event rating form                |
+| `{NO_SHOW_URL}`                                    | URL to mark a no-show                            |
+| `{ATTENDEE_TIMEZONE}`                              | The attendee's timezone                          |
+| `{EVENT_START_TIME_IN_ATTENDEE_TIMEZONE}`          | Event start time in the attendee's timezone      |
+| `{EVENT_END_TIME_IN_ATTENDEE_TIMEZONE}`            | Event end time in the attendee's timezone        |
+
+You can also format dates and times, for example `{EVENT_DATE_ddd, MMM D, YYYY h:mma}`, and use answers to your booking questions as variables.
 
 ---
 
 ## Auto-translate for attendees
 
-If you're on an **Organization plan**, you can enable auto-translation for workflow steps that send messages to attendees. When enabled, Cal.com automatically translates your workflow message into the attendee's preferred language before sending.
+If you're on an **Organization plan**, you can turn on auto-translation for steps that message attendees. Cal.com translates the message into the attendee's preferred language before sending it.
 
 This works with:
 
-- **Email to attendee** actions
-- **SMS to attendee** actions
+- **Email to attendee** steps
+- **SMS to attendee** steps
 
-### How to enable auto-translate
+### How to turn on auto-translate
 
-1. Open a workflow and add or edit a step that sends a message to an attendee.
-2. Below the message editor, check the **Auto-translate for attendees** checkbox.
-3. Once enabled, a note confirms which language your message is written in (your account's default language). This is the source language used for translation.
-4. Save the workflow.
+1. Open a workflow and click a step that sends a message to an attendee.
+2. Below the message editor, check **Auto-translate for attendees**.
+3. A note confirms which language your message is written in (your account's default language). This is the language it's translated from.
+4. Click **Save**.
 
-When a booking is made, Cal.com detects the attendee's language preference and translates the message content automatically. If the attendee's language matches your source language, no translation is applied.
+If the attendee's language is the same as yours, the message is sent as written.
 
 <Note>
-  Auto-translate is only available on **Organization** plans. If you're on a different plan, you'll see an upgrade prompt instead of the checkbox.
+  Auto-translate is only available on **Organization** plans. On other plans, you'll see an upgrade prompt instead of the checkbox.
 </Note>
 
 ---
 
-## Plan Limitations
+## Plan limitations
 
-- **Free Plan**: Can only use the default reminder email (no customization)
-- **Team, Organization, and Enterprise Plans**: Full access to create custom workflows with multiple actions and dynamic content
-- **Self-hosted Instances**: No restrictions on workflow usage
+- **Free plan**: you can build workflows, but email steps use the default template text and can't be edited. SMS text can still be edited.
+- **Teams, Organization and Enterprise plans**: full access, including custom email content and routing form workflows.
+- **Self-hosted instances**: no restrictions on workflow usage.
 
 <Note>
-  **Note:** WhatsApp workflows **cannot be customized** on any plan at the moment. They are currently limited to sending a **predetermined default message** only.
+  WhatsApp messages **can't be customized** on any plan at the moment. They always send a predetermined default message.
 </Note>
