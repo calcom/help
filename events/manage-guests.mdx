@@ -26,6 +26,16 @@ Duplicate, already-registered, and invalid addresses are skipped. After sending,
 
 **Invitation statuses** are Pending, Responded (set automatically when that email RSVPs), and Revoked. You can resend an invitation after a one-hour cooldown, or revoke it.
 
+## Add a guest by phone number
+
+You can add someone to the guest list yourself. Click **+** at the top of a column, for example **Going** or **Maybe**, and enter their name with an email address, a phone number, or both. If you only have a phone number, leave the email empty. You need at least one of the two.
+
+Guests added to **Going** are confirmed right away and get the usual confirmation.
+
+<Frame>
+  <img src="/images/events/add-guest-by-phone.png" alt="Add guest to Going dialog with a name and phone number and an empty email address" />
+</Frame>
+
 ## Work the roster
 
 The roster is split into segments for **Pending**, **Approved**, **Waitlist**, **Declined**, and **All**, with search and summary counts.
@@ -46,7 +56,13 @@ When you approve someone and the event is already full, the app offers the waitl
 
 ## Export the roster
 
-You can export the roster to CSV. Invitations are not included, and the export is capped at 4,000 rows. If it was cut off, you are told.
+Click **Download** to export the guests you are looking at to CSV. The export follows the segment, location filter and search you have selected. Invitation segments export the invited email addresses, and **All** includes pending invitations. The export is capped at 4,000 rows. If it was cut off, you are told, and if there is nothing to export, you get a warning instead of a file.
+
+The file has these columns, followed by one column for each of your custom registration questions:
+
+`name`, `email`, `status`, `rsvp_response`, `payment_status`, `registered_at`, `decided_at`, `waitlist_position`, `checked_in_at`, `location`
+
+`location` shows which location each guest chose, worded the same way as in the roster, including a location you have since removed. It is empty for invitations, for guests who didn't choose one, and for events with a single location.
 
 ## A note on "attendance"
 

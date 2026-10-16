@@ -6,12 +6,11 @@ description: "Set up an event, fill in the editor, publish it, and understand wh
 
 ## Create the event
 
-Go to **Events** in the left sidebar and select **+ Create Event**. The dialog collects only the basics. Everything else is filled in afterwards in the editor.
+Go to **Events** in the left sidebar and create a new event. You fill in one sentence, for example *I'm hosting Summer Rooftop Sessions on Friday, October 23 at 9:00 AM until 10:00 AM*, plus the timezone and whether the event is public or private and requires approval. Select **Create event** to open the editor, where you fill in everything else. The start must be in the future, and for in-person events you should use the venue's local time.
 
-1. **Event name.**
-2. **Event URL (slug)**, suggested from the name. It must be at least 10 characters, use only lowercase letters, numbers, and dashes, and be unique across Cal.com. It is checked against usernames, reserved routes, and other events. If it is already in use, the app tells you the URL is taken.
-3. **Starts**, **Ends**, and **Timezone**. The end must be after the start, and the start must be in the future. For in-person events, use the venue's local time.
-4. **Private event**, an optional toggle that keeps the event reachable by its URL but hides it from your public event listing.
+The event URL (slug) is suggested from the name and can be changed in **Basics** while the event is a draft. It must be at least 10 characters, use only lowercase letters, numbers, and dashes, and be unique across Cal.com. It is checked against usernames, reserved routes, and other events. If it is already in use, the app tells you the URL is taken.
+
+A **Private event** stays reachable by its URL but is hidden from your public event listing.
 
 <Note>
   If you type a link into the event name, it is removed from the saved title, and the URL is never allowed to spell out the removed link. If this forces the URL to change, you are told the new URL and that the old one no longer works. The editor always shows the URL the event is actually saved under.
@@ -23,9 +22,28 @@ The editor is grouped into sections. A live preview of the public page sits alon
 
 ### Setup: Basics
 
-The event name, the event URL (read-only once published), an **About the event** description with a **Translate using AI** option, the date, time and timezone, the **Private event** toggle, and a cover image.
+The event name, the event URL (read-only once published), an **About the event** description with a **Translate using AI** option, the date, time and timezone, and the **Private event** toggle.
 
-The cover image can be dragged in or browsed for. The ideal size is 800x800 and the maximum is 10 MB. You can replace or remove it later. There is also an option to generate a cover image with AI, which is uploaded when the event is saved.
+### Setup: Appearance
+
+The **Appearance** tab controls how the public event page looks. The live preview next to the editor updates as you change things.
+
+- **Category:** the kind of event, for example Meetup. Each category has a short description underneath.
+- **Theme:** **System default**, **Light** or **Dark**. Light and Dark always show the page in that theme. System default follows each guest's device setting.
+- **Cover:** choose **Poster** or **Image**.
+  - **Poster** designs a cover for you from the event name. Pick one of the layouts or click **Shuffle**, choose a **Palette** (or set the **Background**, **Text** and **Accent** colors yourself), and optionally type a **Headline**. Leave the headline empty to use the event title. The poster becomes the event cover when you save.
+  - **Image** lets you drag in or browse for your own cover. The ideal size is 800x800 and the maximum is 10 MB. You can replace or remove it later, or generate a cover image with AI, which is uploaded when the event is saved.
+- **Shader:** turn it on to add an animated background to the top of the event page. Pick an **Effect** and a **Color palette**, or set the three colors yourself.
+
+<Frame>
+  <img src="/images/events/appearance-theme-cover.png" alt="Appearance tab with the Category, Theme and Cover settings and the Poster cover selected" />
+</Frame>
+
+<Frame>
+  <img src="/images/events/appearance-poster-shader.png" alt="Poster layouts, Palette, colors and Headline, with Shader turned on showing the Effect and Color palette" />
+</Frame>
+
+Only the main host can change the category and theme. Co-hosts can still change the cover.
 
 ### Setup: Location
 
@@ -41,6 +59,23 @@ The exact join link or address is only revealed to a guest after they register.
 You are always listed as a host. Team members can be added, and people outside your team can be invited as external co-hosts by email. Co-hosts accept or decline, and you can see their Invited, Declined, or accepted state, revoke access at any time, or watch a co-host leave the event themselves.
 
 A co-host can edit event details and manage attendees. A co-host **cannot** change the host roster, cancel, delete, or publish the event, or change who appears on the public guest list. Locked controls tell them to contact the main host.
+
+### Setup: Page content
+
+Use **Page content** to add a **Lineup** and a **Schedule** to the public page.
+
+- **Lineup:** speakers, performers or anyone else you want to feature, up to 30 people. You can rename the section with **Title** (it is called Lineup by default). Click **Add lineup person** to add a name, title, avatar and optional links.
+- **Schedule:** the agenda, up to 50 items. Each item can have a start and end time and the people from the lineup who are involved.
+
+#### Add media players to a lineup person
+
+In the **Add lineup person** dialog, use **Media** to add up to 6 Spotify, YouTube or SoundCloud links per person. Each link shows which provider and type it is, for example **Spotify · Artist**, and you can give it an optional label, move it up or down, or delete it. Links from other sites aren't accepted.
+
+On the public page, people with media get a play button next to their name. Guests click it to open that person's players. Nothing loads from Spotify, YouTube or SoundCloud until a guest opens them.
+
+<Frame>
+  <img src="/images/events/lineup-media-players.png" alt="Add lineup person dialog with a Spotify and a YouTube link under Media" />
+</Frame>
 
 ### The remaining sections
 
