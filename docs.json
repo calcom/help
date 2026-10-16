@@ -128,7 +128,7 @@
                           "event-types/booking-success-page-query-params",
                           "event-types/custom-reply-to",
                           "event-types/disable-confirmation",
-                          "event-types/booking-proposals"
+                          "event-types/propose-multiple-times"
                         ]
                       },
                       {
