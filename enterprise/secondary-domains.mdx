@@ -1,0 +1,70 @@
+---
+title: "Verified secondary domains"
+description: "Let members with other company email domains join your organization automatically."
+---
+
+Your organization is set up with a primary domain, such as `acme.com`. If your company also uses other email domains, for example `acme.fr` for a regional office or a domain from an acquired company, you can add them as secondary domains.
+
+Once a secondary domain is verified, people who sign up with an email address on that domain are treated like members on your primary domain. They join your organization automatically, and their existing accounts can be linked to it.
+
+<Note>
+  Only organization owners and admins can add and verify secondary domains.
+</Note>
+
+---
+
+## Add a secondary domain
+
+<Steps>
+  <Step title="Open Privacy settings">
+    Go to **Settings** → **Organization** → **Privacy & security** and find **Secondary verified domains**.
+  </Step>
+  <Step title="Enter the domain">
+    Enter the domain, such as `acme.fr`. Optionally, set a **Username suffix** (see [Usernames](#usernames)).
+  </Step>
+  <Step title="Add the domain">
+    Click **Add domain**. The domain is listed as **Pending verification**, with the DNS TXT record you need to add.
+  </Step>
+</Steps>
+
+---
+
+## Verify the domain
+
+Verification proves that your organization owns the domain.
+
+<Steps>
+  <Step title="Copy the TXT record">
+    Under the pending domain, copy the record Cal.com shows you. It has a name like `_cal-verification.acme.fr` and a value that starts with `cal-verification=`.
+  </Step>
+  <Step title="Add the record at your DNS provider">
+    In your DNS provider (for example Cloudflare, GoDaddy or Route 53), create a new **TXT** record with that name and value.
+  </Step>
+  <Step title="Click Verify">
+    Back in Cal.com, click **Verify**. When the record is found, the domain is marked as verified.
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/secondary-domains/pending-verification.png" alt="A secondary domain marked Pending verification, with the DNS TXT record and the Verify button" />
+</Frame>
+
+<Tip>
+  DNS changes can take a while to show up. If verification fails right after you add the record, wait a few minutes and click **Verify** again.
+</Tip>
+
+Until a domain is verified, Cal.com ignores it. Sign-ups on that domain don't join your organization, and the domain isn't used for single sign-on or directory sync.
+
+---
+
+## Usernames
+
+Members from a secondary domain get a suffix on their username so they don't clash with members on your primary domain. By default, the suffix is the ending of the domain. For example, `john@acme.fr` gets the username `john-fr`.
+
+To use a different suffix, enter it in **Username suffix** when you add the domain.
+
+---
+
+## Remove a domain
+
+To stop people on a domain from joining your organization automatically, click **Remove** next to it.

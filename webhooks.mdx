@@ -56,6 +56,8 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 
 4. Custom Payload: You have the option to [customize the payload](/docs/core-features/webhooks#adding-a-custom-payload-template) you receive when a subscribed event is triggered.
 
+5. Custom headers: You can add your own HTTP headers, such as an API key, to every delivery. See [Adding custom headers](#adding-custom-headers).
+
 
 ### Expectations with the triggers
 
@@ -407,6 +409,35 @@ If your subscriber URL does not meet these requirements, the webhook creation or
 3. Use the **secret key** to create an `hmac`, and update that with the webhook payload received to create an SHA256.
 
 4. Compare the hash received in the header of the webhook `(X-Cal-Signature-256)` with the one created using the **secret key** and the body of the payload. If they don't match, the received payload was adulterated and cannot be trusted.
+
+### Adding custom headers
+
+If your endpoint expects its own authentication or routing headers, you can add them to the webhook. Cal.com sends them with every delivery, along with the standard Cal.com headers.
+
+1. Open the webhook in **Settings** → **Developer** → **Webhooks**, or create a new one.
+
+2. In **Custom headers**, click **Add header**.
+
+3. Enter the **Header name** and **Header value**. For example, `Authorization` with the value `Bearer your-token`.
+
+4. Add more headers if you need them, then save the webhook.
+
+<Frame>
+  <img src="/images/webhooks/webhook-custom-headers.png" alt="Webhook form with the Custom headers section and an Authorization header added" />
+</Frame>
+
+Things to know:
+
+- You can add up to 10 headers per webhook.
+- Header values are stored encrypted. After you save, values are masked and can't be read back, so keep a copy of them elsewhere.
+- If you change the **Subscriber URL**, saved header values aren't sent to the new URL. Enter them again before you save.
+- Header names that start with `X-Cal-` are reserved for Cal.com, and connection headers such as `Host`, `Content-Length`, `Connection` and `Transfer-Encoding` can't be set.
+- Each value can be up to 4 KB and can't contain line breaks.
+- Custom headers don't replace the secret. If you set a secret, the `X-Cal-Signature-256` header is still sent so you can [verify the payload](#verifying-the-authenticity-of-the-received-payload).
+
+<Note>
+  If you don't see **Custom headers** in the webhook form, the feature isn't available on your Cal.com instance yet.
+</Note>
 
 ### Adding a custom payload template
 

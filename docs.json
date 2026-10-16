@@ -45,6 +45,7 @@
                 },
                 "pages": [
                   "enterprise/members-onboarding",
+                  "enterprise/secondary-domains",
                   "enterprise/delegation-credential",
                   "enterprise/delegation-credential-google-workspace",
                   "enterprise/delegation-credential-microsoft-365",
@@ -90,6 +91,7 @@
                         "pages": [
                           "event-types/how-to-add-location",
                           "event-types/calvideo-advanced-settings",
+                          "event-types/cal-video-rooms",
                           "event-types/adding-zoom",
                           "event-types/multiple-durations"
                         ]
@@ -172,7 +174,8 @@
                           "event-types/hide-notes",
                           "event-types/private-links",
                           "event-types/how-to-requires",
-                          "event-types/create-secret"
+                          "event-types/create-secret",
+                          "event-types/calendar-invites"
                         ]
                       }
                     ]
@@ -364,6 +367,7 @@
                   "style": "solid"
                 },
                 "pages": [
+                  "importing/import-from-calendly-and-savvycal",
                   "importing/import-numbers"
                 ]
               },
