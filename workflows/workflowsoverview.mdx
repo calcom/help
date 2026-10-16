@@ -167,7 +167,53 @@ Click **Add variable** above a message to insert one. Variables are replaced wit
 | `{EVENT_START_TIME_IN_ATTENDEE_TIMEZONE}`          | Event start time in the attendee's timezone      |
 | `{EVENT_END_TIME_IN_ATTENDEE_TIMEZONE}`            | Event end time in the attendee's timezone        |
 
-You can also format dates and times, for example `{EVENT_DATE_ddd, MMM D, YYYY h:mma}`, and use answers to your booking questions as variables.
+You can also format dates and times, for example `{EVENT_DATE_ddd, MMM D, YYYY h:mma}`.
+
+### Booking question variables
+
+You can put a booker's answer to any booking question into a message. Each question becomes a variable named after its [identifier](/event-types/booking-questions#booking-question-identifier).
+
+<Steps>
+  <Step title="Find the question's identifier">
+    Open the link, go to **Booking form**, and click **Edit** next to the question. The **Identifier** field shows the identifier, for example `Company-size` for a question labeled "Company size".
+  </Step>
+  <Step title="Make sure the workflow runs on that link">
+    Booking questions only show up in the variable list for the links the workflow runs on. Choose them in the trigger settings.
+  </Step>
+  <Step title="Insert the variable">
+    Click **Add variable** above the email subject, email body or text message. Pick the question under **Booking question response variables**, or type part of its name in the search box to find it. When the message is sent, the variable is replaced with the booker's answer.
+
+    <Frame>
+      <img src="/images/workflows/booking-question-variables.png" alt="The Add variable menu with a Company size question under Booking question response variables" />
+    </Frame>
+  </Step>
+</Steps>
+
+#### How the identifier becomes a variable
+
+You can also type the variable yourself. Take the question's identifier and:
+
+1. Change every letter to uppercase.
+2. Replace each dash (`-`) with an underscore (`_`).
+3. Wrap it in curly brackets.
+
+| Question label        | Identifier           | Variable               |
+| :-------------------- | :------------------- | :--------------------- |
+| Company size          | `Company-size`       | `{COMPANY_SIZE}`       |
+| What's your budget?   | `What-s-your-budget` | `{WHAT_S_YOUR_BUDGET}` |
+| Project type (identifier changed by you) | `project_type` | `{PROJECT_TYPE}` |
+
+The version with dashes kept, such as `{COMPANY-SIZE}`, also works. So does the version with no separators at all, such as `{COMPANYSIZE}`, which older templates used.
+
+If a question allows more than one answer, for example checkboxes or a multi-select, the answers are listed with commas between them.
+
+<Note>
+  - The variable has to be in uppercase. Lowercase versions such as `{company_size}` aren't replaced.
+  - If a variable doesn't match any question on the link, it's sent exactly as typed, curly brackets included. Send yourself a test booking to check it.
+  - If you change a question's identifier, update every workflow that uses its old variable. When you edit a question's label, its identifier changes with it unless you've set the identifier yourself.
+  - The name and email questions aren't listed. Use `{ATTENDEE}` and `{ATTENDEE_EMAIL}` instead.
+  - Organization-level workflows don't list booking questions in **Add variable**. Type the variable yourself instead.
+</Note>
 
 ---
 
