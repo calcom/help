@@ -46,6 +46,7 @@
                 "pages": [
                   "enterprise/members-onboarding",
                   "enterprise/secondary-domains",
+                  "enterprise/organization-downgrade",
                   "enterprise/delegation-credential",
                   "enterprise/delegation-credential-google-workspace",
                   "enterprise/delegation-credential-microsoft-365",
@@ -92,6 +93,7 @@
                           "event-types/how-to-add-location",
                           "event-types/calvideo-advanced-settings",
                           "event-types/cal-video-rooms",
+                          "event-types/cal-video-meetings",
                           "event-types/adding-zoom",
                           "event-types/multiple-durations"
                         ]
@@ -125,14 +127,16 @@
                           "event-types/custom-name",
                           "event-types/booking-success-page-query-params",
                           "event-types/custom-reply-to",
-                          "event-types/disable-confirmation"
+                          "event-types/disable-confirmation",
+                          "event-types/propose-multiple-times"
                         ]
                       },
                       {
                         "group": "Appearance",
                         "pages": [
                           "event-types/timezone-lock",
-                          "event-types/start-of-week"
+                          "event-types/start-of-week",
+                          "event-types/booking-page-banner"
                         ]
                       },
                       {
@@ -236,6 +240,7 @@
                 },
                 "pages": [
                   "bookings/no-show",
+                  "bookings/bulk-actions",
                   "bookings/host-reschedule-busy-slots",
                   "bookings/paid-bookings",
                   "bookings/past-bookings-filtering",
@@ -357,7 +362,8 @@
                   "style": "solid"
                 },
                 "pages": [
-                  "roles/make-user-an-org-admin"
+                  "roles/make-user-an-org-admin",
+                  "roles/roles-and-permissions"
                 ]
               },
               {
