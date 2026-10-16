@@ -12,13 +12,31 @@ A new field will appear on the booking page where attendees enter the booking de
 
 You can also make use of the booking questions feature to allow prefilling the [**booking fields**](https://cal.com/docs/core-features/bookings/prefill-fields)
 
-## Booking field identifier
+## Booking question identifier
 
-The **`identifier`** for booking questions is a unique text input that users provide when creating a booking question. This identifier serves as a distinctive key for each specific booking question, establishing a clear and unique reference that can be used throughout the platform wherever that question is addressed or its answers are processed.
+Every booking question has an **identifier**, a unique key that the booker's answer is saved under. Cal.com uses it to [prefill the question from the booking link](/bookings/prefill-fields), in webhook payloads, and to turn the answer into a [workflow variable](/workflows/workflowsoverview#booking-question-variables).
 
-The primary utility of the identifier emerges when individuals schedule meetings. As they fill out booking forms, the responses they provide are tied back to the specific booking questions via these identifiers. This system ensures precision and clarity, as each answer is unmistakably linked to its corresponding question, eliminating any potential confusion especially when similar or related questions are present.
+### Where to find a question's identifier
 
-By utilizing the **`identifier`** for booking questions, users benefit from a more organized, efficient, and error-resistant way of handling booking data, both within the platform and in conjunction with external systems. This streamlined approach not only enhances data management and integrity but also contributes significantly to the overall user experience.
+1. Open the link and go to **Booking form**.
+2. Click **Edit** next to the question.
+3. The **Identifier** field is below **Label**.
+
+<Frame>
+  <img src="/images/booking-question-identifier.png" alt="Question settings with the label Company size and the identifier Company-size" />
+</Frame>
+
+When you add a question, the identifier is filled in from the label. Spaces and special characters are replaced with dashes, so "Company size" becomes `Company-size`. You can type your own identifier instead. Identifiers can contain letters, numbers, dashes and underscores.
+
+The default questions, such as name and email, have fixed identifiers that you can't change.
+
+### Use the identifier as a workflow variable
+
+To add the booker's answer to a workflow message, write the identifier in uppercase, replace its dashes with underscores, and wrap it in curly brackets. For example, `Company-size` becomes `{COMPANY_SIZE}`. See [booking question variables](/workflows/workflowsoverview#booking-question-variables) for details.
+
+<Warning>
+  If you change an identifier, update any workflows, prefill links or webhook integrations that use the old one. When you edit a question's label, its identifier changes with it unless you've set the identifier yourself.
+</Warning>
 
 ## Phone-based bookings
 
