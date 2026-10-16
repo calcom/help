@@ -1,0 +1,44 @@
+---
+title: "Cal Video rooms and Cal Audio"
+sidebarTitle: "Cal Video rooms and Cal Audio"
+description: "Use your personal room, your team's permanent room, and audio-only rooms on cal.audio."
+---
+
+Cal Video rooms don't need a booking. You can keep a permanent link for yourself or your team, and use cal.audio for calls that are voice only.
+
+## Your personal room
+
+Your personal room is at `cal.video/<your-username>`. In an organization it's at `<org>.cal.video/<your-username>`. It's created the first time you open it while signed in, and it's available on paid plans.
+
+## Permanent team rooms
+
+In an organization, every team has a permanent room at `<org>.cal.video/<team-slug>`. For example, the team at `acme.cal.com/engineering` meets at `acme.cal.video/engineering`.
+
+- The room is created the first time a member of the team opens it while signed in. After that it never expires.
+- Every member of the team is a host of the room.
+- Recording isn't available in team rooms.
+- Team rooms only exist in organizations.
+
+## Who can get in
+
+A room is closed until one of its hosts opens it. Until then, anyone else who opens the link sees the same page as for a room that doesn't exist.
+
+While the meeting is running, guests knock and wait for a host to let them in. A host can open the room to anyone with the link from the host controls in the call toolbar. The room stays open for future meetings until a host switches it back. People with an invite link from a host can join directly either way.
+
+## Cal Audio
+
+cal.audio has the same kind of rooms with no video, for calls where you only need to talk.
+
+- There's no pre-join screen. Open the link and you're in the call.
+- If you're signed in, you join under your Cal.com name. Otherwise you get a generated name, which you can change by editing the name on your own tile.
+- Everyone is shown as a round avatar, and it lights up while that person is speaking.
+- Screen sharing works. Cameras can't be turned on, and recording and captions aren't available yet.
+- Organizations get their own rooms at `<org>.cal.audio`.
+- `cal.audio/<room>` and `cal.video/<room>` are two different rooms, even if the name is the same.
+- cal.audio has its own sign-in, so being signed in on cal.video doesn't sign you in on cal.audio.
+
+If you can't hear anything, your browser may be blocking sound until you interact with the page. The room tells you when this happens and gives you a button to try again. If your microphone is blocked or missing, you can still listen, and the room lets you know nobody can hear you.
+
+## Related
+
+- [Cal Video location: advanced settings](/event-types/calvideo-advanced-settings)

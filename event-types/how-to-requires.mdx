@@ -32,3 +32,45 @@ You can decide how strictly this applies:
 **Managing pending bookings**
 
 Bookings awaiting your approval appear under the **Unconfirmed** tab on your Bookings page. From there you can accept or reject each request. Accepting pushes the event to your calendar and sends the confirmation to the attendee; rejecting notifies them that the booking was declined, and you can optionally include a reason.<br /><br />
+## Let attendees propose multiple times
+
+Booking proposals let an attendee send you several times that work for them instead of booking a single slot. You then confirm the one you want.
+
+**How to turn it on**
+
+1. Go to **Links** and open the link you want to change.
+2. Select the **Confirmation** tab.
+3. Turn on **Let attendees propose multiple times**.
+4. Set **Number of times attendees propose**, from 1 to 10. Attendees have to pick exactly this many times.
+5. Click **Save**.
+
+![The Confirmation tab with Let attendees propose multiple times turned on and the number of times set to 3](/images/event-types/booking-proposals-setting.png)
+
+Booking proposals aren't available on seated, recurring or paid links. On those links the toggle is greyed out, and hovering over it tells you why.
+
+**What attendees see**
+
+The booking page asks them to select that number of times, for example "Select 3 times to request". They pick the times, fill in the booking form and click **Request times**. They're told their requested times were sent and get a "Booking request sent" email. Once you confirm a time, they get the usual booking confirmation.
+
+![The booking form with three proposed times listed and the Request times button](/images/event-types/booking-proposals-booker.png)
+
+**Confirming or declining a proposal**
+
+You get an email with the subject "Choose a time: (link name)" that lists the proposed times. Open it, pick the time that works for you and confirm it. That time becomes a normal booking: it's added to your calendar and the attendee is notified.
+
+- If one of the times was booked in the meantime, you're told it's no longer available. Pick another one.
+- To decline, select **Reject all proposed times**. You can add a reason of up to 1,000 characters. The attendee gets a "Declined" email.
+- A proposal expires after 48 hours and can't be confirmed after that.
+- A proposal isn't a booking yet, so it doesn't appear on your **Bookings** page until you confirm a time.
+
+**Team links**
+
+On round-robin links, each proposed time belongs to the host who would take it, and each host is only offered their own times. Hosts who are on every booking are offered all of them. Rejecting a proposal declines it for every host.
+
+**Holding the proposed times**
+
+Proposed times are only held while you decide if **Requires confirmation** and **Unconfirmed bookings still block calendar slots** are both turned on for the link. Otherwise the times stay open to other bookers until you confirm one.
+
+**Proposal emails**
+
+If you don't want the "Choose a time" email, turn on **Disable booking proposal emails to hosts** on the same tab. All other host emails, such as confirmation requests, confirmations, reminders and cancellations, are unaffected. You can also choose how you hear about new proposals under **Booking proposals** in your [notification preferences](/bookings/notification-preferences).
