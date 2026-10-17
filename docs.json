@@ -244,6 +244,7 @@
                   "bookings/host-reschedule-busy-slots",
                   "bookings/paid-bookings",
                   "bookings/past-bookings-filtering",
+                  "bookings/notification-preferences",
                   "bookings/prefill-fields",
                   "bookings/utm-tracking",
                   "bookings/analytics",
