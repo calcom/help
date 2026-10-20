@@ -1,0 +1,71 @@
+---
+title: "Setting up SCIM with Microsoft Entra ID"
+sidebarTitle: "SCIM with Microsoft Entra ID"
+description: "Provision and deprovision organization members automatically from Microsoft Entra ID (formerly Azure AD)."
+---
+
+Directory sync (SCIM) lets Microsoft Entra ID create, update and remove members of your Cal.com organization. You can also map Entra groups to teams inside your organization.
+
+<Note>
+  Directory sync is available on organizations. Only organization owners and admins can set it up.
+</Note>
+
+## Before you start
+
+Cal.com only provisions users whose email address is on your organization's verified domain (or a [verified secondary domain](/enterprise/secondary-domains)). Make sure every user you plan to assign has their **Email** (`mail`) attribute filled in with an address on that domain.
+
+## 1. Create the directory in Cal.com
+
+1. Go to **Settings → Organization → Directory Sync** (`/settings/organizations/dsync`) and click **Configure**.
+    <Frame>
+    <img src="/images/scim/dsync-configure.png" />
+    </Frame>
+2. Enter a **Directory Name** (for example "Entra ID"), choose **Azure SCIM v2.0** as the **Directory Provider**, and click **Save**.
+3. Copy the **SCIM Base URL** and the **SCIM Bearer Token**. You'll paste them into Entra in the next section.
+    <Frame>
+    <img src="/images/scim/dsync-configure-info.png" />
+    </Frame>
+
+## 2. Connect Microsoft Entra ID
+
+1. In the [Microsoft Entra admin center](https://entra.microsoft.com), go to **Enterprise applications → New application → Create your own application**.
+2. Name the app (for example "Cal.com"), choose **Integrate any other application you don't find in the gallery (Non-gallery)**, and click **Create**.
+3. Open the app, go to **Provisioning**, and set **Provisioning Mode** to **Automatic**.
+4. Under **Admin Credentials**, paste the **SCIM Base URL** into **Tenant URL** and the **SCIM Bearer Token** into **Secret Token**. Click **Test Connection**, then **Save**.
+5. Under **Mappings**, open **Provision Microsoft Entra ID Users** and make sure these attributes are mapped:
+    - `userName`
+    - `active`
+    - `displayName`
+    - `emails[type eq "work"].value`
+    - `name.givenName`
+    - `name.familyName`
+
+    You can remove the other attributes. Keep `active`, because Entra uses it to tell Cal.com when a user is unassigned or disabled.
+6. Under **Settings**, set **Scope** to **Sync only assigned users and groups**.
+7. Go to **Users and groups** and assign the users and groups you want to provision.
+8. Back on **Provisioning**, set **Provisioning Status** to **On** and click **Save**.
+
+Entra runs a provisioning cycle about every 40 minutes. To test a single user right away, use **Provision on demand** on the app's **Provisioning** page.
+
+## What happens when users sync
+
+- **Assigned users** are added to your organization and get an email inviting them to Cal.com. Users who already have a Cal.com account are moved into the organization.
+- **Unassigned or disabled users** are removed from your organization.
+
+## Mapping Entra groups to Cal.com teams
+
+You can map an Entra group to a team in your organization. When Entra pushes the group, its members are added to that team automatically.
+
+On `/settings/organizations/dsync`, find the team in the table and click **Add group name**. Enter the group name exactly as it appears in Entra.
+
+<Frame>
+<img src="/images/scim/group-team-mapping.png" />
+</Frame>
+
+The group also has to be assigned to the Cal.com app under **Users and groups** in Entra.
+
+## Troubleshooting
+
+- **A user isn't provisioned.** Check that the user's Email (`mail`) attribute in Entra is filled in and on your verified domain. If it's empty, Entra sends the user principal name instead, and an address like `name@yourtenant.onmicrosoft.com` is rejected. The app's **Provisioning logs** in Entra show the error for each user.
+- **Test Connection fails.** Copy the SCIM Base URL and Bearer Token again from `/settings/organizations/dsync`, and make sure there are no extra spaces.
+- **Group members aren't added to a team.** Check that the group name on the Directory Sync page matches the Entra group name exactly, and that the group is assigned to the app.

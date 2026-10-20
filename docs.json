@@ -298,6 +298,7 @@
                 },
                 "pages": [
                   "auth-and-provision/scim-okta",
+                  "auth-and-provision/scim-entra-id",
                   "auth-and-provision/oidc-with-okta"
                 ]
               },
