@@ -214,6 +214,16 @@
                 ]
               },
               {
+                "group": "Discover",
+                "icon": {
+                  "name": "compass",
+                  "style": "solid"
+                },
+                "pages": [
+                  "discover/discover-overview"
+                ]
+              },
+              {
                 "group": "Availabilities",
                 "icon": {
                   "name": "magnifying-glass",
