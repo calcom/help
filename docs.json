@@ -44,9 +44,9 @@
                   "style": "solid"
                 },
                 "pages": [
-                  "account/profile-settings",
-                  "account/general-settings",
-                  "account/calendars-and-conferencing"
+                  "my-account/profile-settings",
+                  "my-account/general-settings",
+                  "my-account/calendars-and-conferencing"
                 ]
               },
               {
