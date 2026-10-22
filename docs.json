@@ -249,6 +249,7 @@
                   "style": "solid"
                 },
                 "pages": [
+                  "bookings/manage-a-booking",
                   "bookings/no-show",
                   "bookings/bulk-actions",
                   "bookings/host-reschedule-busy-slots",
