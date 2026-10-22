@@ -257,8 +257,22 @@
                   "bookings/notification-preferences",
                   "bookings/prefill-fields",
                   "bookings/utm-tracking",
-                  "bookings/analytics",
-                  "bookings/insights"
+                  "bookings/analytics"
+                ]
+              },
+              {
+                "group": "Insights",
+                "icon": {
+                  "name": "chart-bar",
+                  "style": "solid"
+                },
+                "pages": [
+                  "bookings/insights",
+                  "insights/routing-insights",
+                  "insights/out-of-office-insights",
+                  "insights/routing-availability",
+                  "insights/call-history",
+                  "insights/wrong-assignment-reports"
                 ]
               },
               {

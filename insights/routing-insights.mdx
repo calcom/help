@@ -1,0 +1,71 @@
+---
+title: "Routing insights"
+description: "See how your routing forms perform: submissions, successful routings, accepted bookings, and who each response was routed to."
+---
+
+The **Routing** tab in [Insights](https://app.cal.com/insights/routing) shows how people move through your [routing forms](/routing/routing-overview), from submitting the form to booking a meeting.
+
+Open it from **Insights** in the left sidebar, then select **Routing**.
+
+<Frame>
+  <img src="/images/insights/routing.png" alt="Routing insights with stats cards and the responses table" />
+</Frame>
+
+<Note>
+  Insights is available to members of a team or organization. If you are not on a team yet, the Insights pages show an upgrade prompt instead.
+</Note>
+
+## Choose a routing form
+
+Routing insights always show one routing form at a time. The first form you have access to is selected by default. Use the **Routing forms** filter at the top of the page to switch to another form.
+
+You can also filter by team (or the whole organization), member, booking status, the form's own questions, and **Submitted at** date range.
+
+## Stats
+
+The **Stats** cards at the top count the responses in the selected range:
+
+| Card | What it counts |
+|---|---|
+| Total Responses | Every submission of the form |
+| Total responses without booking | Submissions that did not end in a booking |
+| Total responses with booking | Submissions that ended in a booking |
+
+## Responses table
+
+The table lists every response. Columns include the member the response was routed to, the booking link, who booked, the attendee's name, email and phone number, an answer column for each form question, the booking status and time, the **Assignment reason**, UTM parameters, and **Submitted at**.
+
+Use the actions menu on a row to:
+
+- Open the **Routing trace**, which shows each routing decision that led to the assigned host. See [Routing trace](/routing/routing-overview#5-routing-trace).
+- **Report assignment** when the booking went to the wrong person. See [Wrong assignment reports](/insights/wrong-assignment-reports).
+
+Click **Download** to export the table as a CSV file.
+
+<Note>
+  Filtering by an attendee's name, email, phone number, an answer, or the assignment reason needs permission to read routing form response data. Team admins and owners have it by default. Without it, a filtered view returns no responses.
+</Note>
+
+## Routing funnel
+
+The **Routing funnel** chart compares three numbers over time:
+
+- **Total submissions**: everyone who submitted the form.
+- **Successful routings**: submissions that were routed to a booking link or member.
+- **Accepted bookings**: routed submissions that became an accepted booking.
+
+The drop between each step shows where people leave the flow.
+
+## Routed to per period
+
+**Routed to per period** shows how many bookings each member received per day, week, or month. Each member also gets a badge comparing their total to the team average, so you can spot uneven distribution in round-robin routing. Use the search box to find a member, and **Download** to export the data.
+
+## Failed bookings by field
+
+**Failed bookings by field** counts responses that did not end in a booking, grouped by form question and answer. Use it to find answers that lead people to a dead end, such as a custom message or a link with no availability.
+
+## Test a routing form (Router position)
+
+The **Router position** tab lets you try a team routing form without submitting a real response. It lists forms that route to a [weighted round-robin](/event-types/round-robin#weights) event where you are a host. Pick a form, fill in the answers you want to test, and click **Submit**. Cal.com shows where that response would be routed and which members match the routing rules. Nothing is saved and no booking is created.
+
+If none of your team forms route to a weighted round-robin event, the tab shows **No routing forms created yet**.
