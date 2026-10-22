@@ -3,6 +3,10 @@
   "theme": "mint",
   "redirects": [
     {
+      "source": "/event-types/eventtype-id",
+      "destination": "/event-types/link-id"
+    },
+    {
       "source": "/availabilities/set-up-your-availability",
       "destination": "/availabilities/availability-dashboard-overview"
     },
@@ -94,7 +98,7 @@
                 },
                 "pages": [
                   "event-types/event-types",
-                  "event-types/eventtype-id",
+                  "event-types/link-id",
                   "event-types/add-events",
                   "event-types/create-first-event",
                   "event-types/create-recurring",
