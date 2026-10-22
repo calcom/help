@@ -1,0 +1,31 @@
+---
+title: "Link ID"
+description: "Find the numeric ID of a link, used by the Cal.com API, webhooks and support."
+---
+
+Every link has a numeric Link ID. You need it when you work with the Cal.com API, read webhook payloads, or when Cal.com support asks which link a question is about.
+
+## How to find your Link ID
+
+1. Go to **Links** and open the link you want.
+2. In the left sidebar, under **Need help?**, click **Open Troubleshooter**. On smaller screens, open the **⋯** menu at the top right of the link and choose **Troubleshoot**.
+
+<Frame>
+  <img src="/images/link-id/open-troubleshooter.png" alt="Open Troubleshooter in the link settings sidebar" />
+</Frame>
+
+3. The troubleshooter opens with your link selected. Look at the URL in your browser's address bar. The number after `eventTypeId=` is your Link ID. In this example, the Link ID is `3`.
+
+<Frame>
+  <img src="/images/link-id/troubleshooter-url.png" alt="Link ID shown after eventTypeId= in the troubleshooter URL" />
+</Frame>
+
+<Note>
+  The address you see while editing a link (`/links/...`) is not the Link ID. It is a short identifier for the settings page only.
+</Note>
+
+## Other places to find it
+
+- **API:** [List event types](https://cal.com/docs/api-reference/v2/event-types/list-event-types) returns every link with its Link ID in the `id` field. In the API, links are called event types.
+- **Webhooks:** booking [webhook](/webhooks) payloads include the Link ID as `eventTypeId`.
+- **Old links:** URLs in the old `/event-types/<Link ID>` format still work and redirect to the link's settings.
