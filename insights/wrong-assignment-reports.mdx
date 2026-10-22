@@ -1,0 +1,48 @@
+---
+title: "Wrong assignment reports"
+description: "Report a routed booking that went to the wrong host, and review those reports in Insights."
+---
+
+When a routing form sends a booking to the wrong team member, anyone who can see the booking can report it. Admins then review the reports in **Insights** > **Wrong routing** and use them to fix routing rules, [attributes](/routing/routing-with-attributes), or CRM data.
+
+Wrong assignment reports are only available for bookings that came from a [routing form](/routing/routing-overview).
+
+## Report a wrong assignment
+
+1. Go to [**Bookings**](https://app.cal.com/bookings/upcoming) and find the booking.
+2. Open the actions menu on the booking and select **Report assignment**.
+3. The dialog shows who booked the meeting, who received it, and the first assignment reason.
+4. Under **Who should have received it?**, select a team member or enter an email address (optional).
+5. Add **Additional notes** explaining why the assignment was wrong.
+6. Click **Submit**.
+
+You can also report from the **Routing** tab in Insights: open the actions menu on a response and select **Report assignment**. See [Routing insights](/insights/routing-insights#responses-table).
+
+Each booking can only be reported once. If someone has already reported it, the dialog tells you.
+
+<Tip>
+  Routing can only be as good as the data behind it. If you route with a CRM such as Salesforce, a wrong assignment is often caused by an incorrect record in the CRM rather than a wrong routing rule.
+</Tip>
+
+## Review reports
+
+1. Go to **Insights** > [**Wrong routing**](https://app.cal.com/insights/wrong-routing).
+2. Select a team, or the whole organization, to see its reports.
+3. Switch between **Pending** (waiting for review) and **Handled** (reviewed, resolved, or dismissed).
+
+<Frame>
+  <img src="/images/insights/wrong-routing.png" alt="Wrong routing tab listing pending wrong assignment reports" />
+</Frame>
+
+Each report shows the booking and its host, the routing form, who reported it, the correct assignee they suggested, their notes, the status, when it was reported, and who reviewed it. You can filter by routing form and by reporter.
+
+Open a report's actions menu to:
+
+- View the **Routing trace** for the booking.
+- **View form submission** to see the answers the booker gave.
+- **Mark as reviewed**, **Mark as resolved**, or **Dismiss** the report.
+- **Reopen** a handled report to move it back to Pending.
+
+## Get notified with a webhook
+
+To send new reports to another tool, create a [webhook](/webhooks) with the **Wrong assignment report** trigger. It fires each time someone submits a report.
