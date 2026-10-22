@@ -44,6 +44,7 @@
                   "style": "solid"
                 },
                 "pages": [
+                  "enterprise/organization-profile-and-general",
                   "enterprise/members-onboarding",
                   "enterprise/secondary-domains",
                   "enterprise/organization-downgrade",
@@ -396,6 +397,7 @@
                   "style": "solid"
                 },
                 "pages": [
+                  "api-keys",
                   "webhooks",
                   "apps-and-integrations/oauth"
                 ]
