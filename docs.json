@@ -5,6 +5,10 @@
     {
       "source": "/availabilities/set-up-your-availability",
       "destination": "/availabilities/availability-dashboard-overview"
+    },
+    {
+      "source": "/event-types/recurring-events",
+      "destination": "/event-types/create-recurring"
     }
   ],
   "name": "Cal.com Help",
