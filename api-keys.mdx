@@ -1,0 +1,33 @@
+---
+title: "API keys"
+description: "Create, rename and revoke API keys to connect other apps to your Cal.com account through the API."
+---
+
+API keys let other apps make API calls for your Cal.com account. Each key acts as you, so keep it secret.
+
+Go to **Settings** > **Developer** > [**API keys**](https://app.cal.com/settings/developer/api-keys).
+
+## Create an API key
+
+1. Click **New**, or **Create your first API key** if you don't have one yet.
+2. Under **Name this key**, give it a name that tells you where it's used, for example "Development".
+3. Choose when it expires: 7 days, 30 days, 3 months or 1 year. Turn on **Never expires** for a key with no expiration date.
+4. Click **Create**.
+5. Click **Copy to clipboard** and save the key somewhere safe, then click **Done**.
+
+<Warning>
+  You can only see the key once. If you lose it, delete it and create a new one.
+</Warning>
+
+## Manage your keys
+
+Your keys are listed with their name and expiry date. Expired keys are marked **Expired**.
+
+Open the **Options** menu on a key to:
+
+- **Edit**: change its name.
+- **Delete**: revoke the key. Any app using it stops working right away. Click **Revoke this API key** to confirm.
+
+## Use your key
+
+See the [API reference](https://cal.com/docs/api-reference/v2/introduction) for how to send your key with requests.
