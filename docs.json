@@ -38,6 +38,18 @@
                 ]
               },
               {
+                "group": "Account settings",
+                "icon": {
+                  "name": "user",
+                  "style": "solid"
+                },
+                "pages": [
+                  "my-account/profile-settings",
+                  "my-account/general-settings",
+                  "my-account/calendars-and-conferencing"
+                ]
+              },
+              {
                 "group": "Enterprise",
                 "icon": {
                   "name": "landmark",
