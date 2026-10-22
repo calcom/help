@@ -362,6 +362,8 @@
                   "style": "solid"
                 },
                 "pages": [
+                  "security/security-settings",
+                  "security/two-factor-authentication",
                   "security/blocklist",
                   "security/account-lockout",
                   "security/report-user"
