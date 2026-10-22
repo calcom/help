@@ -187,6 +187,9 @@
                   {
                     "group": "Teams",
                     "pages": [
+                      "teams/create-a-team",
+                      "teams/invite-team-members",
+                      "teams/team-settings",
                       "event-types/managed-events",
                       "event-types/round-robin",
                       "event-types/collective-events",
