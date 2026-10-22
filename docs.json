@@ -13,6 +13,62 @@
     {
       "source": "/event-types/recurring-events",
       "destination": "/event-types/create-recurring"
+    },
+    {
+      "source": "/account-settings/schedule-timezone",
+      "destination": "/my-account/general-settings#travel-schedule"
+    },
+    {
+      "source": "/billing-and-usage/cal-pay",
+      "destination": "/cal-pay"
+    },
+    {
+      "source": "/title-cal-pay-sidebar-title-cal-pay-description-charge-for-a-booking-without-connecting-stripe-and-withdraw-what-you-earn-from-inside-cal-com-cal-pay-is-cal-coms-own-payment-option-it-is-available",
+      "destination": "/cal-pay"
+    },
+    {
+      "source": "/calendars/how-to-add-apple-calendar",
+      "destination": "/quick-start/calendar"
+    },
+    {
+      "source": "/calendars/how-to-add-google-calendar",
+      "destination": "/quick-start/calendar"
+    },
+    {
+      "source": "/event-types/adding-first-app",
+      "destination": "/apps-and-integrations/adding-first-app"
+    },
+    {
+      "source": "/event-types/booking-success",
+      "destination": "/event-types/booking-success-page-query-params"
+    },
+    {
+      "source": "/event-types/how-to-set-buffer",
+      "destination": "/event-types/event-buffer"
+    },
+    {
+      "source": "/event-types/how-to-time-slot-intervals",
+      "destination": "/event-types/custom-time-slots"
+    },
+    {
+      "source": "/event-types/location-of-event",
+      "destination": "/event-types/how-to-add-location"
+    },
+    {
+      "source": "/event-types/require-criteria",
+      "destination": "/event-types/create-secret"
+    },
+    {
+      "source": "/event-types/secret-events",
+      "destination": "/event-types/create-secret"
+    },
+    {
+      "source": "/event-types/user-eventtype",
+      "destination": "/event-types/eventtype-specific-checking-for-conflicts"
+    },
+    {
+      "source": "/help/availabilities/multiple-slots",
+      "destination": "/availabilities/multiple-slots"
     }
   ],
   "name": "Cal.com Help",
