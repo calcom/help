@@ -1,0 +1,35 @@
+---
+title: "Link ID"
+description: "Find the numeric ID of a link, used by the Cal.com API, webhooks and support."
+---
+
+Every link has a numeric Link ID. You need it when you work with the Cal.com API, read webhook payloads, or when Cal.com support asks which link a question is about.
+
+## How to find your Link ID
+
+1. Go to **Links**.
+2. Click the **⋯** menu next to the link you want and choose **Troubleshoot**.
+
+<Frame>
+  <img src="/images/link-id/links-menu-troubleshoot.png" alt="Troubleshoot option in the link's three-dot menu on the Links page" />
+</Frame>
+
+3. The troubleshooter opens with your link selected. Look at the URL in your browser's address bar. It looks like `app.cal.com/availability/troubleshoot?eventTypeId=3051982&date=2026-10-22`. The number after `eventTypeId=` is your Link ID, so in this example the Link ID is `3051982`.
+
+<Frame>
+  <img src="/images/link-id/troubleshooter-url.png" alt="Link ID shown after eventTypeId= in the troubleshooter URL" />
+</Frame>
+
+<Tip>
+  You can also open the troubleshooter from inside a link's settings: click **Open Troubleshooter** under **Need help?** in the left sidebar.
+</Tip>
+
+<Note>
+  The address you see while editing a link (`/links/...`) is not the Link ID. It is a short identifier for the settings page only.
+</Note>
+
+## Other places to find it
+
+- **API:** [List event types](https://cal.com/docs/api-reference/v2/event-types/list-event-types) returns every link with its Link ID in the `id` field. In the API, links are called event types.
+- **Webhooks:** booking [webhook](/webhooks) payloads include the Link ID as `eventTypeId`.
+- **Old links:** URLs in the old `/event-types/<Link ID>` format still work and redirect to the link's settings.
