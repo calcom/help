@@ -7,18 +7,22 @@ Every link has a numeric Link ID. You need it when you work with the Cal.com API
 
 ## How to find your Link ID
 
-1. Go to **Links** and open the link you want.
-2. In the left sidebar, under **Need help?**, click **Open Troubleshooter**. On smaller screens, open the **⋯** menu at the top right of the link and choose **Troubleshoot**.
+1. Go to **Links**.
+2. Click the **⋯** menu next to the link you want and choose **Troubleshoot**.
 
 <Frame>
-  <img src="/images/link-id/open-troubleshooter.png" alt="Open Troubleshooter in the link settings sidebar" />
+  <img src="/images/link-id/links-menu-troubleshoot.png" alt="Troubleshoot option in the link's three-dot menu on the Links page" />
 </Frame>
 
-3. The troubleshooter opens with your link selected. Look at the URL in your browser's address bar. The number after `eventTypeId=` is your Link ID. In this example, the Link ID is `3`.
+3. The troubleshooter opens with your link selected. Look at the URL in your browser's address bar. It looks like `app.cal.com/availability/troubleshoot?eventTypeId=3&date=2026-10-22`. The number after `eventTypeId=` is your Link ID, so in this example the Link ID is `3`.
 
 <Frame>
   <img src="/images/link-id/troubleshooter-url.png" alt="Link ID shown after eventTypeId= in the troubleshooter URL" />
 </Frame>
+
+<Tip>
+  You can also open the troubleshooter from inside a link's settings: click **Open Troubleshooter** under **Need help?** in the left sidebar.
+</Tip>
 
 <Note>
   The address you see while editing a link (`/links/...`) is not the Link ID. It is a short identifier for the settings page only.
