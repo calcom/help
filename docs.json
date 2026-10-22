@@ -33,6 +33,7 @@
                 "pages": [
                   "quick-start/create-account",
                   "quick-start/complete-onboarding",
+                  "quick-start/home-cal-agent",
                   "quick-start/customization",
                   "quick-start/calendar"
                 ]
