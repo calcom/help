@@ -64,14 +64,108 @@ _`It deprecates bookingSuccessful event.`_
 
 - `uid`: `string` | `undefined` - Unique identifier for the booking
 - `title`: `string` | `undefined` - Title of the booking
-- `startTime`: `string` | `undefined` - Start time of the booking
-- `endTime`: `string` | `undefined` - End time of the booking
+- `startTime`: `string` | `undefined` - Start time of the booking in ISO 8601 format
+- `endTime`: `string` | `undefined` - End time of the booking in ISO 8601 format
 - `eventTypeId`: `number` | `null` | `undefined` - Event type id of the booking
-- `status`: `string` | `undefined` - Status of the booking
+- `status`: `string` | `undefined` - Status of the booking (e.g., `ACCEPTED`, `PENDING`)
 - `paymentRequired`: `boolean` - Whether payment is required for the booking
 - `isRecurring`: `boolean` - Whether the booking is recurring
 - `allBookings`: `object` - Array of objects with `startTime` and `endTime`. Applicable only if `isRecurring` is `true`
-- `videoCallUrl`: `string` - URL of the video call
+- `videoCallUrl`: `string` - URL of the video call (if video conferencing is enabled)
+
+#### Example Payload
+
+The payload is accessible on `e.detail.data`:
+
+```json
+{
+  "uid": "b9x8y7z6-4321-abcd-ef01-234567890abc",
+  "title": "30 Min Chat between Alice and Bob",
+  "startTime": "2026-11-01T14:00:00.000Z",
+  "endTime": "2026-11-01T14:30:00.000Z",
+  "eventTypeId": 12345,
+  "status": "ACCEPTED",
+  "paymentRequired": false,
+  "isRecurring": false,
+  "allBookings": [],
+  "videoCallUrl": "https://cal.com/video/b9x8y7z6"
+}
+```
+
+#### Usage Examples
+
+<CodeGroup>
+```javascript Vanilla JS
+Cal("on", {
+  action: "bookingSuccessfulV2",
+  callback: (e) => {
+    const { data } = e.detail;
+    console.log("Booking completed successfully!");
+    console.log("Booking UID:", data.uid);
+    console.log("Scheduled from:", data.startTime, "to:", data.endTime);
+    if (data.videoCallUrl) {
+      console.log("Join meeting at:", data.videoCallUrl);
+    }
+  }
+});
+```
+
+```tsx React (@calcom/embed-react)
+import { getCalApi } from "@calcom/embed-react";
+import { useEffect } from "react";
+
+export function BookingListener() {
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi();
+      cal("on", {
+        action: "bookingSuccessfulV2",
+        callback: (e) => {
+          const booking = e.detail.data;
+          console.log("Booking UID:", booking.uid);
+          // Trigger post-booking conversion or app state updates
+        }
+      });
+    })();
+  }, []);
+
+  return null;
+}
+```
+
+```javascript Google Tag Manager (dataLayer)
+Cal("on", {
+  action: "bookingSuccessfulV2",
+  callback: (e) => {
+    const booking = e.detail.data;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "cal_booking_successful",
+      booking_uid: booking.uid,
+      event_type_id: booking.eventTypeId,
+      booking_status: booking.status,
+      start_time: booking.startTime,
+      end_time: booking.endTime,
+      payment_required: booking.paymentRequired
+    });
+  }
+});
+```
+</CodeGroup>
+
+#### Migrating from Legacy `bookingSuccessful`
+
+`bookingSuccessfulV2` provides a flatter and more consistent schema over the deprecated `bookingSuccessful` event:
+
+| Legacy `bookingSuccessful` | `bookingSuccessfulV2` | Migration Notes |
+| :--- | :--- | :--- |
+| `date` / `duration` | `startTime` / `endTime` | Replaced by ISO 8601 strings for precise start and end timing across all time zones. |
+| `confirmed` (`boolean`) | `status` (`string`) | Provides granular booking status (such as `ACCEPTED` or `PENDING`) rather than a boolean. |
+| `eventType` (`object`) | `eventTypeId` (`number`) | Replaced by direct numeric identifier. Full event type details can be queried via API using this ID. |
+| N/A | `uid` (`string`) | Added unique booking ID, making it straightforward to reference bookings in external databases. |
+| N/A | `videoCallUrl` (`string`) | Provides direct video meeting link if applicable. |
+| N/A | `paymentRequired` (`boolean`) | Indicates whether payment processing is attached to the booking. |
+| N/A | `isRecurring` / `allBookings` | Provides recurring series dates directly in payload. |
 
 ### `rescheduleBookingSuccessfulV2`
 
