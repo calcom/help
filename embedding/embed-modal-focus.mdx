@@ -1,0 +1,21 @@
+---
+title: 'Popup focus management'
+description: 'Control how Cal.com popup embeds manage keyboard focus'
+---
+
+# Popup focus management
+
+Popup embeds opened by clicking an element and floating-button embeds manage keyboard focus by default. Inline embeds are unaffected.
+
+When a popup opens, Cal.com moves focus into it. Tab and Shift+Tab wrap within the popup, Escape closes it, and focus returns to the element that opened it. Cal.com does not pull focus back into the popup if your page moves focus elsewhere.
+
+If your page already manages focus or runs its own focus trap, you can turn off Cal.com’s focus management by adding this immediately after the snippet from the [Embed Snippet Generator](/embedding/embed-snippet-generator):
+
+```html
+<script>
+  Cal.config = Cal.config || {};
+  Cal.config.manageModalFocus = false;
+</script>
+```
+
+With focus management turned off, your page is responsible for moving focus into the booking popup and back. The popup retains its dialog semantics, and Escape still closes it.
