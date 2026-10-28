@@ -1,0 +1,121 @@
+---
+title: "Impersonate team and organization members"
+sidebarTitle: "Impersonate members"
+description: "Learn who can impersonate members, how to start from a team or organization member list, and how to return to your own account."
+---
+
+Impersonation lets someone with the required permission temporarily sign in as another member to help with their Cal.com setup or troubleshoot an issue. You don't need the member's password.
+
+<Warning>
+  This is not a read-only preview. While impersonating someone, you can make changes on their behalf. Check the username in the impersonation banner before making changes, and stop impersonating when you're finished.
+</Warning>
+
+## Who can impersonate members?
+
+| Context | Who can do it by default | Where to start |
+|---|---|---|
+| Standalone team | Owners and admins of that team | The team's **Members** page |
+| Organization | Organization owners and admins | The organization's **Members** page, or a team's **Members** page where you have access and impersonation permission |
+
+- Members don't have impersonation permission by default. If your organization uses custom roles or has adjusted team roles, access depends on the permissions assigned to your role. See [Roles and permissions](/roles/roles-and-permissions).
+- An admin cannot impersonate an owner. You cannot impersonate yourself.
+- The person you're impersonating must have accepted their invitation and must allow impersonation.
+- Being an admin of one standalone team does not give you access to people in another team.
+
+## Impersonate a team member
+
+<Steps>
+  <Step title="Open the team's member list">
+    Go to **Settings**, find your team under **My teams**, and select **Members**. You can also open the menu on the [Teams](https://app.cal.com/teams) page, choose **Edit team**, and then select **Members**.
+  </Step>
+  <Step title="Choose the member">
+    Open the **⋯** menu next to the member you want to help and select **Impersonate**.
+
+    <Frame>
+      <img src="/images/impersonation/team-member-menu.png" alt="Team Members page with the member's three-dot menu open and Impersonate highlighted" />
+    </Frame>
+  </Step>
+  <Step title="Confirm impersonation">
+    Read the warning, then click **Impersonate** in the confirmation dialog. Cal.com switches you into the member's account.
+
+    <Frame>
+      <img src="/images/impersonation/confirm-impersonation.png" alt="Confirmation dialog warning that impersonation allows changes on the member's behalf, with the Impersonate button highlighted" />
+    </Frame>
+  </Step>
+</Steps>
+
+## Impersonate an organization member
+
+You can start from either the organization's member list or a team's member list. Both sign you into the member's account, not a read-only view limited to that team.
+
+### From the organization's Members page
+
+<Steps>
+  <Step title="Open organization members">
+    Go to **Settings**, find your organization's name in the sidebar, and select **Members**. You can also open [Members](https://app.cal.com/members) from the main sidebar.
+  </Step>
+  <Step title="Choose the member">
+    Find the person, open their **⋯** menu, and select **Impersonate**. You don't need to find which team they belong to first.
+
+    <Frame>
+      <img src="/images/impersonation/organization-member-menu.png" alt="Organization Members page with Impersonate highlighted in a member's three-dot menu" />
+    </Frame>
+  </Step>
+  <Step title="Confirm impersonation">
+    Click **Impersonate** in the confirmation dialog.
+  </Step>
+</Steps>
+
+### From a team within the organization
+
+Open that team's **Members** page under **Settings**, then use the member's **⋯** menu > **Impersonate** and confirm, just as you would for a standalone team.
+
+<Frame>
+  <img src="/images/impersonation/organization-team-member-menu.png" alt="Members page for a team within an organization, with Impersonate highlighted in the member's menu" />
+</Frame>
+
+Opening a team's settings does not grant extra impersonation permissions. If you have organization-wide access but can't impersonate from a particular team's list, use the organization's **Members** page instead.
+
+## Stop impersonating and return to your account
+
+While impersonating, a banner at the top of Cal.com shows **Impersonating username** and the member's username. Click **Click here to stop** in that banner to return to your own account.
+
+<Frame>
+  <img src="/images/impersonation/stop-impersonation.png" alt="Orange impersonation banner at the top of Cal.com with Click here to stop highlighted" />
+</Frame>
+
+For organizations, impersonation starts and stops are recorded in [Audit logs](/enterprise/audit-logs).
+
+## Control who can impersonate you
+
+### Turn off all impersonation
+
+Go to **Settings** > **Security** > [**Impersonation**](https://app.cal.com/settings/security/impersonation) and turn off **User impersonation**. This blocks impersonation of your account by Cal.com support as well as team and organization owners and admins.
+
+<Frame>
+  <img src="/images/impersonation/account-wide-impersonation.png" alt="Security Impersonation settings with the account-wide User impersonation switch highlighted" />
+</Frame>
+
+### Change your preference for one team
+
+Go to **Settings** > your team > **Settings** and change **User impersonation**. This is your own preference for that team, not a switch that enables impersonation for everyone in the team.
+
+<Frame>
+  <img src="/images/impersonation/team-impersonation-setting.png" alt="Team settings with the member's team-specific User impersonation preference highlighted" />
+</Frame>
+
+Turning this on does not override an account-wide opt-out in **Security** > **Impersonation**.
+
+## Why is Impersonate missing or not working?
+
+- **Check your permissions.** You need impersonation permission for the relevant team or organization. An admin cannot impersonate an owner.
+- **Check the invitation.** Pending members must accept their invitation first.
+- **Ask the member to check their preferences.** Their account-wide setting can block impersonation even when a team setting allows it.
+- **Check the organization.** Organization impersonation requires Cal.com to have reviewed the organization. If the option is unavailable despite the correct permissions and member settings, contact Cal.com support.
+
+## Related articles
+
+- [Team settings](/teams/team-settings)
+- [Roles and permissions](/roles/roles-and-permissions)
+- [Password, impersonation and compliance](/security/security-settings)
+- [Audit logs](/enterprise/audit-logs)
