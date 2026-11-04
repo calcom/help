@@ -5,6 +5,16 @@ description: "Understand how seat-based billing works for teams and organization
 
 Cal.com bills teams and organizations based on the number of seats used during each billing period. Depending on your plan, you may see one of two billing models in your billing settings: **high water mark billing** or **active user billing**.
 
+## Who counts as a seat
+
+Every member of your team counts as a paid seat, including the owner. Pending invites count too: an invited member who hasn't accepted yet holds a reserved seat, so you are billed for them whether they are pending or active.
+
+For organizations, seats are counted on the organization, not added up across sub-teams.
+
+<Note>
+  With active user billing, billed seats are based on active users or your minimum seat commitment instead of your total member count.
+</Note>
+
 ## High water mark billing
 
 With high water mark (HWM) billing, you are billed for the **peak number of team members** at any point during your billing cycle — not just the count at the end of the month.
@@ -25,6 +35,10 @@ The billing period start date is displayed so you can see when the current track
 
 With active user billing, you are billed based on how many team members were **actively involved in bookings** during the billing period — either as a host or an attendee.
 
+<Note>
+  Active user billing is only available on custom plans. [Contact sales](https://cal.com/talk-to-sales) to learn more.
+</Note>
+
 ### What you see in billing settings
 
 When active user billing is enabled, the **Active users** section appears on your billing page. It shows:
@@ -35,6 +49,19 @@ When active user billing is enabled, the **Active users** section appears on you
 - **Billed seats** — the higher of your active user count or minimum seat commitment
 
 You can also see a table listing each active user, their email, and whether they were active as a **host** or **attendee**. Selecting a user shows their bookings for the period.
+
+## What happens when you remove members
+
+How removing a member affects your bill depends on your billing model:
+
+- **Monthly plans with high water mark billing:** Removing a member does not give you a credit for the current period. You are still billed for the peak number of seats. At renewal, billed seats reset to your current member count, with a minimum of 1.
+- **Annual and quarterly plans billed with monthly proration:** Added seats are charged monthly. Removals can offset additions in the same month, but they do not create a credit.
+- **Other plans:** Your seat count drops right away, and Stripe applies a prorated credit to your account balance for the rest of the period. This credit goes toward future invoices and is not refunded to your card.
+- **Active user billing:** Removing a member does not change billing directly. You are billed for active users or your minimum seat commitment.
+
+## Refunds
+
+Cal.com does not refund extra or peak seats automatically, and removing members never triggers a refund. To request a refund for extra or peak seats, [contact support](https://go.cal.com/support).
 
 ## Viewing your seat billing details
 
