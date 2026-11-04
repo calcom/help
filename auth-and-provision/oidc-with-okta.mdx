@@ -1,5 +1,6 @@
 ---
 title: "Setting up OIDC with okta"
+description: "Set up OIDC single sign-on with Okta for a self-hosted Cal.com instance."
 ---
 
 1. Set SAML_DATABASE_URL to a Postgres database. Please use a different database than the main Cal instance since the migrations are separate for this database. For example `postgresql://postgres:@localhost:5450/cal-saml`. If you are using a self-signed certificate for Postgres then use the `sslmode=no-verify` query param in the database URL. For example `postgresql://postgres:@localhost:5450/cal-saml?sslmode=no-verify`.
