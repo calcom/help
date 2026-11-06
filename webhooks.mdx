@@ -1,5 +1,6 @@
 ---
 title: "Webhooks"
+description: "Create webhook subscriptions that notify your apps when bookings are created, cancelled or rescheduled, or meetings end."
 ---
 
 Webhooks offer a great way to automate the flow with other apps when invitees schedule, cancel or reschedule events, or when the meeting ends.
@@ -52,9 +53,9 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 
 2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Paid`, `Booking Payment Initiated`, `Booking No-Show Updated`, `Meeting Started`, `Meeting Ended`, `Recording Ready`, `Recording Transcription Generated`, `Instant Meeting Created`, `Instant Meeting Accepted`, `Out of Office Created`, `After Hosts Cal Video No-Show`, `After Guests Cal Video No-Show`, `Form Submitted`, `Form Submitted (No Event)`, `Calendar Entry Rejected`, and `Delegation Credential Rotation Required`.
 
-3. Secret: You can provide a secret key with this webhook and then [verify it](/docs/core-features/webhooks#verifying-the-authenticity-of-the-received-payload) on the subscriber URL when receiving a payload to confirm if the payload is authentic or adulterated. You can leave it blank, if you don't wish to secure the webhook with a secret key.
+3. Secret: You can provide a secret key with this webhook and then [verify it](https://cal.com/docs/developing/guides/automation/webhooks#verifying-the-authenticity-of-the-received-payload) on the subscriber URL when receiving a payload to confirm if the payload is authentic or adulterated. You can leave it blank, if you don't wish to secure the webhook with a secret key.
 
-4. Custom Payload: You have the option to [customize the payload](/docs/core-features/webhooks#adding-a-custom-payload-template) you receive when a subscribed event is triggered.
+4. Custom Payload: You have the option to [customize the payload](https://cal.com/docs/developing/guides/automation/webhooks#adding-a-custom-payload-template) you receive when a subscribed event is triggered.
 
 5. Custom headers: You can add your own HTTP headers, such as an API key, to every delivery. See [Adding custom headers](#adding-custom-headers).
 

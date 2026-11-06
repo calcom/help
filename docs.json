@@ -497,8 +497,7 @@
                 },
                 "pages": [
                   "api-keys",
-                  "webhooks",
-                  "apps-and-integrations/oauth"
+                  "webhooks"
                 ]
               }
             ]
