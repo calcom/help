@@ -1,0 +1,81 @@
+---
+title: 'ElevenLabs for live captions and Notes'
+description: 'What organization admins need to know before enabling ElevenLabs processing.'
+---
+
+<Warning>
+  **Draft — not approved for publication.** This page accompanies the organization-consent changes in [PRO-4939](https://linear.app/calcom/issue/PRO-4939). Legal must complete the retention and no-training wording and approve the consent wording before this page and the consent bundle are published. This page does not confirm that production zero retention is enabled.
+</Warning>
+
+## What enabling ElevenLabs means
+
+Live captions and Notes use ElevenLabs, a Cal.com subprocessor, to process meeting audio and text in the United States. Organization consent is required before these features can send data to ElevenLabs.
+
+One vendor consent covers both features, with separate controls for **live captions** and **Notes**. Enabling one does not require enabling the other. Existing captions settings do not count as consent.
+
+### What is sent
+
+Depending on the feature you enable, the data processed includes:
+
+- Every participant’s meeting audio for speech-to-text processing, not only the host’s audio.
+- The resulting transcripts.
+- Text submitted for speech generation in Notes.
+
+## Retention and use for training
+
+<Warning>
+  **LEGAL PLACEHOLDER — retention:** Insert approved wording covering what ElevenLabs retains, the applicable retention periods, and any distinction between the live-caption, Notes speech-to-text, and Notes text-to-speech paths. Confirm the production configuration before making any zero-retention statement.
+
+  **LEGAL PLACEHOLDER — no training:** Insert approved wording describing the applicable contractual restrictions and settings for model training. No no-training guarantee is made by this draft.
+</Warning>
+
+## Excluded customers
+
+**Do not enable ElevenLabs for your organization if either of the following applies:**
+
+- You have a signed Cal.com Data Processing Agreement (DPA) committing to EU data storage and have not signed Amendment No. 1.
+- Meetings may include protected health information (PHI), whether or not you have a Business Associate Agreement (BAA) with Cal.com.
+
+The consent dialog requires an authorized person to confirm that the organization is not in an excluded category. This confirmation is not a technical check of meeting content or your contractual eligibility.
+
+## cal.com and cal.eu
+
+This consent flow covers **cal.com only**. The position for **cal.eu is undecided**; this page does not authorize enabling ElevenLabs on cal.eu.
+
+## Tell your participants
+
+Your organization is responsible for telling participants about this processing before using these features. The in-call captions indicator remains visible to every participant while captions are on; it does not replace your organization’s participant notice.
+
+## Turn processing off
+
+An organization admin can turn off live captions and Notes separately in the organization’s ElevenLabs controls, or disable ElevenLabs for both.
+
+Turning a feature off stops **new processing** through that feature. Turning ElevenLabs off stops new processing through both features. This does not claim that data already sent has been deleted; the approved retention terms above must explain that separately.
+
+## Consent versions and records
+
+The consent dialog and this help page form one versioned **consent bundle**. This draft is proposed bundle **1**; it has not been published or legally approved.
+
+Published bundle versions are kept for six years. A material change to the data sent, retention, processing location, exclusions, or covered features requires an enabled organization to consent again. Wording-only fixes receive a new bundle version without requiring renewed consent.
+
+The consent record contains the organization ID, consenting user ID and role, UTC timestamp, bundle version or hash, enabled features, and disable events. It stores IDs rather than names or email addresses and is kept outside the account-deletion cascade.
+
+Records are kept while the account exists and for six years after the last disable event or account deletion, whichever is later. A scheduled sweep removes records once that period has elapsed.
+
+## Proposed consent dialog
+
+The following wording is part of the same draft bundle and still requires legal sign-off:
+
+> **Enable ElevenLabs for your organization?**
+>
+> Live captions and Notes send meeting audio and transcripts to ElevenLabs, a Cal.com subprocessor, for processing in the United States. Don't enable if meetings may include health information (PHI). Details: [help page](/privacy-and-compliance/elevenlabs)
+>
+> ☐ I'm authorized to approve this for my organization, my organization is not in an [excluded category](#excluded-customers), and I authorize Cal.com to use ElevenLabs and transfer this data to the United States.
+>
+> [Cancel] [Enable]
+
+**Enable** stays disabled until the checkbox is ticked.
+
+## Subprocessors
+
+See [Cal.com’s subprocessor list](https://trust.cal.com/subprocessors) for the published list of subprocessors.
