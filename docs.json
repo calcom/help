@@ -450,7 +450,8 @@
                   "style": "solid"
                 },
                 "pages": [
-                  "privacy-and-compliance/google-calendar-privacy"
+                  "privacy-and-compliance/google-calendar-privacy",
+                  "privacy-and-compliance/elevenlabs"
                 ]
               },
               {
