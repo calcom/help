@@ -3,21 +3,47 @@ title: "Require/Exclude Email Domains (Booking Question)"
 description: "Control who can book by requiring or excluding specific email domains like @company.com or public domains like @gmail.com."
 ---
 
-The **Email** field in Cal.com’s booking questions supports **domain-level restrictions**, allowing you to control who can (or can't) book time with you based on their email address.
+Use the **Email** booking question to allow or block specific email domains or individual addresses for a Link.
 
-### Use Case
+## Set up email restrictions
 
-This is useful when:
+1. Go to **Links** and open the Link you want to update.
+2. Select **Booking form**. Under **Booking questions**, find **Email address** (the Email field) and click **Edit**.
 
-- You only want people from a specific company (e.g., `@company.com`) to book.
-- You want to **exclude free/public domains** like `@gmail.com` or `@yahoo.com`.
-- You're running internal meetings and only want your organization's members to access them.
+<Frame>
+  <img src="/images/email-domain-restrictions/email-field-edit.png" alt="Booking form settings with Edit highlighted beside the Email address question" />
+</Frame>
 
-### How to Configure
+3. Fill in either or both fields:
+   - **Require emails that contain**: only allow addresses matching an entry.
+   - **Exclude emails that contain**: block addresses matching an entry.
+4. Separate multiple entries with commas, such as `gmail.com, yahoo.com`. Leave a field blank if you do not need that restriction.
+5. Click **Save** in the dialog, then **Save** on the Link.
 
-Go to your Booking form settings of your Booking link setup. Under \*\*Booking questions, \*\*find the Email field. Click on `Edit`next to the booking question, and you’ll see options to:
+<Frame>
+  <img src="/images/email-domain-restrictions/email-restriction-settings.png" alt="Email question dialog requiring acme.com and excluding contractor@acme.com" />
+</Frame>
 
-- Require emails that contain (...)
-- Exclude emails that contain (...)
+## How matching works
 
-Simply use the fields to specify or exclude email domains for your specific use case.
+Despite the labels saying “contain,” entries are not matched as arbitrary text:
+
+- `acme.com` and `@acme.com` both match the exact email domain. They do not match `sub.acme.com` or `notacme.com`.
+- A full address, such as `contractor@acme.com`, matches only that address.
+- Matching is case-insensitive, and spaces around comma-separated entries are ignored.
+- When both fields are filled, an address must match a required entry and must not match any excluded entry.
+
+For example, require `acme.com` and exclude `contractor@acme.com` to allow `jane@acme.com`, but block both `contractor@acme.com` and `jane@gmail.com`.
+
+These rules apply to the question you edit, not to **Add guests** or other email questions. You can configure restrictions separately on other Email-type questions. This checks the address entered, not whether someone is a verified member of an organization.
+
+## What bookers see
+
+Bookers cannot continue with a blocked address. An error appears below the email field:
+
+- If the address does not match a required entry: “You are not allowed to book with this email domain. Please contact the owner of this link.”
+- If the address matches an excluded entry: “Please enter a valid work email address”.
+
+<Frame>
+  <img src="/images/email-domain-restrictions/blocked-email-error.png" alt="Public booking page showing the email domain restriction error for jane@gmail.com" />
+</Frame>
