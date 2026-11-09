@@ -26,7 +26,7 @@ Use the **Email** booking question to allow or block specific email domains or i
 
 ## How matching works
 
-Despite the labels saying “contain,” entries are not matched as arbitrary text:
+Entries match whole domains or whole addresses, not any text the email contains:
 
 - `acme.com` and `@acme.com` both match the exact email domain. They do not match `sub.acme.com` or `notacme.com`.
 - A full address, such as `contractor@acme.com`, matches only that address.
