@@ -1,11 +1,25 @@
 ---
 title: Disable guests
+description: "Hide the Add guests option on a Link's booking form."
 ---
 
-If you do not wish for your booker to add other guests to your booking link, you can make use of this feature to disable adding guests to the event during the booking of this event.
+**Add guests** is enabled by default. Turn it off to hide the guest email fields and the **Add guests** button on your Link's booking page.
 
-[![](/images/disable-guests/1.png)](/images/disable-guests/1.png)
+## Turn off Add guests
 
-It is part of the booking questions that you can make use of. By default, it is allowed for the booker to add guests. By default, the Add guests toggle is enabled which allows the booker to add guests to the booking. If you wish to disable it, simply toggle it off.
+1. Go to **Links** and open the Link you want to update.
+2. Select **Booking form** and find **Booking questions**.
+3. Turn off the toggle beside **Add guests**. The question is marked **Hidden**.
+4. Click **Save**.
 
-**Please note that they may still be able to invite guests using their personal calendar invites.**
+<Frame>
+  <img src="/images/disable-guests/add-guests-disabled.png" alt="Booking form settings with the Add guests question marked Hidden and its toggle switched off" />
+</Frame>
+
+To show the option again, turn the toggle back on and save the Link. If your managed Link or template locks booking questions, ask your administrator to change the setting.
+
+## What this setting controls
+
+This hides the booking-page controls, not every way of adding guests. Guest emails supplied through the `guests` URL parameter or when creating a booking through the API can still be accepted. Do not rely on this toggle as an access restriction.
+
+Bookers may also be able to invite others from their own calendar, depending on their calendar provider and event permissions. This setting does not change those permissions.
