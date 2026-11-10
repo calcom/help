@@ -1,39 +1,58 @@
 ---
-title: "How to split fullname into firstname and lastname in the public booking page"
+title: "Split full name into first and last name"
+description: "Collect first and last names separately on your Link's booking form."
 ---
 
-By default, Cal.com booking page has a fullname text input field for the scheduler to put their name in. This usually works just fine for most people. However, at times, it is preferable to take the firstname and lastname of the scheduler as separate inputs in the booking form.
+By default, bookers enter their full name in one field. You can split the **Your name** booking question into separate **First name** and **Last name** fields.
 
-Cal.com provides the option to split the fullname input field in the booking form into firstname and lastname. To do that, you can do the following:
+## Split the name field
 
-<Steps>
-  <Step title="Access Booking Link Settings">
-    Head to the booking link settings where you wish to split the fullname into firstname and lastname.
-  </Step>
-  <Step title="Click on Advanced Tab">
-  </Step>
-  <Step title="Scroll to Booking Questions Section">
-  </Step>
-  <Step title="Fill the label and optional placeholder values, and click on save">
-    Fill the label and optional placeholder values, and click on **save**.
-  </Step>
-  <Step title="Save Changes">
-    Remember to click on the **save** button in the booking link settings as well.
-  </Step>
-</Steps>
+1. Go to **Links** and open the Link you want to update.
+2. Select **Booking form**. Under **Booking questions**, find **Your name** and click **Edit**.
 
-You're all set!
+<Frame>
+  <img src="/images/split-name/your-name-edit.png" alt="Booking questions with Edit highlighted beside Your name" />
+</Frame>
 
-## How this affects the Booking API requests
+3. Turn on **Split "Full name" into "First name" and "Last name"**.
+4. Optionally customize each field's **Label** and **Placeholder**. First name is always required. Last name is optional by default; select **Make this field required** under **Field 2** to require it.
+5. Click **Save** in the dialog, then **Save** on the Link.
 
-Please note that in case of API requests, your usual **responses object**:
+<Frame>
+  <img src="/images/split-name/split-name-setting.png" alt="Name question dialog with the split-name toggle enabled and separate settings for first and last name" />
+</Frame>
+
+Bookers now see two fields instead of one. With the default settings, only **First name** has a required asterisk.
+
+<Frame>
+  <img src="/images/split-name/first-last-name-booking-form.png" alt="Public booking form with separate First name and Last name fields filled with Jane Example" />
+</Frame>
+
+To return to one full-name field, turn off the split-name toggle and save both the dialog and the Link.
+
+## Booking API requests
+
+For booking endpoints that accept a `responses` object, you can send the split name like this:
 
 ```json
-"responses": { "name": "John Doe", "email": "john.doe@example.com", "location": { "optionValue": "", "value": "Acme Industries" } }
+{
+  "responses": {
+    "name": { "firstName": "Jane", "lastName": "Example" },
+    "email": "jane@acme.com"
+  }
+}
 ```
 
-will now be updated to allow **name** to be converted into object containing **firstName** and **lastName** as follows:
+When last name is optional, you can omit `lastName` or send an empty string. If you make it required, provide a non-empty value. These endpoints also accept a full-name string and split it at the first space, so existing string-based integrations do not have to switch to an object.
+
+**API v2 uses a different request format:** send the full name as a string in `attendee.name`, even when the Link uses split fields. For example, the attendee portion of a request is:
 
 ```json
-"responses": { "name": { "firstName": "John", "lastName": "Doe" }, "email": "john.doe@example.com", "location": { "optionValue": "", "value": "Acme Industries" } }
+{
+  "attendee": {
+    "name": "Jane Example",
+    "email": "jane@acme.com",
+    "timeZone": "UTC"
+  }
+}
 ```
