@@ -1,72 +1,71 @@
 ---
-title: 'ElevenLabs for live captions and Notes'
-description: 'What organization admins need to know before enabling ElevenLabs processing.'
+title: 'ElevenLabs for captions, transcripts and Cal Notes'
+description: 'What account admins approve when they agree to ElevenLabs processing meeting audio.'
 ---
 
 <Warning>
-  **Draft — not approved for publication.** This page accompanies the organization-consent changes in [PRO-4939](https://linear.app/calcom/issue/PRO-4939). Legal must complete the retention and no-training wording and approve the consent wording before this page and the consent bundle are published. This page does not confirm that production zero retention is enabled.
+  **Legal to complete before publishing:** the retention and model-training statements below. Everything else describes how the product works today.
 </Warning>
 
-## What enabling ElevenLabs means
+## What ElevenLabs does
 
-Live captions and Notes use ElevenLabs, a Cal.com subprocessor, to process meeting audio and text in the United States. Organization consent is required before these features can send data to ElevenLabs.
+ElevenLabs is a Cal.com subprocessor that turns speech into text. Cal Video uses it for:
 
-One vendor consent covers both features, with separate controls for **live captions** and **Notes**. Enabling one does not require enabling the other. Existing captions settings do not count as consent.
+- **Live captions** during a call.
+- **Transcripts** of recorded calls, after the call.
+- **Cal Notes** speech on the desktop app.
+
+Meeting audio and the resulting transcripts are processed by ElevenLabs in the United States.
 
 ### What is sent
 
-Depending on the feature you enable, the data processed includes:
+- The audio of everyone speaking while captions or a transcript are on, not only the host.
+- The transcripts made from that audio.
+- In Cal Notes, the text you ask it to read aloud.
 
-- Every participant’s meeting audio for speech-to-text processing, not only the host’s audio.
-- The resulting transcripts.
-- Text submitted for speech generation in Notes.
+## Your account approves once
 
-## Retention and use for training
+Before any audio goes to ElevenLabs, someone allowed to decide for your account ticks **“I’m allowed to agree for this account”**:
 
-<Warning>
-  **LEGAL PLACEHOLDER — retention:** Insert approved wording covering what ElevenLabs retains, the applicable retention periods, and any distinction between the live-caption, Notes speech-to-text, and Notes text-to-speech paths. Confirm the production configuration before making any zero-retention statement.
+- For an **organization**, an organization admin.
+- For a **team outside an organization**, a team admin.
+- For **your own account**, you.
 
-  **LEGAL PLACEHOLDER — no training:** Insert approved wording describing the applicable contractual restrictions and settings for model training. No no-training guarantee is made by this draft.
-</Warning>
+One approval covers captions, transcripts and Cal Notes for everyone in the account. Nobody in the account is asked again.
+
+Admins can approve when they first turn on captions in a call, from the banner in the Cal.com web app, or when they turn on cloud speech in Cal Notes. Until the account approves, nothing is sent to ElevenLabs: captions don’t start, automatic captions stay off, recorded calls aren’t transcribed, and Cal Notes speech is unavailable. Members who press Captions are asked to contact their admin.
 
 <h2 id="who-this-approval-covers">Who this approval covers</h2>
 
-Approving ElevenLabs in your settings covers accounts on Cal.com's standard online DPA. It does not cover organizations that signed Cal.com's legacy DPA, which requires your prior written authorization for new subprocessors and transfers outside the EEA. If this applies to you, don't use the in-product approval. Email privacy@cal.com and we'll send you a written authorization, or the DPA amendment, to sign.
+Approving in the product covers accounts on Cal.com’s standard online DPA. It doesn’t cover organizations that signed Cal.com’s legacy DPA, which requires your prior written authorization for new subprocessors and transfers outside the EEA. If this applies to you, don’t use the in-product approval. Email [privacy@cal.com](mailto:privacy@cal.com) and we’ll send you a written authorization, or the DPA amendment, to sign.
 
-## Tell your participants
+## Retention and model training
 
-Your organization is responsible for telling participants about this processing before using these features. The in-call captions indicator remains visible to every participant while captions are on; it does not replace your organization’s participant notice.
+<Warning>
+  **For legal to complete:** what ElevenLabs keeps and for how long, and the contractual restrictions on model training. Don’t state zero retention until it is deployed and verified for captions, transcripts and Cal Notes.
+</Warning>
 
-## Turn processing off
+## Participants
 
-An organization admin can turn off live captions and Notes separately in the organization’s ElevenLabs controls, or disable ElevenLabs for both.
+Everyone joining a Cal Video call sees, before they join, that the host may use transcriptions and captions processed by ElevenLabs, with a link to this page. While captions are on, everyone in the call can see it.
 
-Turning a feature off stops **new processing** through that feature. Turning ElevenLabs off stops new processing through both features. This does not claim that data already sent has been deleted; the approved retention terms above must explain that separately.
+Your organization remains responsible for any notice your own policies or local law require.
 
-## Consent versions and records
+## Stopping processing
 
-The consent dialog and this help page form one versioned **consent bundle**. This draft is proposed bundle **1**; it has not been published or legally approved.
+- **During a call:** the host can turn captions off at any time.
+- **Automatic captions:** turn off automatic transcription in the event type’s Cal Video settings.
+- **Cal Notes:** turn off cloud speech in the desktop app.
+- **Withdrawing your account’s approval:** email [privacy@cal.com](mailto:privacy@cal.com).
 
-Published bundle versions are kept for six years. A material change to the data sent, retention, processing location, exclusions, or covered features requires an enabled organization to consent again. Wording-only fixes receive a new bundle version without requiring renewed consent.
+Stopping processing stops new audio from being sent. It doesn’t delete what was already processed; see [Retention and model training](#retention-and-model-training).
 
-The consent record contains the organization ID, consenting user ID and role, UTC timestamp, bundle version or hash, enabled features, and disable events. It stores IDs rather than names or email addresses and is kept outside the account-deletion cascade.
+## What we record
 
-Records are kept while the account exists and for six years after the last disable event or account deletion, whichever is later. A scheduled sweep removes records once that period has elapsed.
+For each approval we keep the account, the approving user’s ID and role, the time, the exact wording version they saw, and where they approved (captions, Cal Notes or the banner). We store IDs, not names or email addresses. Records are kept while the account exists and for six years after it is deleted, then removed automatically.
 
-## Proposed consent dialog
-
-The following wording is part of the same draft bundle and still requires legal sign-off:
-
-> **Enable ElevenLabs for your organization?**
->
-> Live captions and Notes send meeting audio and transcripts to ElevenLabs, a Cal.com subprocessor, for processing in the United States. Details: [help page](/privacy-and-compliance/elevenlabs)
->
-> ☐ I'm authorized to approve this for my organization, my organization is not in an [excluded category](#who-this-approval-covers), and I authorize Cal.com to use ElevenLabs and transfer this data to the United States.
->
-> [Cancel] [Enable]
-
-**Enable** stays disabled until the checkbox is ticked.
+The wording people approve is versioned and published versions are kept for six years. A material change, such as different data, retention, location or exclusions, asks every account to approve again. Wording fixes don’t.
 
 ## Subprocessors
 
-See [Cal.com’s subprocessor list](https://trust.cal.com/subprocessors) for the published list of subprocessors.
+See [Cal.com’s subprocessor list](https://trust.cal.com/subprocessors).
