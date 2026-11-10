@@ -1,74 +1,39 @@
 ---
 title: Private Links
+description: "Create private URLs with usage limits or expiration dates for a Link."
 ---
 
+Private links give you additional URLs for the same Link without including your Cal.com username in the URL. Create separate URLs for invite-only sessions, a pilot program or a limited-time offer, each with its own expiration rule.
 
-Private Links let you control access to your booking links in a secure and flexible way. They are ideal for invite-only sessions, VIP access, pilot programs, or scenarios where you want to limit visibility and usage.
+Anyone with a private URL can use it while it is valid. Share it only with the intended invitees. Creating a private URL does not hide the original Link or disable its standard booking URL.
 
-Unlike standard public links, **Private Links are not discoverable on your public booking page** — and can be configured with advanced **expiration rules**. 
+## Create a private link
 
-![brandbird (1).jpg](/images/brandbird\(1\).jpg)
+1. Go to **Links** and open the Link you want to update.
+2. Select **Privacy & security** and find **Private links**.
+3. Turn on **Private links** to generate the first URL. It allows **one booking** by default. Use **Add new link** to create more URLs for the same Link.
+4. Click the **gear icon** beside a URL to open **Link settings**.
 
-## Key Features
+<Frame>
+  <img src="/images/private-links/private-links-setting.png" alt="Privacy & security with Private links enabled, a synthetic private URL and the gear icon for its settings" />
+</Frame>
 
-* **Multiple Private Links per Booking Link**
-  You can create several private links for the same booking link — each with its own unique usage rules.
+5. Choose one expiration rule:
+   - **Usage-based expiration**: enter the total number of bookings allowed, starting at **1**. For example, **5** allows five bookings through that private URL, not five page visits.
+   - **Time-based expiration**: choose a date. The URL remains valid through the end of the selected date in UTC.
+6. Click **Save** in the dialog, then **Save** on the Link to apply the expiration changes.
+7. Use the **copy icon** beside the URL and share it with your invitees. The preview icon opens the booking page in a new tab.
 
-* **Usage-Based Expiry**
-  Set a private link to automatically expire after it has been used a specific number of times.
-  *Example: expires after 2 successful bookings.*
+<Frame>
+  <img src="/images/private-links/private-link-expiration.png" alt="Link settings with Usage-based expiration selected and a limit of 5 bookings, plus the alternative Time-based expiration option" />
+</Frame>
 
-* **Date-Based Expiry**
-  Set a specific expiry date after which the link will no longer be usable.
-  *Example: valid until August 31, 2025.*
+Creating and deleting private URLs takes effect immediately. You do not need to save the Link first to use a newly generated URL with its default one-booking limit. Save any custom expiration settings before sharing it.
 
-* **Non-Guessable, Secure URLs**
-  Each private link is generated as a secure, hash-based URL that cannot be guessed or found publicly.
+## Expired or deleted links
 
-* **Granular Control via Booking Link Settings**
-  All private links are managed per booking link under the **Advanced** tab of the booking link settings.
+A private URL stops working when its usage limit is reached or its expiration date passes. Opening an expired or deleted URL shows a not-found page. The settings list marks expired URLs as **Expired** and no longer offers copying, previewing or editing them. You can create a new URL with **Add new link**.
 
-## How to Use Private Links
+Use the **trash icon** to delete a URL. Deleting an active URL asks for confirmation and immediately stops future bookings through it. Turning off **Private links** removes all of the Link's private URLs, with confirmation if any are still active. These actions cannot be undone.
 
-1. **Open an Booking Link**
-   Go to the **Links** section in your dashboard and select the one you want to configure.
-
-2. **Go to the Advanced Tab**
-   Inside the booking link settings, switch to the **Advanced** tab.
-
-3. **Create a Private Link**
-
-   * Toggle Private Link if it isn't already
-   * Click **Add Private Link** to add more links
-   * Click on the settings (gear) icon in front of the private link and define:
-
-     * **Number of allowed uses**, or
-     * **Expiry date**
-     * Save the private link configuration
-   * Save the booking link settings to be able to use the link
-
-4. **Share the Link Securely**
-   Copy and share the generated link only with the intended invitees.
-
-## What to Expect
-
-* If a private link has  usage limit, it will expire **after the set number of bookings are made using the link**.
-* If a private link has date limit, it will expire **after the set date**.
-* Once expired, the link will:
-
-  * No longer be accessible
-  * Show 404 error page if opened
-* Private links **do not appear** on your main booking page or directory
-* You can **delete** any private link at any time from the same booking link settings
-* You can **configure** any active private links from the same booking link settings
-
-## Use Case Examples
-
-| Use Case                                   | Setup                                            |
-| ------------------------------------------ | ------------------------------------------------ |
-| Run a 5-person beta program                | Set usage limit to 5                             |
-| Offer limited-time consultation            | Set expiry date to end of the month              |
-
-
-
-If you have any questions or need help configuring private links, reach out to our support team — we’re here to help!
+If a managed Link or template locks this setting, ask your administrator to change it.
