@@ -1,5 +1,6 @@
 ---
 title: "Webhooks"
+description: "Send Cal.com events such as booking created, cancelled, rescheduled or meeting ended to other apps with webhook subscriptions."
 ---
 
 Webhooks offer a great way to automate the flow with other apps when invitees schedule, cancel or reschedule events, or when the meeting ends.
@@ -10,7 +11,7 @@ Webhooks offer a great way to automate the flow with other apps when invitees sc
 
 The webhook subscription allows you to listen to specific trigger events, such as when a booking has been scheduled, for example. You can always listen to the webhook by providing a custom subscriber URL with your own development work. However, if you wish to trigger automations without any development work, you can use the integration with Zapier which connects Cal.com to your apps.
 
-### Webhook scope levels
+## Webhook scope levels
 Webhooks can be created at multiple levels of scope, each determining which events they apply to:
 
 - **User-level**:
@@ -35,7 +36,7 @@ Webhooks can be created at multiple levels of scope, each determining which even
 - **Organization-level**:
   Applies to all team booking links across all teams within the organization.
 
-### Creating a webhook subscription
+## Creating a webhook subscription
 
 To create a new webhook subscription, visit `/settings/developer/webhooks` and proceed to enter the following details:
 
@@ -59,7 +60,7 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 5. Custom headers: You can add your own HTTP headers, such as an API key, to every delivery. See [Adding custom headers](#adding-custom-headers).
 
 
-### Expectations with the triggers
+## Expectations with the triggers
 
 | **Event**                          | **Triggers When...**                                                                                          |
 | ---------------------------------- | ------------------------------------------------------------------------------------------------------------- |
@@ -85,15 +86,15 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 | Delegation Credential Rotation Required | The client secret for a Microsoft 365 [Delegation Credential](/enterprise/delegation-credential-microsoft-365) that has opted out of automatic rotation is approaching expiry (~14 days out). Organization-level only. |
 
 
-### Seated booking links
+## Seated booking links
 
 For booking links with [seats enabled](/event-types/offer-seats), the `attendees` array in webhook payloads contains only the attendee associated with the specific seat that triggered the webhook. For example, when a new seat is booked, the webhook includes only that seat's attendee — not all attendees across the entire booking. This applies to all booking-related triggers (`BOOKING_CREATED`, `BOOKING_RESCHEDULED`, etc.).
 
-### Example webhook payloads
+## Example webhook payloads
 
 Most webhook events use a nested payload format with booking details inside a `payload` object. The `MEETING_STARTED` and `MEETING_ENDED` events use a different flat format where booking fields are at the top level.
 
-#### Booking events (nested format)
+### Booking events (nested format)
 
 Events like `BOOKING_CREATED`, `BOOKING_CANCELLED`, `BOOKING_RESCHEDULED`, and most other triggers use this format:
 
@@ -195,7 +196,7 @@ Events like `BOOKING_CREATED`, `BOOKING_CANCELLED`, `BOOKING_RESCHEDULED`, and m
 }
 ```
 
-#### Meeting started / meeting ended (flat format)
+### Meeting started / meeting ended (flat format)
 
 `MEETING_STARTED` and `MEETING_ENDED` webhooks use a flat payload format where booking fields are at the top level alongside `triggerEvent`, rather than nested inside a `payload` object. These webhooks are delivered at the scheduled start and end time of the meeting respectively.
 
@@ -262,7 +263,7 @@ Events like `BOOKING_CREATED`, `BOOKING_CANCELLED`, `BOOKING_RESCHEDULED`, and m
 
 If a booking is cancelled or rescheduled before the meeting time, the scheduled `MEETING_STARTED` and `MEETING_ENDED` webhooks for that booking are automatically cancelled.
 
-#### Instant meeting created
+### Instant meeting created
 
 The `INSTANT_MEETING` webhook fires when a booker submits an [Instant Meeting](/enterprise/instant-meetings) request. Its payload carries the booker's form `responses` and the `connectAndJoinUrl` a host opens to accept and join the meeting, so a receiving service can alert the hosts who can take the request.
 
@@ -289,7 +290,7 @@ The fields in `responses` depend on the booking questions configured on the book
 }
 ```
 
-#### Instant meeting accepted
+### Instant meeting accepted
 
 The `INSTANT_MEETING_ACCEPTED` webhook fires when a host accepts an instant meeting request through the connect-and-join flow. It only triggers for the first host to accept — if another host has already accepted the booking, the webhook is not sent again. This trigger is available for team booking links only.
 
@@ -348,7 +349,7 @@ The payload includes the booking `status` (set to `ACCEPTED`), the accepting hos
 }
 ```
 
-#### Calendar entry rejected
+### Calendar entry rejected
 
 The `CALENDAR_ENTRY_REJECTED` webhook fires when an external attendee declines a Cal.com event from their connected Google Calendar or Microsoft 365 calendar. Cal.com detects the decline during calendar sync and dispatches the webhook once per attendee per booking — duplicate syncs do not re-fire the trigger, so you can rely on it as an at-most-once signal.
 
@@ -379,7 +380,7 @@ The payload uses a flat format with `booking`, `calendarEvent`, and `declinedAtt
 
 The `provider` field is `google_calendar` or `office365_calendar` depending on where the decline originated.
 
-### Subscriber URL requirements
+## Subscriber URL requirements
 
 Cal.com validates webhook subscriber URLs to protect against server-side request forgery (SSRF). The validation rules depend on whether you are using Cal.com Cloud or a self-hosted instance.
 
@@ -400,7 +401,7 @@ Cal.com validates webhook subscriber URLs to protect against server-side request
 If your subscriber URL does not meet these requirements, the webhook creation or update request will fail with a `400` error indicating the URL is not allowed.
 </Warning>
 
-### Verifying the authenticity of the received payload
+## Verifying the authenticity of the received payload
 
 1. Simply add a new **secret key** to your webhook and save.
 
@@ -410,7 +411,7 @@ If your subscriber URL does not meet these requirements, the webhook creation or
 
 4. Compare the hash received in the header of the webhook `(X-Cal-Signature-256)` with the one created using the **secret key** and the body of the payload. If they don't match, the received payload was adulterated and cannot be trusted.
 
-### Adding custom headers
+## Adding custom headers
 
 If your endpoint expects its own authentication or routing headers, you can add them to the webhook. Cal.com sends them with every delivery, along with the standard Cal.com headers.
 
@@ -439,7 +440,7 @@ Things to know:
   If you don't see **Custom headers** in the webhook form, the feature isn't available on your Cal.com instance yet.
 </Note>
 
-### Adding a custom payload template
+## Adding a custom payload template
 
 Customizable webhooks are a great way reduce the development effort and in many cases remove the need for a developer to build an additional integration service.
 
@@ -457,7 +458,7 @@ An example of a custom payload template is provided here:
 
 where `{{type}}` represents the booking link slug and `{{title}}` represents the title of the booking link. Note that the variables should be added with a double parenthesis as shown above. Here’s a breakdown of the payload that you would receive via an incoming webhook, with an exhaustive list of all the supported variables provided below:
 
-#### Webhook variable list
+### Webhook variable list
 
 | Variable           | Type      | Description                                                                                                                                                                                                                                         |
 | ------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -479,7 +480,7 @@ where `{{type}}` represents the booking link slug and `{{title}}` represents the
 | team.members       | String\[] | Members of the team booked                                                                                                                                                                                                                          |
 | metadata           | JSON      | Contains a metadata of the booking, including the meeting URL (videoCallUrl) in case of Google Meet and Cal Video                                                                                                                                   |
 
-#### Organizer Structure
+### Organizer Structure
 
 | Variable         | Type   | Description                                                            |
 | ---------------- | ------ | ---------------------------------------------------------------------- |
@@ -490,7 +491,7 @@ where `{{type}}` represents the booking link slug and `{{title}}` represents the
 | timeZone         | String | Timezone of the organizer ("America/New\_York", "Asia/Kolkata", etc.)  |
 | language?.locale | String | Locale of the organizer ("en", "fr", etc.)                            |
 
-#### Attendee Structure
+### Attendee Structure
 
 | Variable         | Type   | Description                                                              |
 | ---------------- | ------ | ------------------------------------------------------------------------ |

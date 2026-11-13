@@ -1,12 +1,13 @@
 ---
 title: Pre-fill fields/questions
+description: "Pre-fill name, email, notes, guests, location and custom booking questions on a Cal.com booking form with URL query parameters."
 ---
 
 You can pre-fill all the fields/questions on the booking form by using their corresponding **identifiers** that you can see under Advanced -> Booking Questions.
 
 e.g. for the following field(shown in screenshot), the field would show up as *Agree with your rules* and its identifier is *agreed*. So, we would use
 
-[![](/images/prefill-fields/1.png)](/images/prefill-fields/1.png)
+[![Booking question settings showing the Agree with your rules field and its identifier, agreed](/images/prefill-fields/1.png)](/images/prefill-fields/1.png)
 
 *agreed* as query param name to prefill the field.
 
@@ -24,11 +25,11 @@ You can integrate the prefill-fields with your booking page URL in a similar way
 
 **A sample booking form with various fields prefilled.**
 
-[![](/images/prefill-fields/2.png)](/images/prefill-fields/2.png)
+[![Sample Cal.com booking form with name, email, notes and custom fields pre-filled](/images/prefill-fields/2.png)](/images/prefill-fields/2.png)
 
 **Here is how the fields are setup**
 
-[![](/images/prefill-fields/3.png)](/images/prefill-fields/3.png)
+[![Booking questions settings listing the fields and identifiers used in the pre-fill example](/images/prefill-fields/3.png)](/images/prefill-fields/3.png)
 
 Here is the query used to prefill that form above.
 
@@ -50,7 +51,7 @@ Different type of locations are selected using different values of location. loc
 ```
 ...other-params...&location={"value":"attendeeInPerson","optionValue":"Delhi"}
 ```
-[![](/images/prefill-fields/4.png)](/images/prefill-fields/4.png)
+[![Booking form with the attendee in-person address location pre-filled](/images/prefill-fields/4.png)](/images/prefill-fields/4.png)
 
 ## Pre-selecting Organizer Address in Location
 
@@ -67,7 +68,7 @@ If there are multiple organizer addresses(say NYC, London, Paris), then the corr
 
 `location={"value":"Paris","optionValue":""}`
 
-[![](/images/prefill-fields/5.png)](/images/prefill-fields/5.png)
+[![Booking form with an organizer address location pre-selected](/images/prefill-fields/5.png)](/images/prefill-fields/5.png)
 ## Pre-filling Attendee Phone - When chosen as one of the locations
 
 When Attendee Phone is chosen as one of the locations as shown in the screenshot below, you can prefill the phone number by using the `location` param.
@@ -77,7 +78,7 @@ When Attendee Phone is chosen as one of the locations as shown in the screenshot
 
 *Note: %2B is encoded form of +*
 
-[![](/images/prefill-fields/6.png)](/images/prefill-fields/6.png)
+[![Booking form with the attendee phone number location pre-filled](/images/prefill-fields/6.png)](/images/prefill-fields/6.png)
 
 
 ## Pre-filling Attendee Phone - When used as a separate booking question
@@ -95,7 +96,7 @@ Another way to ask for the attendee phone number is to toggle on the "Phone numb
 ...other-params...&location={"value":"link","optionValue":""}
 ```
 
-[![](/images/prefill-fields/7.png)](/images/prefill-fields/7.png)
+[![Booking form with the link meeting location pre-selected](/images/prefill-fields/7.png)](/images/prefill-fields/7.png)
 
 ## Pre-selecting Organizer's Default App
 
