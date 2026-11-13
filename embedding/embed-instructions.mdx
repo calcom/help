@@ -1,12 +1,13 @@
 ---
 title: Embed instructions
+description: "Reference for Cal.com embed instructions such as inline, ui, preload and closeModal that configure an embed after its snippet."
 ---
 An instruction is how you configure the embed. These instructions can be added immediately after the embed snippet.
 An instruction is technically a function with the same name, that would be called with the given arguments. 
 
 You would not normally need to learn about these instructions in detail, as the **Embed Snippet Generator** automatically updates the snippet with these instructions in the way you configure it but still they could be useful.
 
-#### Inline
+## Inline
 
 Appends embed `inline` as the child of the element.
 
@@ -18,7 +19,7 @@ Appends embed `inline` as the child of the element.
 - `elementOrSelector` - Give it either a valid CSS selector or an HTMLElement instance directly
 - `calLink` - Cal Link that you want to embed e.g. john. Just give the username. No need to give the full URL https://cal.com/john. It makes it easy to configure the calendar host once and use as many links you want with just usernames
 
-#### UI
+## UI
 
 Configure `ui` for embed. Make it look part of your webpage.
 
@@ -40,7 +41,7 @@ Configure `ui` for embed. Make it look part of your webpage.
 </script>
 ```
 
-#### Preload
+## Preload
 
 To open cal link on some action, make it pop open instantly by using `preload`.
 
@@ -52,7 +53,7 @@ To open cal link on some action, make it pop open instantly by using `preload`.
 
 - `calLink` - Cal Link that you want to embed e.g. john. Just give the username. No need to give the full URL https://cal.com/john
 
-#### Close modal
+## Close modal
 
 Programmatically closes a modal-based embed shown as a pop-up (for example, when opened via an element click or the floating button).
 
