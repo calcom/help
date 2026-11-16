@@ -1,5 +1,6 @@
 ---
 title: "Salesforce and Cal.com"
+description: "Sync Cal.com bookings with Salesforce: create events on leads and contacts, route bookers to record owners and map booking data to fields."
 ---
 
 With our Salesforce integration you can sync data between Cal.com and your instance of Salesforce. 
@@ -12,7 +13,7 @@ With our Salesforce integration you can sync data between Cal.com and your insta
 
 ## Booking Link Options
 
-#### On booking, add events on and new attendees as
+### On booking, add events on and new attendees as
 Choose which record to create Salesforce events under or if the attendee does not exist in Salesforce as the selected record create a new record of the chosen type. We search for records based on the attendee email.
 
 **Options**
@@ -20,29 +21,29 @@ Choose which record to create Salesforce events under or if the attendee does no
 - Lead
 - Contact under an account
 
-#### Do not create new records for guests added to the booking
+### Do not create new records for guests added to the booking
 If this option is enabled, we will only handle creating events under the main attendee of the event and not additional guests
 
-#### Skip creating contacts if they do not exist in Salesforce
+### Skip creating contacts if they do not exist in Salesforce
 This option is available when [adding events on contacts](#on-booking,-add-events-on-and-new-attendees-as). If the option is enabled, skip creating new contacts if they do not exist in Salesforce already.
 
-#### Create event on contact, if it exists. Else fallback to lead
+### Create event on contact, if it exists. Else fallback to lead
 This option is available when [adding events on leads](#on-booking,-add-events-on-and-new-attendees-as). If this option is enabled, we check if a contact already exists with the attendee's email. If it does, create the event on the contact record. If it does not exist, then we create the event on an existing lead record or create a new lead
 
-#### Create a new contact under an account based on email domain of attendee and existing contacts
+### Create a new contact under an account based on email domain of attendee and existing contacts
 This option is available when [adding events on leads or a contact under an account](#on-booking,-add-events-on-and-new-attendees-as). If this option is enabled, we create a new contact under an account if it does not already exist then create an event under that new contact. 
 
 [Determining which account an attendee belongs to](#determining-if-an-attendee-belongs-under-an-account)
 
-#### If the contact does not exist under an account, create new lead from attendee
+### If the contact does not exist under an account, create new lead from attendee
 This option is available when [adding events on contacts under an account](#on-booking,-add-events-on-and-new-attendees-as). If a contact under an account does not exist, then create a new lead record.
 
-#### On booking, write to event object
+### On booking, write to event object
 When a booking is created, you can write to specific fields on the event record. To write to a field you need the following:
 - The API field name ex. `Custom_Field__c`
 - The value that you want to pass to the field ([Mapping data from Cal.com to Salesforce](#mapping-data-from-cal-com-to-salesforce))
 
-#### On booking, write to a custom field on the attendee record
+### On booking, write to a custom field on the attendee record
 This option writes to fields on the type of record that is set [to create events on](#on-booking,-add-events-on-and-new-attendees-as). To write to a field you need the following:
 - The API field name ex. `Custom_Field__c`
 - The field type in Salesforce. We current support the following types:
@@ -59,10 +60,10 @@ This option writes to fields on the type of record that is set [to create events
     - When the field is empty
     - On every booking, overwriting the previous values
 
-#### Change record owner on booking
+### Change record owner on booking
 If you have an integration account that is creating records in Salesforce, you can pass the integration account name and Cal.com will change the owner of the attendee record to the organizer of the booking.
 
-#### If attendee exists in Salesforce, book directly with the owner
+### If attendee exists in Salesforce, book directly with the owner
 This option is available for round robin events. When this option is enabled, you can pass `?email` as a URL param in the round robin booking link, Cal.com searches Salesforce for the record owner. If the record owner is a host of the round robin event, then only that owner's availability is presented and the attendee books directly with the owner.
 
 Options to search ownership against
@@ -72,7 +73,7 @@ Options to search ownership against
 
 When this option is enabled, you can also turn on **Show banner with CRM contact owner** to display a banner at the top of the booking page confirming who the attendee is booking with (for example, "Booking directly with jane@acme.com"). The banner only appears when a matching CRM contact owner is resolved for the attendee; otherwise the booking page renders as usual.
 
-#### If attendee has a free email domain, skip the ownership check and round robin as normal
+### If attendee has a free email domain, skip the ownership check and round robin as normal
 If this option is enabled, attendees with free email domains (for example, gmail.com, yahoo.com, or outlook.com) skip the Salesforce ownership check entirely and go through normal round robin assignment. This applies to all ownership lookup types, including Account-based lookups.
 
 ## Viewing routing traces for Salesforce-routed bookings
@@ -83,7 +84,7 @@ This is useful for verifying that Salesforce-based routing resolved to the corre
 
 For more details on routing traces, see [Routing overview](/routing/routing-overview#5-routing-trace).
 
-#### On cancelled booking, write to event record instead of deleting event
+### On cancelled booking, write to event record instead of deleting event
 When this option is enabled, instead of deleting the event record we write to specific fields. To write to a field you need the following:
 - The API field name ex. `Custom_Field__c`
 - The field type in Salesforce. We current support the following types:
@@ -100,7 +101,7 @@ When this option is enabled, instead of deleting the event record we write to sp
     - When the field is empty
     - On every booking, overwriting the previous values
 
-#### On cancelled booking, write to a custom field on the attendee record
+### On cancelled booking, write to a custom field on the attendee record
 When this option is enabled, cancelling a booking updates fields on the attendee's contact or lead record in Salesforce. This is useful when you want to track cancellation status directly on the person's record rather than (or in addition to) the event record.
 
 To configure, provide:
@@ -123,14 +124,14 @@ To configure, provide:
   You can use both the "write to event record" and "write to attendee record" options together. For example, you might mark the event as cancelled while also updating a status field on the contact or lead.
 </Tip>
 
-#### Match accounts by base domain across TLDs (fuzzy matching)
+### Match accounts by base domain across TLDs (fuzzy matching)
 This option is available when adding events on **Account** or **Lead** records. When enabled, Cal.com uses fuzzy domain matching to find the right Salesforce account even when the attendee's email domain uses a different top-level domain (TLD) than the account's website.
 
 For example, if an attendee's email is `user@acme.co.uk` and the Salesforce account has `acme.com` as its website, Cal.com strips the TLD from both and matches them by the base domain (`acme`). This is useful for companies that use country-specific email domains.
 
 Fuzzy matching runs only after exact and normalized website matching have been attempted. Free email domains (e.g. `gmail.com`) are excluded automatically.
 
-#### Send no show attendee data to event object
+### Send no show attendee data to event object
 When this option is enabled, we set the specific checkbox field to true when an attendee is marked as no-show in Cal.com
 
 ## Record type filtering
@@ -396,7 +397,7 @@ You can dismiss the banner after reviewing the error. To prevent the error from 
 
 ## Appendix
 
-#### Determining if an attendee belongs under an account
+### Determining if an attendee belongs under an account
 
 Cal.com resolves the attendee's Salesforce Account using a multi-step waterfall:
 
@@ -407,7 +408,7 @@ Cal.com resolves the attendee's Salesforce Account using a multi-step waterfall:
 
 Cal.com uses the first match found. If multiple Accounts match at any step, the [tiebreaker waterfall](#tiebreaker-waterfall) runs to select the best candidate. If no Account is resolved at any step, the integration falls back to the behavior configured in your booking link settings.
 
-#### Tiebreaker waterfall
+### Tiebreaker waterfall
 
 When multiple Salesforce Accounts match a domain during account resolution, Cal.com runs a configurable tiebreaker waterfall to select the best candidate. This is especially relevant for round-robin booking links where the resolved Account owner determines which host receives the booking.
 
@@ -431,13 +432,13 @@ Geo rules (1–4) only apply when a booking comes through a routing form that co
 
 For round-robin booking links, candidates are filtered before the tiebreaker runs. Only Account owners who are hosts on the booking link are eligible. If this filter removes all candidates, Cal.com falls back to standard round-robin assignment.
 
-#### Record type filtering
+### Record type filtering
 
 You can exclude specific Salesforce record types from account resolution. When record type filtering is enabled, Accounts with excluded record types are skipped during the resolution waterfall. This prevents Cal.com from matching against Accounts that are not relevant to booking routing, such as partner or vendor accounts.
 
 Configure record type filtering in the Salesforce section of your booking link's **Apps** tab.
 
-#### When to use fuzzy matching
+### When to use fuzzy matching
 
 Fuzzy domain matching is useful when:
 
@@ -449,7 +450,7 @@ Fuzzy domain matching is useful when:
   Fuzzy matching applies to the **Contact under Account** attendee record type and to **Account-based round robin ownership lookups**. It does not affect Contact-only or Lead-only lookups.
 </Note>
 
-#### Field mapping validation
+### Field mapping validation
 
 Cal.com validates your Salesforce field mappings when you save booking link settings. If a field mapping has a type mismatch — for example, a non-boolean value mapped to a checkbox field, or an empty value for a required text field — Cal.com displays an inline error and prevents the save.
 
@@ -462,7 +463,7 @@ If a sync error occurs at runtime (for example, a field was deleted in Salesforc
 | Text, phone, picklist, textarea | Value must be a non-empty string |
 | Custom | No automatic validation — values are passed through as-is |
 
-#### Mapping data from Cal.com to Salesforce
+### Mapping data from Cal.com to Salesforce
 When writing to fields in Salesforce, you can pass data from different sources in Cal.com
 - To pass a static value, input the value in the `Value` field
 - To pass a value from a booking question, wrap the identifier of the booking question in `{}` brackets. For example, if you have a booking question with the identifier `productInterest` you would input `{productInterest}` in the `Value` field

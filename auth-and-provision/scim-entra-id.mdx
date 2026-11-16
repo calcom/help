@@ -18,12 +18,12 @@ Cal.com only provisions users whose email address is on your organization's veri
 
 1. Go to **Settings → Organization → Directory Sync** (`/settings/organizations/dsync`) and click **Configure**.
     <Frame>
-    <img src="/images/scim/dsync-configure.png" />
+    <img src="/images/scim/dsync-configure.png" alt="Cal.com Directory Sync settings page with the Configure button" />
     </Frame>
 2. Enter a **Directory Name** (for example "Entra ID"), choose **Azure SCIM v2.0** as the **Directory Provider**, and click **Save**.
 3. Copy the **SCIM Base URL** and the **SCIM Bearer Token**. You'll paste them into Entra in the next section.
     <Frame>
-    <img src="/images/scim/dsync-configure-info.png" />
+    <img src="/images/scim/dsync-configure-info.png" alt="Cal.com Directory Sync details showing the SCIM Base URL and SCIM Bearer Token" />
     </Frame>
 
 ## 2. Connect Microsoft Entra ID
@@ -59,7 +59,7 @@ You can map an Entra group to a team in your organization. When Entra pushes the
 On `/settings/organizations/dsync`, find the team in the table and click **Add group name**. Enter the group name exactly as it appears in Entra.
 
 <Frame>
-<img src="/images/scim/group-team-mapping.png" />
+<img src="/images/scim/group-team-mapping.png" alt="Cal.com Directory Sync team table with the Add group name action" />
 </Frame>
 
 The group also has to be assigned to the Cal.com app under **Users and groups** in Entra.

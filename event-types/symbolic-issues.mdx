@@ -1,5 +1,6 @@
 ---
-title: How to troubleshoot symbolic link issues on Windows
+title: "Fix symbolic link issues on Windows"
+description: "Fix Prisma environment variables not loading on a self-hosted Cal.com instance on Windows by enabling symbolic links in Git."
 ---
 If you're using Cal.com self hosting instance on windows, you might be struggling with Prisma Environment variables not working. One of the reasons why this happens is because by default, symbolic links are disabled on windows OS.
 
@@ -11,10 +12,10 @@ git config --get core.symlinks
 
 This should return **`false`**. If that is the case, you can follow one of the two following methods to enable symbolic links
 
-### Enable symbolic links
+## Enable symbolic links
 Please make sure to open **gitbash** with elevated privileges (Admin) before running the following commands, or they may fail silently and just not work as expected.
 
-### Create a new clone with symbolic links enabled (Recommended)
+## Create a new clone with symbolic links enabled (Recommended)
 
 Please use the following steps to clone the repo with symbolic links:
 
@@ -28,7 +29,7 @@ git clone -c core.symlinks=true https://github.com/calcom/cal.com.git
 <Step title="Complete the installation by following the post clone steps mentioned in **[Development Setup & Production Build](https://cal.com/docs/introduction/quick-start/self-hosting/installation#development-setup-and-production-build)**." />
 </Steps>
 
-### Enable symbolic links in your existing cloned repo
+## Enable symbolic links in your existing cloned repo
 
 This is quite tricky, and not the recommended way of troubleshooting this issue. Please use the following steps to troubleshoot:
 
