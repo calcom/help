@@ -6,7 +6,7 @@ description: "Send booking emails from your own domain using a custom SMTP serve
 <Danger>
   **Custom SMTP is not available.** Cal.com is not offering custom SMTP servers for organizations at this time, and we are not accepting new setup requests. After a security review, we decided that sending email through customer-managed mail servers carries too much risk. All emails are sent from Cal.com's default email service. This page is kept for reference only.
 
-  **Workaround:** to send booking emails from your own domain, set up a [webhook](/webhooks) for triggers such as `BOOKING_CREATED`, `BOOKING_RESCHEDULED`, and `BOOKING_CANCELLED`, and have your server send the emails through your own email provider using the booking details in the payload. To avoid duplicate emails, you can [disable Cal.com's default confirmation emails](/event-types/disable-confirmation) for that booking link.
+  **Workaround:** to send booking emails from your own domain, set up a [webhook](/webhooks) for triggers such as `BOOKING_CREATED`, `BOOKING_RESCHEDULED`, and `BOOKING_CANCELLED`, and have your server send the emails through your own email provider using the booking details in the payload. To avoid duplicate emails, organization admins can turn off Cal.com's booking emails to guests under **Organization Settings → [Guest notifications](/enterprise/guest-notification-settings)**, no workflow required.
 </Danger>
 
 Organizations on Cal.com can configure a custom SMTP server so that booking-related emails (confirmations, reminders, cancellations, and more) are sent from your own domain instead of Cal.com's default email address.
