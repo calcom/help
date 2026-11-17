@@ -1,20 +1,21 @@
 ---
 title: "Link Specific Checking for Conflicts"
-description: "Control which calendars are checked for conflicts on a per-booking-link basis to manage availability for different meeting types."
+description: "Choose which calendars block a booking link and, for eligible organizations, consider only that link's bookings."
 ---
 
-By default, [Cal.com](http://Cal.com) checks for conflicts across all of a user’s connected calendars when determining availability. This ensures that if you already have something scheduled, no matter which booking link or calendar it is tied to, you will not be double-booked.
+By default, Cal.com checks your selected calendars and your Cal.com bookings when determining availability. Bookings on one link can block the same time on your other links.
 
-However, sometimes you may want more control. That is where **Link-Specific Checking for Conflicts** comes in.
+You can change which calendars a link checks. Eligible organizations can also choose to consider only that link's Cal.com bookings. These are separate settings.
 
-With this setting, you can define conflict-checking rules on a **per–booking link** basis. Instead of relying on the global user-level conflict check, you can decide which specific calendars should or should not be taken into account for a particular booking link.
+## Choose which calendars a link checks
 
-### How It Works
+Use link-specific calendar conflict checking to choose which connected calendars block time on a particular link, instead of using your account-level selection.
 
-- Go to your **Booking Link Settings** → **Availability Settings**
-- Locate the **Checking for Conflicts** option.
-- Switch the drop-down from **User** to **Booking Link**.
-- Select the calendars you want this booking link to check for conflicts.
+1. Open **Links** and select the booking link.
+2. Select **Availability**.
+3. Under **Check for conflicts**, switch the dropdown from **Account** to **Link**.
+4. Select the calendars you want this booking link to check for conflicts.
+5. Click **Save**.
 
 This way, you can fine-tune availability logic for each booking link individually. For example:
 
@@ -22,18 +23,35 @@ This way, you can fine-tune availability logic for each booking link individuall
 - For a **sales demo** event, only check your work calendar.
 - For a **VIP booking link**, check both but ignore shared team calendars.
 
-### Why Use This?
-
-Link-specific conflict checking is helpful if:
-
-- You want to keep personal and professional schedules separate.
-- You are running multiple booking links that do not need to block each other.
-- You need flexibility for certain meetings that do not conflict with all your calendars.
-
-In short, it gives you **granular control** over how availability is managed without being locked into a one-size-fits-all conflict rule.\
-\
-This feature is only available for individual booking links, not team booking links, because team events use the default calendar conflict logic of each assigned team member account.
+Calendar selection is available for individual booking links. Team booking links use each assigned team member's calendar conflict settings.
 
 <Note>
-  **The booking link specific checking for conflicts is only for your native calendar events. Cal.com events/booked slots are making you busy for the same slot across all of your individual events, regardless of the calendar you are adding this event to. That time is busy on your upcoming bookings page.**
+  Choosing different calendars does not, by itself, stop your Cal.com bookings on other links from blocking this link. To change that behavior, use **Consider only this booking link's bookings** below.
 </Note>
+
+## Consider only this booking link's bookings
+
+Turn on **Consider only this booking link's bookings** when you want bookings on your other links to stop blocking availability on this link.
+
+<Note>
+  This setting is only available to organizations with at least **15 members**. If your account does not meet this requirement, the toggle is disabled and a warning explains why.
+</Note>
+
+### Enable the setting
+
+1. Open **Links** and select the booking link.
+2. Under **Policies**, select **Limits & buffers**.
+3. Turn on **Consider only this booking link's bookings**.
+4. Click **Save**.
+
+### What still affects availability?
+
+- Bookings on this link still count when checking for booking conflicts.
+- Your availability schedule still determines when you can be booked.
+- Your selected connected calendars are still checked for conflicts.
+
+For example, a booking on Link A will no longer block Link B through Cal.com's booking-conflict check when you enable this setting on Link B. A busy event on a calendar that Link B checks can still make that time unavailable.
+
+<Warning>
+  This setting can allow overlapping bookings across different links. It does not make time available outside your schedule or turn off connected-calendar conflict checking.
+</Warning>
