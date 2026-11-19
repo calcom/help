@@ -3,6 +3,10 @@
   "theme": "mint",
   "redirects": [
     {
+      "source": "/apps-and-integrations/pipedrive",
+      "destination": "/apps-and-integrations/apps"
+    },
+    {
       "source": "/event-types/eventtype-id",
       "destination": "/event-types/link-id"
     },
@@ -439,7 +443,6 @@
                   "apps-and-integrations/syncing-third-party",
                   "apps-and-integrations/attio",
                   "apps-and-integrations/hubspot",
-                  "apps-and-integrations/pipedrive",
                   "apps-and-integrations/salesforce"
                 ]
               },
