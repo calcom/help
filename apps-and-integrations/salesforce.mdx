@@ -12,6 +12,14 @@ With our Salesforce integration you can sync data between Cal.com and your insta
 
 ## Booking Link Options
 
+Open the booking link's **Apps** tab and find **Salesforce** to manage these settings.
+
+#### Skip creating the event record in Salesforce
+
+Turn on **Skip creating the event record in Salesforce** if you want bookings on this link to update Contacts or Leads without creating Salesforce Event records. Contact and Lead settings, including field updates on booking and owner changes, still apply.
+
+Turning this setting off applies to new bookings only. It doesn't create missing Salesforce Event records for bookings already made, even if they're rescheduled.
+
 #### On booking, add events on and new attendees as
 Choose which record to create Salesforce events under or if the attendee does not exist in Salesforce as the selected record create a new record of the chosen type. We search for records based on the attendee email.
 
@@ -60,7 +68,9 @@ This option writes to fields on the type of record that is set [to create events
     - On every booking, overwriting the previous values
 
 #### Change record owner on booking
-If you have an integration account that is creating records in Salesforce, you can pass the integration account name and Cal.com will change the owner of the attendee record to the organizer of the booking.
+Turn on **Change record owner on booking** to make the assigned host the owner of the attendee's Salesforce Contact or Lead. Under **Change the owner**, choose **Always** or **Only if the current owner is…**. For conditional changes, enter the matching names in **Owner name to change**. If you leave it blank, ownership doesn't change.
+
+Existing links that used name-based owner changes keep that behavior. To assign ownership, the host's Cal.com email must match a Salesforce user's email.
 
 #### If attendee exists in Salesforce, book directly with the owner
 This option is available for round robin events. When this option is enabled, you can pass `?email` as a URL param in the round robin booking link, Cal.com searches Salesforce for the record owner. If the record owner is a host of the round robin event, then only that owner's availability is presented and the attendee books directly with the owner.
