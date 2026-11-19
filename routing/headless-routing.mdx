@@ -93,25 +93,108 @@ Cal.com will automatically match this to team members who have the "Technical Su
 **[Learn more about setting up attribute-based routing →](/routing/routing-with-attributes)**
 
 
+## Using Headless Routing in Embed Mode (Modal & Inline)
+
+Beyond full-page URL redirection, you can embed the headless routing experience directly into your web application or marketing page using the **Cal.com Embed SDK**. This keeps users on your site while dynamically opening the scheduled booker in an overlay modal or an inline element.
+
+### How Embed Mode Works
+
+1. A visitor fills out your custom HTML/React lead capture form.
+2. Upon form submission, your script gathers the fields and formats them into a `router?form={FORM_ID}&{PARAMS}` query string.
+3. Your script passes this string as the `calLink` to `Cal("modal", ...)` or `Cal("inline", ...)`.
+4. Cal.com evaluates the routing rules in the background, determines the target host/event type based on the inputs and attributes, and displays the appropriate booker instantly.
+
+### Modal Embed Example
+
+In this pattern, submitting your custom form immediately pops up the matched Cal.com booker in a modal window:
+
+```html
+<!-- Custom Lead Form -->
+<form id="lead-form">
+  <input type="text" id="name" placeholder="Your Name" required />
+  <input type="email" id="email" placeholder="Your Email" required />
+  <select id="team-size">
+    <option value="1-10">1-10 Employees</option>
+    <option value="11-50">11-50 Employees</option>
+    <option value="50+">50+ Employees</option>
+  </select>
+  <button type="submit">Talk to Specialist</button>
+</form>
+
+<!-- Cal.com Embed Script -->
+<script>
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", { origin: "https://app.cal.com" });
+
+  document.getElementById("lead-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formId = "YOUR_ROUTING_FORM_ID";
+    const name = encodeURIComponent(document.getElementById("name").value);
+    const email = encodeURIComponent(document.getElementById("email").value);
+    const teamSize = encodeURIComponent(document.getElementById("team-size").value);
+
+    // Trigger modal embed with headless router link
+    Cal("modal", {
+      calLink: `router?form=${formId}&name=${name}&email=${email}&teamSize=${teamSize}`
+    });
+  });
+</script>
+```
+
+### Inline Embed Example
+
+If you prefer to render the routed booking scheduler directly within a container on your page:
+
+```javascript
+Cal("inline", {
+  elementOrSelector: "#cal-embed-container",
+  calLink: `router?form=${formId}&email=${encodeURIComponent(email)}&service=${encodeURIComponent(service)}`
+});
+```
+
+### Listening to Routing Events (`routed`)
+
+You can listen for the embed SDK's `routed` event to track routing outcomes in your analytics or update your UI when Cal.com selects an action:
+
+```javascript
+Cal("on", {
+  action: "routed",
+  callback: (e) => {
+    const { actionType, actionValue } = e.detail.data;
+    console.log("Form successfully routed!");
+    console.log("Action Type:", actionType); // e.g. "eventTypeRedirectUrl", "customPageMessage"
+    console.log("Action Destination:", actionValue);
+  }
+});
+```
+
+---
+
 ## Troubleshooting
 
 ### Common Issues
 
 **Parameters not being recognized:**
-- Verify field identifiers match exactly
-- Check for typos in parameter names
-- Ensure proper URL encoding
+- Verify field identifiers match exactly with the routing form field identifiers configured in Cal.com.
+- Ensure all query parameter values are URI-encoded with `encodeURIComponent`.
+- Check for typos in parameter names.
 
 **Routing not working as expected:**
-- Test the Routing Form directly first
-- Verify all required fields are included
-- Check routing logic configuration
+- Test the Routing Form directly in the Cal.com dashboard first.
+- Verify all required fields defined in your routing rules are supplied in the query string.
+- If using attributes, verify that team members have the appropriate attributes assigned in organization settings.
 
 ---
 
 ## Try It Out
 
-You can experiment with a live example in this [CodeSandbox demo](https://codesandbox.io/p/devbox/headless-router-with-embed-kzjc9s).
+You can experiment with a live interactive example combining a custom web form and Cal.com's embed modal in this [CodeSandbox demo](https://codesandbox.io/p/devbox/headless-router-with-embed-kzjc9s).
+
+The sandbox demonstrates:
+- Capturing lead data from custom input fields.
+- Building the `router?form={FORM_ID}&...` URL parameter string dynamically.
+- Invoking the Cal.com modal embed to schedule with the routed representative without leaving the page.
 
 ---
 
@@ -119,4 +202,5 @@ You can experiment with a live example in this [CodeSandbox demo](https://codesa
 
 - [Routing Forms Overview](/routing/routing-overview)
 - [Routing with Attributes](/routing/routing-with-attributes) - Set up attribute-based team member routing
+- [Cal.com Embed Events Reference](/embedding/embed-events) - Listen to `routed` and `bookingSuccessfulV2` events
 - [Cal.com Embed Documentation](/embedding/adding-embed)
