@@ -10,7 +10,7 @@ Workflows send messages and run actions automatically when something happens wit
 You build each workflow on a canvas, from the top down:
 
 - **Trigger**: when the workflow starts (for example, 24 hours before the event).
-- **Steps**: what happens next. A step can send an email, SMS or WhatsApp message, call the attendee with Cal.ai, wait, or check a condition.
+- **Steps**: what happens next. A step can send an email, SMS, WhatsApp message or webhook, call the attendee with Cal.ai, wait, or check a condition.
 
 Steps run in order from the trigger downwards. You can add as many as you need.
 
@@ -56,6 +56,12 @@ Steps run in order from the trigger downwards. You can add as many as you need.
     The workflow only runs once it's saved. If you leave the canvas with unsaved changes, Cal.com asks before discarding them.
   </Step>
 </Steps>
+
+## Duplicate a workflow
+
+On the **Workflows** list, select **Duplicate** on a workflow's row. On mobile, find it in the row's options menu. Name the copy, select your personal account or a team where you can create workflows, then select **Duplicate workflow**.
+
+The copy keeps the trigger and steps, but starts inactive. In the editor, review the steps, then choose where the copy should run and save. If you copy to a different owner, recheck sender and recipient verification and add any webhook signing secrets again. A copied phone call step also needs a Cal.ai phone agent assigned.
 
 ## Triggers
 
@@ -114,6 +120,14 @@ Cal.ai calls the attendee with an AI voice agent. Start from the **AI Phone temp
 <Note>
   Cal.ai isn't available on organization workflows, or on workflows that apply to all links.
 </Note>
+
+### Send webhook
+
+Use **Send webhook** to send booking data to your system before a meeting starts or after it ends.
+
+1. Choose the **Before event starts** or **After event ends** trigger and set the timing. Other triggers don't support this step.
+2. Click **+** on the canvas and select **Send webhook**. Enter the receiving **Webhook URL** and, optionally, a **Signing secret** to [verify requests](/webhooks#verifying-the-authenticity-of-the-received-payload).
+3. Select **Done**, then **Save**. When the step runs, Cal.com sends a JSON `POST` with the current booking details and `triggerEvent` set to `WORKFLOW_REMINDER`.
 
 ### Delay
 

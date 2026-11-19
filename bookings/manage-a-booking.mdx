@@ -11,15 +11,21 @@ Every booking you host or are invited to is listed on **Bookings**. Use the tabs
 
 ## See a booking's details
 
-Click a booking to open its details panel. **Info** shows the time, the host, the attendees with their timezones, and any notes the booker added. **History** shows what has happened to the booking so far. Use the arrows at the top of the panel to move to the previous or next booking.
+Click a booking to open its details panel. **Info** shows the time, host, attendees, and any notes the booker added. An attendee's time zone appears next to their name when available. Hover over it to see their current local time. **History** shows what's happened to the booking so far.
 
 <Frame>
   <img src="/images/bookings/manage/booking-details.png" alt="Booking details panel showing the Info tab" />
 </Frame>
 
+### Find the booking UID
+
+The booking UID identifies a specific booking. In **Bookings**, click the booking to open its details. In your browser's address bar, copy the value after `uid=`, stopping before the next `&` if there is one.
+
+For example, in `/bookings/upcoming?uid=abc123`, the booking UID is `abc123`.
+
 ## Booking options
 
-Click the **...** button on a booking, or at the bottom of its details panel, to see what you can do with it. Options that don't apply to that booking are greyed out.
+Click the **...** button on a booking or at the bottom of its details panel to see what you can do with it. On desktop, you can also right-click a row in the bookings list. Options that don't apply to that booking are greyed out.
 
 <Frame>
   <img src="/images/bookings/manage/options-menu.png" alt="Options menu for a booking" />
@@ -51,6 +57,12 @@ These options become available after the meeting has taken place.
 - **Report booking**: flag a booking as spam or unwanted.
 - **Cancel event**: cancel the booking and notify everyone on it. You can add a reason. On the **Recurring** tab, this becomes **Cancel all remaining**.
 - **Delete booking**: permanently removes the booking **without notifying attendees**. This can't be undone. To let guests know, cancel the booking or request a reschedule first. Only people allowed to edit the booking can delete it.
+
+## Reschedule from the calendar
+
+In **Bookings**, switch to calendar view and choose **Day** or **Week**. Drag an eligible booking to its new time, review the old and new times, optionally add a reason, then select **Reschedule**. Guests are notified when the change is saved. Select **Cancel** to leave the booking at its original time.
+
+You can't drag bookings in **Month** view, bookings waiting for confirmation, seated bookings, or occurrences in a recurring series. If you can't drag a booking, check whether **Reschedule booking** is available in its options menu.
 
 ## Confirm or reject a booking
 
