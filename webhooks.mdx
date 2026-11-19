@@ -50,7 +50,7 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 
     If your subscriber URL does not meet these requirements, the webhook creation request will be rejected with an error.
 
-2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Paid`, `Booking Payment Initiated`, `Booking No-Show Updated`, `Meeting Started`, `Meeting Ended`, `Recording Ready`, `Recording Transcription Generated`, `Instant Meeting Created`, `Instant Meeting Accepted`, `Out of Office Created`, `After Hosts Cal Video No-Show`, `After Guests Cal Video No-Show`, `Form Submitted`, `Form Submitted (No Event)`, `Calendar Entry Rejected`, and `Delegation Credential Rotation Required`.
+2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Paid`, `Booking Payment Initiated`, `Booking No-Show Updated`, `Booking Title Updated`, `Booking Location Updated`, `Meeting Started`, `Meeting Ended`, `Recording Ready`, `Recording Transcription Generated`, `Instant Meeting Created`, `Instant Meeting Accepted`, `Out of Office Created`, `After Hosts Cal Video No-Show`, `After Guests Cal Video No-Show`, `Form Submitted`, `Form Submitted (No Event)`, `Calendar Entry Rejected`, and `Delegation Credential Rotation Required`.
 
 3. Secret: You can provide a secret key with this webhook and then [verify it](/docs/core-features/webhooks#verifying-the-authenticity-of-the-received-payload) on the subscriber URL when receiving a payload to confirm if the payload is authentic or adulterated. You can leave it blank, if you don't wish to secure the webhook with a secret key.
 
@@ -70,6 +70,8 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 | Booking Paid                      | Payment for a booking is completed.                                                                           |
 | Booking Payment Initiated         | A payment attempt is initiated (before confirmation).                                                         |
 | Booking No-Show Updated           | A host or attendee is marked as a no-show after the meeting.                                                  |
+| Booking Title Updated             | Cal.com syncs a title change the organizer made directly in their connected Google Calendar or Microsoft 365 calendar. |
+| Booking Location Updated          | A booking location changes in Cal.com or through the API, or Cal.com syncs a location change from the organizer's connected Google Calendar or Microsoft 365 calendar. |
 | Meeting Started                   | At the scheduled start time of the meeting. Uses a [flat payload format](#meeting-started--meeting-ended-flat-format). Automatically cancelled if the booking is cancelled or rescheduled.  |
 | Meeting Ended                     | At the scheduled end time of the meeting. Uses a [flat payload format](#meeting-started--meeting-ended-flat-format). Automatically cancelled if the booking is cancelled or rescheduled.    |
 | Recording Ready                   | A meeting recording is available and ready to access.                                                         |
@@ -84,6 +86,12 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 | Calendar Entry Rejected           | An external attendee declines a Cal.com event from their connected Google or Microsoft 365 calendar.          |
 | Delegation Credential Rotation Required | The client secret for a Microsoft 365 [Delegation Credential](/enterprise/delegation-credential-microsoft-365) that has opted out of automatic rotation is approaching expiry (~14 days out). Organization-level only. |
 
+
+### Booking title and location changes
+
+`BOOKING_TITLE_UPDATED` sends the new `title` in the booking payload, but not the previous title. `BOOKING_LOCATION_UPDATED` sends the new `location` and the `previousLocation`. If the organizer changes both in one calendar edit, Cal.com sends two webhooks after it syncs the changes.
+
+When updating a location with API v2 (`PATCH /v2/bookings/{bookingUid}/location`), set `notifyHosts` to `false` to skip host emails. This doesn't affect attendee notifications or webhook delivery.
 
 ### Seated booking links
 
