@@ -1,22 +1,28 @@
 ---
 title: "Setting up SCIM with Okta"
 ---
+<Note>
+Before provisioning users, your organization must have a **verified domain** configured. Cal.com only provisions users whose email domain matches (or is a subdomain of) your organization's verified domain. Provisioning requests for other domains are rejected to prevent account capture. Verify your domain under `Settings → Organization` before enabling SCIM.
+</Note>
+
+For Cal.com hosted organizations, skip the self-hosted database and environment-variable prerequisites below. Sign in as an organization admin and configure Directory Sync from your organization settings.
+
 1. Set SAML_DATABASE_URL to a Postgres database. Please use a different database than the main Cal instance since the migrations are separate for this database. For example `postgresql://postgres:@localhost:5450/cal-saml`. If you are using a self-signed certificate for Postgres then use the `sslmode=no-verify` query param in the database URL. For example `postgresql://postgres:@localhost:5450/cal-saml?sslmode=no-verify`.
 2. Set SAML_ADMINS to a comma separated list of admin emails who can configure the OIDC.
 3. Create an application with your OIDC provider. For example, in Okta, once you create an account, you can click on Applications on the sidebar menu:
     <Frame>
-    <img src="//images/i1600x900-oVjaQ0tU3AnO_wrzp85.png" />
+    <img src="/images/i1600x900-oVjaQ0tU3AnO_wrzp85.png" />
     </Frame>
 4. Click on `Create App Integration`
     <Frame>
-    <img src="//images/i1600x900-wrIlZkLdZ6kL_wf7mxn.png" />
+    <img src="/images/i1600x900-wrIlZkLdZ6kL_wf7mxn.png" />
     </Frame>
 5. Select SAML or OIDC in the modal form, along with Web App and click Next.
     - Note you will have to fill in the appropriate fields for the SAML or OIDC setup to continue.
-    - [SAML Setup](/docs/introduction/quick-start/self-hosting/sso-setup#setting-up-saml-login)
-    - [OIDC Setup](/docs/how-to-guides/how-to-setup-oidc-with-okta)
+    - [SAML Setup](/auth-and-provision/sso-setup#setting-up-saml-login)
+    - [OIDC Setup](/auth-and-provision/oidc-with-okta)
     <Frame>
-    <img src="//images/i1600x900-IfRWYg8XuCMI_tkwyft.png" />
+    <img src="/images/i1600x900-IfRWYg8XuCMI_tkwyft.png" />
     </Frame>
 6. Once the application is created, under General -> App Settings, click "Edit" and click the checkbox "Enable SCIM provisioning
 "
@@ -75,3 +81,13 @@ The group name must be spelt exactly as it is shown on Okta.**. When you push th
 <Frame>
 <img src="/images/scim/group-team-mapping.png" />
 </Frame>
+
+
+## Email domain verification
+
+Cal.com verifies that each SCIM-provisioned email belongs to your organization before force-joining the user. Provisioning succeeds only when all of the following are true:
+
+- Your organization has a **verified domain** set.
+- The provisioned user's email domain matches that verified domain exactly, or is a subdomain of it (for example, `eu.acme.com` matches `acme.com`).
+
+If any check fails, the SCIM request is rejected with a `Forbidden` error and the user is not created or joined to your organization. If you see this error in your identity provider, confirm that the organization is verified and that the affected user's email domain matches your verified domain.

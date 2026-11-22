@@ -1,0 +1,249 @@
+---
+title: Customize the embed with CSS variables
+---
+
+You can fully customize the look and feel of the Cal.com embed by passing CSS variables through the `Cal("ui", { cssVarsPerTheme })` API. This lets you match the Booker to your brand's colors, spacing, and border radius — for both light and dark themes.
+
+<Info>
+Pass the variable name **without** the `--` prefix as the key in `cssVarsPerTheme`. For example, to override `--cal-brand`, use `"cal-brand": "#6F61C0"`.
+</Info>
+
+## Variable reference
+
+### Brand
+
+| Key | Purpose |
+|-----|---------|
+| `cal-brand` | Primary brand color — selected date circle, confirm button bg |
+| `cal-brand-emphasis` | Brand hover state — confirm button hover |
+| `cal-brand-text` | Text on brand surfaces — "Confirm" button label, selected date number |
+| `cal-brand-subtle` | Lighter brand accent — secondary indicators |
+| `cal-brand-accent` | Contrasting accent on brand buttons — icon color on brand bg |
+
+### Text
+
+| Key | Purpose |
+|-----|---------|
+| `cal-text` | Default body text — event description, time slot labels "14:30" |
+| `cal-text-emphasis` | High-priority text — event title, month header "April 2026" |
+| `cal-text-subtle` | Secondary text — day-of-week headers "SUN MON TUE", timezone label |
+| `cal-text-muted` | Lowest contrast text — disabled date numbers, placeholder text |
+| `cal-text-inverted` | Text on dark/inverted backgrounds — tooltips |
+
+### Text semantic
+
+| Key | Purpose |
+|-----|---------|
+| `cal-text-semantic-info` | Info alert text — "Scheduling information" notice |
+| `cal-text-semantic-attention` | Warning alert text — "Limited spots left" notice |
+| `cal-text-semantic-error` | Error alert text — "This time is unavailable" |
+
+### Text status
+
+These feed the `text-info` / `text-error` / `text-success` / `text-attention` utility classes as well as matching `fill-*` icon colors within the Booker (for example, Badge variants and form validation messages).
+
+| Key | Purpose |
+|-----|---------|
+| `cal-text-info` | Info badge text and icon fill |
+| `cal-text-success` | Success badge text and icon fill |
+| `cal-text-attention` | Attention/warning badge text and icon fill |
+| `cal-text-error` | Error text and icon fill — form validation "Required field" |
+
+### Background
+
+| Key | Purpose |
+|-----|---------|
+| `cal-bg` | Main booker background — the white canvas behind everything |
+| `cal-bg-emphasis` | Highlighted surface — hovered date cell, active date range bg |
+| `cal-bg-subtle` | Secondary surface — time slot hover bg, card backgrounds |
+| `cal-bg-muted` | Faintest surface — unavailable day bg, gradient fade edges |
+| `cal-bg-inverted` | Inverted surface — dark overlay backgrounds, tooltips |
+| `cal-bg-attention` | Warning badge background — "orange" badge variant |
+| `cal-bg-error` | Error badge/alert background — "red" badge variant |
+
+### Background semantic
+
+| Key | Purpose |
+|-----|---------|
+| `cal-bg-semantic-info-subtle` | Subtle info alert background |
+| `cal-bg-semantic-attention-subtle` | Subtle warning alert background |
+| `cal-bg-semantic-error-subtle` | Subtle error alert background |
+
+### Border
+
+| Key | Purpose |
+|-----|---------|
+| `cal-border` | Default dividers — calendar grid lines, card borders |
+| `cal-border-emphasis` | Strong borders — focused input ring, active section border |
+| `cal-border-subtle` | Soft borders — date picker separator, time slot dividers |
+| `cal-border-muted` | Faintest borders — inner column dividers |
+| `cal-border-error` | Error input border — red ring on invalid form field |
+| `cal-border-semantic-error` | Semantic error border — error banner outline |
+| `cal-border-semantic-attention-subtle` | Warning banner border |
+| `cal-border-semantic-error-subtle` | Subtle error banner border |
+
+### Booker border
+
+| Key | Purpose |
+|-----|---------|
+| `cal-border-booker` | Outer border color of the entire booker widget |
+| `cal-border-booker-width` | Thickness of the outer booker border — for example, "1px" or "3px" |
+
+### Border radius
+
+| Key | Purpose |
+|-----|---------|
+| `radius` | Base radius — controls all border-radius sizes across the booker. All sized variants (sm, md, lg, xl) are derived from this value. Set to `0px` for fully sharp corners. |
+
+### Spacing
+
+| Key | Purpose |
+|-----|---------|
+| `spacing` | Base spacing unit — all padding/margin/gap values scale from this |
+
+## Full example
+
+```js
+Cal("ui", {
+  theme: "light",
+  hideEventTypeDetails: false,
+  cssVarsPerTheme: {
+    light: {
+      // ── Brand ──
+      "cal-brand": "#6F61C0",             // Selected date circle, confirm button bg
+      "cal-brand-emphasis": "#5A4EA6",     // Confirm button hover state
+      "cal-brand-text": "#FFFFFF",         // Text on brand surfaces — "Confirm" label, selected date number
+      "cal-brand-subtle": "#B8B0E0",       // Lighter brand accent for secondary indicators
+      "cal-brand-accent": "#FFFFFF",       // Contrasting accent on brand buttons
+
+      // ── Text ──
+      "cal-text": "#6F61C0",              // Default body text — event description, time slot labels
+      "cal-text-emphasis": "#4D408D",      // High-priority text — event title, month header
+      "cal-text-subtle": "#8A7FCC",        // Secondary text — day-of-week headers, timezone
+      "cal-text-muted": "#C0B8FF",         // Lowest contrast text — disabled dates, placeholders
+      "cal-text-inverted": "#FFFFFF",      // Text on dark/inverted backgrounds
+
+      // ── Text Semantic ──
+      "cal-text-semantic-info": "#3B3080",        // Info alert text
+      "cal-text-semantic-attention": "#8B3A1A",   // Warning alert text
+      "cal-text-semantic-error": "#7C2020",       // Error alert text
+
+      // ── Text Status ──
+      "cal-text-info": "#3B3080",          // Info badge text and icon fill
+      "cal-text-success": "#1A5C30",       // Success badge text and icon fill
+      "cal-text-attention": "#8B3A1A",     // Attention badge text and icon fill
+      "cal-text-error": "pink",            // Error text and icon fill — form validation
+
+      // ── Background ──
+      "cal-bg": "#FFFFFF",                 // Main booker background
+      "cal-bg-emphasis": "#E1DFFF",        // Highlighted surface — hovered date, active range
+      "cal-bg-subtle": "#F0EEFF",          // Secondary surface — time slot hover, cards
+      "cal-bg-muted": "#F8F7FF",           // Faintest surface — unavailable day bg, gradient edges
+      "cal-bg-inverted": "#2D2554",        // Inverted surface — dark overlays, tooltips
+      "cal-bg-attention": "#FFF3E0",       // Warning badge background
+      "cal-bg-error": "#FFE8EC",           // Error badge/alert background
+
+      // ── Background Semantic ──
+      "cal-bg-semantic-info-subtle": "#F0EDFF",       // Subtle info alert bg
+      "cal-bg-semantic-attention-subtle": "#FFF3E0",  // Subtle warning alert bg
+      "cal-bg-semantic-error-subtle": "#FFE8EC",      // Subtle error alert bg
+
+      // ── Border ──
+      "cal-border": "#A090E0",                             // Default dividers — calendar grid lines
+      "cal-border-emphasis": "#4D408D",                    // Strong borders — focused inputs
+      "cal-border-subtle": "#A090E0",                      // Soft borders — separators, dividers
+      "cal-border-muted": "#D6D0F0",                       // Faintest borders
+      "cal-border-error": "#FFAAAA",                       // Error input border
+      "cal-border-semantic-error": "#FFAAAA",              // Error banner outline
+      "cal-border-semantic-attention-subtle": "#FFD4A0",   // Warning banner border
+      "cal-border-semantic-error-subtle": "#FFAAAA",       // Subtle error banner border
+
+      // ── Booker Border ──
+      "cal-border-booker": "#A090E0",      // Outer border of the entire booker widget
+      "cal-border-booker-width": "3px",    // Thickness of the outer booker border
+
+      // ── Border Radius ──
+      "radius": "0.25rem",                // Base radius — all sizes derive from this (default 10px)
+
+      // ── Spacing ──
+      "spacing": "1px",                   // Base spacing unit — all padding/margin/gap scale from this
+    },
+    dark: {
+      // ── Brand ──
+      "cal-brand": "#A090E0",
+      "cal-brand-emphasis": "#C0B8FF",
+      "cal-brand-text": "#1A1540",
+      "cal-brand-subtle": "#5A4EA6",
+      "cal-brand-accent": "#1A1540",
+
+      // ── Text ──
+      "cal-text": "#D6D0F0",
+      "cal-text-emphasis": "#F0EEFF",
+      "cal-text-subtle": "#A090E0",
+      "cal-text-muted": "#8A7FCC",
+      "cal-text-inverted": "#1A1540",
+
+      // ── Text Semantic ──
+      "cal-text-semantic-info": "#A8A0F0",
+      "cal-text-semantic-attention": "#E0A060",
+      "cal-text-semantic-error": "#F08080",
+
+      // ── Text Status ──
+      "cal-text-info": "#C0B8FF",
+      "cal-text-success": "#80E0B0",
+      "cal-text-attention": "#F0C090",
+      "cal-text-error": "#FFB0B0",
+
+      // ── Background ──
+      "cal-bg": "#1A1540",
+      "cal-bg-emphasis": "#2D2554",
+      "cal-bg-subtle": "#231E4A",
+      "cal-bg-muted": "#1E1845",
+      "cal-bg-inverted": "#F0EEFF",
+      "cal-bg-attention": "#6E2D14",
+      "cal-bg-error": "#601818",
+
+      // ── Background Semantic ──
+      "cal-bg-semantic-info-subtle": "#1E1860",
+      "cal-bg-semantic-attention-subtle": "#3E1E0A",
+      "cal-bg-semantic-error-subtle": "#3E1010",
+
+      // ── Border ──
+      "cal-border": "#4D408D",
+      "cal-border-emphasis": "#8A7FCC",
+      "cal-border-subtle": "#3B3080",
+      "cal-border-muted": "#231E4A",
+      "cal-border-error": "#802020",
+      "cal-border-semantic-error": "#802020",
+      "cal-border-semantic-attention-subtle": "#6E2D14",
+      "cal-border-semantic-error-subtle": "#802020",
+
+      // ── Booker Border ──
+      "cal-border-booker": "#4D408D",
+      "cal-border-booker-width": "3px",
+
+      // ── Border Radius ──
+      "radius": "0.25rem",                // Base radius — all sizes derive from this (default 10px)
+
+      // ── Spacing ──
+      "spacing": "1px",
+    },
+  },
+});
+```
+
+## Copy Prompt button
+
+The [Copy Prompt embed](/embedding/embed-events#copy-prompt-embed) doesn't load the embed script, so `cssVarsPerTheme` doesn't apply to it. Pick its colors with **Embed theme** in the embed editor instead. The HTML snippet sets the button's colors as CSS variables in its `<style>` block, so you can change them in the code you paste:
+
+| Variable | Purpose |
+|----------|---------|
+| `--cp-border` | Button border and the divider before the logo |
+| `--cp-bg` | Button background |
+| `--cp-fg` | Label and icon color |
+| `--cp-hover` | Button background on hover |
+| `--cp-tip-bg` | Background of the "Copied" tooltip |
+| `--cp-tip-fg` | Text of the "Copied" tooltip |
+| `--cp-invert` | `1` turns black logos white for dark backgrounds, `0` leaves them as they are |
+
+With `Auto`, the snippet sets the light values first and the dark values again inside `@media (prefers-color-scheme: dark)`. The React snippet doesn't use these variables: it reads its colors from the `COLORS` object at the top of the component.
