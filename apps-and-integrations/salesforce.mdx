@@ -16,9 +16,22 @@ Open the booking link's **Apps** tab and find **Salesforce** to manage these set
 
 #### Skip creating the event record in Salesforce
 
-Turn on **Skip creating the event record in Salesforce** if you want bookings on this link to update Contacts or Leads without creating Salesforce Event records. Contact and Lead settings, including field updates on booking and owner changes, still apply.
+Enable **Skip creating the event record in Salesforce** to stop Cal.com from creating a Salesforce Event for each booking of this event type, while still keeping your Contacts and Leads up to date. With this option on, Cal.com still looks up or creates the attendee's Contact or Lead, writes your configured fields to the attendee record, changes the record owner, and creates [fallback records](#create-records-on-lead-or-contact-owner-fallback).
 
-Turning this setting off applies to new bookings only. It doesn't create missing Salesforce Event records for bookings already made, even if they're rescheduled.
+<Frame>
+  <img src="/images/salesforce/skip-event-record-toggle.png" alt="The Salesforce app card on an event type's Apps tab, with Skip creating the event record in Salesforce turned on and the event-only settings hidden" />
+</Frame>
+
+The option is off by default. While it is on, the settings that act on the Salesforce Event are hidden, because there is no Event to write to:
+
+- **On booking, write to the event object**
+- **On cancelled booking, write to event record instead of deleting event**
+- **On cancelled booking, write to a custom field on the attendee record**
+- **Send no-show attendee data**
+
+<Note>
+  Turning the option off again doesn't create Events for existing bookings. Bookings made while it was on still have no Salesforce Event, even if they are rescheduled later.
+</Note>
 
 #### On booking, add events on and new attendees as
 Choose which record to create Salesforce events under or if the attendee does not exist in Salesforce as the selected record create a new record of the chosen type. We search for records based on the attendee email.
@@ -67,10 +80,49 @@ This option writes to fields on the type of record that is set [to create events
     - When the field is empty
     - On every booking, overwriting the previous values
 
+#### Context tokens in field values
+
+Text-based field values in write-to-record and fallback-record configurations can embed context tokens that Cal.com replaces at booking time. Tokens use curly braces and can appear anywhere in the string, including alongside literal text.
+
+| Token | Replaced with |
+|---|---|
+| `{account_id}` | Salesforce id of the Account resolved for the attendee |
+| `{organizer_user_id}` | Cal.com user id of the booking's organizer (host) |
+| `{booking_uid}` | Cal.com booking uid |
+
+```text Value examples
+Booked via Cal.com — organizer {organizer_user_id}
+https://app.cal.com/booking/{booking_uid}
+Account: {account_id} / Rep: {organizer_user_id}
+```
+
+<Note>
+  Values that contain only a brace-only literal (for example, `{}`) are treated as static text. Any other token — including hyphenated identifiers from routing form questions such as `{my-question}` — is resolved at booking time.
+</Note>
+
 #### Change record owner on booking
 Turn on **Change record owner on booking** to make the assigned host the owner of the attendee's Salesforce Contact or Lead. Under **Change the owner**, choose **Always** or **Only if the current owner is…**. For conditional changes, enter the matching names in **Owner name to change**. If you leave it blank, ownership doesn't change.
 
 Existing links that used name-based owner changes keep that behavior. To assign ownership, the host's Cal.com email must match a Salesforce user's email.
+
+With **Always**, an already-owned record is left untouched. With **Only if the current owner is…**, enter several owner names to match more than one owner. Round-robin bookings assign the record to the host chosen for that booking.
+
+<Frame>
+  <img src="/images/salesforce/change-record-owner-always.png" alt="Change record owner on booking with Always selected" />
+</Frame>
+
+<Frame>
+  <img src="/images/salesforce/change-record-owner-if-owner-name-matches.png" alt="Change record owner on booking restricted to matching owner names" />
+</Frame>
+
+#### Change account owner on booking
+
+On round-robin event types with **Book directly with attendee owner** on, you can also make the host the owner of the attendee's Account. Which bookings change the Account depends on whose owner Cal.com checks:
+
+- **Contact** — enable **Change the contact’s account owner to host on booking**. A new booking whose Contact already existed in Salesforce and belongs to an Account hands that Account to the host, whether the Contact owner took the meeting or round-robin assigned someone else. Contacts Cal.com creates for the booking, for example under a matched Account with **Create contact under account**, never change their Account's owner.
+- **Account** — enable **Change account owner to host on round-robin fallback**. The matched Account changes owner only when its owner couldn't take the booking and round-robin assigned another host.
+
+The Account always goes to the host. This setting doesn't follow **Change record owner on booking** or its owner names. Only a new booking moves the Account: reassigning or rescheduling a booking leaves the Account's owner as it is. Cal.com also leaves the Account untouched when the host already owns it, when the host has no Salesforce user whose email matches their Cal.com email, or when the Account's record type is listed under **Exclude Account Record Types**.
 
 #### If attendee exists in Salesforce, book directly with the owner
 This option is available for round robin events. When this option is enabled, you can pass `?email` as a URL param in the round robin booking link, Cal.com searches Salesforce for the record owner. If the record owner is a host of the round robin event, then only that owner's availability is presented and the attendee books directly with the owner.
@@ -82,6 +134,43 @@ Options to search ownership against
 
 When this option is enabled, you can also turn on **Show banner with CRM contact owner** to display a banner at the top of the booking page confirming who the attendee is booking with (for example, "Booking directly with jane@acme.com"). The banner only appears when a matching CRM contact owner is resolved for the attendee; otherwise the booking page renders as usual.
 
+You can also opt into the banner from a routed URL by appending `cal.showCrmOwnerBanner=true` to the booking link, for example when an external system already knows the attendee’s CRM owner.
+
+#### Create records on lead or contact owner fallback
+
+When a round-robin event type is configured to **Book directly with attendee owner**, Cal.com looks up the matched Contact, Lead, or Account owner and routes the booking to that host. If no owner is found, the fallback path runs and standard round-robin assignment takes over. You can also configure Cal.com to **create Salesforce records on this fallback**, so a new Lead, Contact, or custom object is created for the attendee whenever the owner lookup misses.
+
+Use this when you want every booking to leave a paper trail in Salesforce — even when the attendee has no existing owner mapping — without needing your reps to create records manually after the fact.
+
+<Steps>
+  <Step title="Open Salesforce settings">
+    Navigate to the event type's **Apps** tab and expand the Salesforce section.
+  </Step>
+  <Step title="Enable the fallback record toggle">
+    Turn on **On lead or contact owner fallback, create records in Salesforce**.
+  </Step>
+  <Step title="Add one or more fallback records">
+    For each record you want created, select the Salesforce object (for example, Lead, Contact, or a custom object) and configure the field mappings that populate it. You can add multiple records — for example, create a Lead and a related custom object in a single fallback.
+  </Step>
+  <Step title="Configure field mappings">
+    For each field on the fallback record, specify:
+
+    - **Field name** — The Salesforce API name of the field
+    - **Field type** — The data type. In addition to the standard types (text, date, datetime, phone, checkbox, picklist, textarea, custom), fallback records support **Account lookup** for fields that reference the resolved Salesforce Account
+    - **Value** — A literal value, a dynamic booking value, or a string with [context tokens](#context-tokens-in-field-values). For **Account lookup** fields, Cal.com writes the id of the Account resolved from the attendee's email domain
+  </Step>
+  <Step title="Optionally skip when the booking is already with the account owner">
+    Enable **Skip if booking with account owner** on any record to suppress creation when the resolved host is already the account owner. This avoids duplicate records for bookings that were routed to the "right" rep to begin with.
+  </Step>
+  <Step title="Save">
+    Save your event type. On future bookings that fall through owner lookup, Cal.com creates each configured record and links Account lookup fields to the matched Account.
+  </Step>
+</Steps>
+
+<Note>
+  If Salesforce returns an error while resolving the Account or its ownership, Cal.com treats the booking as "not owned by the host" and continues creating the fallback records. Salesforce failures never block booking creation.
+</Note>
+
 #### If attendee has a free email domain, skip the ownership check and round robin as normal
 If this option is enabled, attendees with free email domains (for example, gmail.com, yahoo.com, or outlook.com) skip the Salesforce ownership check entirely and go through normal round robin assignment. This applies to all ownership lookup types, including Account-based lookups.
 
@@ -90,6 +179,19 @@ If this option is enabled, attendees with free email domains (for example, gmail
 When a booking is routed through Salesforce ownership — even without a routing form — Cal.com records a routing trace that shows how the host was selected. You can view the trace from the bookings list (via the actions menu) or from the booking detail page.
 
 This is useful for verifying that Salesforce-based routing resolved to the correct owner and for troubleshooting assignment issues.
+
+### What the routing trace shows
+
+The routing trace includes information about how and why a booking was assigned to a specific host. For CRM-routed bookings, this typically reflects the Salesforce record owner assignment or account resolution logic that determined the host.
+
+### Where to find it
+
+- **Booking list** — Open the actions dropdown on any booking row. If the booking has a routing trace, you see an option to view it.
+- **Booking detail page** — A routing trace badge appears on the detail page for bookings that were routed through CRM, even if no routing form was used.
+
+<Note>
+  Routing trace is only available for bookings that have trace data recorded by Cal.com. Bookings created without CRM routing or a routing form do not show a trace.
+</Note>
 
 For more details on routing traces, see [Routing overview](/routing/routing-overview#5-routing-trace).
 
@@ -111,6 +213,8 @@ When this option is enabled, instead of deleting the event record we write to sp
     - On every booking, overwriting the previous values
 
 #### On cancelled booking, write to a custom field on the attendee record
+Cal.com identifies the Contact or Lead through the Salesforce event's `WhoId` field. This feature works independently of booking-time field writes.
+
 When this option is enabled, cancelling a booking updates fields on the attendee's contact or lead record in Salesforce. This is useful when you want to track cancellation status directly on the person's record rather than (or in addition to) the event record.
 
 To configure, provide:
@@ -133,6 +237,51 @@ To configure, provide:
   You can use both the "write to event record" and "write to attendee record" options together. For example, you might mark the event as cancelled while also updating a status field on the contact or lead.
 </Tip>
 
+#### Enable write-to-record on cancellation
+
+<Steps>
+  <Step title="Open event type settings">
+    Go to **Event Types**, select the event type you want to configure, and open the **Apps** tab.
+  </Step>
+  <Step title="Open Salesforce settings">
+    Find the Salesforce app card and expand its settings.
+  </Step>
+  <Step title="Enable the cancellation toggle">
+    Turn on **On cancelled booking, write to a custom field on the attendee contact/lead record**.
+  </Step>
+  <Step title="Configure fields">
+    Add one or more field mappings. For each field, specify:
+
+    - **Field name** — The Salesforce API name of the field on the contact or lead object (for example, `Last_Booking_Status__c`)
+    - **Field type** — The data type (text, date, datetime, phone, checkbox, picklist, textarea, or custom)
+    - **Value** — The value to write when a booking is cancelled. For date fields, you can use dynamic values like `booking_cancel_date` to automatically populate the cancellation date
+    - **When to write** — Choose between writing on every cancellation or only when the field is empty
+  </Step>
+  <Step title="Save">
+    Save your event type. The configured fields update on the attendee's Salesforce record whenever a booking of this type is cancelled.
+  </Step>
+</Steps>
+
+#### Example: tracking cancellation status and date
+
+A sales team wants to track when prospects cancel discovery calls:
+
+1. In Salesforce, add custom fields to the Contact object (e.g., `Last_Booking_Status__c` and `Last_Cancel_Date__c`)
+2. In Cal.com, open the "Discovery Call" event type's Salesforce settings
+3. Enable **On cancelled booking, write to a custom field on the attendee contact/lead record**
+4. Add a first field mapping:
+   - Field name: `Last_Booking_Status__c`
+   - Field type: Text
+   - Value: `Cancelled`
+   - When to write: Every cancellation
+5. Add a second field mapping:
+   - Field name: `Last_Cancel_Date__c`
+   - Field type: Date
+   - Value: `booking_cancel_date`
+   - When to write: Every cancellation
+
+When a prospect cancels, their Salesforce contact record automatically updates with the cancellation status and date.
+
 #### Match accounts by base domain across TLDs (fuzzy matching)
 This option is available when adding events on **Account** or **Lead** records. When enabled, Cal.com uses fuzzy domain matching to find the right Salesforce account even when the attendee's email domain uses a different top-level domain (TLD) than the account's website.
 
@@ -140,8 +289,82 @@ For example, if an attendee's email is `user@acme.co.uk` and the Salesforce acco
 
 Fuzzy matching runs only after exact and normalized website matching have been attempted. Free email domains (e.g. `gmail.com`) are excluded automatically.
 
+To configure the event type setting, open the booking link’s **Apps** tab, expand Salesforce, and enable **Match accounts by base domain across TLDs (e.g. acme.co.uk → acme.com) using Fuzzy Matching**. The toggle appears for **Contact under Account** and **Lead** attendee record types.
+
 #### Send no show attendee data to event object
 When this option is enabled, we set the specific checkbox field to true when an attendee is marked as no-show in Cal.com
+
+## Organization attribute sync
+
+Organization admins can sync Salesforce user fields to Cal.com organization attributes from the **Attribute Sync** settings page. Each sync maps one or more Salesforce field names to an attribute.
+
+An attribute can be mapped in more than one sync — for example, a "Sales" sync and a "Support" sync can both write the Region attribute. When you add a mapping to an attribute that another sync already maps with an enabled mapping, the editor shows a warning naming those syncs. The warning doesn't block saving.
+
+<Frame>
+  <img src="/images/salesforce/attribute-mapped-in-another-sync.png" alt="An attribute sync's field mappings, with a warning under the Region mapping that says it is also mapped in the Sales sync" />
+</Frame>
+
+For a user matched by several syncs that map the same attribute, the last sync to update the attribute sets its value. If a sync skips the mapping for that user — for example, because every Salesforce field in the mapping is blank — the value stays as it was.
+
+<Note>
+  Within a single sync, each attribute can only be mapped once. If two mappings in the same sync point to the same attribute, both show an error and the sync can't be saved, even if one of the mappings is disabled.
+</Note>
+
+### Map a list from child records
+
+A mapping can read a list from a Salesforce User child relationship instead of a single field. Enter the integration field as `Relationship[].Field` — the child relationship name, `[].`, then the field to read from every child record. For example, `User_Countries__r[].Country__c` reads `Country__c` from each of the user's `User_Countries__r` records. The help text under **Field Mappings** shows the same syntax.
+
+<Frame>
+  <img src="/images/salesforce/attribute-sync-child-list-mapping.png" alt="An attribute sync's field mappings, with the help text for the Relationship[].Field syntax under Field Mappings and a mapping from User_Countries__r[].Country__c to the Assigned Countries attribute" />
+</Frame>
+
+Cal.com turns the list into attribute values:
+
+- Each entry is trimmed, and blank and duplicate entries are dropped. The remaining entries are matched to the attribute's options like any multi-select value, so each matching option is assigned once and an entry that matches no option is skipped.
+- An empty list — for example, after the user's last child record is deleted — clears the attribute.
+- If the list isn't sent or can't be read at all, the mapping is skipped and the attribute keeps its value.
+
+Only one relationship followed by one field is supported. Names that put `[]` anywhere else, such as `Manager.User_Countries__r[].Country__c` or `User_Countries__r[].Country__r.Name`, are ignored. Enter the relationship and field names exactly as their Salesforce API names, including case — a name in a different case finds no list, so the mapping is skipped rather than cleared.
+
+Current versions of the Cal.com Salesforce package send these lists to Cal.com whenever a user is saved in Salesforce and when you click **Push to Cal.com** on the user's record page. The package reads every child record of the user, including records on a private child object that the person saving or pushing can't see. Empty child values are left out, dates are sent as `2026-01-02`, date-times as `2026-01-02T03:04:05.000Z` (UTC), and checkboxes as `true` or `false`. A user with no child records gets an empty list, so **Push to Cal.com** also works for a user whose only mappings are child lists. A relationship or field name that Salesforce doesn't recognize, including one in the wrong case, is skipped, and the user's other mapped fields still sync.
+
+<Note>
+  Adding, editing, or deleting child records doesn't start a sync on its own. The [hourly check](#hourly-check-for-changed-values) sends the updated list within about an hour, or sooner if the user is saved in Salesforce or pushed with **Push to Cal.com**.
+</Note>
+
+<Note>
+  Map lists to multi-select attributes. A single-select attribute only uses the first entry, in the order Salesforce returns the records. Entries are split on commas, so a value such as `Korea, Republic of` becomes two entries — store ISO codes or values without commas in the child field.
+</Note>
+
+<Note>
+  If the user update from Salesforce doesn't include the mapped field values, Cal.com queries Salesforce for them. In that case, it reads at most five pages of child records per relationship. If a user has more child records than that, or a page fails to load, every mapping on that relationship is skipped for that user rather than syncing a partial list.
+</Note>
+
+### Hourly check for changed values
+
+Saving a user in Salesforce only catches changes to the User record itself. Current versions of the Cal.com Salesforce package also run an hourly check that catches the rest. Every hour, the package reads the mapped values of every active Standard Salesforce user and sends only the users whose values changed since the last sync Cal.com applied. This picks up changes that happen without a User save, such as:
+
+- Child records that are added, edited, or deleted
+- Formula fields, and fields on related records such as `Manager.Department`
+- Fields that are cleared to empty
+- Earlier syncs that failed to reach Cal.com
+
+Every mapped User field is sent, including empty ones, so a field cleared in Salesforce clears the Cal.com attribute it maps to. This also means **Push to Cal.com** works for a user whose mapped fields are all empty.
+
+The hourly check is off until a Salesforce admin turns it on:
+
+1. In Salesforce Setup, open **Custom Settings**, then **Manage** next to **Cal.com Settings**.
+2. Under **Default Organization Level Value**, click **New** (or **Edit**), tick **Turn on hourly check**, and save.
+
+The check starts the next time a user is saved or pushed in Salesforce, or when you next save the attribute sync in Cal.com. It stops when no Salesforce fields are mapped any more — for example, after you remove the sync. To turn it off, untick the box; the check stops at its next hourly run.
+
+<Note>
+  Each run sends at most 500 users. Users left over are sent by later runs. The first run after the check starts sends every active Standard user once, so in a large org it can take several hours before the check only sends changes.
+</Note>
+
+<Note>
+  The hourly check only covers Standard users. Other user types, such as Chatter, Experience Cloud, and portal users, still sync when they are saved in Salesforce or pushed with **Push to Cal.com**.
+</Note>
 
 ## Record type filtering
 
@@ -168,7 +391,7 @@ Salesforce objects can have multiple record types — for example, your contacts
 
 ## Field mapping validation
 
-Cal.com validates your Salesforce field mappings when you save booking link settings. If a field mapping has a type mismatch — for example, a non-boolean value mapped to a checkbox field, or an empty value for a required text field — Cal.com displays an inline error and prevents the save.
+Cal.com validates your Salesforce field mappings when you save booking link settings. Checkbox values must be booleans, date fields must use supported dynamic values, and text fields cannot be empty. If a field mapping has a type mismatch — for example, a non-boolean value mapped to a checkbox field, or an empty value for a required text field — Cal.com displays an inline error and prevents the save.
 
 | Field type | Validation rule |
 |---|---|
@@ -242,7 +465,7 @@ Geo rules (1–4) only apply when a booking comes through a routing form that co
 
 #### Configuring tiebreaker rules
 
-You can enable, disable, reorder, add, and remove tiebreaker rules from your booking link's Salesforce settings.
+You can enable, disable, reorder, add, and remove tiebreaker rules from your booking link's Salesforce settings. **Tiebreaker Priority Rules** appears only while **If attendee exists in Salesforce, book directly with the owner** is enabled. Account owner checks use the rules below; Contact and Lead owner checks have their own [custom rules](#contact-and-lead-tiebreaker-rules).
 
 <Steps>
   <Step title="Open Salesforce settings">
@@ -271,7 +494,42 @@ You can enable, disable, reorder, add, and remove tiebreaker rules from your boo
 
 #### Host filtering
 
-For round robin booking links, candidates are filtered before the tiebreaker runs. Only account owners who are hosts on the booking link are eligible. If this filter removes all candidates, Cal.com falls back to standard round robin assignment.
+For round robin booking links, candidates are filtered before the tiebreaker runs. Only account owners who are hosts on the booking link are eligible. Host filtering also applies when a GraphQL lookup falls back to SOQL. If this filter removes all candidates, Cal.com falls back to standard round robin assignment.
+
+#### Contact and Lead tiebreaker rules
+
+When a round-robin event type checks the owner of a **Contact** or **Lead**, several records can share the attendee's email. By default, Cal.com uses the first record Salesforce returns. Turn on **Tiebreaker Priority Rules** to choose the record, and so the owner who gets the booking, with your own rules instead.
+
+Contact and Lead owner checks have their own rule list, separate from the Account rules above. When you turn the setting on, the list starts with two built-in rules: **Most recent activity** (latest `LastActivityDate`) and **Oldest account** (earliest `CreatedDate`). Click **Add custom rule** to add a rule on any Salesforce field.
+
+<Frame>
+  <img src="/images/salesforce/contact-tiebreaker-custom-rules.png" alt="Tiebreaker Priority Rules in the Salesforce app card with two custom rules: Owner.IsActive equals true, then LastActivityDate latest date wins" />
+</Frame>
+
+For each custom rule, set:
+
+- **Salesforce field** — The API name of a field on the Contact or Lead, for example `LastActivityDate`, or one relationship and a field, for example `Owner.IsActive`. Deeper paths aren't supported.
+- **Condition** — How the rule treats the records still in the running:
+
+| Condition | Type | What it does |
+|---|---|---|
+| **Has a value** | Filter | Keeps records where the field isn't empty |
+| **Equals** | Filter | Keeps records where the field matches **Value** (case-insensitive) |
+| **Doesn’t equal** | Filter | Keeps records where the field doesn't match **Value**, including records where it's empty |
+| **Latest date wins** | Ranking | Keeps the records with the latest date |
+| **Earliest date wins** | Ranking | Keeps the records with the earliest date |
+| **Highest number wins** | Ranking | Keeps the records with the highest number |
+| **Lowest number wins** | Ranking | Keeps the records with the lowest number |
+
+**Value** is only needed for **Equals** and **Doesn’t equal**. A ranking rule ignores records with no value in the field, unless no record has one, in which case the rule keeps them all.
+
+Rules run from top to bottom; reorder them with the arrow buttons. Each rule narrows the records left by the rules above it. Every filter rule always runs, even if only one record is left, so that record must still pass it. If records are still tied after the last rule, Cal.com picks the one with the lowest Salesforce ID.
+
+For example, to send bookings to the active owner with the most recent activity, add `Owner.IsActive` **Equals** `true`, then `LastActivityDate` **Latest date wins**, and remove the built-in rules.
+
+<Note>
+  If a filter rule removes every record, Cal.com doesn't book directly with an owner and the booking goes through normal round robin. A custom rule that names a field your Salesforce org doesn't have is skipped and noted in the [routing trace](#viewing-routing-traces-for-salesforce-routed-bookings). Custom rules aren't available for the Account owner check.
+</Note>
 
 ### Geo tiebreaker
 
@@ -311,6 +569,27 @@ In a dot-notation path, each intermediate segment is a **relationship name** (cu
 
 <Note>
   Cal.com follows the first target of a polymorphic lookup. If the resolved value is not a valid user ID — for example the field is empty or the traversal hits a missing record — routing falls back to standard round robin assignment for the event.
+</Note>
+
+#### Lookup field example
+
+Use this option when the correct host is stored as a user reference on the booker's Salesforce Account (or on a related object), rather than as the Account owner. Cal.com resolves the Account for the booker, reads the configured user lookup field, and routes to the matching Cal.com user.
+
+Enter the Salesforce API name of the user lookup field in **Lookup field name**. Two formats are supported:
+
+- A field directly on the Account, for example `Owner_Lookup__c`
+- A dot-notation path that traverses a relationship on the Account to reach a user lookup field on a connected object, for example `Region__r.Owner__c`
+
+Dot-notation lets you point at a user field that lives on another object linked to the Account — for example a regional territory record with its own owner — without duplicating that field onto the Account itself. Salesforce resolves the relationship server-side, so any depth supported by SOQL relationship queries works.
+
+```text Lookup field name examples
+Owner_Lookup__c
+Region__r.Owner__c
+Territory__r.Regional_Manager__c
+```
+
+<Note>
+  The lookup field name must contain only letters, numbers, and underscores, with dots separating segments for connected objects. Invalid names are flagged inline in the routing form builder. At routing time, an unrecognized field or relationship causes Cal.com to fall through to the form's fallback route.
 </Note>
 
 #### Configuring geo tiebreaker per route

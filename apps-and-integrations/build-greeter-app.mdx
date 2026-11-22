@@ -29,9 +29,9 @@ yarn app-store create
  */
 import useApp from "@calcom/lib/hooks/useApp";
 import showToast from "@calcom/lib/notification";
-import { Button } from "@calcom/ui";
+import { Button } from "@calcom/ui/button/Button";
 
-import useMeQuery from "@lib/hooks/useMeQuery";
+import useMeQuery from "@calcom/trpc/react/hooks/useMeQuery";
 
 export default function GreeterButton() {
   const { data: user } = useMeQuery();
